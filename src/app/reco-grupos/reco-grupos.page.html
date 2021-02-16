@@ -15,13 +15,22 @@
     <ion-button  class="button button-assertive button-clear" >
       Filtros <ion-icon name="arrow-dropdown"></ion-icon>
     </ion-button>
-  
+   <ion-item>
+        <ion-label>Horario</ion-label>
+        <ion-datetime displayFormat="h:mm a"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Actividades de interes</ion-label>
+        <ion-input type="text"  ></ion-input>
+      </ion-item>
+      
   <ion-list>
     <ion-card>
       <ion-card-header>
         <ion-card-title>Nombre Grupo Estudiantil</ion-card-title>
       </ion-card-header>
-    
+     
+
       <ion-card-content>
         Información Grupo estudiantil
         <!--<button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-start> Ver más
