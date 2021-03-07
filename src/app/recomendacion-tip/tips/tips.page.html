@@ -1,0 +1,26 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100;400&display=swap');
+  </style>
+
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="folder/inbox" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor = "let tip of tips">
+      <ion-card>
+        <ion-card-header>
+          <h1>{{tip.title}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>bbbb</h2>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
+</ion-content>

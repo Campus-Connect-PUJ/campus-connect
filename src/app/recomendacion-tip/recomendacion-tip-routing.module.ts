@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: RecomendacionTipPage
-  }
+  },  {
+    path: 'tips',
+    loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
+  },
+
+
 ];
 
 @NgModule({
