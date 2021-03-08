@@ -8,13 +8,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    GruposEstudiantilesComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [
