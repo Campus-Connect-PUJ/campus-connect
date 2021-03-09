@@ -15,15 +15,15 @@ const routes: Routes = [
   },
   {
     path: 'reco-grupos',
-    loadChildren: () => import('./reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
   },
   {
     path: 'datos-grupo',
-    loadChildren: () => import('./datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+    loadChildren: () => import('./grupos-estudiantiles/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
   },
   {
     path: 'formulario-perso-grupos',
-    loadChildren: () => import('./formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
+    loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
   }
 ];
 

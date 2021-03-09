@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { RecoGruposPageRoutingModule } from './reco-grupos-routing.module';
 
 import { RecoGruposPage } from './reco-grupos.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
+    PipesModule,
     CommonModule,
     FormsModule,
     IonicModule,

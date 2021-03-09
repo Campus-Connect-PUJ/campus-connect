@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { GrupoEstudiantil } from '../../grupos-estudiantiles/shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from '../../grupos-estudiantiles/shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../shared/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../shared/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-grupos-estudiantiles',
-  templateUrl: './grupos-estudiantiles.component.html',
-  styleUrls: ['./grupos-estudiantiles.component.scss'],
+  selector: 'app-reco-grupos',
+  templateUrl: './reco-grupos.page.html',
+  styleUrls: ['./reco-grupos.page.scss'],
 })
-export class GruposEstudiantilesComponent implements OnInit {
+export class RecoGruposPage implements OnInit {
 
   grupos: GrupoEstudiantil[] = [];
+  textoBuscar='';
 
   constructor(
     private geService: GrupoEstudiantilService,
@@ -29,5 +30,11 @@ export class GruposEstudiantilesComponent implements OnInit {
       },
       error => console.error(error)
     )
+  }
+
+  buscarGrupoEstudiantil(event){
+    const texto = event.target.value;
+    this.textoBuscar = texto;
+    
   }
 }

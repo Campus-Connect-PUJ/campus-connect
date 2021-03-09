@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/
   ],
   entryComponents: [],
   imports: [
+    PipesModule,
     BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
