@@ -5,15 +5,16 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="folder/inbox" text=" "></ion-back-button>
+      <ion-back-button defaultHref="recomendacion-tip" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-searchbar></ion-searchbar>
   <ion-list>
     <div *ngFor = "let tip of tips">
-      <ion-card>
+      <ion-card [routerLink]="['/tips', tip.id]">
         <ion-card-header>
           <h1>{{tip.title}}</h1>
         </ion-card-header>
