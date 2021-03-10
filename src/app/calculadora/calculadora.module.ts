@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CalculadoraPageRoutingModule } from './calculadora-routing.module';
 
 import { CalculadoraPage } from './calculadora.page';
+import { PruebaComponent } from '../prueba/prueba.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CalculadoraPage } from './calculadora.page';
     IonicModule,
     CalculadoraPageRoutingModule
   ],
-  declarations: [CalculadoraPage]
+  declarations: [CalculadoraPage, PruebaComponent ]
 })
 export class CalculadoraPageModule {}
