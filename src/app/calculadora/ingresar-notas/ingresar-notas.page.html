@@ -5,8 +5,6 @@
 </ion-header>
 
 <ion-content>
-{{cantidadDeNotas}}
-{{notaEsperada}}
 <div class="instrucciones">
   <div class="instruccion">
     <div id="cuadroLleno">
@@ -49,27 +47,10 @@
     </ion-item>
   </ion-list>
 </div>
+
+<ion-button (click)=calcularNota() style="text-align:center" >
+  <h1>Siguiente</h1>
+</ion-button>
+
 </ion-content>
 
-
-<!---
-   <ion-list>
-    <ion-item lines="none" *ngFor="let nota of notas; let indice=index">
-      <div id="input">
-        <ion-input type="number" (change)="changeFn1($event)" value = {{notas[indice].porcentaje}}></ion-input>
-      </div>
-      <div id="textoInput">
-        <h5>%</h5>
-      </div>
-      <div id="input">
-        <ion-textarea type="number" (change)="changeFn2($event)" value = {{notas[indice].notaObtenida}}></ion-textarea>
-        </div>
-        <div id="textoInput">
-          <h5>/5</h5>
-        </div>
-        
-    </ion-item>
-  </ion-list>
-
-
--->

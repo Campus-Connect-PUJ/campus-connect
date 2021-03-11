@@ -8,47 +8,48 @@ import {Nota, NotaConPorcentaje} from '../notas.model';
   styleUrls: ['./ingresar-notas.page.scss'],
 })
 export class IngresarNotasPage implements OnInit {
-  private cantidadDeNotas: String = "5";
-  private notaEsperada: String;
-  p_bar_value: number=0;
+  private cantidadDeNotas: number;
+  private notaEsperada: number;
+  
   notas: NotaConPorcentaje[] = [];
-  private valorPorcentaje: String;
-  private valorNota: String;
+  private valorPorcentaje: number;
+  private valorNota: number;
+
+  private notaActual: number = 0;
+  private porcentajeFaltante: number = 0;
+  private notaFaltante: number = 0;
+
+  p_bar_value: number=0;
   private porcentaje: number = 0;
 
-    private aaa: String = "prueba";
   constructor(private calculadoraService: CalculadoraService) { }
 
   ngOnInit() {
     console.log(this.calculadoraService.getNotas());
-    this.cantidadDeNotas = this.calculadoraService.getcantidadDeNotas();
-    this.notaEsperada = this.calculadoraService.getnotaEsperada();
+    this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
+    this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
     this.definirCantidadDeNotas();
     console.log(this.notas)
   }
 
   definirCantidadDeNotas(){
-    for (let i = 0; i < Number(this.cantidadDeNotas); i++) {
+    for (let i = 0; i < this.cantidadDeNotas; i++) {
       this.notas.push({
-        notaObtenida: 0.0,
+        notaObtenida: -1,
         porcentaje: 0
       })      
     }
   }
 
   changeFn1(e, indice) {
-    console.log(e.target.value);
     this.notas[indice].porcentaje = Number(e.target.value);
-    this.valorPorcentaje=String(e.target.value);
+    this.valorPorcentaje = Number(String(e.target.value));
     this.runDeterminateProgress()
   }
 
   changeFn2(e, indice) {
-    console.log(e);
-    this.valorNota=String(e.target.value);
-    this.notas[indice].notaObtenida = Number(this.valorNota);
-    this.porcentaje=this.porcentaje+Number(this.valorPorcentaje);
-    console.log("Notas->",this.notas)
+    this.valorNota=Number(String(e.target.value));
+    this.notas[indice].notaObtenida = this.valorNota;
   }
 
   runDeterminateProgress() {
@@ -56,7 +57,27 @@ export class IngresarNotasPage implements OnInit {
     for(let i = 0; i < Number(this.cantidadDeNotas); i++){
       this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
     }
-    console.log("aaa", this.porcentaje)
     this.p_bar_value = +this.porcentaje/100;
+  }
+
+  calcularNota(){
+    this.notaActual = 0;
+    this.porcentajeFaltante = 0;
+    this.notaFaltante = 0;
+    console.log(this.notas)
+
+    for(let i=0; i<Number(this.cantidadDeNotas); i++){
+      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida <= -1){
+        this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
+        console.log("Nota actual", this.notaActual)
+      }
+      else{
+        this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
+      }
+    }
+    this.notaFaltante = this.notaEsperada - this.notaActual;
+    console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "%")
+
+
   }
 }
