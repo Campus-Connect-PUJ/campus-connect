@@ -7,10 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: CalculadoraPage
-  },  {
+  },
+  {
     path: 'ingresar-notas',
     loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
+  },  {
+    path: 'resultado',
+    loadChildren: () => import('./resultado/resultado.module').then( m => m.ResultadoPageModule)
   }
+
+
 
 ];
 
