@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Nota } from './notas.model';
+import { Nota, NotasMateria } from './notas.model';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class CalculadoraService {
   private porcentajeFaltante: number;
 
 
-  constructor() { }
+  constructor(
+    private storage: Storage
+  ) { }
 
   getNotas(){
     return this.nota;
@@ -52,5 +55,12 @@ export class CalculadoraService {
     this.porcentajeFaltante = porcentaje;
   }
 
+  public async obtenerTodasLasNotas(key: string){
+    this.storage.get(key).then((val)=> {console.log('Your name',val);})
+  }
+
+  public guardarNotas(key: string, materias: NotasMateria){
+    this.storage.set(key, materias)
+  }
 
 }
