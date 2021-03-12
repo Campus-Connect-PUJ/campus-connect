@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
+    path: 'calculadora',
+    loadChildren: () => import('./calculadora/calculadora.module').then( m => m.CalculadoraPageModule)
+  },
+  {
     path: 'reco-grupos',
     loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
   },
@@ -25,11 +29,12 @@ const routes: Routes = [
     path: 'formulario-perso-grupos',
     loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
   }
+
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

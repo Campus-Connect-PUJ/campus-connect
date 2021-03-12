@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/calculadora/ingresar-notas']" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
+    Se realizara la recomendación con respecto al perfil de usuario proporcinado. 
+    Entre mas datos se hayan proporcionado, mejor sera la recomendación que se realizara</h3>
+  <ion-card>
+    <ion-card-header>
+      <h1>¡Tip!</h1>
+    </ion-card-header>
+    <ion-card-content>
+      {{porcentajeFaltante}}
+      {{notaFaltante}}
+      {{notaEsperada}}
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
