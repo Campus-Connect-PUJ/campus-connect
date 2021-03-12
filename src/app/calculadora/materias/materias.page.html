@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>materias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor = "let tip of tips">
+      <ion-card>
+        <ion-card-header>
+          <h1>{{tip.title}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>bbbb</h2>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
+  <div class="agregarMateria" [routerLink]="['/calculadora']">
+    <ion-card >
+      <h1>+</h1>
+    </ion-card>
+  </div>
+  
+</ion-content>
+
+<!---
+<ion-card [routerLink]="['/tips', tip.id]">
+-->

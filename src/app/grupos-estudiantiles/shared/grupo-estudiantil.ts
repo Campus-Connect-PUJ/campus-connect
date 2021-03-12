@@ -6,6 +6,6 @@ export class GrupoEstudiantil {
   descripcion: string;
   tematicas: string[];
   calificacion: number;
-
+  caracteristicas: string[];
   constructor() {}
 }

@@ -14,24 +14,21 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'recomendacion-tip',
-    loadChildren: () => import('./recomendacion-tip/recomendacion-tip.module').then( m => m.RecomendacionTipPageModule)
+    path: 'calculadora',
+    loadChildren: () => import('./calculadora/calculadora.module').then( m => m.CalculadoraPageModule)
   },
   {
-    path: 'tips',
-    children: [
-      {
-        path: "",
-        loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
-      },
-      {
-        path: ":tipId",
-        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
-      }
-    ]
-    
+    path: 'reco-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
   },
- 
+  {
+    path: 'datos-grupo',
+    loadChildren: () => import('./grupos-estudiantiles/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+  },
+  {
+    path: 'formulario-perso-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
+  }
 
 ];
 
