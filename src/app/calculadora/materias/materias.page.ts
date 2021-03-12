@@ -27,7 +27,6 @@ export class MateriasPage {
     })
     this.materias.nombreMateria = "quimica";
     this.materias.notaEsperada = 3;
-
   }
 
 }
