@@ -12,9 +12,22 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },  {
+  },
+  {
     path: 'calculadora',
     loadChildren: () => import('./calculadora/calculadora.module').then( m => m.CalculadoraPageModule)
+  },
+  {
+    path: 'reco-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+  },
+  {
+    path: 'datos-grupo',
+    loadChildren: () => import('./grupos-estudiantiles/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+  },
+  {
+    path: 'formulario-perso-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
   }
 
 ];
