@@ -32,7 +32,7 @@
       <ion-card-content>
         {{grupo.tematicas}}
       </ion-card-content>
-      <ion-button (click) = "infoGrupo()">
+      <ion-button (click) = "infoGrupo()" [routerLink]="['/datos-grupo']">
           <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
         </ion-button>
     </ion-card>

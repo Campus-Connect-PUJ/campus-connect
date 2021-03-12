@@ -43,6 +43,6 @@ export class RecoGruposPage implements OnInit {
   }
 
   infoGrupo(){
-    this.navCtrl.navigateForward('DatosGrupoPage');
+    
   }
 }

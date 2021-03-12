@@ -12,8 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 import { PipesModule } from './pipes/pipes.module';
 
-import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
-import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
+//import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
+//import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,8 @@ import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.p
     GruposEstudiantilesComponent
   ],
   entryComponents: [
-    RecoGruposPage,
-    DatosGrupoPage
+    //RecoGruposPage,
+    //DatosGrupoPage
   ],
   imports: [
     PipesModule,
@@ -30,7 +30,7 @@ import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.p
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
-    RecoGruposPage
+    //RecoGruposPage
   ],
   providers: [
     StatusBar,
