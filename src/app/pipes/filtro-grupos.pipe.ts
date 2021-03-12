@@ -14,7 +14,7 @@ export class FiltroGruposPipe implements PipeTransform {
     texto = texto.toLowerCase();
 
     return grupos.filter(grupo =>{
-      return grupo.nombre.toLowerCase().includes(texto) || grupo.descripcion.toLowerCase().includes(texto) ;
+      return grupo.nombre.toLowerCase().includes(texto) || grupo.descripcion.toLowerCase().includes(texto) || grupo.tematicas.toString().toLowerCase().includes(texto) || grupo.caracteristicas.toString().toLocaleLowerCase().includes(texto);
     } );
 
   }

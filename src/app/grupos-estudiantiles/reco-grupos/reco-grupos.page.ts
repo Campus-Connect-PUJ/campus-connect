@@ -3,6 +3,9 @@ import { GrupoEstudiantil } from '../shared/grupo-estudiantil';
 import { GrupoEstudiantilService } from '../shared/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
+import { DatosGrupoPage } from '../datos-grupo/datos-grupo.page';
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-reco-grupos',
   templateUrl: './reco-grupos.page.html',
@@ -15,7 +18,8 @@ export class RecoGruposPage implements OnInit {
 
   constructor(
     private geService: GrupoEstudiantilService,
-    public router: Router
+    public router: Router,
+    public navCtrl : NavController
   ) { }
 
   ngOnInit() {
@@ -36,5 +40,9 @@ export class RecoGruposPage implements OnInit {
     const texto = event.target.value;
     this.textoBuscar = texto;
     
+  }
+
+  infoGrupo(){
+    this.navCtrl.navigateForward('DatosGrupoPage');
   }
 }

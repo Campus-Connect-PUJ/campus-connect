@@ -17,6 +17,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     IonicModule,
     RecoGruposPageRoutingModule
   ],
+  exports: [RecoGruposPage],
   declarations: [RecoGruposPage]
 })
 export class RecoGruposPageModule {}
