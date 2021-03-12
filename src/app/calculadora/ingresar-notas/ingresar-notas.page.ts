@@ -44,12 +44,13 @@ export class IngresarNotasPage implements OnInit {
   changeFn1(e, indice) {
     this.notas[indice].porcentaje = Number(e.target.value);
     this.valorPorcentaje = Number(String(e.target.value));
-    this.runDeterminateProgress()
+    
   }
 
   changeFn2(e, indice) {
     this.valorNota=Number(String(e.target.value));
     this.notas[indice].notaObtenida = this.valorNota;
+    this.runDeterminateProgress()
   }
 
   runDeterminateProgress() {
