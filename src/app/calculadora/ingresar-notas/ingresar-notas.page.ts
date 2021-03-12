@@ -19,7 +19,7 @@ export class IngresarNotasPage implements OnInit {
   private porcentajeFaltante: number = 0;
   private notaFaltante: number = 0;
 
-  p_bar_value: number=0;
+  p_bar_value: number = 0;
   private porcentaje: number = 0;
 
   constructor(private calculadoraService: CalculadoraService) { }
@@ -67,16 +67,15 @@ export class IngresarNotasPage implements OnInit {
     console.log(this.notas)
 
     for(let i=0; i<Number(this.cantidadDeNotas); i++){
-      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida <= -1){
+      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
-        console.log("Nota actual", this.notaActual)
       }
       else{
         this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
     this.notaFaltante = this.notaEsperada - this.notaActual;
-    console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "%")
-
+    console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
+    this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante)
   }
 }

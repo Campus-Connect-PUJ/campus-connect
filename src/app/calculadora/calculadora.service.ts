@@ -10,6 +10,9 @@ export class CalculadoraService {
   ];
   private cantidadDeNotas: String;
   private notaEsperada: String;
+  private notaFaltante: number;
+  private porcentajeFaltante: number;
+
 
   constructor() { }
 
@@ -25,6 +28,14 @@ export class CalculadoraService {
     return this.notaEsperada;
   }
 
+  getnotaFaltante(){
+    return this.notaFaltante;
+  }
+
+  getporcentajeFaltante(){
+    return this.porcentajeFaltante;
+  }
+
   addNotas(cantidad: string, notaEsperada: string ){
     console.log(cantidad, notaEsperada);
     this.nota.push({
@@ -34,6 +45,11 @@ export class CalculadoraService {
     this.cantidadDeNotas = cantidad;
     this.notaEsperada = notaEsperada;
     console.log(this.nota)
+  }
+
+  calculoRealizado(nota, porcentaje){
+    this.notaFaltante = nota;
+    this.porcentajeFaltante = porcentaje;
   }
 
 

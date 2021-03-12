@@ -1,6 +1,8 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>vernotas</ion-title>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/calculadora']" text=" "></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -48,7 +50,7 @@
   </ion-list>
 </div>
 
-<ion-button (click)=calcularNota() style="text-align:center" >
+<ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
   <h1>Siguiente</h1>
 </ion-button>
 
