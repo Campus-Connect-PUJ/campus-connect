@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GuardsCheckStart } from '@angular/router';
-import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../calculadora.service';
 import { NotasMateria } from '../notas.model';
 
@@ -28,8 +27,7 @@ export class MateriasPage {
     })
     this.materias.nombreMateria = "quimica";
     this.materias.notaEsperada = 3;
-    this.calculadoraService.guardarNotas(this.materias.nombreMateria, this.materias);
-    console.log(this.calculadoraService.obtenerTodasLasNotas("quimica"))
+
   }
 
 }
