@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GrupoEstudiantil } from './shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from './shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../../grupos-estudiantiles/shared/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../grupos-estudiantiles/shared/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
 @Component({
