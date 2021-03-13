@@ -17,7 +17,14 @@ export class MateriasPage {
   }
 
   ngOnInit() {
-    this.materias.notas.push({
+    
+  }
+
+}
+
+
+/* 
+this.materias.notas.push({
       notaObtenida: 1,
       porcentaje: 20
     }, 
@@ -27,6 +34,4 @@ export class MateriasPage {
     })
     this.materias.nombreMateria = "quimica";
     this.materias.notaEsperada = 3;
-  }
-
-}
+*/

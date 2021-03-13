@@ -9,7 +9,7 @@ export interface NotaConPorcentaje{
 }
 
 export interface NotasMateria{
-    notas: NotaConPorcentaje[];
     notaEsperada: number;
     nombreMateria: string;
+    notas: NotaConPorcentaje[];
 }
