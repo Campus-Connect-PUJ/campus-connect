@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>recomendarRestaurantes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+  
+  <ion-button  class="button button-assertive button-clear" >
+    Filtros <ion-icon name="arrow-dropdown"></ion-icon>
+  </ion-button>
+ 
+    <ion-item>
+      <ion-label >5000</ion-label>
+      <ion-range min="5000" max="30000" step="5000" snaps="true" color="secondary"></ion-range>
+      <ion-label >30000</ion-label>
+    </ion-item>
+    
+
+    
+<ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nombre Restaurante</ion-card-title>
+    </ion-card-header>
+   
+
+    <ion-card-content>
+      Información Restaurante
+      <!--<button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-start> Ver más
+      <ion-icon [name]="'logo-' + item.icon" [ngStyle]="{'color': item.color}" item-start></ion-icon>
+        {{ item.title }}
+      </button> -->
+    </ion-card-content>
+    <ion-button>
+        <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+  </ion-card>
+</ion-list>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>

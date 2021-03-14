@@ -29,11 +29,22 @@ const routes: Routes = [
         loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
       }
     ]
-    
   },
   {
     path: 'formulario-perso-grupos',
     loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
+  },
+  {
+    path: 'recomendar-restaurantes',
+    loadChildren: () => import('./recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+  },
+  {
+    path: 'formulario-perso-restaurantes',
+    loadChildren: () => import('./formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
+  },
+  {
+    path: 'datos-restaurante',
+    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
   }
 
 ];
