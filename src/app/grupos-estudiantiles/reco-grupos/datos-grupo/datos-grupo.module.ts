@@ -4,9 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import { GrupoEstudiantil } from '../../shared/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../shared/grupo-estudiantil.service';
 import { DatosGrupoPageRoutingModule } from './datos-grupo-routing.module';
 
 import { DatosGrupoPage } from './datos-grupo.page';
+
+import {Router} from '@angular/router';
 
 @NgModule({
   imports: [
@@ -17,4 +21,7 @@ import { DatosGrupoPage } from './datos-grupo.page';
   ],
   declarations: [DatosGrupoPage]
 })
-export class DatosGrupoPageModule {}
+export class DatosGrupoPageModule {
+
+
+}

@@ -1,11 +1,12 @@
 export class GrupoEstudiantil {
   id: number;
-  nombre: string;
-  perfilGrupo: string;
-  requisitos: string;
-  descripcion: string;
-  tematicas: string[];
+  tematicas: string[] = [];
   calificacion: number;
-  caracteristicas: string[];
-  constructor() {}
+  caracteristicas: string[] = [];
+  constructor(
+    public descripcion: string,
+    public nombre: string,
+    public requisitos: string,
+    public perfilGrupo: string
+  ) {}
 }
