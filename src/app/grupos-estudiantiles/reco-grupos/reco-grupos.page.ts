@@ -3,7 +3,7 @@ import { GrupoEstudiantil } from '../shared/grupo-estudiantil';
 import { GrupoEstudiantilService } from '../shared/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
-import { DatosGrupoPage } from '../datos-grupo/datos-grupo.page';
+import { DatosGrupoPage } from './datos-grupo/datos-grupo.page';
 import { NavController } from '@ionic/angular';
 
 @Component({
