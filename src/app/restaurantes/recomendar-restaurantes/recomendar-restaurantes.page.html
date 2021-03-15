@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar placeholder="Buscar Restaurante..."  animated (ionChange)="buscarRestaurante ($event)"></ion-searchbar>
   
   <ion-button  class="button button-assertive button-clear" >
     Filtros <ion-icon name="arrow-dropdown"></ion-icon>
@@ -25,20 +25,14 @@
 
     
 <ion-list>
-  <ion-card>
+  <ion-card *ngFor="let restaurante of restaurantes | filtroRestaurantes:textoBuscar">
     <ion-card-header>
-      <ion-card-title>Nombre Restaurante</ion-card-title>
+      <ion-card-title>{{restaurante.nombre}}</ion-card-title>
     </ion-card-header>
-   
-
     <ion-card-content>
-      Información Restaurante
-      <!--<button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-start> Ver más
-      <ion-icon [name]="'logo-' + item.icon" [ngStyle]="{'color': item.color}" item-start></ion-icon>
-        {{ item.title }}
-      </button> -->
+      {{restaurante.tipo}}
     </ion-card-content>
-    <ion-button>
+    <ion-button (click) = "infoRestaurante()" [routerLink]="['/recomendar-restaurantes',restaurante.id]">
         <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
       </ion-button>
   </ion-card>

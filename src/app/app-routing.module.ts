@@ -36,15 +36,20 @@ const routes: Routes = [
   },
   {
     path: 'recomendar-restaurantes',
-    loadChildren: () => import('./recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+    children: [
+      {
+        path:"",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+      },
+      {
+        path: ":restauranteID",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+      }
+    ]  
   },
   {
     path: 'formulario-perso-restaurantes',
-    loadChildren: () => import('./formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
-  },
-  {
-    path: 'datos-restaurante',
-    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+    loadChildren: () => import('./restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
   }
 
 ];
