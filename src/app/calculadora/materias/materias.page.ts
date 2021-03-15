@@ -10,21 +10,17 @@ import { NotasMateria } from '../notas.model';
   styleUrls: ['./materias.page.scss'],
 })
 export class MateriasPage {
-  materias: NotasMateria[];
+  materias: Array<NotasMateria>;
 
   constructor(private calculadoraService: CalculadoraService) { 
-    this.calculadoraService.load();
-    this.materias = this.calculadoraService.getcontrolNotas();
-    console.log("ffff",this.materias)
+    this.materias = this.calculadoraService.load();
+    console.log(this.materias)
   }
 
   ngOnInit() {
-
+    this.materias = this.calculadoraService.load();
   }
 
-  prueba(){
-    this.calculadoraService.grabar_localstorage();
-  }
 
 
 }

@@ -14,6 +14,7 @@ export class CalculadoraService {
   private porcentajeFaltante: number;
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
+  private prueba: Array<NotasMateria>;
   private controlNotas: NotasMateria[] = 
     [{
       notaEsperada: undefined,
@@ -81,23 +82,25 @@ export class CalculadoraService {
     console.log("Deberia estar en 0", this.controlNotas)
   }
 
-  public algo(){
-    console.log("aglo",this.controlNotas)
-  }
 
   public save(notasIngresadas: NotaConPorcentaje[]){
-    this.controlNota = new NotasMateria("algo", 3, notasIngresadas);
-    this.controlNotas[0].nombreMateria = "aaaa";
-    this.controlNotas[0].notaEsperada = 5;
-    this.controlNotas.push(this.controlNota);
-    this.storage.set("Materias", this.controlNotas)
+    this.controlNota = new NotasMateria(String(this.porcentajeFaltante), this.notaFaltante, notasIngresadas);
+    //this.controlNotas[0].nombreMateria = "aaaa";
+    //this.controlNotas[0].notaEsperada = 5;
+    //this.controlNotas.push(this.controlNota);
+
+
+    this.controlNotas.push(this.controlNota)
+    localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
+    //this.storage.set("Materias", this.controlNotas)
     //this.storage.set("Materias", null)
     console.log("se guarda")
     this.load();
   }
 
-  public async load(){
+  public load(){
     
+    /*
     let result: NotasMateria[] = await this.storage.get("Materias");
     
     console.log("yyyy", result)
@@ -105,12 +108,11 @@ export class CalculadoraService {
     return result;
     
     console.log("a")
+    */
+    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+    console.log("aqui es load",this.controlNotas)
+    return this.controlNotas;
   }
 
-  grabar_localstorage(){
-    let nombre: string = "fernando"
-
-    localStorage.setItem("nombre", nombre)
-  }
 
 }

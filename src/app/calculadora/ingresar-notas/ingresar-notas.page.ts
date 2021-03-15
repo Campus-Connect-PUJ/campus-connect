@@ -77,6 +77,5 @@ export class IngresarNotasPage implements OnInit {
     this.notaFaltante = this.notaEsperada - this.notaActual;
     console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
     this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante, this.notas)
-    this.calculadoraService.algo()
   }
 }
