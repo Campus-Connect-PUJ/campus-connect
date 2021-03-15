@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "campusconnectlogin": {
+      "hosting": {
+        "app": [
+          "campusconnectlogin"
+        ]
+      }
+    }
+  }
+}

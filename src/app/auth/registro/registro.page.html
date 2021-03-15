@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- -->
+<ion-content class="auth-page">
+  <div class="login-content">
+
+    <!-- Logo -->
+    <div padding text-center>
+      <div class="logo"></div>
+      <h2 ion-text class="text-primary">
+        <strong>Registro</strong>
+      </h2>
+    </div>
+
+    <!-- Login form -->
+    <form class="list-form">
+      <ion-item>
+        <ion-label name="nombre" positiong="floating">
+          Nombre
+        </ion-label>
+        <ion-input type="text" #nombre required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label name="apellido" positiong="floating">
+          Apellido
+        </ion-label>
+        <ion-input type="text" #apellido required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          Email
+        </ion-label>
+        <ion-input type="email" #email required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          Password
+        </ion-label>
+        <ion-input type="password" #password required></ion-input>
+      </ion-item>
+    </form>
+
+    <div margin-top>
+      <button ion-button block color="dark" tappable (click)="onRegister(nombre,apellido,email,password)">
+        Registrarse
+      </button>
+    </div>
+
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span ion-text color="primary" tappable (click)="login()">Tengo una cuenta</span>
+    </div>
+
+  </div>
+</ion-content>
+

@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'grupos_estudiantiles', component: GruposEstudiantilesComponent },
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -45,6 +45,14 @@ const routes: Routes = [
   {
     path: 'datos-restaurante',
     loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./auth/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
   }
 
 ];
