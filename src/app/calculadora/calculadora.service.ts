@@ -99,11 +99,18 @@ export class CalculadoraService {
   public async load(){
     
     let result: NotasMateria[] = await this.storage.get("Materias");
+    
     console.log("yyyy", result)
     this.controlNotas = result;
     return result;
     
     console.log("a")
+  }
+
+  grabar_localstorage(){
+    let nombre: string = "fernando"
+
+    localStorage.setItem("nombre", nombre)
   }
 
 }

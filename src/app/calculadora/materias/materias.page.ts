@@ -19,9 +19,12 @@ export class MateriasPage {
   }
 
   ngOnInit() {
-    
+
   }
 
+  prueba(){
+    this.calculadoraService.grabar_localstorage();
+  }
 
 
 }
