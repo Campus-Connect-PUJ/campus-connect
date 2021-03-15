@@ -67,7 +67,6 @@ export class CalculadoraService {
     this.porcentajeFaltante = porcentaje;
     this.indice = index;
     this.nombreMateria = nombreMateria;
-    this.save(nombreMateria, notas)
   }
 
   calculoRealizadoCreado(nombreMateria, nota, porcentaje, notas, index){
@@ -75,43 +74,39 @@ export class CalculadoraService {
     this.porcentajeFaltante = porcentaje;
     this.indice = index;
     this.nombreMateria = nombreMateria;
-    this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notas);
-    this.controlNotas[this.indice] = this.controlNota;
-    this.save(nombreMateria ,notas)
+    
   }
 
-  public save(nombreMateria: string, notasIngresadas: NotaConPorcentaje[]){
-    this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notasIngresadas);
+  public guardar(nombreMateria, notaEsperada, notas){
+    this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas);
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+
     try {
-      console.log("El indice es ->", this.indice)
       if(this.controlNotas.length>=0){
         if(this.indice!=-1){
           this.controlNotas[this.indice] = this.controlNota;
         }
         else{
-          console.log("Hace el push")
           this.controlNotas.push(this.controlNota)
         }
         localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
       }
     } catch (error) {
-      console.log("Aqui entra")
       let controlNotas2: NotasMateria[] = 
-      [{
-        notaEsperada: undefined,
-        nombreMateria: undefined,
-        notas: this.notasVacias
-      }
-      ];
-
-      
-      controlNotas2[0].nombreMateria = this.nombreMateria;
-      controlNotas2[0].notaEsperada = this.notaFaltante;
-      controlNotas2[0].notas = notasIngresadas;
-      console.log("Nombre de la materia", this.nombreMateria, this.notaEsperada)
+        [{
+          notaEsperada: undefined,
+          nombreMateria: undefined,
+          notas: this.notasVacias
+        }];
+      controlNotas2[0].nombreMateria = nombreMateria;
+      controlNotas2[0].notaEsperada = notaEsperada;
+      controlNotas2[0].notas = notas;
       localStorage.setItem("Materias", JSON.stringify(controlNotas2))
     }
+  }
+
+  public save(nombreMateria: string, notasIngresadas: NotaConPorcentaje[]){
+    
   }
 
   public load(){

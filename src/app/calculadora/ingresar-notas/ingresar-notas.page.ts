@@ -109,7 +109,6 @@ export class IngresarNotasPage implements OnInit {
     }
 
     this.notaActual = 0;
-    this.notaEsperada = 0;
     this.porcentajeFaltante = 0;
     for(let i=0; i<ciclo; i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
@@ -125,10 +124,12 @@ export class IngresarNotasPage implements OnInit {
     console.log("Este es el indice ", this.indice)
     if(this.indice!=-1){
       this.calculadoraService.calculoRealizadoCreado(this.nombreMateria, this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+      this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notas);
       this.indice = -1;
     }
     else{
       this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+      this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notas);
     }
     
 
