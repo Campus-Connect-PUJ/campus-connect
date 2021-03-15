@@ -1,28 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>materias</ion-title>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <div *ngFor = "let tip of tips">
+  <ion-list *ngFor = "let materia of materias; let indice=index">
       <ion-card>
         <ion-card-header>
-          <h1>{{tip.title}}</h1>
+          {{indice}}
         </ion-card-header>
         <ion-card-content>
           <h2>bbbb</h2>
         </ion-card-content>
       </ion-card>
-    </div>
   </ion-list>
   <div class="agregarMateria" [routerLink]="['/calculadora']">
     <ion-card >
       <h1>+</h1>
     </ion-card>
   </div>
-  
 </ion-content>
 
 <!---

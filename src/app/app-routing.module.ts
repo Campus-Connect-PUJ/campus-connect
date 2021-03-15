@@ -28,7 +28,12 @@ const routes: Routes = [
   {
     path: 'formulario-perso-grupos',
     loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
+  },
+  {
+    path: 'servicios-academicos',
+    loadChildren: () => import('./servicios-academicos/servicios-academicos.module').then( m => m.ServiciosAcademicosPageModule)
   }
+
 
 ];
 

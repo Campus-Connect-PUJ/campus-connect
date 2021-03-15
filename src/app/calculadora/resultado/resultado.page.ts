@@ -18,6 +18,9 @@ export class ResultadoPage implements OnInit {
     this.porcentajeFaltante = this.calculadoraService.getporcentajeFaltante();
     this.notaFaltante = this.calculadoraService.getnotaFaltante();
     this.notaEsperada = this.calculadoraService.getnotaEsperada();
+
+
+    this.calculadoraService.load();
   }
 
   

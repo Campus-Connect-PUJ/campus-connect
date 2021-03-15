@@ -30,22 +30,18 @@
 <div class="Notas">
   <ion-list>
     <ion-item lines="none" *ngFor="let nota of notas; let indice=index">
-
-     
       <div id="input">
         <ion-input type="number" (change)="changeFn1($event, indice)" value = {{notas[indice].porcentaje}}></ion-input>
       </div>
       <div id="textoInput">
         <h5>%</h5>
       </div>
-
       <div id="input">
         <ion-input type="number" (change)="changeFn2($event, indice)" value = {{notas[indice].notaObtenida}}></ion-input>
       </div>
       <div id="textoInput">
         <h5>/5</h5>
-      </div>
-        
+      </div> 
     </ion-item>
   </ion-list>
 </div>

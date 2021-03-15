@@ -65,7 +65,6 @@ export class IngresarNotasPage implements OnInit {
     this.notaActual = 0;
     this.porcentajeFaltante = 0;
     this.notaFaltante = 0;
-    console.log(this.notas)
 
     for(let i=0; i<Number(this.cantidadDeNotas); i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
@@ -77,7 +76,7 @@ export class IngresarNotasPage implements OnInit {
     }
     this.notaFaltante = this.notaEsperada - this.notaActual;
     console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
-    this.calculadoraService.save(this.notas);
-    this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante)
+    this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante, this.notas)
+    this.calculadoraService.algo()
   }
 }

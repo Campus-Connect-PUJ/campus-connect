@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GuardsCheckStart } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../calculadora.service';
 import { NotasMateria } from '../notas.model';
 
@@ -9,29 +10,20 @@ import { NotasMateria } from '../notas.model';
   styleUrls: ['./materias.page.scss'],
 })
 export class MateriasPage {
-  key: string = "materias"
-  materias: NotasMateria;
+  materias: NotasMateria[];
 
-  constructor(private calculadoraService: CalculadoraService ) { 
-    
+  constructor(private calculadoraService: CalculadoraService) { 
+    this.calculadoraService.load();
+    this.materias = this.calculadoraService.getcontrolNotas();
+    console.log("ffff",this.materias)
   }
 
   ngOnInit() {
     
   }
 
+
+
 }
 
 
-/* 
-this.materias.notas.push({
-      notaObtenida: 1,
-      porcentaje: 20
-    }, 
-    {
-      notaObtenida: 5,
-      porcentaje: 20
-    })
-    this.materias.nombreMateria = "quimica";
-    this.materias.notaEsperada = 3;
-*/
