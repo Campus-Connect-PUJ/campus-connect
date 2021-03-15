@@ -26,6 +26,8 @@ export class IngresarNotasPage implements OnInit {
   private porcentaje: number = 0;
   indice: number = 0;
 
+  private nombreMateria: string;
+
   constructor(private calculadoraService: CalculadoraService,
               private activatedRoute: ActivatedRoute
               ) { 
@@ -41,15 +43,22 @@ export class IngresarNotasPage implements OnInit {
         this.indice = Number(recipeId);
         if(recipeId != null){
           this.notasMaterias = this.calculadoraService.buscarNotas(Number(recipeId));
-          console.log(this.notasMaterias)
+          this.nombreMateria = this.notasMaterias.nombreMateria;
           this.notas = this.notasMaterias.notas;
-          console.log("Las notas del numerito son",this.notasMaterias)
+          this.notaEsperada = this.notasMaterias.notaEsperada;
+
+          console.log(this.notasMaterias)
+          
+          console.log("Las notas del numerito son", this.notasMaterias)
+          this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
+          
         }
         else{
           this.indice = -1;
           console.log("Hacer algo que no se ") 
           this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
           this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
+          this.nombreMateria = this.calculadoraService.getnombreMateria();
           this.definirCantidadDeNotas();
         }
       })
@@ -89,7 +98,20 @@ export class IngresarNotasPage implements OnInit {
   }
 
   calcularNota(){
-    for(let i=0; i<Number(this.cantidadDeNotas); i++){
+    let ciclo = 0;
+    if(Number(this.cantidadDeNotas) > 0){
+      ciclo = Number(this.cantidadDeNotas)
+    }
+    else{
+      ciclo = this.notas.length;
+      console.log("Ciclo",ciclo);
+      this.notaEsperada = this.notasMaterias.notaEsperada;
+    }
+
+    this.notaActual = 0;
+    this.notaEsperada = 0;
+    this.porcentajeFaltante = 0;
+    for(let i=0; i<ciclo; i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
       }
@@ -102,11 +124,11 @@ export class IngresarNotasPage implements OnInit {
 
     console.log("Este es el indice ", this.indice)
     if(this.indice!=-1){
-      this.calculadoraService.calculoRealizadoCreado(this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+      this.calculadoraService.calculoRealizadoCreado(this.nombreMateria, this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
       this.indice = -1;
     }
     else{
-      this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+      this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
     }
     
 

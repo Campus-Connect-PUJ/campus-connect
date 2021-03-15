@@ -19,7 +19,6 @@ export class MateriasPage {
 
   ngOnInit() {
     this.materias = this.calculadoraService.load();
-    console.log("ngon", this.materias)
   }
 
 }

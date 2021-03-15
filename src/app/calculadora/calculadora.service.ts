@@ -33,6 +33,10 @@ export class CalculadoraService {
     return this.notaEsperada;
   }
 
+  getnombreMateria(){
+    return this.nombreMateria;
+  }
+
   getnotaFaltante(){
     return this.notaFaltante;
   }
@@ -55,28 +59,28 @@ export class CalculadoraService {
     this.cantidadDeNotas = cantidad;
     this.notaEsperada = notaEsperada;
     this.nombreMateria = nombreMateria;
+    console.log("Hasta la calc va ", this.nombreMateria)
   }
 
-  calculoRealizado(nota, porcentaje, notas, index){
+  calculoRealizado(nombreMateria, nota, porcentaje, notas, index){
     this.notaFaltante = nota;
     this.porcentajeFaltante = porcentaje;
     this.indice = index;
-    this.save(notas)
+    this.nombreMateria = nombreMateria;
+    this.save(nombreMateria, notas)
   }
 
-  calculoRealizadoCreado(nota, porcentaje, notas, index){
+  calculoRealizadoCreado(nombreMateria, nota, porcentaje, notas, index){
     this.notaFaltante = nota;
     this.porcentajeFaltante = porcentaje;
     this.indice = index;
+    this.nombreMateria = nombreMateria;
     this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notas);
-    this.load();
-    console.log("Esta son las notas",this.controlNotas, "El indice es ", index);
     this.controlNotas[this.indice] = this.controlNota;
-    console.log("Esta son las notas actualizadas",this.controlNotas);
-    this.save(notas)
+    this.save(nombreMateria ,notas)
   }
 
-  public save(notasIngresadas: NotaConPorcentaje[]){
+  public save(nombreMateria: string, notasIngresadas: NotaConPorcentaje[]){
     this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notasIngresadas);
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     try {
@@ -100,12 +104,14 @@ export class CalculadoraService {
         notas: this.notasVacias
       }
       ];
+
+      
       controlNotas2[0].nombreMateria = this.nombreMateria;
       controlNotas2[0].notaEsperada = this.notaFaltante;
       controlNotas2[0].notas = notasIngresadas;
+      console.log("Nombre de la materia", this.nombreMateria, this.notaEsperada)
       localStorage.setItem("Materias", JSON.stringify(controlNotas2))
     }
-    //this.load();
   }
 
   public load(){
