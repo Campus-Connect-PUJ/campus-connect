@@ -16,30 +16,7 @@ export class CalculadoraService {
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
   private controlNotas: Array<NotasMateria>;
-  /*
-  private controlNotas: NotasMateria[] = 
-    [{
-      notaEsperada: undefined,
-      nombreMateria: undefined,
-      notas: this.notasVacias
-    },
-    {
-      notaEsperada: undefined,
-      nombreMateria: undefined,
-      notas: this.notasVacias
-    }
-  
-  ];
-  
-*/
 
-  /*
-  [{
-    notaEsperada: undefined,
-    nombreMateria: undefined,
-    notas: this.notasVacias
-  }]
- */
   constructor(private storage: Storage) { 
   }
 

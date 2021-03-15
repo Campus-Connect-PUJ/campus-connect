@@ -74,3 +74,20 @@ ion-button h1{
     color:#ffffff;
     line-height: 0;
 }
+
+ion-content .background{
+    background-image: url(https://i2.wp.com/quieroapps.com/wp-content/uploads/2016/10/blog-truco-imagen-fondo-cabecera-quieroapps.png?fit=862%2C488&ssl=1) 0 0/100% 100% no-repeat;
+}
+
+ion-header-bar.bar-custom.bar.bar-header.disable-user-behavior {
+    background: url(https://i2.wp.com/quieroapps.com/wp-content/uploads/2016/10/blog-truco-imagen-fondo-cabecera-quieroapps.png?fit=862%2C488&ssl=1);
+    background-color: transparent;
+    background-size: 100% 100%;
+}
+
+
+page-background-image{
+    ion-content{
+        background-image: url(../../assets/fondo.png);
+    }
+}

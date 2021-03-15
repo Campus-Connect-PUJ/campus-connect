@@ -6,9 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list >
-      <ion-card *ngFor = "let materia of materias; let indice=index">
+<ion-content class="background">
+  <ion-list>
+      <ion-card *ngFor = "let materia of materias; let indice=index" [routerLink]="['/calculadora', indice]">
         <ion-card-header>
           {{materia.nombreMateria}}
         </ion-card-header>
