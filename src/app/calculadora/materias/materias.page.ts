@@ -14,14 +14,13 @@ export class MateriasPage {
 
   constructor(private calculadoraService: CalculadoraService) { 
     this.materias = this.calculadoraService.load();
-    console.log(this.materias)
+    console.log("Entra en constructor", this.materias)
   }
 
   ngOnInit() {
     this.materias = this.calculadoraService.load();
+    console.log("ngon", this.materias)
   }
-
-
 
 }
 

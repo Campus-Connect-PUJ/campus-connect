@@ -9,12 +9,14 @@ import { stringify } from '@angular/compiler/src/util';
 export class CalculadoraService {
   private nota: Nota[] = [];
   private cantidadDeNotas: String;
+  private nombreMateria: string;
   private notaEsperada: String;
   private notaFaltante: number;
   private porcentajeFaltante: number;
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
-  private prueba: Array<NotasMateria>;
+  private controlNotas: Array<NotasMateria>;
+  /*
   private controlNotas: NotasMateria[] = 
     [{
       notaEsperada: undefined,
@@ -29,6 +31,8 @@ export class CalculadoraService {
   
   ];
   
+*/
+
   /*
   [{
     notaEsperada: undefined,
@@ -64,7 +68,7 @@ export class CalculadoraService {
     return this.controlNotas;
   }
 
-  addNotas(cantidad: string, notaEsperada: string ){
+  addNotas(cantidad: string, notaEsperada: string, nombreMateria: string){
     console.log(cantidad, notaEsperada);
     this.nota.push({
       cantidad, 
@@ -72,45 +76,45 @@ export class CalculadoraService {
     })
     this.cantidadDeNotas = cantidad;
     this.notaEsperada = notaEsperada;
-    console.log("add notas", this.nota)
+    this.nombreMateria = nombreMateria;
   }
 
   calculoRealizado(nota, porcentaje, notas){
     this.notaFaltante = nota;
     this.porcentajeFaltante = porcentaje;
     this.save(notas)
-    console.log("Deberia estar en 0", this.controlNotas)
   }
 
 
   public save(notasIngresadas: NotaConPorcentaje[]){
-    this.controlNota = new NotasMateria(String(this.porcentajeFaltante), this.notaFaltante, notasIngresadas);
-    //this.controlNotas[0].nombreMateria = "aaaa";
-    //this.controlNotas[0].notaEsperada = 5;
-    //this.controlNotas.push(this.controlNota);
-
-
-    this.controlNotas.push(this.controlNota)
-    localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
-    //this.storage.set("Materias", this.controlNotas)
-    //this.storage.set("Materias", null)
-    console.log("se guarda")
+    this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notasIngresadas);
+    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+    try {
+      if(this.controlNotas.length>=0){
+        console.log("Hace el push")
+        this.controlNotas.push(this.controlNota)
+        localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
+      }
+    } catch (error) {
+      console.log("Aqui entra")
+      let controlNotas2: NotasMateria[] = 
+      [{
+      notaEsperada: undefined,
+      nombreMateria: undefined,
+      notas: this.notasVacias
+      }
+      ];
+      controlNotas2[0].nombreMateria = this.nombreMateria;
+      controlNotas2[0].notaEsperada = this.notaFaltante;
+      controlNotas2[0].notas = notasIngresadas;
+      localStorage.setItem("Materias", JSON.stringify(controlNotas2))
+    }
     this.load();
   }
 
   public load(){
-    
-    /*
-    let result: NotasMateria[] = await this.storage.get("Materias");
-    
-    console.log("yyyy", result)
-    this.controlNotas = result;
-    return result;
-    
-    console.log("a")
-    */
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-    console.log("aqui es load",this.controlNotas)
+    console.log("despues de cargar", this.controlNotas)
     return this.controlNotas;
   }
 

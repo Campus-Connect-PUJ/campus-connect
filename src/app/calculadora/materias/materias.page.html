@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor = "let materia of materias; let indice=index">
-      <ion-card>
+  <ion-list >
+      <ion-card *ngFor = "let materia of materias; let indice=index">
         <ion-card-header>
-          {{indice}}
+          {{materia.nombreMateria}}
         </ion-card-header>
         <ion-card-content>
           <h2>bbbb</h2>
@@ -27,3 +27,5 @@
 <!---
 <ion-card [routerLink]="['/tips', tip.id]">
 -->
+
+<!--- *ngFor = "let materia of materias; let indice=index" -->
