@@ -10,7 +10,19 @@ const routes: Routes = [
   },
   {
     path: 'ingresar-notas',
-    loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then(m => m.IngresarNotasPageModule)
+      },
+      {
+        path: ":tipId",
+        loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then(m => m.IngresarNotasPageModule)
+      }
+    ]
+
+    //path: 'ingresar-notas',
+    //loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
   },
   {
     path: 'resultado',
@@ -20,8 +32,6 @@ const routes: Routes = [
     path: 'materias',
     loadChildren: () => import('./materias/materias.module').then( m => m.MateriasPageModule)
   }
-
-
 
 ];
 

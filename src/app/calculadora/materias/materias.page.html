@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="servicios-academicos" text=" "></ion-back-button>
+      <ion-back-button [routerLink]="['/servicios-academicos']" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="background">
   <ion-list>
-      <ion-card *ngFor = "let materia of materias; let indice=index" [routerLink]="['/calculadora', indice]">
+      <ion-card *ngFor = "let materia of materias; let indice=index" [routerLink]="['/calculadora/ingresar-notas', indice]">
         <ion-card-header>
           {{materia.nombreMateria}}
         </ion-card-header>

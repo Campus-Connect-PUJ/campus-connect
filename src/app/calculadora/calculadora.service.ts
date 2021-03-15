@@ -95,5 +95,13 @@ export class CalculadoraService {
     return this.controlNotas;
   }
 
+  public buscarNotas(index: number){
+    this.controlNota = this.controlNotas[index]
+
+    console.log("Aqui deberia traer lo antiguo", this.controlNota, this.controlNotas)
+
+    return this.controlNota;
+  }
+
 
 }
