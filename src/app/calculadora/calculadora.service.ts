@@ -16,6 +16,7 @@ export class CalculadoraService {
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
   private controlNotas: Array<NotasMateria>;
+  private indice: number = 0;
 
   constructor(private storage: Storage) { 
   }
@@ -56,29 +57,47 @@ export class CalculadoraService {
     this.nombreMateria = nombreMateria;
   }
 
-  calculoRealizado(nota, porcentaje, notas){
+  calculoRealizado(nota, porcentaje, notas, index){
     this.notaFaltante = nota;
     this.porcentajeFaltante = porcentaje;
+    this.indice = index;
     this.save(notas)
   }
 
+  calculoRealizadoCreado(nota, porcentaje, notas, index){
+    this.notaFaltante = nota;
+    this.porcentajeFaltante = porcentaje;
+    this.indice = index;
+    this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notas);
+    this.load();
+    console.log("Esta son las notas",this.controlNotas, "El indice es ", index);
+    this.controlNotas[this.indice] = this.controlNota;
+    console.log("Esta son las notas actualizadas",this.controlNotas);
+    this.save(notas)
+  }
 
   public save(notasIngresadas: NotaConPorcentaje[]){
     this.controlNota = new NotasMateria(this.nombreMateria, this.notaFaltante, notasIngresadas);
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     try {
+      console.log("El indice es ->", this.indice)
       if(this.controlNotas.length>=0){
-        console.log("Hace el push")
-        this.controlNotas.push(this.controlNota)
+        if(this.indice!=-1){
+          this.controlNotas[this.indice] = this.controlNota;
+        }
+        else{
+          console.log("Hace el push")
+          this.controlNotas.push(this.controlNota)
+        }
         localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
       }
     } catch (error) {
       console.log("Aqui entra")
       let controlNotas2: NotasMateria[] = 
       [{
-      notaEsperada: undefined,
-      nombreMateria: undefined,
-      notas: this.notasVacias
+        notaEsperada: undefined,
+        nombreMateria: undefined,
+        notas: this.notasVacias
       }
       ];
       controlNotas2[0].nombreMateria = this.nombreMateria;
@@ -86,7 +105,7 @@ export class CalculadoraService {
       controlNotas2[0].notas = notasIngresadas;
       localStorage.setItem("Materias", JSON.stringify(controlNotas2))
     }
-    this.load();
+    //this.load();
   }
 
   public load(){
@@ -95,12 +114,8 @@ export class CalculadoraService {
     return this.controlNotas;
   }
 
-  public buscarNotas(index: number){
-    this.controlNota = this.controlNotas[index]
-
-    console.log("Aqui deberia traer lo antiguo", this.controlNota, this.controlNotas)
-
-    return this.controlNota;
+  public buscarNotas(indice: number){
+    return this.controlNotas[indice];
   }
 
 

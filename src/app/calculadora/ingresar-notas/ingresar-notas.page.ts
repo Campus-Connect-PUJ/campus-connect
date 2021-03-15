@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../calculadora.service';
 import {Nota, NotaConPorcentaje, NotasMateria} from '../notas.model';
 import {ActivatedRoute} from '@angular/router';
+import { NumericValueAccessor } from '@ionic/angular';
 
 @Component({
   selector: 'app-ingresar-notas',
@@ -23,16 +24,21 @@ export class IngresarNotasPage implements OnInit {
 
   p_bar_value: number = 0;
   private porcentaje: number = 0;
+  indice: number = 0;
 
   constructor(private calculadoraService: CalculadoraService,
               private activatedRoute: ActivatedRoute
-              ) { }
+              ) { 
+                this.notaActual = 0;
+                this.porcentajeFaltante = 0;
+                this.notaFaltante = 0;
+              }
 
   ngOnInit() {
     try {
       this.activatedRoute.paramMap.subscribe(paraMap => {
         const recipeId = paraMap.get('tipId')
-        console.log("numerito", recipeId)
+        this.indice = Number(recipeId);
         if(recipeId != null){
           this.notasMaterias = this.calculadoraService.buscarNotas(Number(recipeId));
           console.log(this.notasMaterias)
@@ -40,24 +46,18 @@ export class IngresarNotasPage implements OnInit {
           console.log("Las notas del numerito son",this.notasMaterias)
         }
         else{
-        console.log("Hacer algo que no se ") 
-        this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
-        this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-        this.definirCantidadDeNotas();
+          this.indice = -1;
+          console.log("Hacer algo que no se ") 
+          this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
+          this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
+          this.definirCantidadDeNotas();
         }
       })
     } catch (error) {
       console.log(this.calculadoraService.getNotas());
       this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
       this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-      //this.definirCantidadDeNotas();
     }
-    
-    //console.log(this.calculadoraService.getNotas());
-    //this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
-    //this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-    //this.definirCantidadDeNotas();
-    //console.log(this.notas)
   }
 
   definirCantidadDeNotas(){
@@ -89,10 +89,6 @@ export class IngresarNotasPage implements OnInit {
   }
 
   calcularNota(){
-    this.notaActual = 0;
-    this.porcentajeFaltante = 0;
-    this.notaFaltante = 0;
-
     for(let i=0; i<Number(this.cantidadDeNotas); i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
@@ -103,6 +99,17 @@ export class IngresarNotasPage implements OnInit {
     }
     this.notaFaltante = this.notaEsperada - this.notaActual;
     console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
-    this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante, this.notas)
+
+    console.log("Este es el indice ", this.indice)
+    if(this.indice!=-1){
+      this.calculadoraService.calculoRealizadoCreado(this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+      this.indice = -1;
+    }
+    else{
+      this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
+    }
+    
+
+    
   }
 }
