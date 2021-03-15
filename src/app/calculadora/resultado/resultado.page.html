@@ -16,9 +16,12 @@
       <h1>¡Tip!</h1>
     </ion-card-header>
     <ion-card-content>
-      {{porcentajeFaltante}}
-      {{notaFaltante}}
-      {{notaEsperada}}
+      <h3>Porcentaje faltante {{porcentajeFaltante}}</h3>
+      
+      <h3>Nota faltante {{notaFaltante}}</h3>
+      
+      <h3>Nota esperada {{notaEsperada}}</h3>
+      
     </ion-card-content>
   </ion-card>
   <ion-button [routerLink]="['/servicios-academicos']" style="text-align:center" >

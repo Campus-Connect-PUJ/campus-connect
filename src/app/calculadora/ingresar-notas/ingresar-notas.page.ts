@@ -120,11 +120,12 @@ export class IngresarNotasPage implements OnInit {
     }
     this.notaFaltante = this.notaEsperada - this.notaActual;
     console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
-
+    
     console.log("Este es el indice ", this.indice)
     if(this.indice!=-1){
       this.calculadoraService.calculoRealizadoCreado(this.nombreMateria, this.notaFaltante, this.porcentajeFaltante, this.notas, this.indice)
       this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notas);
+      
       this.indice = -1;
     }
     else{
@@ -132,7 +133,7 @@ export class IngresarNotasPage implements OnInit {
       this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notas);
     }
     
-
+    this.calculadoraService.pantallaResultados(this.notaFaltante, this.porcentajeFaltante, this.notaEsperada);
     
   }
 }

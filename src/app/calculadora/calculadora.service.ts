@@ -105,10 +105,6 @@ export class CalculadoraService {
     }
   }
 
-  public save(nombreMateria: string, notasIngresadas: NotaConPorcentaje[]){
-    
-  }
-
   public load(){
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     console.log("despues de cargar", this.controlNotas)
@@ -119,5 +115,10 @@ export class CalculadoraService {
     return this.controlNotas[indice];
   }
 
+  pantallaResultados(notaFaltante, porcentajeFaltante, notaEsperada){
+    this.notaFaltante = notaFaltante;
+    this.porcentajeFaltante = porcentajeFaltante;
+    this.notaEsperada = notaEsperada;
+  }
 
 }
