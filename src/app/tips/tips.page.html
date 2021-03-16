@@ -15,7 +15,7 @@
   <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
   <ion-list>
     <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
-      <ion-card [routerLink]="['/tips', indice]">
+      <ion-card [routerLink]="['/tips', tip.id]">
         <ion-card-header>
           <h2>{{tip.descripcion}}</h2>
         </ion-card-header>

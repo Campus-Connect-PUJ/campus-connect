@@ -28,11 +28,14 @@ export class TipDetallesPage implements OnInit {
       this.indice = Number(recipeId);
     })
 
-    this.findTip(this.indice+1);
+    this.findTip(this.indice);
   }
 
-  findTip(tipID: number){
-    this.tipsService.getTipById(tipID).subscribe(
+  findTip(numeroTip: number){
+    console.log("->",numeroTip)
+    numeroTip = 2;
+    this.tipsService.getTipById(numeroTip).subscribe();
+    this.tipsService.getTipById(numeroTip).subscribe(
       results => {
         console.log(results);
         this.tip = results;
