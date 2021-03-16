@@ -59,7 +59,6 @@ export class CalculadoraService {
     this.cantidadDeNotas = cantidad;
     this.notaEsperada = notaEsperada;
     this.nombreMateria = nombreMateria;
-    console.log("Hasta la calc va ", this.nombreMateria)
   }
 
   calculoRealizado(nombreMateria, nota, porcentaje, notas, index){
