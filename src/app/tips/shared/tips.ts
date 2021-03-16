@@ -2,7 +2,7 @@ export class Tip {
     id: number;
     descripcion: string;
     usuario: UsuarioGeneral;
-    tiposAprendizaje: Array<TipoAprendizaje>;
+    tiposAprendizaje: TipoAprendizaje[];
 }
 
 export class UsuarioGeneral {
@@ -41,7 +41,8 @@ export class UsuarioGeneral {
 export class TipoAprendizaje {
     id: number;
     descripcion: string;
-    tips: Array<Tip>
+    tips: Tip[];
+    constructor() {}
 
     /*
     @ManyToMany(mappedBy = "estilosAprendizaje")
