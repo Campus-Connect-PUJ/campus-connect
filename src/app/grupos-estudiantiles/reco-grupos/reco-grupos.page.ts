@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { DatosGrupoPage } from '../datos-grupo/datos-grupo.page';
 import { NavController } from '@ionic/angular';
+import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudiantiles/grupos-estudiantiles.component';
 
 @Component({
   selector: 'app-reco-grupos',
