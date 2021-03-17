@@ -9,7 +9,6 @@ import { RecoGruposPageRoutingModule } from './reco-grupos-routing.module';
 import { RecoGruposPage } from './reco-grupos.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
-import {FormularioPersoGruposPageModule} from '../formulario-perso-grupos/formulario-perso-grupos.module';
 
 @NgModule({
   imports: [
@@ -17,8 +16,7 @@ import {FormularioPersoGruposPageModule} from '../formulario-perso-grupos/formul
     CommonModule,
     FormsModule,
     IonicModule,
-    RecoGruposPageRoutingModule,
-    FormularioPersoGruposPageModule
+    RecoGruposPageRoutingModule
   ],
   exports: [RecoGruposPage],
   declarations: [RecoGruposPage]

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 import { PipesModule } from './pipes/pipes.module';
 
+import {FormularioPersoGruposPageModule} from './grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module';
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 
@@ -30,6 +31,7 @@ import { PipesModule } from './pipes/pipes.module';
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
+    FormularioPersoGruposPageModule
     //RecoGruposPage
   ],
   providers: [
