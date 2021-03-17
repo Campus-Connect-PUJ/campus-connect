@@ -9,13 +9,16 @@ import { RecoGruposPageRoutingModule } from './reco-grupos-routing.module';
 import { RecoGruposPage } from './reco-grupos.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
+import {FormularioPersoGruposPageModule} from '../formulario-perso-grupos/formulario-perso-grupos.module';
+
 @NgModule({
   imports: [
     PipesModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    RecoGruposPageRoutingModule
+    RecoGruposPageRoutingModule,
+    FormularioPersoGruposPageModule
   ],
   exports: [RecoGruposPage],
   declarations: [RecoGruposPage]
