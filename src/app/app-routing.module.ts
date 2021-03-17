@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'formulario-perso-restaurantes',
     loadChildren: () => import('./restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
+  },
+  {
+    path: 'crowd-restaurante',
+    loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
   }
 
 ];
