@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Restaurante } from '../clase/restaurante';
 import { RestauranteService } from '../clase/restaurante.service';
+import {ModalController} from '@ionic/angular';
+import {FormularioPersoRestaurantesPage} from '../formulario-perso-restaurantes/formulario-perso-restaurantes.page';
+
 
 @Component({
   selector: 'app-recomendar-restaurantes',
@@ -17,7 +20,8 @@ export class RecomendarRestaurantesPage implements OnInit {
   constructor(
     private restauranteService: RestauranteService,
     public router: Router,
-    public navCtrl : NavController
+    public navCtrl : NavController,
+    private modalControler : ModalController
   ) { }
 
   ngOnInit() {
@@ -44,5 +48,9 @@ export class RecomendarRestaurantesPage implements OnInit {
     
   }
 
-
+  openModal(){
+    this.modalControler.create({component : FormularioPersoRestaurantesPage}).then((modalElement)=>{
+      modalElement.present();
+    })
+  }
 }

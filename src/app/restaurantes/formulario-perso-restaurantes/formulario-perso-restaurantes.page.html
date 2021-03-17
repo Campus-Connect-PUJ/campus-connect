@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button>
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      <ion-button (click) = "closeModal()">
+        Cerrar
       </ion-button>
     </ion-buttons>
     <ion-title>formularioPersoRestaurantes</ion-title>
@@ -18,10 +18,18 @@
   </ion-item>
   <ion-item>
     <ion-label>Comida favorita</ion-label>
-    <ion-input type="text"  ></ion-input>
+    <ion-list>
+      <!--ion-item *ngFor="let entry of form">
+        <ion-label>{{entry.val}}</ion-label-->
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      <!--/ion-item-->
+    </ion-list>
   </ion-item>
   <ion-item>
     <ion-label>Ambientación</ion-label>
-    <ion-input type="text"  ></ion-input>
+    <!--ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label-->
+      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+     <!--/ion-item-->
   </ion-item>
 </ion-content>
