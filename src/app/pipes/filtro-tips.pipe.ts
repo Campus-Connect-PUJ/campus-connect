@@ -22,8 +22,8 @@ export class FiltroTipsPipe implements PipeTransform {
 
     return tips.filter(tip =>{
       let a=false;
-      console.log("->",tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){console.log(res,"/", tip.descripcion); a=b}})) //|| tip.usuario.nombre.toLowerCase().includes(texto)
-      return a;
+      tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){a=b}}) //|| tip.usuario.nombre.toLowerCase().includes(texto)
+      return a || tip.descripcion.toLowerCase().includes(texto)
       // tip.descripcion.toLowerCase().includes(texto)
     } ); 
 
