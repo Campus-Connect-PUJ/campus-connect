@@ -56,4 +56,5 @@ export class TipoAprendizaje {
     @ManyToMany(mappedBy = "tiposAprendizaje")
     private List<Tip> tips;
     */
+
 }

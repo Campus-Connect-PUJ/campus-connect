@@ -1,3 +1,14 @@
+ion-content.background{
+    --background:url("https://descubrecomohacerlo.com/wp-content/uploads/2020/12/fondo-predeterminado-whatsapp.jpg");;
+    background-image: url("https://descubrecomohacerlo.com/wp-content/uploads/2020/12/fondo-predeterminado-whatsapp.jpg");
+}
+
+ion-content{
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+
 ion-back-button{
     color: #C7C7C7;
 }
@@ -37,12 +48,15 @@ ion-content h3{
     margin-top: 10%;
 }
 
+
 ion-card{
     height: 40%;
     margin-top: 2%;
     margin-bottom: 2%;
     margin-left: 5%;
     margin-right: 5%;
+    padding: 0%;
+    width: 90%;
     background: #FFFFFF;
     border: 1px solid rgba(199, 199, 199, 0.25);
     //box-sizing: border-box;
@@ -51,6 +65,20 @@ ion-card{
     border-radius: 15px;
 }
 
-.div #lista{
+#lista{
     margin: 0%;
+    padding: 0%;
+    background: none;
+    background-color: none;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
+
+#buscador{
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+

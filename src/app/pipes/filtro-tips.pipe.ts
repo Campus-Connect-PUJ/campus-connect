@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tip } from '../tips/shared/tips';
+import { Tip, TipoAprendizaje} from '../tips/shared/tips';
 
 
 @Pipe({
@@ -14,9 +14,18 @@ export class FiltroTipsPipe implements PipeTransform {
       return tips;
     }
     texto = texto.toLowerCase();
+    
+    /*
+    console.log(tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) }));
+    return tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) });
+    */
+
     return tips.filter(tip =>{
-      return tip.descripcion.toLowerCase().includes(texto) //|| tip.tiposAprendizaje.toString().toLowerCase().includes(texto) //|| tip.usuario.nombre.toLowerCase().includes(texto)
-    } );
+      let a=false;
+      console.log("->",tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){console.log(res,"/", tip.descripcion); a=b}})) //|| tip.usuario.nombre.toLowerCase().includes(texto)
+      return a;
+      // tip.descripcion.toLowerCase().includes(texto)
+    } ); 
 
   }
 

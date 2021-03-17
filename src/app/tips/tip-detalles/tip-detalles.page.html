@@ -1,3 +1,8 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100;400&display=swap');
+</style>
+
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,9 +13,32 @@
 </ion-header>
 
 <ion-content>
-  {{tip.id}}
-  {{tip.descripcion}}
+  
+<ion-content class="background">
+  <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
+    Se realizara la recomendación con respecto al perfil de usuario proporcinado. 
+    Entre mas datos se hayan proporcionado, mejor sera la recomendación que se realizara</h3>
+  <ion-card>
+    <ion-card-header>
+      <div class="recargar" href="folder">
+        <a href="/folder/inbox"><img src="assets/recargar.png" alt=""></a>
+      </div>
+      <h1>¡Tip!</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{tip.descripcion}}</h2>
+      <ion-list>
+        <ion-item *ngFor = "let tipos of tiposDeAprendizaje">
+          {{tipos.descripcion}}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  {{tip.respuestas}}
+
+  
+
+
+  {{tip.id}}
   {{tip.usuario}}
 </ion-content>

@@ -7,22 +7,22 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="recomendacion-tip" text=" "></ion-back-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
-  <ion-list>
-    <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
-      <ion-card [routerLink]="['/tips', tip.id]">
-        <ion-card-header>
-          <h2>{{tip.descripcion}}</h2>
-        </ion-card-header>
-        <ion-card-content>
-          <h3>bbbb</h3>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </ion-list>
+<ion-content class="background">
+  <div id="buscador">
+    <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
+  </div>
+  <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
+    <ion-card [routerLink]="['/tips', tip.id]">
+      <ion-card-header>
+        <h2>{{tip.descripcion}}</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <h3>bbbb</h3>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
+

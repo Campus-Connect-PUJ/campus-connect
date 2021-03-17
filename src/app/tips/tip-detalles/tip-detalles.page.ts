@@ -14,16 +14,18 @@ import {ActivatedRoute} from '@angular/router';
 export class TipDetallesPage implements OnInit {
 
   tip: Tip = new Tip();
+  tiposDeAprendizaje: TipoAprendizaje[] = [];
   indice: number;
 
   constructor(
     private tipsService: TipsService,
     private activatedRoute: ActivatedRoute,
     public navCtrl: NavController
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit() {
-
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
@@ -35,6 +37,7 @@ export class TipDetallesPage implements OnInit {
     this.tipsService.getTipById(numeroTip).subscribe(
       results => {
         this.tip = results;
+        this.tiposDeAprendizaje = results.respuestas;
       },
       error => console.error(error)
     )
