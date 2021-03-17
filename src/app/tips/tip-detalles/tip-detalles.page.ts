@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Tip } from '../shared/tips';
+import { Tip, UsuarioGeneral, TipoAprendizaje } from '../shared/tips';
 import { TipsService } from '../shared/tips.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
+
 
 @Component({
   selector: 'app-tip-detalles',
@@ -12,7 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class TipDetallesPage implements OnInit {
 
-  tip: Tip;
+  tip: Tip = new Tip();
   indice: number;
 
   constructor(
@@ -27,23 +28,17 @@ export class TipDetallesPage implements OnInit {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
     })
-
     this.findTip(this.indice);
   }
 
   findTip(numeroTip: number){
-    console.log("->",numeroTip)
-    numeroTip = 2;
-    this.tipsService.getTipById(numeroTip).subscribe();
     this.tipsService.getTipById(numeroTip).subscribe(
       results => {
-        console.log(results);
         this.tip = results;
-
       },
       error => console.error(error)
     )
-
+    
   }
 
 

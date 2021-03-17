@@ -17,7 +17,7 @@ export class TipsService {
   }
 
   getTipById(id: number): Observable<Tip>{
-    const url = `${environment.baseUrl}/tips/${id}`;
+    const url = `${environment.baseUrl}/tip/${id}`;
     return this.net.get<Tip>(url);
   }
 

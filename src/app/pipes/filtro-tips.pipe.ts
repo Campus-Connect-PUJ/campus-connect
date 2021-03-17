@@ -14,7 +14,6 @@ export class FiltroTipsPipe implements PipeTransform {
       return tips;
     }
     texto = texto.toLowerCase();
-    console.log(tips[1])
     return tips.filter(tip =>{
       return tip.descripcion.toLowerCase().includes(texto) //|| tip.tiposAprendizaje.toString().toLowerCase().includes(texto) //|| tip.usuario.nombre.toLowerCase().includes(texto)
     } );

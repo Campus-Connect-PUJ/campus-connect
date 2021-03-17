@@ -27,7 +27,6 @@ export class TipsPage implements OnInit {
   findTips(){
     this.tipsService.getTips().subscribe(
       results => {
-        console.log(results);
         this.tips = results;
       },
       error => console.error(error)
@@ -37,7 +36,6 @@ export class TipsPage implements OnInit {
   buscarTips(event){
     const texto = event.target.value;
     this.textoBuscar = texto;
-    console.log(this.textoBuscar)
   }
 
 }
