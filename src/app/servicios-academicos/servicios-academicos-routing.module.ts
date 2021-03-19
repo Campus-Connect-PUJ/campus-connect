@@ -6,8 +6,14 @@ import { ServiciosAcademicosPage } from './servicios-academicos.page';
 const routes: Routes = [
   {
     path: '',
-    component: ServiciosAcademicosPage
-  }
+    component: ServiciosAcademicosPage,
+    children: [
+      {
+        path: 'calculadora/materias',
+        loadChildren: () => import('../calculadora/materias/materias.module').then(m => m.MateriasPageModule)
+      }
+    ]
+  },
 ];
 
 @NgModule({
