@@ -45,7 +45,11 @@ const routes: Routes = [
   {
     path: 'datos-restaurante',
     loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },  {
+    path: 'foros',
+    loadChildren: () => import('./foros/foros.module').then( m => m.ForosPageModule)
   }
+
 
 ];
 

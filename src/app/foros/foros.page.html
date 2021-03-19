@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>foros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+  <div id="lista" *ngFor="let foro of foros">
+    <ion-card>
+      <ion-card-header>
+        {{foro.titulo}}
+      </ion-card-header>
+      <ion-card-content>
+        {{foro.descripcion}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
