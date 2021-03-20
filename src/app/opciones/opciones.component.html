@@ -1,10 +1,26 @@
-
-  <div id="Primer-boton" (click)= "onClick(1)">
-    a
+<div id="Opciones">
+  <div id="Primer-boton" (click)= "onClick(1)" [routerLink]="['/calculadora/ingresar-notas']">
+    <div id="texto">
+      <h1>Preguntar CAE</h1>
+    </div>
+    <div id="imagen">
+      <img src="../../assets/CAE.png">
+    </div>
   </div>
   <div id="Segundo-boton" (click)= "onClick(2)">
-    b
+    <div id="texto">
+      <h1>Crear foro</h1>
+    </div>
+    <div id="imagen">
+      <img src="../../assets/Crear-foro.png">
+    </div>
   </div>
   <div id="Tercer-boton" (click)= "onClick(3)">
-    c
+    <div id="texto">
+      <h1>Buscar foro</h1>
+    </div>
+    <div id="imagen">
+      <img src="../../assets/Buscar-foro.png">
+    </div>
   </div>
+</div>
