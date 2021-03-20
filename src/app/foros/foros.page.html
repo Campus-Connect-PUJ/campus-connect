@@ -4,6 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
   <ion-searchbar></ion-searchbar>
   <div id="lista" *ngFor="let foro of foros">
@@ -16,4 +17,8 @@
       </ion-card-content>
     </ion-card>
   </div>
+  
 </ion-content>
+<ion-button (click)="mostrarPop( $event )">
+  +
+</ion-button>

@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ForosPageRoutingModule } from './foros-routing.module';
 
 import { ForosPage } from './foros.page';
+import { OpcionesComponent } from '../opciones/opciones.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ForosPageRoutingModule
+    ForosPageRoutingModule, 
   ],
-  declarations: [ForosPage]
+  declarations: [ForosPage, OpcionesComponent]
 })
 export class ForosPageModule {}

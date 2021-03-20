@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Foro } from './foro';
+import { PopoverController } from '@ionic/angular';
+import { OpcionesComponent } from '../opciones/opciones.component';
+
 
 @Component({
   selector: 'app-foros',
@@ -8,10 +11,10 @@ import { Foro } from './foro';
 })
 export class ForosPage implements OnInit {
   
-  foros: Foro[] = [];
+  foros: Foro[] = Array<Foro>();
 
 
-  constructor() { }
+  constructor(private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.cargarForos();
@@ -19,12 +22,24 @@ export class ForosPage implements OnInit {
 
   cargarForos(){
     //this.foros[0].descripcion = "Primer foro";
-    this.foros[0].titulo = "Tiulo1";
+    //this.foros[0].titulo = "Tiulo1";
     //this.foros[1].descripcion = "Segundo foro";
-    this.foros[1].titulo = "Tiulo2";
+    //this.foros[1].titulo = "Tiulo2";
     //this.foros[2].descripcion = "Tercer foro";
-    this.foros[2].titulo = "Tiulo3";
+    //this.foros[2].titulo = "Tiulo3";
   }
 
+
+  async mostrarPop(evento){
+    const popover = await this.popoverController.create({
+      component: OpcionesComponent,
+      cssClass: 'prueba',
+      event: evento
+    });
+    await popover.present();
+
+    const { data } = await popover.onWillDismiss();
+    console.log("En principal",data)
+  }
 
 }
