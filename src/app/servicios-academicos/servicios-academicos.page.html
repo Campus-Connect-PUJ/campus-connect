@@ -6,34 +6,20 @@
 
 <img src="../../assets/fondo.png" id="bg">
 <ion-content padding class="background">
-  <ion-list>
-    <ion-card [routerLink]="['/calculadora/materias']" >
+
+    <ion-card [routerLink]="['/calculadora/materias']">
       <ion-card-header>
         <h1>Calculadora</h1>
       </ion-card-header>
       <ion-card-content>
       </ion-card-content>
     </ion-card>
-  </ion-list>
+    <ion-card [routerLink]="['/tips']" >
+      <ion-card-header>
+        <h1>Tips</h1>
+      </ion-card-header>
+      <ion-card-content>
+      </ion-card-content>
+    </ion-card>
+
 </ion-content>
-
-<ion-tabs>
-
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="calculadora/materias">
-      <ion-icon name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab2">
-      <ion-icon name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab3">
-      <ion-icon name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-
-</ion-tabs>

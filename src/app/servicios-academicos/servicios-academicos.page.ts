@@ -16,5 +16,8 @@ export class ServiciosAcademicosPage implements OnInit {
     
 
   }
-
+  
+  hacerAlgo(){
+    console.log("Si hace algo")
+  }
 }
