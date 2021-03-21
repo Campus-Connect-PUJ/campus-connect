@@ -7,8 +7,8 @@ import { CalculadoraService } from'./calculadora.service';
   styleUrls: ['./calculadora.page.scss'],
 })
 export class CalculadoraPage implements OnInit {
-  cantidadNotas: string;
-  notaEsperada: string;
+  cantidadNotas: number;
+  notaEsperada: number;
   nombreMateria: string;
 
   constructor(
@@ -19,6 +19,5 @@ export class CalculadoraPage implements OnInit {
 
   guardarVar(){
     this.calculadoraService.addNotas(this.cantidadNotas, this.notaEsperada, this.nombreMateria);
-    console.log("guardar var",this.calculadoraService.getNotas());
   }
 }

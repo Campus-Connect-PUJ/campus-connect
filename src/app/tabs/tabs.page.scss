@@ -21,3 +21,23 @@ ion-tab-button {
   display: flex;
   align-items: center;
 }
+
+#prueba h1{
+  font-size: 20px;
+  padding-right: 10px;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+ion-fab-button{
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+ion-fab-list{
+  background-color: red;
+}

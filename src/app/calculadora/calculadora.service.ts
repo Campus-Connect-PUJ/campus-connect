@@ -8,15 +8,17 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class CalculadoraService {
   private nota: Nota[] = [];
-  private cantidadDeNotas: String;
+  private cantidadDeNotas: number;
   private nombreMateria: string;
-  private notaEsperada: String;
+  private notaEsperada: number;
   private notaFaltante: number;
   private porcentajeFaltante: number;
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
   private controlNotas: Array<NotasMateria>;
   private indice: number = 0;
+  private notaActual: number = 0;
+  private porcentajeActual: number = 0;
 
   constructor(private storage: Storage) { 
   }
@@ -46,11 +48,22 @@ export class CalculadoraService {
   }
 
   getcontrolNotas(){
-    console.log("Aqui es dentro del servicio", this.controlNotas)
     return this.controlNotas;
   }
 
-  addNotas(cantidad: string, notaEsperada: string, nombreMateria: string){
+  getnotaActual(){
+    return this.notaActual;
+  }
+
+  getporcentajeActual(){
+    return this.porcentajeActual;
+  }
+
+  getnotasVacias(){
+    return this.notasVacias;
+  }
+
+  addNotas(cantidad: number, notaEsperada: number, nombreMateria: string){
     console.log(cantidad, notaEsperada);
     this.nota.push({
       cantidad, 
@@ -61,22 +74,19 @@ export class CalculadoraService {
     this.nombreMateria = nombreMateria;
   }
 
-  calculoRealizado(nombreMateria, nota, porcentaje, notas, index){
-    this.notaFaltante = nota;
-    this.porcentajeFaltante = porcentaje;
-    this.indice = index;
+  calculoRealizado(nombreMateria ,notaFaltante, porcentajeFaltante, notaEsperada, notas, indice, notaActual, porcentajeActual){
+    this.notaFaltante = notaFaltante;
+    this.porcentajeFaltante = porcentajeFaltante;
+    this.indice = indice;
     this.nombreMateria = nombreMateria;
+    this.notaActual = notaActual;
+    this.porcentajeActual = porcentajeActual;
+    this.notasVacias = notas;
   }
 
-  calculoRealizadoCreado(nombreMateria, nota, porcentaje, notas, index){
-    this.notaFaltante = nota;
-    this.porcentajeFaltante = porcentaje;
-    this.indice = index;
-    this.nombreMateria = nombreMateria;
-    
-  }
 
   public guardar(nombreMateria, notaEsperada, notas){
+    console.log(nombreMateria, notaEsperada, notas )
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas);
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
 
@@ -106,7 +116,6 @@ export class CalculadoraService {
 
   public load(){
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-    console.log("despues de cargar", this.controlNotas)
     return this.controlNotas;
   }
 
@@ -119,5 +128,6 @@ export class CalculadoraService {
     this.porcentajeFaltante = porcentajeFaltante;
     this.notaEsperada = notaEsperada;
   }
+
 
 }

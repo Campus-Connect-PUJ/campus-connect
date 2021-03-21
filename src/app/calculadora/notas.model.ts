@@ -1,6 +1,6 @@
 export interface Nota{
-    cantidad: string;
-    notaEsperada: string;
+    cantidad: number;
+    notaEsperada: number;
 }
 
 export interface NotaConPorcentaje{

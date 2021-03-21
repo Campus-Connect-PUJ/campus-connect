@@ -13,11 +13,7 @@ export class ServiciosAcademicosPage implements OnInit {
    }
 
   ngOnInit() {
-    
+    this.calculadoraService.load();
 
-  }
-  
-  hacerAlgo(){
-    console.log("Si hace algo")
   }
 }
