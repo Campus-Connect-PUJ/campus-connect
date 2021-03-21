@@ -23,6 +23,7 @@ export class LoginPage {
       const user = await this.authSvc.login(email.value, password.value);
       if(user){
         //Todo: Check Email.
+        console.log("User validated.",user)
       }
     }
     catch(error){

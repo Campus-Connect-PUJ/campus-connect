@@ -15,7 +15,8 @@ export class RegistroPage {
       const user = await this.authSvc.register(email.value,password.value);
       if(user){
         // console.log("User ",user);
-        // TODO Check email. 
+        // TODO Check email.
+        console.log("User created."); 
         // Check Email
       }
     } catch (error) {
