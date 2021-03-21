@@ -13,7 +13,8 @@ import { ServiciosAcademicosPage } from './servicios-academicos.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ServiciosAcademicosPageRoutingModule
+    ServiciosAcademicosPageRoutingModule,
+    IonicModule
   ],
   declarations: [ServiciosAcademicosPage]
 })

@@ -1,12 +1,11 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>servicios-academicos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <img src="../../assets/fondo.png" id="bg">
-<ion-content padding class="background">
-
+<ion-content padding class="background" [fullscreen]="true">
     <ion-card [routerLink]="['/calculadora/materias']">
       <ion-card-header>
         <h1>Calculadora</h1>
@@ -23,3 +22,4 @@
     </ion-card>
 
 </ion-content>
+
