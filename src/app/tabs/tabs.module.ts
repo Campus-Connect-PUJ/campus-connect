@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
+import { ServiciosAcademicosPageRoutingModule } from '../servicios-academicos/servicios-academicos-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    ServiciosAcademicosPageRoutingModule
   ],
   declarations: [TabsPage]
 })
