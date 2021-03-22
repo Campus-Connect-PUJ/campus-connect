@@ -1,0 +1,26 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100;400&display=swap');
+  </style>
+
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<img src="../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
+  <div id="buscador">
+    <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
+  </div>
+  <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
+    <ion-card [routerLink]="['/tips', tip.id]">
+      <ion-card-header>
+        <h2>{{tip.descripcion}}</h2>
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>
+

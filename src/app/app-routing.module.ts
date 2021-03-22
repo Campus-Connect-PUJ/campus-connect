@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
+
 const routes: Routes = [
   { path: 'grupos_estudiantiles', component: GruposEstudiantilesComponent },
   {
     path: '',
+    //redirectTo: 'tabs/tab1',
     redirectTo: 'folder/Inbox',
     pathMatch: 'full'
   },
@@ -19,36 +21,40 @@ const routes: Routes = [
   },
   {
     path: 'reco-grupos',
-    children: [
-      {
-        path:"",
-        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
-      },
-      {
-        path: ":grupoID",
-        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
-      }
-    ]
+    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+  },
+  {
+    path: 'datos-grupo',
+    loadChildren: () => import('./grupos-estudiantiles/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
   },
   {
     path: 'formulario-perso-grupos',
     loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
   },
   {
-    path: 'recomendar-restaurantes',
-    loadChildren: () => import('./recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+    path: 'servicios-academicos',
+    loadChildren: () => import('./servicios-academicos/servicios-academicos.module').then( m => m.ServiciosAcademicosPageModule)
   },
   {
-    path: 'formulario-perso-restaurantes',
-    loadChildren: () => import('./formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
+    path: 'recomendacion-tip',
+    loadChildren: () => import('./recomendacion-tip/recomendacion-tip.module').then(m => m.RecomendacionTipPageModule)
   },
   {
-    path: 'datos-restaurante',
-    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+    path: 'tips',
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      },
+      {
+        path: ":tipId",
+        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
+      }
+    ]
   },  {
-    path: 'foros',
-    loadChildren: () => import('./foros/foros.module').then( m => m.ForosPageModule)
-  }
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
 
 
 ];

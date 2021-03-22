@@ -1,21 +1,30 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="folder/inbox" text=" "></ion-back-button>
+      <ion-back-button defaultHref="calculadora/materias" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title>
+      <h1>Agregar nueva materia</h1>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-card>
     <ion-card-header>
+      <ion-card-title>Nombre materia</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+  <ion-card-header>
       <ion-card-title>Cantidad de notas a ingresar</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -32,12 +41,14 @@
     </ion-card-content>
   </ion-card>
   
-  <!---<app-explore-container name="Tab 2 page"></app-explore-container href="/tabs/tab2/vernotas">--->
+  <div class="BotonSiguiente">
+    <ion-button (click)=guardarVar() [routerLink]="['/calculadora/ingresar-notas']" style="text-align:center" >
+      <h1>Siguiente</h1>
+    </ion-button>
+
+  </div>
   
 </ion-content>
 
-<ion-button (click)=guardarVar() [routerLink]="['/calculadora/ingresar-notas']" style="text-align:center" >
-  <h1>Siguiente</h1>
-</ion-button>
 
 

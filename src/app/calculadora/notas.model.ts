@@ -1,6 +1,6 @@
 export interface Nota{
-    cantidad: string;
-    notaEsperada: string;
+    cantidad: number;
+    notaEsperada: number;
 }
 
 export interface NotaConPorcentaje{
@@ -8,8 +8,15 @@ export interface NotaConPorcentaje{
     porcentaje: number;
 }
 
-export interface NotasMateria{
+export class NotasMateria{
+    nombreMateria: string = "";
+    notaEsperada: number = 0;
     notas: NotaConPorcentaje[];
-    notaEsperada: number;
-    nombreMateria: string;
+
+    constructor(nombre: string, nota: number, notas: NotaConPorcentaje[]){
+        this.nombreMateria = nombre;
+        this.notaEsperada = nota;
+        this.notas = notas;
+    }
+    
 }

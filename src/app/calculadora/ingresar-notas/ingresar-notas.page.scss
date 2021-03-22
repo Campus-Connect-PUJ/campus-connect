@@ -63,6 +63,8 @@ ion-toolbar {
     justify-content: space-between;
     align-items: stretch;
     align-content: normal;
+    display: flex;
+    align-items: center;
 }
 
 .ion-list{
