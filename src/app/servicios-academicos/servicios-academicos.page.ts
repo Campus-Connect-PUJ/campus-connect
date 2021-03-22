@@ -14,6 +14,11 @@ export class ServiciosAcademicosPage implements OnInit {
 
   ngOnInit() {
     this.calculadoraService.load();
+    
+  }
 
+  cargarNotas(){
+    console.log("Entra a caargar")
+    window.location.replace('/calculadora/materias')
   }
 }

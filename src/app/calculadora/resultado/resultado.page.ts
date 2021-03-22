@@ -17,7 +17,6 @@ export class ResultadoPage implements OnInit {
 
   ngOnInit() {
     this.porcentajeFaltante = this.calculadoraService.getporcentajeFaltante();
-    console.log("->",this.porcentajeFaltante)
     this.notaFaltante = this.calculadoraService.getnotaFaltante();
     this.notaEsperada = this.calculadoraService.getnotaEsperada();
     this.porcentajeActual = this.calculadoraService.getporcentajeActual();

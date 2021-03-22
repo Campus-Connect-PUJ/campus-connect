@@ -13,11 +13,16 @@ export class MateriasPage {
   materias: Array<NotasMateria>;
 
   constructor(private calculadoraService: CalculadoraService) { 
-    this.materias = this.calculadoraService.load();
+    
     console.log("Entra en constructor", this.materias)
+    this.materias = this.calculadoraService.load();
+    this.materias = this.calculadoraService.load();
   }
 
   ngOnInit() {
+    
+    console.log("Entra en iniciador")
+    this.materias = this.calculadoraService.load();
     this.materias = this.calculadoraService.load();
   }
 
