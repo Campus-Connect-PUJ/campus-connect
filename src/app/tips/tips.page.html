@@ -5,12 +5,13 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="recomendacion-tip" text=" "></ion-back-button>
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background">
+<img src="../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
   <div id="buscador">
     <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
   </div>
@@ -19,9 +20,6 @@
       <ion-card-header>
         <h2>{{tip.descripcion}}</h2>
       </ion-card-header>
-      <ion-card-content>
-        <h3>bbbb</h3>
-      </ion-card-content>
     </ion-card>
   </div>
 </ion-content>

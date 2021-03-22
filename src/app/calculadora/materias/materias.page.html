@@ -6,8 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background">
-  <ion-list>
+<img src="../../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
       <ion-card *ngFor = "let materia of materias; let indice=index" [routerLink]="['/calculadora/ingresar-notas', indice]">
         <ion-card-header>
           {{materia.nombreMateria}}
@@ -16,7 +16,6 @@
           <h2>bbbb</h2>
         </ion-card-content>
       </ion-card>
-  </ion-list>
   <div class="agregarMateria">
     <ion-card class="boton-mas" [routerLink]="['/calculadora']">
       <h1>+</h1>

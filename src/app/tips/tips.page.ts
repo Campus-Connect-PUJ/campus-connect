@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { Tip } from './shared/tips';
+import { Tip, TipoAprendizaje } from './shared/tips';
 import { TipsService } from './shared/tips.service';
 
 @Component({
@@ -12,7 +12,9 @@ import { TipsService } from './shared/tips.service';
 export class TipsPage implements OnInit {
 
   tips: Tip[] = [];
+  tiposDeAprendizaje: TipoAprendizaje[][] = [];
   textoBuscar='';
+  tipos: string[] = [];
 
   constructor(
     private tipsService: TipsService,
@@ -22,12 +24,16 @@ export class TipsPage implements OnInit {
 
   ngOnInit() {
     this.findTips();
+    console.log(this.tiposDeAprendizaje.length)
   }
 
   findTips(){
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
+        results.forEach(element => {
+          this.tiposDeAprendizaje[element.id]=element.respuestas;
+         });
       },
       error => console.error(error)
     )

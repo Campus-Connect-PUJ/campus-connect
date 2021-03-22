@@ -1,6 +1,16 @@
 ion-content.background{
-    --background:url("../../assets/fondo.png");;
+    --background:url("../../assets/fondo.png");
 }
+
+#bg {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+      
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+  }
 
 ion-content{
     align-content: center;
