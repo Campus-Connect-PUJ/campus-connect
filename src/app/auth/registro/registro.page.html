@@ -1,63 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <!-- -->
 <ion-content class="auth-page">
-  <div class="login-content">
+  <div class="home">
+    <div class="content">
+      <!-- Logo -->
+      <div class="logo">
+        <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
+      </div>
 
-    <!-- Logo -->
-    <div padding text-center>
-      <div class="logo"></div>
-      <h2 ion-text class="text-primary">
-        <strong>Registro</strong>
-      </h2>
+      <!-- Login form -->
+      <form class="form_registro">
+        <ion-item>
+          <ion-icon name="person"></ion-icon>
+          <div class="space">a</div>
+          <ion-input type="text" #nombre required placeholder="Ingresa tu nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="person"></ion-icon>
+          <div class="space">a</div>
+          <ion-input type="text" #apellido required placeholder="Ingresa tu apellido"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="mail"></ion-icon>
+          <div class="space">a</div>
+          <ion-input type="email" #email required placeholder="Ingresa tu correo electrónico"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="key"></ion-icon>
+          <div class="space">a</div>
+          <ion-input type="password" #password required placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
+      </form>
+
+      <div class="register">
+        <button class="myButton" (click)="onRegister(nombre,apellido,email,password)">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- Other links -->
+      <div class="center_text login" (click)="login()">
+        <div>¿Ya tienes una cuenta?</div>
+        <div class="login_aqui">
+          <strong>Ingresa por aquí.</strong>
+        </div> 
+      </div>
+
     </div>
-
-    <!-- Login form -->
-    <form class="list-form">
-      <ion-item>
-        <ion-label name="nombre" positiong="floating">
-          Nombre
-        </ion-label>
-        <ion-input type="text" #nombre required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label name="apellido" positiong="floating">
-          Apellido
-        </ion-label>
-        <ion-input type="text" #apellido required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>
-          Email
-        </ion-label>
-        <ion-input type="email" #email required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>
-          Password
-        </ion-label>
-        <ion-input type="password" #password required></ion-input>
-      </ion-item>
-    </form>
-
-    <div margin-top>
-      <button ion-button block color="dark" tappable (click)="onRegister(nombre,apellido,email,password)">
-        Registrarse
-      </button>
-    </div>
-
-    <!-- Other links -->
-    <div text-center margin-top>
-      <span ion-text color="primary" tappable (click)="login()">Tengo una cuenta</span>
-    </div>
-
   </div>
 </ion-content>
 

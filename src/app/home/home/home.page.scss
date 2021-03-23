@@ -4,16 +4,12 @@
     margin-right: 5%;
 }
 
-.my-base-class {
-    @extend %base-class;
-}
-
 .logo{
     width: 100%;
     height: auto;
     display: block;
-    margin-top: 1%;
-    margin-bottom: 15%;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .home_logo{
@@ -21,7 +17,7 @@
     height: 50%;
 }
 
-img:hover {
+.home_logo img:hover {
     box-shadow: 0 0 2px 1px rgba(2, 192, 255, 0.5);
 }
 
@@ -29,7 +25,8 @@ img:hover {
     height: auto;
     width: 100%;
     text-align: center;
-    margin-top: 70%;
+    padding-top: 35%;
+    display: block;
 }
 
 .button{
@@ -72,30 +69,28 @@ img:hover {
 	top:1px;
 }
 
-// MAKE THE BACKGROUND OPACITY 
-.wrap {
+.home {
+    position: relative;
     width: 100%;
     height: 100%;
+}
+
+.home:before {
+    content: ' ';
     display: block;
-    position: relative;
-}
-
-.wrap::after {
-    content: "";
-    background: url('/assets/background/home_bckg.jpg');
-    background-repeat: repeat-x repeat-y;
-    opacity: 0.4;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     position: absolute;
-    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-image: url('/assets/background/home_bckg.jpg');
+    background-repeat: repeat-y repeat-x;
+    background-position: 0 0;
+    background-size: contain;
 }
 
-.home{
-        position: absolute;
-        top: 15%;
-        height: 50%;
-        width: 100%;
+.content {
+    padding-top: 50%;
+    position: relative;
 }

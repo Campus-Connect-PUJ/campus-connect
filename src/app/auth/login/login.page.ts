@@ -1,38 +1,36 @@
 import {Component} from "@angular/core";
+import { Router } from "@angular/router";
 import {NavController, AlertController, ToastController, MenuController} from "@ionic/angular";
 import { AuthService } from 'src/app/services/auth.service';
-
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.page.html'
+  selector: "page-login",
+  templateUrl: "login.page.html",
+  styleUrls: ["./login.page.scss"]
 })
 export class LoginPage {
+  constructor(public nav: NavController, private authSvc: AuthService, private router: Router) {
 
-  constructor(public nav: NavController, private authSvc: AuthService) {
-    //this.menu.swipeEnable(false);
   }
 
   // go to register page
   register() {
-    //this.nav.setRoot(RegisterPage);
+    //console.log("Click");
+    this.router.navigate(["registro"]);
   }
 
   // login and go to home page
-  async onLogin(email,password) {
-    try{
+  async onLogin(email, password) {
+    try {
       const user = await this.authSvc.login(email.value, password.value);
-      if(user){
+      if (user) {
         //Todo: Check Email.
-        console.log("User validated.",user)
+        console.log("User validated.", user);
+        this.router.navigate(["auth-home"]);
       }
-    }
-    catch(error){
-      console.log('Error -> ',error)
+    } catch (error) {
+      console.log("Error -> ", error);
     }
   }
 
-  forgotPass() {
-    
-  }
-
+  forgotPass() {}
 }

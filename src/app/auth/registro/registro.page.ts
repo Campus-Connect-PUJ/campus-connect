@@ -1,13 +1,15 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "page-register",
   templateUrl: "registro.page.html",
+  styleUrls: ["./registro.page.scss"]
 })
 export class RegistroPage {
-  constructor(public nav: NavController, private authSvc: AuthService) {}
+  constructor(public nav: NavController, private authSvc: AuthService, private router:Router) {}
 
   // register and go to home page
   async onRegister(nombre, apellido, email, password) {
@@ -27,6 +29,6 @@ export class RegistroPage {
 
   // go to login page
   login() {
-    //this.nav.setRoot(LoginPage);
+    this.router.navigate(["login"]);
   }
 }

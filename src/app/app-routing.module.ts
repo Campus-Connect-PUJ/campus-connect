@@ -84,7 +84,11 @@ const routes: Routes = [
     path: "home",
     loadChildren: () =>
       import("./home/home/home.module").then((m) => m.HomePageModule),
+  },  {
+    path: 'auth-home',
+    loadChildren: () => import('./home/auth-home/auth-home.module').then( m => m.AuthHomePageModule)
   },
+
 ];
 
 @NgModule({
