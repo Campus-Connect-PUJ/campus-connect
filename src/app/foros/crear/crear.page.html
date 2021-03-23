@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<img src="../../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Titulo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Descripción</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <div class="agregarMateria">
+    <ion-card class="boton-mas" [routerLink]="['/calculadora']">
+      <h1>+</h1>
+    </ion-card>
+  </div>
+</ion-content>
