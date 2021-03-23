@@ -12,32 +12,50 @@
     </ion-label>
   </ion-item>
   <ion-item>
-    <ion-label>Horario</ion-label>
-    <ion-datetime displayFormat="h:mm a"></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-label>Actividades de interes</ion-label>
+    <ion-label>Actividades</ion-label>
     <ion-list>
-      <!--ion-item *ngFor="let entry of form">
-        <ion-label>{{entry.val}}</ion-label-->
-        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-      <!--/ion-item-->
+      <ion-input></ion-input>
     </ion-list>
   </ion-item>
   <ion-item>
     <ion-label>Hobbies</ion-label>
-    <!--ion-item *ngFor="let entry of form">
-        <ion-label>{{entry.val}}</ion-label-->
-        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-    <!--/ion-item-->
+    <ion-input placeholder="Actividad"></ion-input>
+    <ion-input placeholder="Motivación"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Áreas de conocimiento de interes</ion-label>
+    <ion-label>Tématicas</ion-label>
     <!--ion-item *ngFor="let entry of form">
       <ion-label>{{entry.val}}</ion-label-->
         <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
     <!--/ion-item-->
   </ion-item>
-
+  <ion-item>
+    <ion-label>Caracteristicas</ion-label>
+    <!--ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label-->
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    <!--/ion-item-->
+  </ion-item>
+  <ion-item>
+    <ion-label>Creencias religiosas</ion-label>
+    <!--ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label-->
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    <!--/ion-item-->
+  </ion-item>
+  <ion-item>
+    <ion-label>Creencias no toleradas</ion-label>
+    <!--ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label-->
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    <!--/ion-item-->
+  </ion-item>
+  <ion-item>
+    <ion-label>Tendencia politica</ion-label>
+    <!--ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label-->
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    <!--/ion-item-->
+  </ion-item>
   <ion-button>Guardar</ion-button>
 </ion-content>
