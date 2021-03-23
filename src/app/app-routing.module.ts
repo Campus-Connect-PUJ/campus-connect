@@ -24,10 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
   },
   {
-    path: 'datos-grupo',
-    loadChildren: () => import('./grupos-estudiantiles/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
-  },
-  {
     path: 'formulario-perso-grupos',
     loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
   },
@@ -51,10 +47,11 @@ const routes: Routes = [
         loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
       }
     ]
-  },  {
+  },
+  {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  },
+  }
 
 
 ];
