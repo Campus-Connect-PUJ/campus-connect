@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'datos-restaurante',
     loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },
+  {
+    path: 'sugerencias-principal',
+    loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
   }
 
 ];
