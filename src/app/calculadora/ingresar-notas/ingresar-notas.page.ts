@@ -117,12 +117,13 @@ export class IngresarNotasPage implements OnInit {
     for(let i=0; i<ciclo; i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1 && this.notas[i].porcentaje != 0){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
+        this.notaActual = parseFloat(this.notaActual.toFixed(3))
       }
       else{
         this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
-    this.notaFaltante = this.notaEsperada - this.notaActual;
+    this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3) )
     console.log("calculo realizado", this.nombreMateria, " ", this.porcentajeFaltante," ", this.notaFaltante, " ", this.notaActual)
     this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notaEsperada, this.notas, this.indice, this.notaActual, 100 - this.porcentajeFaltante)
     if(this.indice!=-1){

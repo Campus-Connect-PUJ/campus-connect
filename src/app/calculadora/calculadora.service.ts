@@ -82,12 +82,13 @@ export class CalculadoraService {
     this.notaActual = notaActual;
     this.porcentajeActual = porcentajeActual;
     this.notasVacias = notas;
+    this.notaEsperada = notaEsperada;
   }
 
 
-  public guardar(nombreMateria, notaEsperada, notas){
+  public guardar(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual){
     console.log(nombreMateria, notaEsperada, notas )
-    this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas);
+    this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
 
     try {
@@ -105,18 +106,35 @@ export class CalculadoraService {
         [{
           notaEsperada: undefined,
           nombreMateria: undefined,
-          notas: this.notasVacias
+          notas: this.notasVacias,
+          notaActual: undefined,
+          porcentajeActual: undefined
         }];
       controlNotas2[0].nombreMateria = nombreMateria;
       controlNotas2[0].notaEsperada = notaEsperada;
       controlNotas2[0].notas = notas;
+      controlNotas2[0].porcentajeActual = porcentajeActual;
+      controlNotas2[0].notaActual = notaActual;
+      this.controlNotas = controlNotas2;
+      localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
+      console.log("esto se guarda2", this.controlNotas);
       localStorage.setItem("Materias", JSON.stringify(controlNotas2))
     }
+  }
+
+
+  public guardarMaterias(nuevasMaterias){
+    localStorage.setItem("Materias",JSON.stringify(nuevasMaterias))
   }
 
   public load(){
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     return this.controlNotas;
+  }
+  
+  public findNotas(id){
+    this.indice = id;
+    return this.controlNotas[id];
   }
 
   public buscarNotas(indice: number){

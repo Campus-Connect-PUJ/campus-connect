@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
-
 const routes: Routes = [
   { path: 'grupos_estudiantiles', component: GruposEstudiantilesComponent },
   {
@@ -22,6 +21,10 @@ const routes: Routes = [
   {
     path: 'reco-grupos',
     loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+  },
+  {
+    path: 'datos-grupo',
+    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
   },
   {
     path: 'formulario-perso-grupos',
@@ -51,11 +54,13 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'foros',
+    loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
   }
 
-
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
