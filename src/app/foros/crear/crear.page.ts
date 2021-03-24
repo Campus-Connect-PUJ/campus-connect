@@ -16,8 +16,7 @@ export class CrearPage implements OnInit {
   reportado: boolean;
 
   usuario: UsuarioGeneral;
-  respuestaPost: RespuestaPost;
-  postCreado: Post = new Post();
+  postCreado: Post = new Post("", "", null);
 
   constructor(private postService: PostService) { }
 
@@ -30,11 +29,15 @@ export class CrearPage implements OnInit {
     console.log(this.descripcion, this.titulo)
     this.postCreado.titulo = this.titulo;
     this.postCreado.descripcion = this.descripcion;
-    this.postCreado.fecha = new Date("2018-03-16");
+    // this.postCreado.fecha = new Date("2018-03-16");
     this.postCreado.usuario = this.usuario;
 
     console.log(this.postCreado)
-    this.postService.setForo(this.postCreado);
-  }
+    this.postService.createPost(this.postCreado)
+      .subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
 
+  }
 }
