@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GuardsCheckStart } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { CalculadoraService } from'../calculadora.service';
-import { NotasMateria } from '../notas.model';
+import { CalculadoraService } from'../shared/calculadora.service';
+import { NotasMateria } from '../shared/notas.model';
 import { AlertController } from '@ionic/angular';
 
 @Component({

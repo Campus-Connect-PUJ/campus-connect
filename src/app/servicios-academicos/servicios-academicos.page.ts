@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalculadoraService } from'../calculadora/calculadora.service';
+import { CalculadoraService } from'../calculadora/shared/calculadora.service';
 
 @Component({
   selector: 'app-servicios-academicos',

@@ -13,7 +13,7 @@
       <ion-card-title>Titulo</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+      <ion-input type="string" [(ngModel)]="titulo"></ion-input>
     </ion-card-content>
   </ion-card>
   <ion-card>
@@ -21,14 +21,14 @@
       <ion-card-title>Descripción</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+      <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
     </ion-card-content>
   </ion-card>
 
 
 
-  <div class="agregarMateria">
-    <ion-card class="boton-mas" [routerLink]="['/calculadora']">
+  <div class="btn-crearForo">
+    <ion-card class="boton-mas" (click)=crearForo() [routerLink]="['/tabs/servicios-academicos']">
       <h1>+</h1>
     </ion-card>
   </div>

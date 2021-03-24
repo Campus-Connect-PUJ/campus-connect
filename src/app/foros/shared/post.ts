@@ -3,6 +3,7 @@ import { UsuarioGeneral } from "src/app/tips/shared/tips";
 export class Post{
     id: number;
     fecha: Date;
+    titulo: string;
     descripcion: string;
     reportado: boolean;
 
@@ -18,4 +19,7 @@ export class RespuestaPost{
 
     post: Post;
     usuario: UsuarioGeneral;
+    constructor(){
+        
+    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Foro } from './foro';
+import { Post } from './shared/post';
 import { PopoverController } from '@ionic/angular';
 import { OpcionesComponent } from '../opciones/opciones.component';
 
@@ -11,7 +11,7 @@ import { OpcionesComponent } from '../opciones/opciones.component';
 })
 export class ForosPage implements OnInit {
   
-  foros: Foro[] = Array<Foro>();
+  foros: Post[] = Array<Post>();
 
 
   constructor(private popoverController: PopoverController) { }
