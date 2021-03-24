@@ -37,7 +37,7 @@
     background-color: #ffffff;
     margin-left: 1%;
     margin-right: 1%;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 
 .space {
@@ -99,4 +99,18 @@
 
 .center_text {
     text-align: center;
+}
+
+.error_message {
+    margin-right: 10%;
+    margin-left: 10%;
+    font-family: 'Comic Sans MS';
+    font-size: 12px;
+    font-style: italic;
+    line-height: 20px;
+    text-align: center;
+    color: #000000;
+    background-color: #ffa3a3;
+    border-radius: 5%;
+    border: #fa5d5d solid 2px;
 }

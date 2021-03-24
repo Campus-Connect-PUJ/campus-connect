@@ -71,7 +71,15 @@ export class LoginPage implements OnInit {
           console.log("Error ", user);
           this.data = user;
           this.error_visibility = 1;
-          //this.error_message.style.visibility = "visible";
+          if (user == "auth/invalid-email") {
+            this.data = "Correo ingresado inválido."
+          }
+          if (user == "auth/wrong-password") {
+            this.data = "Contraseña ingresada inválida.";
+          }
+          if (user == "auth/user-not-found") {
+            this.data = "Usuario inexistente.";
+          }
         } else {
           console.log(typeof user);
           console.log("User validated.", user);

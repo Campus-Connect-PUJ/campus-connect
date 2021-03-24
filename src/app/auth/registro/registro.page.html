@@ -10,6 +10,11 @@
         <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
       </div>
 
+      <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility == '1' ? 'visible' : 'hidden'}">
+        <p *ngIf="data==null; else elseBlock" ></p>
+        <ng-template #elseBlock><p  [innerHTML] = "data"></p></ng-template>
+      </div>
+
       <!-- Login form -->
       <form class="form_registro">
         <ion-item>
@@ -27,7 +32,7 @@
         <ion-item>
           <ion-icon name="mail"></ion-icon>
           <div class="space">a</div>
-          <ion-input type="email" #email required placeholder="Ingresa tu correo electrónico"></ion-input>
+          <ion-input type="email" #email required placeholder="Ingresa tu correo"></ion-input>
         </ion-item>
 
         <ion-item>

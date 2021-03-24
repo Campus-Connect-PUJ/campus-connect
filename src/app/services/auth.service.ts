@@ -14,18 +14,18 @@ import { switchMap } from 'rxjs/operators';
   providedIn: "root",
 })
 export class AuthService {
-
-  public user$:Observable<User>;
+  public user$: Observable<User>;
+  private newUser: User = {} as User;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
-      switchMap((user)=> {
-        if(user){
+      switchMap((user) => {
+        if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         }
         return of(null);
       })
-    )
+    );
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -35,6 +35,7 @@ export class AuthService {
       console.log("Error -> ", error);
     }
   }
+
   async resetPassword(email: string): Promise<void> {
     try {
       return this.afAuth.sendPasswordResetEmail(email);
@@ -43,16 +44,31 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string): Promise<User> {
+  async register(
+    email: string,
+    password: string,
+    nombre: string,
+    apellido: string
+  ): Promise<User> {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password
       );
-      await this.sendVerificationEmail();
-      return user;
+      
+      this.newUser.email = user.email;
+      this.newUser.emailVerified = user.emailVerified;
+      this.newUser.displayName = user.displayName;
+      this.newUser.uid = user.uid;
+
+      this.newUser.name = nombre;
+      this.newUser.last_name = apellido;
+
+      this.updateUserData(this.newUser);
+      return this.newUser;
     } catch (error) {
       console.log("Error -> ", error);
+      return error.code;
     }
   }
 
@@ -62,8 +78,13 @@ export class AuthService {
         email,
         password
       );
-      this.updateUserData(user);
-      return user;
+      //this.updateUserData(user);
+      this.newUser.email = user.email;
+      this.newUser.emailVerified = user.emailVerified;
+      this.newUser.displayName = user.displayName;
+      this.newUser.uid = user.uid;
+
+      return this.newUser;
     } catch (error) {
       console.log("Error -> ", error);
       return error.code;
@@ -87,12 +108,14 @@ export class AuthService {
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: user.displayName,
+      name: user.name,
+      last_name: user.last_name,
     };
 
     return userRef.set(data, { merge: true });
   }
 
-  async isEmailVerified(user: User){
+  async isEmailVerified(user: User) {
     return user.emailVerified === true ? true : false;
   }
 }

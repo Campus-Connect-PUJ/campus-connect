@@ -3,4 +3,6 @@ export interface User{
     email:String;
     displayName:String;
     emailVerified:boolean;
+    name:string;
+    last_name:string;
 }
