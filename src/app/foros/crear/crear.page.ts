@@ -16,8 +16,7 @@ export class CrearPage implements OnInit {
   reportado: boolean;
 
   usuario: UsuarioGeneral;
-  respuestaPost: RespuestaPost;
-  postCreado: Post = new Post();
+  postCreado: Post = new Post("", "", null);
 
   constructor(private postService: PostService) { }
 

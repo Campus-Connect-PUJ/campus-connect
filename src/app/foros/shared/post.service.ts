@@ -21,10 +21,18 @@ export class PostService {
     return this.net.get<Post>(url);
   }
 
-  setForo(foroCreado: Post): void{
-    console.log("esto se va", foroCreado)
+  setForo(post: Post): void {
+    console.log("esto se va", post)
     const url = `${environment.baseUrl}/post`;
-    this.net.post<Post>(url, foroCreado);
+    this.net.post(
+      url,
+      {
+        descripcion: post.descripcion,
+        fecha: post.fecha,
+        titulo: post.titulo,
+        usuario: post.usuario
+      }
+    );
   }
 
 }
