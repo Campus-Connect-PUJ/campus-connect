@@ -28,7 +28,6 @@ export class PostService {
       url,
       {
         descripcion: post.descripcion,
-        fecha: post.fecha,
         titulo: post.titulo,
         usuario: post.usuario
       }
