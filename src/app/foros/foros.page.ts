@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from './shared/post';
 import { PopoverController } from '@ionic/angular';
 import { OpcionesComponent } from '../opciones/opciones.component';
+import { PostService } from './shared/post.service';
 
 
 @Component({
@@ -14,19 +15,25 @@ export class ForosPage implements OnInit {
   foros: Post[] = Array<Post>();
 
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(
+    private popoverController: PopoverController,
+    private forosService: PostService
+    ) { }
 
   ngOnInit() {
     this.cargarForos();
+    console.log("estos son los foros", this.foros)
+    console.log("a",this.foros[0])
   }
 
   cargarForos(){
-    //this.foros[0].descripcion = "Primer foro";
-    //this.foros[0].titulo = "Tiulo1";
-    //this.foros[1].descripcion = "Segundo foro";
-    //this.foros[1].titulo = "Tiulo2";
-    //this.foros[2].descripcion = "Tercer foro";
-    //this.foros[2].titulo = "Tiulo3";
+    this.forosService.getPosts().subscribe(
+      results => {
+        this.foros = results;
+        console.log(this.foros)
+      },
+      error => console.error(error)
+    )
   }
 
 

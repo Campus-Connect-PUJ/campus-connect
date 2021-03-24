@@ -20,6 +20,7 @@ export class IngresarNotasPage implements OnInit {
 
   private notaActual: number = 0;
   private porcentajeFaltante: number = 0;
+  private porcentajeActual: number = 0;
   private notaFaltante: number = 0;
 
   p_bar_value: number = 0;
@@ -48,7 +49,7 @@ export class IngresarNotasPage implements OnInit {
           this.notas = this.notasMaterias.notas;
           this.notaEsperada = this.notasMaterias.notaEsperada;
           //this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-          
+          this.runDeterminateProgress();
         }
         else{
           this.indice = -1;
@@ -75,7 +76,9 @@ export class IngresarNotasPage implements OnInit {
   }
 
   changeFn1(e, indice) {
+    console.log("antes", this.notas[indice].porcentaje)
     this.notas[indice].porcentaje = Number(e.target.value);
+    console.log("despues", this.notas[indice].porcentaje)
     this.valorPorcentaje = Number(String(e.target.value));
     this.runDeterminateProgress()
   }
@@ -101,6 +104,7 @@ export class IngresarNotasPage implements OnInit {
   }
 
   calcularNota(){
+    console.log("Porcentajes", this.notas)
     let ciclo = 0;
     if(Number(this.cantidadDeNotas) > 0){
       //para nueva materia
@@ -113,19 +117,21 @@ export class IngresarNotasPage implements OnInit {
     }
 
     this.notaActual = 0;
-    this.porcentajeFaltante = 0;
+    this.porcentajeFaltante = 100;
     for(let i=0; i<ciclo; i++){
       if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1 && this.notas[i].porcentaje != 0){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
         this.notaActual = parseFloat(this.notaActual.toFixed(3))
+        this.porcentajeActual = this.notas[i].porcentaje + this.porcentajeActual;
+        this.porcentajeFaltante = this.porcentajeFaltante - this.notas[i].porcentaje;
       }
       else{
         this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
     this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3) )
-    console.log("calculo realizado", this.nombreMateria, " ", this.porcentajeFaltante," ", this.notaFaltante, " ", this.notaActual)
-    this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notaEsperada, this.notas, this.indice, this.notaActual, 100 - this.porcentajeFaltante)
+    console.log("calculo realizado", this.nombreMateria, " ", this.porcentajeFaltante,"% ", this.notaFaltante, " ", this.notaActual)
+    this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notaEsperada, this.notas, this.indice, this.notaActual, this.porcentajeActual)
     if(this.indice!=-1){
       this.indice = -1;
     }
