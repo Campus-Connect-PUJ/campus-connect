@@ -18,16 +18,43 @@ export class LoginPage implements OnInit {
     private router: Router
   ) {
     this.error_visibility = 0;
+    this.data = "";
   }
 
   ngOnInit() {
     this.error_visibility = 0;
+    this.data = "";
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.error_visibility = 0;
+    this.data = "";
   }
-  
+
+  //Fired when the component routing to is about to animate into view.
+  ionViewWillEnter() {
+    this.error_visibility = 0;
+    this.data = "";
+  }
+
+  //Fired when the component routing to has finished animating.
+  ionViewDidEnter() {
+    this.error_visibility = 0;
+    this.data = "";
+  }
+
+  //Fired when the component routing from is about to animate.
+  ionViewWillLeave() {
+    this.error_visibility = 0;
+    this.data = "";
+  }
+
+  //Fired when the component routing to has finished animating.
+  ionViewDidLeave() {
+    this.error_visibility = 0;
+    this.data = "";
+  }
+
   // go to register page
   register() {
     //console.log("Click");
