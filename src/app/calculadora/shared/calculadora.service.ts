@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Nota, NotaConPorcentaje, NotasMateria } from './notas.model';
-import { Storage } from '@ionic/storage';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +13,12 @@ export class CalculadoraService {
   private porcentajeFaltante: number;
   private notasVacias: NotaConPorcentaje[]= [];
   private controlNota: NotasMateria;
-  private controlNotas: Array<NotasMateria>;
+  private controlNotas: NotasMateria[] = [];
   private indice: number = 0;
   private notaActual: number = 0;
   private porcentajeActual: number = 0;
 
-  constructor(private storage: Storage) { 
-  }
+  constructor() {}
 
   getNotas(){
     return this.nota;
@@ -127,7 +124,7 @@ export class CalculadoraService {
     localStorage.setItem("Materias",JSON.stringify(nuevasMaterias))
   }
 
-  public load(){
+  public load(): NotasMateria[] {
     this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     return this.controlNotas;
   }

@@ -29,13 +29,14 @@ export class IngresarNotasPage implements OnInit {
 
   private nombreMateria: string;
 
-  constructor(private calculadoraService: CalculadoraService,
-              private activatedRoute: ActivatedRoute
-              ) { 
-                this.notaActual = 0;
-                this.porcentajeFaltante = 0;
-                this.notaFaltante = 0;
-              }
+  constructor(
+    private calculadoraService: CalculadoraService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.notaActual = 0;
+    this.porcentajeFaltante = 0;
+    this.notaFaltante = 0;
+  }
 
   ngOnInit() {
     try {
@@ -132,10 +133,5 @@ export class IngresarNotasPage implements OnInit {
     this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3) )
     console.log("calculo realizado", this.nombreMateria, " ", this.porcentajeFaltante,"% ", this.notaFaltante, " ", this.notaActual)
     this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notaEsperada, this.notas, this.indice, this.notaActual, this.porcentajeActual)
-    if(this.indice!=-1){
-      this.indice = -1;
-    }
-    this.calculadoraService.pantallaResultados(this.notaFaltante, this.porcentajeFaltante, this.notaEsperada);
-    
   }
 }

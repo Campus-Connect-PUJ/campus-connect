@@ -10,7 +10,13 @@
 <ion-content padding class="background" [fullscreen]="true">
   <div id="titulo">
     <h1>Materias</h1>
+    <div class="recargarMaterias">
+      <ion-card class="boton-mas" (click)="reload()">
+        <h1>+</h1>
+      </ion-card>
+    </div>
   </div>
+
   <div id="materias">
   <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
     <ion-item [routerLink]="['/calculadora/resultado', indice]">
@@ -39,7 +45,7 @@
 </div>
 
 <div class="agregarMateria">
-  <ion-card class="boton-mas" [routerLink]="['/calculadora']">
+  <ion-card class="boton-mas" [routerLink]="['/calculadora'] ">
     <h1>+</h1>
   </ion-card>
 </div>

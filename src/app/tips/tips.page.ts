@@ -33,7 +33,7 @@ export class TipsPage implements OnInit {
       results => {
         this.tips = results;
         results.forEach(element => {
-          this.tiposDeAprendizaje[element.id]=element.respuestas;
+          this.tiposDeAprendizaje[element.id]=element.tipoAprendizaje;
          });
         // esto siempre va a servir
         console.log(this.tips);

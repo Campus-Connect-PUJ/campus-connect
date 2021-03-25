@@ -17,7 +17,11 @@ export class CalculadoraPage implements OnInit {
   ngOnInit() {
   }
 
-  guardarVar(){
-    this.calculadoraService.addNotas(this.cantidadNotas, this.notaEsperada, this.nombreMateria);
+  guardarVar() {
+    this.calculadoraService.addNotas(
+      this.cantidadNotas,
+      this.notaEsperada,
+      this.nombreMateria
+    );
   }
 }
