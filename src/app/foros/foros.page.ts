@@ -15,7 +15,7 @@ export class ForosPage implements OnInit {
   
   foros: Post[] = Array<Post>();
   usuarios: UsuarioGeneral[] = Array<UsuarioGeneral>();
-  
+  textoBuscar='';
 
   constructor(
     private popoverController: PopoverController,
@@ -42,6 +42,10 @@ export class ForosPage implements OnInit {
     )
   }
 
+  buscarForos(event){
+    const texto = event.target.value;
+    this.textoBuscar = texto;
+  }
 
   /*
   async mostrarPop(evento){

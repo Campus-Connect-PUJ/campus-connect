@@ -8,9 +8,11 @@ import { ForosPageRoutingModule } from './foros-routing.module';
 
 import { ForosPage } from './foros.page';
 import { OpcionesComponent } from '../opciones/opciones.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
+    PipesModule,
     CommonModule,
     FormsModule,
     IonicModule,

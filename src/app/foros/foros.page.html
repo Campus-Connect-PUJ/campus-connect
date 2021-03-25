@@ -9,9 +9,9 @@
 
 <ion-content>
   <div id="buscador">
-    <ion-searchbar placeholder="Buscar foros" animated (ionChange)="buscarTips($event)"></ion-searchbar>
+    <ion-searchbar placeholder="Buscar foros" animated (ionChange)="buscarForos($event)"></ion-searchbar>
   </div>
-  <div id="lista" *ngFor="let foro of foros; let indice=index">
+  <div id="lista" *ngFor="let foro of foros | filtroForos:textoBuscar; let indice=index">
     <ion-card [routerLink]="['/foros', foro.id]">
       <ion-card-header>
         {{foro.titulo}}
