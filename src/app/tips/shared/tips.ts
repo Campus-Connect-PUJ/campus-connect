@@ -21,6 +21,7 @@ export class UsuarioGeneral {
         this.correo = correo;
         this.semestre = semestre;
     }
+    
     /*
     @OneToOne(mappedBy = "usuario",
               fetch = FetchType.LAZY,

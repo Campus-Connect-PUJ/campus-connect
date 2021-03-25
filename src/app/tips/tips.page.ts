@@ -24,6 +24,7 @@ export class TipsPage implements OnInit {
 
   ngOnInit() {
     this.findTips();
+    console.log(this.tips)
     console.log(this.tiposDeAprendizaje.length)
   }
 

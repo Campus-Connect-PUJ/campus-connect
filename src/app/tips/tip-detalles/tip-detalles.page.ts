@@ -38,6 +38,7 @@ export class TipDetallesPage implements OnInit {
       results => {
         this.tip = results;
         this.tiposDeAprendizaje = results.respuestas;
+        console.log(results.respuestas)
       },
       error => console.error(error)
     )

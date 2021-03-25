@@ -19,11 +19,11 @@ export class FiltroTipsPipe implements PipeTransform {
     console.log(tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) }));
     return tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) });
     */
-
+    console.log(tips)
     return tips.filter(tip =>{
       let a=false;
-      tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){a=b}}) //|| tip.usuario.nombre.toLowerCase().includes(texto)
-      return a || tip.descripcion.toLowerCase().includes(texto)
+      //tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){a=b}}) //|| tip.usuario.nombre.toLowerCase().includes(texto)
+      return tip.descripcion.toLowerCase().includes(texto)
       // tip.descripcion.toLowerCase().includes(texto)
     } ); 
 

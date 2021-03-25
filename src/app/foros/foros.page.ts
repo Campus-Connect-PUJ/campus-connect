@@ -3,6 +3,7 @@ import { Post } from './shared/post';
 import { PopoverController } from '@ionic/angular';
 import { OpcionesComponent } from '../opciones/opciones.component';
 import { PostService } from './shared/post.service';
+import { UsuarioGeneral } from '../tips/shared/tips';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { PostService } from './shared/post.service';
 export class ForosPage implements OnInit {
   
   foros: Post[] = Array<Post>();
-
+  usuarios: UsuarioGeneral[] = Array<UsuarioGeneral>();
+  foros2: Post[] = Array<Post>();
 
   constructor(
     private popoverController: PopoverController,
@@ -22,21 +24,26 @@ export class ForosPage implements OnInit {
 
   ngOnInit() {
     this.cargarForos();
-    console.log("estos son los foros", this.foros)
-    console.log("a",this.foros[0])
   }
 
   cargarForos(){
     this.forosService.getPosts().subscribe(
       results => {
         this.foros = results;
-        console.log(this.foros)
+        results.forEach(element => {
+          this.foros[element.id] = element;
+          this.usuarios[element.id]=element.usuario;
+          console.log("foros",this.foros[element.id])
+          console.log("usuarios",this.usuarios[element.id])
+         });
+        
       },
       error => console.error(error)
     )
   }
 
 
+  /*
   async mostrarPop(evento){
     const popover = await this.popoverController.create({
       component: OpcionesComponent,
@@ -48,5 +55,6 @@ export class ForosPage implements OnInit {
     const { data } = await popover.onWillDismiss();
     console.log("En principal",data)
   }
+  */
 
 }

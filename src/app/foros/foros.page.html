@@ -9,13 +9,14 @@
 
 <ion-content>
   <ion-searchbar></ion-searchbar>
-  <div id="lista" *ngFor="let foro of foros">
+  <div id="lista" *ngFor="let foro of foros; let indice=index">
     <ion-card>
       <ion-card-header>
         {{foro.titulo}}
       </ion-card-header>
       <ion-card-content>
         {{foro.descripcion}}
+        ->{{usuario}}
       </ion-card-content>
     </ion-card>
   </div>
