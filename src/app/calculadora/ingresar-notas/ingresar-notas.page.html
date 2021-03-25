@@ -44,11 +44,12 @@
       </div> 
     </ion-item>
   </ion-list>
+  <ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
+    <h1>Siguiente</h1>
+  </ion-button>
 </div>
 
-<ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
-  <h1>Siguiente</h1>
-</ion-button>
+
 
 </ion-content>
 

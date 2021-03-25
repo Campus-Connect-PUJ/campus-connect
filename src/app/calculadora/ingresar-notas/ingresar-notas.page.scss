@@ -24,7 +24,8 @@ ion-toolbar {
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
-    margin-top: 15%;
+    margin-top: 20%;
+    margin-bottom: 10%;
     justify-content: space-between;
 }
 
@@ -58,14 +59,22 @@ ion-toolbar {
 .Notas{
     margin-top: 10%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
-    justify-content: space-between;
-    align-items: stretch;
-    align-content: normal;
-    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
+
+#textoInput{
+    align-items: center;
+    justify-content: center;
+}
+
+ion-button{
+    margin-top: 25%;
+    margin-bottom: 50%;
+}
+
+
 
 .ion-list{
     justify-content: space-between;
@@ -73,12 +82,6 @@ ion-toolbar {
     align-items: flex-end;
 }
 
-.ion-item{
-    justify-content: space-between;
-    display: flex;
-    align-self: center;
-    
-}
 
 #input{
     background: #F2F2F2;
@@ -97,12 +100,4 @@ ion-toolbar {
     line-height: 30px;
     /* identical to box height */
     margin-left: 5px;
-}
-
-:host{
-    --progress-background: #2dd36f;
-}
-
-.ion-progress-bar{
-    --progress-background: #2dd36f;
 }
