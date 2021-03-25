@@ -57,7 +57,17 @@ const routes: Routes = [
   },
   {
     path: 'foros',
-    loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+      },
+      {
+        path: ":foroId",
+        loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
+      }
+    ]
+    
   }
 
 ];

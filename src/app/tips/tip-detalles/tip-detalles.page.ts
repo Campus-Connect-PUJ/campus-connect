@@ -29,6 +29,7 @@ export class TipDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
+      console.log(this.indice)
     })
     this.findTip(this.indice);
   }

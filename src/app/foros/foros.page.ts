@@ -33,7 +33,7 @@ export class ForosPage implements OnInit {
         results.forEach(element => {
           this.foros[element.id] = element;
           this.usuarios[element.id]=element.usuario;
-          console.log("foros",this.foros[element.id].respuestaPost)
+          console.log("foros",this.foros[element.id])
           console.log("usuarios",this.usuarios[element.id])
          });
         

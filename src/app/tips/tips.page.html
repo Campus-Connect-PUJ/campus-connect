@@ -17,7 +17,7 @@
   </div>
   <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
     <ion-card [routerLink]="['/tips', tip.id]">
-
+      {{tip.id}}
       <h2>{{tip.descripcion}}</h2>
 
     </ion-card>

@@ -12,9 +12,10 @@
     <ion-searchbar placeholder="Buscar foros" animated (ionChange)="buscarTips($event)"></ion-searchbar>
   </div>
   <div id="lista" *ngFor="let foro of foros; let indice=index">
-    <ion-card>
+    <ion-card [routerLink]="['/foros', foro.id]">
       <ion-card-header>
         {{foro.titulo}}
+        ID->{{foro.id}}
       </ion-card-header>
       <ion-card-content>
         {{foro.respuestaPost}}
