@@ -1,7 +1,6 @@
 export class Tip {
     id: number;
     descripcion: string;
-
     usuario: UsuarioGeneral;
     tiposAprendizaje: TipoAprendizaje[];
 
@@ -9,58 +8,53 @@ export class Tip {
 }
 
 export class UsuarioGeneral {
-    id: number;
-    nombre: string;
-    correo: string;
-    semestre: number;
-    tips: Array<Tip>;
-    estilosAprendizaje: Array<TipoAprendizaje>
-    constructor(id?: number, nombre?: string, correo?: string, semestre?: number){
-        this.id = id;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.semestre = semestre;
-    }
-    
-    /*
-    @OneToOne(mappedBy = "usuario",
-              fetch = FetchType.LAZY,
-              cascade = CascadeType.ALL)
-    private InformacionUsuario informacionUsuario;
+  id: number;
+  tips: Tip[];
+  estilosAprendizaje: TipoAprendizaje[];
+  constructor(
+    public nombre: string,
+    public correo: string,
+    public semestre: number
+  ) {
+  }
 
-    // relaciones muchos a muchos  ---------------------
-    @ManyToMany(mappedBy = "usuarios")
-    private List<UsuarioCAE> rolesCAE;
+  /*
+  @OneToOne(mappedBy = "usuario",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+  private InformacionUsuario informacionUsuario;
 
-    @ManyToMany(mappedBy = "monitores")
-    private List<Asignatura> monitorDe;
+  // relaciones muchos a muchos  ---------------------
+  @ManyToMany(mappedBy = "usuarios")
+  private List<UsuarioCAE> rolesCAE;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private List<Caracteristica> caracteristicas;
+  @ManyToMany(mappedBy = "monitores")
+  private List<Asignatura> monitorDe;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private List<RolAdministrador> rolesAdministrador;
+  @ManyToMany(mappedBy = "usuarios")
+  private List<Caracteristica> caracteristicas;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private List<Carrera> carrerasUsuario;
+  @ManyToMany(mappedBy = "usuarios")
+  private List<RolAdministrador> rolesAdministrador;
 
-    */
+  @ManyToMany(mappedBy = "usuarios")
+  private List<Carrera> carrerasUsuario;
+
+  */
 }
 
 export class TipoAprendizaje {
-    id: number;
-    descripcion: string;
-    tips: Tip[];
-    constructor() {}
+  id: number;
+  descripcion: string;
+  tips: Tip[];
+  constructor() { }
 
+  /*
+  @ManyToMany(mappedBy = "estilosAprendizaje")
+  private List<UsuarioGeneral> usuarios;
 
-    
-    /*
-    @ManyToMany(mappedBy = "estilosAprendizaje")
-    private List<UsuarioGeneral> usuarios;
-
-    @ManyToMany(mappedBy = "tiposAprendizaje")
-    private List<Tip> tips;
-    */
+  @ManyToMany(mappedBy = "tiposAprendizaje")
+  private List<Tip> tips;
+  */
 
 }

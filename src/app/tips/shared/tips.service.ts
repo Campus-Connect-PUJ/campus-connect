@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Tip, UsuarioGeneral, TipoAprendizaje} from './tips';
+import { Tip } from './tips';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
 

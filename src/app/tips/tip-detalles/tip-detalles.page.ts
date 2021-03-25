@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tip, UsuarioGeneral, TipoAprendizaje } from '../shared/tips';
+import { Tip, TipoAprendizaje } from '../shared/tips';
 import { TipsService } from '../shared/tips.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';

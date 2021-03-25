@@ -23,8 +23,11 @@ export class CrearPage implements OnInit {
   ngOnInit() {
   }
 
-  crearForo(){  
-    this.usuario = new UsuarioGeneral(0, "usuario1", "correo@falso.com", 3);
+  crearForo(){
+
+    // TODO: quitar esto, ya que se estara sacando el usuario de la BD
+    this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
+    this.usuario.id = 0;
 
     console.log(this.descripcion, this.titulo)
     this.postCreado.titulo = this.titulo;
