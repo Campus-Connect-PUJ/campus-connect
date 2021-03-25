@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { UsuarioGeneral } from 'src/app/tips/shared/tips';
 import { Post } from '../shared/post';
 import { PostService } from '../shared/post.service';
 
@@ -10,7 +11,9 @@ import { PostService } from '../shared/post.service';
 })
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
-  foro: Post = new Post();
+  
+  usuario: UsuarioGeneral = new UsuarioGeneral(0 , " ", " ", 0);
+  foro: Post = new Post(" ", " ", this.usuario);
 
   constructor(private activatedRoute: ActivatedRoute,
               private forosService: PostService         
@@ -30,7 +33,7 @@ export class ForoDetallesPage implements OnInit {
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
-        console.log("Foro", this.foro)
+        
       },
       error => console.error(error)
     )

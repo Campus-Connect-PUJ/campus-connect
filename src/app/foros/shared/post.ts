@@ -6,9 +6,9 @@ export class Post {
   reportado: boolean;
   respuestaPost: RespuestaPost[] = [];
   constructor(
-    public titulo?: string,
-    public descripcion?: string,
-    public usuario?: UsuarioGeneral) {
+    public titulo: string,
+    public descripcion: string,
+    public usuario: UsuarioGeneral) {
     this.reportado = false;
   }
   
