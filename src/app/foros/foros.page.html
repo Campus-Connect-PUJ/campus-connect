@@ -8,13 +8,16 @@
 
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+  <div id="buscador">
+    <ion-searchbar placeholder="Buscar foros" animated (ionChange)="buscarTips($event)"></ion-searchbar>
+  </div>
   <div id="lista" *ngFor="let foro of foros; let indice=index">
     <ion-card>
       <ion-card-header>
         {{foro.titulo}}
       </ion-card-header>
       <ion-card-content>
+        {{foro.respuestaPost}}
         {{foro.descripcion}}
         {{foro.usuario.nombre}}
         {{foro.usuario.correo}}

@@ -15,7 +15,7 @@ export class ForosPage implements OnInit {
   
   foros: Post[] = Array<Post>();
   usuarios: UsuarioGeneral[] = Array<UsuarioGeneral>();
-  foros2: Post[] = Array<Post>();
+  
 
   constructor(
     private popoverController: PopoverController,
@@ -33,7 +33,7 @@ export class ForosPage implements OnInit {
         results.forEach(element => {
           this.foros[element.id] = element;
           this.usuarios[element.id]=element.usuario;
-          console.log("foros",this.foros[element.id])
+          console.log("foros",this.foros[element.id].respuestaPost)
           console.log("usuarios",this.usuarios[element.id])
          });
         
