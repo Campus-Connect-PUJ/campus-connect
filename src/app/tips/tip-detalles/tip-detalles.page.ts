@@ -37,7 +37,7 @@ export class TipDetallesPage implements OnInit {
     this.tipsService.getTipById(numeroTip).subscribe(
       results => {
         this.tip = results;
-        this.tiposDeAprendizaje = results.tipoAprendizaje;
+        //this.tiposDeAprendizaje = results.tipoAprendizaje;
       },
       error => console.error(error)
     )

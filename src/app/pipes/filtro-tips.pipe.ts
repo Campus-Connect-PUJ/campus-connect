@@ -15,16 +15,16 @@ export class FiltroTipsPipe implements PipeTransform {
     }
     texto = texto.toLowerCase();
     
-    /*
-    console.log(tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) }));
-    return tips.filter(tip =>{ return tip.descripcion.toLowerCase().includes(texto) });
-    */
-
     return tips.filter(tip =>{
       let a=false;
-      // tip.respuestas.filter(res=> {let b= false; b=res.descripcion.toLowerCase().includes(texto); if(b){a=b}}) //|| tip.usuario.nombre.toLowerCase().includes(texto)
-      return tip.descripcion.toLowerCase().includes(texto)
-      // tip.descripcion.toLowerCase().includes(texto)
+      tip.tiposAprendizaje.filter(res=> {
+        let b=false;
+        b=res.descripcion.toLowerCase().includes(texto);
+        if(b){
+          a=b;
+        }
+      })
+      return a || tip.descripcion.toLowerCase().includes(texto)
     } ); 
 
   }

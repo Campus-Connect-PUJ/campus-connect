@@ -3,7 +3,7 @@ export class Tip {
     descripcion: string;
 
     usuario: UsuarioGeneral;
-    tipoAprendizaje: TipoAprendizaje[];
+    tiposAprendizaje: TipoAprendizaje[];
 
     constructor(){}
 }

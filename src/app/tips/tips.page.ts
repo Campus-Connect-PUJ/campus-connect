@@ -24,7 +24,7 @@ export class TipsPage implements OnInit {
 
   ngOnInit() {
     this.findTips();
-    // esto no va a servir siempre
+    console.log(this.tips)
     console.log(this.tiposDeAprendizaje.length)
   }
 
@@ -32,11 +32,12 @@ export class TipsPage implements OnInit {
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
+        /*
         results.forEach(element => {
+
           this.tiposDeAprendizaje[element.id]=element.tipoAprendizaje;
          });
-        // esto siempre va a servir
-        console.log(this.tips);
+         */
       },
       error => console.error(error)
     )
@@ -45,6 +46,7 @@ export class TipsPage implements OnInit {
   buscarTips(event){
     const texto = event.target.value;
     this.textoBuscar = texto;
+
   }
 
 }
