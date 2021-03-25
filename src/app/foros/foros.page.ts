@@ -3,7 +3,6 @@ import { Post } from './shared/post';
 import { PopoverController } from '@ionic/angular';
 import { OpcionesComponent } from '../opciones/opciones.component';
 import { PostService } from './shared/post.service';
-import { UsuarioGeneral } from '../tips/shared/tips';
 
 
 @Component({
@@ -14,7 +13,6 @@ import { UsuarioGeneral } from '../tips/shared/tips';
 export class ForosPage implements OnInit {
   
   foros: Post[] = Array<Post>();
-  usuarios: UsuarioGeneral[] = Array<UsuarioGeneral>();
   textoBuscar='';
 
   constructor(
@@ -30,13 +28,7 @@ export class ForosPage implements OnInit {
     this.forosService.getPosts().subscribe(
       results => {
         this.foros = results;
-        results.forEach(element => {
-          this.foros[element.id] = element;
-          this.usuarios[element.id]=element.usuario;
-          console.log("foros",this.foros[element.id])
-          console.log("usuarios",this.usuarios[element.id])
-         });
-        
+        console.log("Los foros", this.foros)
       },
       error => console.error(error)
     )

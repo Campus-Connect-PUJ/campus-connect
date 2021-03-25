@@ -15,7 +15,7 @@ export class UsuarioGeneral {
     semestre: number;
     tips: Array<Tip>;
     estilosAprendizaje: Array<TipoAprendizaje>
-    constructor(id: number, nombre: string, correo: string, semestre: number){
+    constructor(id?: number, nombre?: string, correo?: string, semestre?: number){
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;

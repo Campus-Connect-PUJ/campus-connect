@@ -9,8 +9,8 @@ import { PostService } from '../shared/post.service';
   styleUrls: ['./foro-detalles.page.scss'],
 })
 export class ForoDetallesPage implements OnInit {
-  private indice: number = 0;
-  private foro: Post;
+  indice: number = 0;
+  foro: Post = new Post();
 
   constructor(private activatedRoute: ActivatedRoute,
               private forosService: PostService         
@@ -21,17 +21,20 @@ export class ForoDetallesPage implements OnInit {
       const recipeId = paraMap.get('foroId')
       this.indice = Number(recipeId);
       console.log("indice", this.indice)
+      this.findForo(this.indice);
     })
-    //this.findForo(this.indice);
+    
   }
 
   findForo(indice: number){
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
+        console.log("Foro", this.foro)
       },
       error => console.error(error)
     )
   }
+
 
 }
