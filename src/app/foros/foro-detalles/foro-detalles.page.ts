@@ -31,7 +31,7 @@ export class ForoDetallesPage implements OnInit {
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
-        console.log("Foro", this.foro)
+        
       },
       error => console.error(error)
     )
