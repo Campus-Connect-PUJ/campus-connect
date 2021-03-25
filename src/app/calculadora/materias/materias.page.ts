@@ -11,21 +11,30 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./materias.page.scss'],
 })
 export class MateriasPage {
-  materias: Array<NotasMateria>;
+  materias: NotasMateria[];
 
-  constructor(private calculadoraService: CalculadoraService, public alertaCtrl: AlertController) { 
+  constructor(
+    private calculadoraService: CalculadoraService,
+    public alertaCtrl: AlertController
+  ) {
 
     console.log("Entra en constructor", this.materias)
-    this.materias = this.calculadoraService.load();
-    this.materias = this.calculadoraService.load();
+    this.reload();
   }
 
   ngOnInit() {
     console.log("Entra en iniciador")
-    this.materias = this.calculadoraService.load();
-    this.materias = this.calculadoraService.load();
+    this.reload();
   }
 
+  ngOnDestroy() {
+    console.log("destruyendo");
+  }
+
+  reload() {
+    this.materias = this.calculadoraService.load();
+    // window.location.replace('/calculadora/materias')
+  }
 
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
@@ -51,6 +60,8 @@ export class MateriasPage {
     })
     await alert.present();
   }
+
+
 }
 
 

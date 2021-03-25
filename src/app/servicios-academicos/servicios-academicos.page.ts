@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../calculadora/shared/calculadora.service';
+import { NotasMateria } from '../calculadora/shared/notas.model';
 
 @Component({
   selector: 'app-servicios-academicos',
@@ -8,17 +9,13 @@ import { CalculadoraService } from'../calculadora/shared/calculadora.service';
 })
 export class ServiciosAcademicosPage implements OnInit {
 
-  constructor(private calculadoraService: CalculadoraService) {
-    this.calculadoraService.load();
-   }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.calculadoraService.load();
-    
   }
 
   cargarNotas(){
     console.log("Entra a caargar")
-    window.location.replace('/calculadora/materias')
   }
 }

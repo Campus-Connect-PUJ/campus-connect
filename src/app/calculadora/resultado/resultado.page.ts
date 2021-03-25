@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../shared/calculadora.service';
 import {Nota, NotaConPorcentaje, NotasMateria} from '../shared/notas.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
@@ -21,7 +21,11 @@ export class ResultadoPage implements OnInit {
   private notaFaltante: number;
 
   notasMostrar: NotasMateria;
-  constructor(private calculadoraService: CalculadoraService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private calculadoraService: CalculadoraService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
 
@@ -41,8 +45,7 @@ export class ResultadoPage implements OnInit {
         this.notasMateria = this.notasMostrar.notas;
         this.porcentajeActual = this.notasMostrar.porcentajeActual;
         this.calculadoraService.load();
-      }
-      else{
+      } else{
         this.porcentajeFaltante = this.calculadoraService.getporcentajeFaltante();
         this.notaFaltante = this.calculadoraService.getnotaFaltante();
         this.notaEsperada = this.calculadoraService.getnotaEsperada();
@@ -61,6 +64,9 @@ export class ResultadoPage implements OnInit {
   guardarMateria(){
     console.log("Se van a guardar estos datos", this.nombreMateria, this.notaEsperada, this.notasMateria, this.porcentajeActual)
     this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notasMateria, this.notaActual, this.porcentajeActual)
+    this.router.navigate(['/calculadora/materias'
+                          // '/tabs/servicios-academicos'
+                         ]);
   }
   
 

@@ -1,9 +1,9 @@
 export class Tip {
     id: number;
     descripcion: string;
-    
+
     usuario: UsuarioGeneral;
-    respuestas: TipoAprendizaje[];
+    tipoAprendizaje: TipoAprendizaje[];
 
     constructor(){}
 }
