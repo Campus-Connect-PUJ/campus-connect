@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../shared/calculadora.service';
 import {Nota, NotaConPorcentaje, NotasMateria} from '../shared/notas.model';
 import {ActivatedRoute} from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class ResultadoPage implements OnInit {
         this.notaActual = this.notasMostrar.notaActual;
         this.nombreMateria = this.notasMostrar.nombreMateria;
         this.notasMateria = this.notasMostrar.notas;
+        this.porcentajeActual = this.notasMostrar.porcentajeActual;
         this.calculadoraService.load();
       }
       else{
@@ -48,6 +50,8 @@ export class ResultadoPage implements OnInit {
         this.notaActual = this.calculadoraService.getnotaActual();
         this.nombreMateria = this.calculadoraService.getnombreMateria();
         this.notasMateria = this.calculadoraService.getnotasVacias();
+        this.porcentajeActual = this.calculadoraService.getporcentajeActual();
+        console.log("actual", this.porcentajeActual)
         this.calculadoraService.load();
         }
       })
