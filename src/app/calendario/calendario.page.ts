@@ -21,7 +21,7 @@ export class CalendarioPage implements OnInit {
   eventSource = [];
 
   calendar = {
-    mode: 'day',
+    mode: 'month',
     currenDate: new Date()
   }
   viewTitle = ' ';
@@ -62,6 +62,7 @@ export class CalendarioPage implements OnInit {
     }
 
     this.eventSource.push(eventCopy);
+    console.log(this.eventSource);
     this.myCal.loadEvents();
     this.resetEvent();
   }
@@ -87,7 +88,6 @@ export class CalendarioPage implements OnInit {
 
   today(){
     this.calendar.currenDate = new Date();
-    console.log("aaa");
   }
 
   onViewTitleChanged(title){
