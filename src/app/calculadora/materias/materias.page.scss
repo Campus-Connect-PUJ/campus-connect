@@ -8,104 +8,94 @@ ion-toolbar {
     --border-style: none;
 }
 
-ion-content h3{
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    text-align: justify;
-    margin-left: 5%;
-    margin-right: 5%;
-
-    color: #000000;
-}
-
-ion-card-header h1{
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 38px;
-    text-align: center;
-    margin: 10px;
-}
-
-.recargar{
-    display: block;
-    padding: 0;
-}
-
-.recargar img{
-    display: block;
-    margin: 0 0 0 auto;
-    padding-right: 2%;
-    padding-top: 2%;
-}
-
-ion-card-header{
-    padding: 0;
-}
-
-.todoslostips{
-    align-content: center;
-    display: flex;
-    justify-content: center;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-top: 10%;
-
-    
-}
-
-.todoslostips ion-button{
-    background: #3EC6FF;
-    border: 1px solid rgba(199, 199, 199, 0.25);
-    box-sizing: border-box;
-    /* Sombra */
-
-    box-shadow: 0px 4px 5px 1px #C7C7C7;
-    border-radius: 10px;
-}
-
-.botones h2{
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-    margin: 10px;
-}
-
-.crearTip{
-    align-content: center;
-    display: flex;
-    justify-content: center;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-top: 5%;
-}
-
-
-ion-card{
-    height: 25%;
-    margin: 5%;
-    background: #FFFFFF;
-    border: 1px solid rgba(199, 199, 199, 0.25);
-    //box-sizing: border-box;
-    /* Sombra */
-    box-shadow: 0px 4px 5px 1px #C7C7C7;
-    border-radius: 15px;
+.agregarMateria{
+    margin: 0%;
+    padding: 0%;
 }
 
 .agregarMateria ion-card {
     background: blue;
     color:#FFFFFF;
     justify-content: center;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background: #3EC6FF;
+    border: 1px solid rgba(199, 199, 199, 0.25);
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.agregarMateria ion-card:active {
+    background-color: #66D2FF;
 }
 
 .agregarMateria ion-card h1{
-    font-size: 75px;
+    display: flex;
     align-items: center;
+    font-size: 75px;
+    justify-content: center;
+    margin: 0%;
+    padding: 0%;
+}
+
+
+ion-content.background{
+    --background:url("../../../assets/fondo.png");
+}
+
+#bg {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+      
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+
+#materias{
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#titulo h1{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+ion-item-sliding{
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 0;
+}
+
+ion-card-header{
+    width: 60%;
+    padding: 5%;
+}
+
+ion-card-content{
+    width: 40%;
+    padding: 5%;
+}
+
+ion-item{
+    padding: 0;
+}
+
+ion-card-content h2{
+    font-size: 10px;
 }

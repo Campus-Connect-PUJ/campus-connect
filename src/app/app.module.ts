@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 import { PipesModule } from './pipes/pipes.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
@@ -32,6 +33,7 @@ import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-p
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
+    IonicStorageModule.forRoot(),
     FormularioPersoRestaurantesPageModule
     //RecoGruposPage
   ],
@@ -42,4 +44,6 @@ import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-p
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  
+}

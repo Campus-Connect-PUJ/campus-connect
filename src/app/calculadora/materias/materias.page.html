@@ -1,30 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>materias</ion-title>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <div *ngFor = "let tip of tips">
-      <ion-card>
-        <ion-card-header>
-          <h1>{{tip.title}}</h1>
-        </ion-card-header>
-        <ion-card-content>
-          <h2>bbbb</h2>
-        </ion-card-content>
+<img src="../../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
+  <div id="titulo">
+    <h1>Materias</h1>
+    <div class="recargarMaterias">
+      <ion-card class="boton-mas" (click)="reload()">
+        <h1>+</h1>
       </ion-card>
     </div>
-  </ion-list>
-  <div class="agregarMateria" [routerLink]="['/calculadora']">
-    <ion-card >
-      <h1>+</h1>
-    </ion-card>
   </div>
-  
-</ion-content>
 
+  <div id="materias">
+  <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
+    <ion-item [routerLink]="['/calculadora/resultado', indice]">
+      <ion-card-header>
+        {{materia.nombreMateria}}
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Nota actual: {{materia.notaActual}}</h2>
+        <h2>% actual: {{materia.porcentajeActual}}%</h2>
+      </ion-card-content>
+    </ion-item>
+
+    <ion-item-options id="start" side="start">
+      <ion-item-option [routerLink]="['/calculadora/ingresar-notas', indice]">
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item-options id="end" side="end">
+      <ion-item-option color="danger" (click)="presentAlert(indice)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+  </ion-item-sliding>
+</div>
+
+<div class="agregarMateria">
+  <ion-card class="boton-mas" [routerLink]="['/calculadora'] ">
+    <h1>+</h1>
+  </ion-card>
+</div>
+</ion-content>
 <!---
 <ion-card [routerLink]="['/tips', tip.id]">
 -->
+
+<!--- *ngFor = "let materia of materias; let indice=index" -->

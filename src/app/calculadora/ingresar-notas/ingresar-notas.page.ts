@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CalculadoraService } from'../calculadora.service';
-import {Nota, NotaConPorcentaje} from '../notas.model';
+import { CalculadoraService } from'../shared/calculadora.service';
+import { ActivatedRoute } from '@angular/router';
+import { NumericValueAccessor } from '@ionic/angular';
+import { NotaConPorcentaje, NotasMateria } from 'src/app/Model/Nota/nota';
 
 @Component({
   selector: 'app-ingresar-notas',
@@ -12,28 +14,54 @@ export class IngresarNotasPage implements OnInit {
   private notaEsperada: number;
   
   notas: NotaConPorcentaje[] = [];
+  notasMaterias: NotasMateria;
   private valorPorcentaje: number;
   private valorNota: number;
 
   private notaActual: number = 0;
   private porcentajeFaltante: number = 0;
+  private porcentajeActual: number = 0;
   private notaFaltante: number = 0;
 
   p_bar_value: number = 0;
   private porcentaje: number = 0;
+  indice: number = 0;
 
-  constructor(private calculadoraService: CalculadoraService) { }
+  private nombreMateria: string;
+  private ciclo: number = 0;
+
+  constructor(
+    private calculadoraService: CalculadoraService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.notaActual = 0;
+    this.porcentajeFaltante = 0;
+    this.notaFaltante = 0;
+  }
 
   ngOnInit() {
-    console.log(this.calculadoraService.getNotas());
-    this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
-    this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-    this.definirCantidadDeNotas();
-    console.log(this.notas)
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      const recipeId = paraMap.get('tipId')
+      this.indice = Number(recipeId);
+      if(recipeId != null){
+        this.notasMaterias = this.calculadoraService.buscarNotas(Number(recipeId));
+        this.nombreMateria = this.notasMaterias.nombreMateria;
+        this.notas = this.notasMaterias.notas;
+        this.notaEsperada = this.notasMaterias.notaEsperada;
+        this.runDeterminateProgress();
+      }
+      else{
+        this.indice = -1;
+        this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
+        this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
+        this.nombreMateria = this.calculadoraService.getnombreMateria();
+        this.definirCantidadDeNotas();
+      }
+    })
   }
 
   definirCantidadDeNotas(){
-    for (let i = 0; i < this.cantidadDeNotas; i++) {
+    for (let i = 0; i < this.cantidadDeNotas && this.cantidadDeNotas != this.notas.length; i++) {
       this.notas.push({
         notaObtenida: -1,
         porcentaje: 0
@@ -43,40 +71,52 @@ export class IngresarNotasPage implements OnInit {
 
   changeFn1(e, indice) {
     this.notas[indice].porcentaje = Number(e.target.value);
-    this.valorPorcentaje = Number(String(e.target.value));
-    
+    this.runDeterminateProgress()
   }
 
   changeFn2(e, indice) {
     this.valorNota=Number(String(e.target.value));
     this.notas[indice].notaObtenida = this.valorNota;
-    this.runDeterminateProgress()
   }
 
   runDeterminateProgress() {
     this.porcentaje=0;
-    for(let i = 0; i < Number(this.cantidadDeNotas); i++){
+    this.realizarCiclo()
+    for(let i = 0; i < this.ciclo; i++){
       this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
     }
     this.p_bar_value = +this.porcentaje/100;
   }
 
+  realizarCiclo(){
+    if(Number(this.cantidadDeNotas) > 0){
+      //para nueva materia
+      this.ciclo = Number(this.cantidadDeNotas)
+    }
+    else{
+      //para una materia ya guardada
+      this.ciclo = this.notas.length;
+      this.notaEsperada = this.notasMaterias.notaEsperada;
+    }
+  }
+
   calcularNota(){
     this.notaActual = 0;
-    this.porcentajeFaltante = 0;
-    this.notaFaltante = 0;
-    console.log(this.notas)
-
-    for(let i=0; i<Number(this.cantidadDeNotas); i++){
-      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1){
+    this.porcentajeFaltante = 100;
+    this.realizarCiclo();
+    
+    for(let i=0; i<this.ciclo; i++){
+      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1 && this.notas[i].porcentaje != 0){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
+        this.notaActual = parseFloat(this.notaActual.toFixed(3))
+        this.porcentajeActual = this.notas[i].porcentaje + this.porcentajeActual;
+        this.porcentajeFaltante = this.porcentajeFaltante - this.notas[i].porcentaje;
       }
       else{
         this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
-    this.notaFaltante = this.notaEsperada - this.notaActual;
-    console.log("falta ",this.notaFaltante, " en el ",this.porcentajeFaltante, "% para lograr la nota de ", this.notaEsperada)
-    this.calculadoraService.calculoRealizado(this.notaFaltante, this.porcentajeFaltante)
+    this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3))
+    this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, this.porcentajeFaltante, this.notaEsperada, this.notas, this.indice, this.notaActual, this.porcentajeActual)
   }
 }
