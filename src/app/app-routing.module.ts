@@ -84,10 +84,45 @@ const routes: Routes = [
     path: "home",
     loadChildren: () =>
       import("./home/home/home.module").then((m) => m.HomePageModule),
-  },  {
+  },
+  {
     path: 'auth-home',
     loadChildren: () => import('./home/auth-home/auth-home.module').then( m => m.AuthHomePageModule)
   },
+  {
+    path: 'formulario-perso-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module').then( m => m.FormularioPersoGruposPageModule)
+  },
+  {
+    path: 'recomendar-restaurantes',
+    children: [
+      {
+        path:"",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+      },
+      {
+        path: ":restauranteID",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+      }
+    ]  
+  },
+  {
+    path: 'formulario-perso-restaurantes',
+    loadChildren: () => import('./restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
+  },
+  {
+    path: 'datos-restaurante',
+    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },
+  {
+    path: 'sugerencias-principal',
+    loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
+  },
+  {
+    path: 'crowd-restaurante',
+    loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
+
+  }
 
 ];
 

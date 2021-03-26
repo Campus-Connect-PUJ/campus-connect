@@ -16,6 +16,8 @@ import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/
 import { PipesModule } from './pipes/pipes.module';
 import { environment } from 'src/environments/environment';
 
+
+import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 
@@ -35,7 +37,8 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FormularioPersoRestaurantesPageModule
     //RecoGruposPage
   ],
   providers: [
