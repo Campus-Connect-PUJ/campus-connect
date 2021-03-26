@@ -67,7 +67,35 @@ const routes: Routes = [
         loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
       }
     ]
-    
+  },
+  {
+    path: 'recomendar-restaurantes',
+    children: [
+      {
+        path:"",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/recomendar-restaurantes.module').then( m => m.RecomendarRestaurantesPageModule)
+      },
+      {
+        path: ":restauranteID",
+        loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+      }
+    ]  
+  },
+  {
+    path: 'formulario-perso-restaurantes',
+    loadChildren: () => import('./restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
+  },
+  {
+    path: 'datos-restaurante',
+    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },
+  {
+    path: 'sugerencias-principal',
+    loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
+  },
+  {
+    path: 'crowd-restaurante',
+    loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
   }
 
 ];
