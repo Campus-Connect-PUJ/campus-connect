@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tip } from '../../Model/Tip.model';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
+import { Tip } from './tip';
 
 @Injectable({
   providedIn: 'root'

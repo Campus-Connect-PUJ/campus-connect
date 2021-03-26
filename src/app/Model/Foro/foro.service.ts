@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Foro } from '../../Model/Foro.model';
+import { Foro } from './foro';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class ForoService {
 
   constructor(private net: NetService) { }
 

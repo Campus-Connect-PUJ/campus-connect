@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { Tip } from '../Model/Tip.model';
-import { TipoAprendizaje } from '../Model/TipoAprendizaje.model';
-import { TipsService } from './shared/tips.service';
+import { Tip } from '../Model/Tip/tip';
+import { TipsService } from '../Model/Tip/tips.service';
+import { TipoAprendizaje } from '../Model/TipoAprendizaje/tipo-aprendizaje';
 
 @Component({
   selector: 'app-tips',

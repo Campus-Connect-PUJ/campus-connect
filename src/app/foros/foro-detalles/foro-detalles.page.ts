@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { UsuarioGeneral } from '../../Model/UsuarioGeneral.model';
-import { Foro } from '../../Model/Foro.model';
-import { PostService } from '../shared/post.service';
+import { Foro } from 'src/app/Model/Foro/foro';
+import { ForoService } from 'src/app/Model/Foro/foro.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
   selector: 'app-foro-detalles',
@@ -14,7 +14,7 @@ export class ForoDetallesPage implements OnInit {
   foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
 
   constructor(private activatedRoute: ActivatedRoute,
-              private forosService: PostService         
+              private forosService: ForoService
   ) { }
 
   ngOnInit() {

@@ -1,13 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tip } from '../Model/Tip.model';
-
-
+import { Tip } from '../Model/Tip/tip';
 
 @Pipe({
   name: 'filtroTips'
 })
 export class FiltroTipsPipe implements PipeTransform {
-
 
   transform(tips: Tip[], texto: string): Tip[] {
 

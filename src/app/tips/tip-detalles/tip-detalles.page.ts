@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Tip } from '../../Model/Tip.model';
-import { TipoAprendizaje } from '../../Model/TipoAprendizaje.model';
-import { TipsService } from '../shared/tips.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
+import { Tip } from 'src/app/Model/Tip/tip';
+import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
+import { TipsService } from 'src/app/Model/Tip/tips.service';
 
 
 @Component({

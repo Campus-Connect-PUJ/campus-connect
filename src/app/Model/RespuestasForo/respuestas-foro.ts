@@ -1,5 +1,4 @@
-import { UsuarioGeneral } from './UsuarioGeneral.model';
-
+import { UsuarioGeneral } from "../UsuarioGeneral/usuario-general";
 
 export class RespuestaForo {
     id: number;

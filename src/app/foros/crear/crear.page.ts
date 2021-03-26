@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Foro } from '../../Model/Foro.model'
-import { UsuarioGeneral } from "../../Model/UsuarioGeneral.model";
-import { PostService } from '../shared/post.service';
+import { Foro } from 'src/app/Model/Foro/foro';
+import { ForoService } from 'src/app/Model/Foro/foro.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
   selector: 'app-crear',
@@ -18,7 +18,7 @@ export class CrearPage implements OnInit {
   usuario: UsuarioGeneral;
   foroCreado: Foro = new Foro("", "", null);
 
-  constructor(private foroService: PostService) { }
+  constructor(private foroService: ForoService) { }
 
   ngOnInit() {
   }

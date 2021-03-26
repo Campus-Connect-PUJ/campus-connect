@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../shared/calculadora.service';
-import {Nota, NotaConPorcentaje, NotasMateria} from '../../Model/Nota.model';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NumericValueAccessor } from '@ionic/angular';
+import { NotaConPorcentaje, NotasMateria } from 'src/app/Model/Nota/nota';
 
 @Component({
   selector: 'app-ingresar-notas',

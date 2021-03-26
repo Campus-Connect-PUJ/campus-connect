@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../calculadora/shared/calculadora.service';
-import { NotasMateria } from '../Model/Nota.model';
 
 @Component({
   selector: 'app-servicios-academicos',

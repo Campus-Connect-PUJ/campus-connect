@@ -1,5 +1,5 @@
-import { Tip } from './Tip.model';
-import { TipoAprendizaje } from './TipoAprendizaje.model';
+import { Tip } from "../Tip/tip";
+import { TipoAprendizaje } from "../TipoAprendizaje/tipo-aprendizaje";
 
 export class UsuarioGeneral {
     id: number;

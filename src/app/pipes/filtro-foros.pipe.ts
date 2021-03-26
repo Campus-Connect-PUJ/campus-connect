@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Foro } from '../Model/Foro.model';
+import { Foro } from '../Model/Foro/foro';
 
 @Pipe({
   name: 'filtroForos'

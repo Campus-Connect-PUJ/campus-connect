@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Foro } from '../Model/Foro.model';
 import { PopoverController } from '@ionic/angular';
 import { OpcionesComponent } from '../opciones/opciones.component';
-import { PostService } from './shared/post.service';
-
+import { ForoService } from '../Model/Foro/foro.service';
+import { Foro } from '../Model/Foro/foro';
 
 @Component({
   selector: 'app-foros',
@@ -12,12 +11,12 @@ import { PostService } from './shared/post.service';
 })
 export class ForosPage implements OnInit {
   
-  foros: Foro[] = Array<Foro>();
+  foros: Foro[] = [];
   textoBuscar='';
 
   constructor(
     private popoverController: PopoverController,
-    private forosService: PostService
+    private forosService: ForoService
     ) { }
 
   ngOnInit() {

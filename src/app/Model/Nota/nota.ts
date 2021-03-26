@@ -22,5 +22,5 @@ export class NotasMateria{
         this.notaActual = notaActual;
         this.porcentajeActual = porcentajeActual;
     }
-    
+
 }

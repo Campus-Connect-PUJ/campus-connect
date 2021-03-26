@@ -1,5 +1,5 @@
-import { UsuarioGeneral } from "./UsuarioGeneral.model";
-import { RespuestaForo } from './RespuestaForo.model';
+import { RespuestaForo } from "../RespuestasForo/respuestas-foro";
+import { UsuarioGeneral } from "../UsuarioGeneral/usuario-general";
 
 export class Foro {
   id: number;
@@ -14,5 +14,3 @@ export class Foro {
     this.reportado = false;
   }
 }
-
-
