@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Post } from './post';
+import { Foro } from '../../Model/Foro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +11,23 @@ export class PostService {
 
   constructor(private net: NetService) { }
 
-  getPosts(): Observable<Post[]>{
-    const url = `${environment.baseUrl}/posts`;
-    return this.net.get<Post[]>(url);
+  getPosts(): Observable<Foro[]>{
+    const url = `${environment.baseUrl}/foros`;
+    return this.net.get<Foro[]>(url);
   }
 
-  getPostById(id: number): Observable<Post>{
-    const url = `${environment.baseUrl}/post/${id}`;
-    return this.net.get<Post>(url);
+  getPostById(id: number): Observable<Foro>{
+    const url = `${environment.baseUrl}/foro/${id}`;
+    return this.net.get<Foro>(url);
   }
 
-  createPost(post: Post) {
-    console.log("esto se va", post)
-    const url = `${environment.baseUrl}/post/${post.usuario.id}`;
+  createPost(foro: Foro) {
+    const url = `${environment.baseUrl}/foro/${foro.usuario.id}`;
     return this.net.post(
       url,
       {
-        descripcion: post.descripcion,
-        titulo: post.titulo
+        descripcion: foro.descripcion,
+        titulo: foro.titulo
       }
     );
   }

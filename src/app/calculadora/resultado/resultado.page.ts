@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../shared/calculadora.service';
-import {Nota, NotaConPorcentaje, NotasMateria} from '../shared/notas.model';
+import {Nota, NotaConPorcentaje, NotasMateria} from '../../Model/Nota.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 

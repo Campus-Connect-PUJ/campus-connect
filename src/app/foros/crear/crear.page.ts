@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RespuestaPost, Post } from '../shared/post'
-import { UsuarioGeneral } from "src/app/tips/shared/tips";
+import { Foro } from '../../Model/Foro.model'
+import { UsuarioGeneral } from "../../Model/UsuarioGeneral.model";
 import { PostService } from '../shared/post.service';
 
 @Component({
@@ -16,9 +16,9 @@ export class CrearPage implements OnInit {
   reportado: boolean;
 
   usuario: UsuarioGeneral;
-  postCreado: Post = new Post("", "", null);
+  foroCreado: Foro = new Foro("", "", null);
 
-  constructor(private postService: PostService) { }
+  constructor(private foroService: PostService) { }
 
   ngOnInit() {
   }
@@ -30,13 +30,13 @@ export class CrearPage implements OnInit {
     this.usuario.id = 0;
 
     console.log(this.descripcion, this.titulo)
-    this.postCreado.titulo = this.titulo;
-    this.postCreado.descripcion = this.descripcion;
+    this.foroCreado.titulo = this.titulo;
+    this.foroCreado.descripcion = this.descripcion;
     // this.postCreado.fecha = new Date("2018-03-16");
-    this.postCreado.usuario = this.usuario;
+    this.foroCreado.usuario = this.usuario;
 
-    console.log(this.postCreado)
-    this.postService.createPost(this.postCreado)
+    console.log(this.foroCreado)
+    this.foroService.createPost(this.foroCreado)
       .subscribe(
         results => console.log(results),
         error => console.error(error)

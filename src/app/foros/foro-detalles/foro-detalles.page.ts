@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { UsuarioGeneral } from 'src/app/tips/shared/tips';
-import { Post } from '../shared/post';
+import { UsuarioGeneral } from '../../Model/UsuarioGeneral.model';
+import { Foro } from '../../Model/Foro.model';
 import { PostService } from '../shared/post.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { PostService } from '../shared/post.service';
 })
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
-  foro: Post = new Post("", "", new UsuarioGeneral("", "", 0));
+  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
 
   constructor(private activatedRoute: ActivatedRoute,
               private forosService: PostService         

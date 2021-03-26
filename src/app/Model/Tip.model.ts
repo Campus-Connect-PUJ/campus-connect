@@ -1,3 +1,6 @@
+import { TipoAprendizaje } from './TipoAprendizaje.model';
+import { UsuarioGeneral } from './UsuarioGeneral.model';
+
 export class Tip {
     id: number;
     descripcion: string;
@@ -7,16 +10,7 @@ export class Tip {
     constructor(){}
 }
 
-export class UsuarioGeneral {
-  id: number;
-  tips: Tip[];
-  estilosAprendizaje: TipoAprendizaje[];
-  constructor(
-    public nombre: string,
-    public correo: string,
-    public semestre: number
-  ) {
-  }
+
 
   /*
   @OneToOne(mappedBy = "usuario",
@@ -41,20 +35,4 @@ export class UsuarioGeneral {
   private List<Carrera> carrerasUsuario;
 
   */
-}
 
-export class TipoAprendizaje {
-  id: number;
-  descripcion: string;
-  tips: Tip[];
-  constructor() { }
-
-  /*
-  @ManyToMany(mappedBy = "estilosAprendizaje")
-  private List<UsuarioGeneral> usuarios;
-
-  @ManyToMany(mappedBy = "tiposAprendizaje")
-  private List<Tip> tips;
-  */
-
-}

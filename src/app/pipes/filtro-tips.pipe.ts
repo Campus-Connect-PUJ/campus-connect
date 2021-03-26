@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tip, TipoAprendizaje} from '../tips/shared/tips';
+import { Tip } from '../Model/Tip.model';
+
 
 
 @Pipe({

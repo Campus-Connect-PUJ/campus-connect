@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Post } from '../foros/shared/post';
+import { Foro } from '../Model/Foro.model';
 
 @Pipe({
   name: 'filtroForos'
 })
 export class FiltroForosPipe implements PipeTransform {
 
-  transform(posts: Post[], texto: string): Post[] {
+  transform(posts: Foro[], texto: string): Foro[] {
     if(texto.length===0){
       return posts;
     }

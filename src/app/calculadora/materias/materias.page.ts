@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GuardsCheckStart } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../shared/calculadora.service';
-import { NotasMateria } from '../shared/notas.model';
+import { NotasMateria } from '../../Model/Nota.model';
 import { AlertController } from '@ionic/angular';
 
 @Component({
