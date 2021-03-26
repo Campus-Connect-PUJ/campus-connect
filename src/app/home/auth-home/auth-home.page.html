@@ -1,9 +1,28 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
     <ion-title>auth_home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="light">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Destination</ion-card-subtitle>
+      <ion-card-title>Madison, WI</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+    </ion-card-content>
+  </ion-card>
 </ion-content>
