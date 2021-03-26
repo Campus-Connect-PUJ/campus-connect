@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-formulario-perso-restaurantes',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormularioPersoRestaurantesPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalController : ModalController) { }
 
   ngOnInit() {
   }
 
+  closeModal(){
+    this.modalController.dismiss();
+  }
 }

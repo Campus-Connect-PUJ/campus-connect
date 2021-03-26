@@ -1,18 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button>
+      <ion-button [routerLink]="['/recomendar-restaurantes']">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>DatosRestaurante</ion-title>
+    <ion-title>Restaurante</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-img src="https://www.civico.com/lugar/el-mirador-universidad-javeriana-bogota/"> </ion-img>
-    <ion-card-content> Información del restaurante</ion-card-content>
+    <ion-card-content> 
+      {{restauranteSelect.nombre}}
+      {{restauranteSelect.descripcion}}
+    </ion-card-content>
   </ion-card>
   
   <ion-row>
