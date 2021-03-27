@@ -1,6 +1,8 @@
+import { TipoComida } from "../TipoComida/tipo-comida";
+
 export class Restaurante {
   id: number;
-  tipo: string[] = [];
+  tipo: TipoComida[] = [];
   calificacion: number;
   regimenAlimenticio: string[] = [];
   franquicia: string;
