@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GrupoEstudiantil } from '../../shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from '../../shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../../../Model/GrupoEstudiantil/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-estudiantil.service';
 import { DatosGrupoPageRoutingModule } from './datos-grupo-routing.module';
 
 import { DatosGrupoPage } from './datos-grupo.page';

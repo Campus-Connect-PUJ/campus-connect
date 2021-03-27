@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
-import { GrupoEstudiantil } from '../../shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from '../../shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../../../Model/GrupoEstudiantil/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-estudiantil.service';
 
 @Component({
   selector: 'app-datos-grupo',
