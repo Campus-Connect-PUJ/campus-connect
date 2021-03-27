@@ -1,8 +1,9 @@
 import { Caracteristica } from "../Caracteristica/caracteristica";
+import { Tematica } from "../Tematica/tematica";
 
 export class GrupoEstudiantil {
   id: number;
-  tematicas: string[] = [];
+  tematicas: Tematica[] = [];
   calificacion: number;
   caracteristicas: Caracteristica[] = [];
   constructor(
