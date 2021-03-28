@@ -64,6 +64,7 @@ export class CalendarioPage implements OnInit {
   ngOnInit() {
     this.resetEvent();
     this.cargarEventos();
+    this.resetEvent();
   }
 
   resetEvent(){
@@ -187,8 +188,8 @@ export class CalendarioPage implements OnInit {
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
       header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      subHeader: 'Materia'+ (indice),
+      message: 'Esta apunto de borrar la materia '+ (indice),
       buttons: [
         {
           text: 'Cancel',
