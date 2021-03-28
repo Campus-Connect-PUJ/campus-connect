@@ -4,6 +4,7 @@ export class evento{
     allDay: boolean;
     endTime: Date;
     startTime: Date;
+    id: number;
     constructor(){
         
     }

@@ -106,12 +106,23 @@
     [currentDate]="calendar.currentDate"
     (onEventSelected)="onEventSelected($event)"
     (onTitleChanged)="onViewTitleChanged($event)"
+    [monthviewDisplayEventTemplate]="foo"
     startHour="6"
     endHour="20"
     step="30"
     startingDayWeek="1"
   >
   </calendar>
+
+  <ng-template #foo let-view="view" let-row="row" let-col="col">
+    {{view.dates[row*7+col].label}}
+    <div class="indicator-container">
+      <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+    </div>
+</ng-template>
+
+
+
 
  
 </ion-content>

@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { evento } from './evento.model';
+import { AlertController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-calendario',
@@ -8,6 +11,8 @@ import { evento } from './evento.model';
   styleUrls: ['./calendario.page.scss'],
 })
 export class CalendarioPage implements OnInit {
+
+
 
   public eventos: evento[] = [];
 
@@ -54,11 +59,10 @@ export class CalendarioPage implements OnInit {
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   
-  constructor() { }
+  constructor(public alertaCtrl: AlertController) { }
 
   ngOnInit() {
     this.resetEvent();
-
     this.cargarEventos();
   }
 
@@ -73,13 +77,20 @@ export class CalendarioPage implements OnInit {
   }
 
   addEvent(){
+    let cantidadDeEventos = 0;
+    cantidadDeEventos = this.eventSource.length;
+    if(cantidadDeEventos == null){
+      cantidadDeEventos = 0;
+    }
+
     console.log(this.event.startTime)
     let eventCopy = {
       title: this.event.title,
       startTime: new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
       allDay: this.event.allDay,
-      desc: this.event.desc
+      desc: this.event.desc,
+      id: cantidadDeEventos
     }
 
     if(eventCopy.allDay){
@@ -103,41 +114,44 @@ export class CalendarioPage implements OnInit {
   cargarEventos(){
     this.eventos = JSON.parse(localStorage.getItem("eventos"))
     console.log("Lo que sale", this.eventos);
-
-    for(let i=0; i<this.eventos.length; i++){
-      let eventCopy = {
-        title: this.eventos[i].title,
-        startTime: new Date(this.eventos[i].startTime),
-        endTime: new Date(this.eventos[i].endTime),
-        allDay: this.eventos[i].allDay,
-        desc: this.eventos[i].desc
-      }
-      
-
-      if(eventCopy.allDay){
-        let start = eventCopy.startTime;
-        let end = eventCopy.endTime;
+    try {
+      for(let i=0; i<this.eventos.length; i++){
+        let eventCopy = {
+          title: this.eventos[i].title,
+          startTime: new Date(this.eventos[i].startTime),
+          endTime: new Date(this.eventos[i].endTime),
+          allDay: this.eventos[i].allDay,
+          desc: this.eventos[i].desc,
+          id: this.eventos[i].id
+        }
+        
   
-        eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-        eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-      }
-  
-      this.eventSource.push(eventCopy);
-    }
-
+        if(eventCopy.allDay){
+          let start = eventCopy.startTime;
+          let end = eventCopy.endTime;
     
+          eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+          eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+        }
+    
+        this.eventSource.push(eventCopy);
+      }
+    } catch (error) {
+      console.log("nada")
+    }
 
     console.log(this.eventSource);
     localStorage.setItem("eventos", JSON.stringify(this.eventSource))
 
     //this.myCal.loadEvents();
-
-
   }
 
-  onEventSelected(){
-
+  onEventSelected(aaaa){
+    console.log("->",aaaa)
+    console.log("-->", aaaa.id)
+    this.presentAlert(aaaa.id)
   }
+
 
   changeMode(mode){
     this.calendar.mode = mode;
@@ -169,4 +183,33 @@ export class CalendarioPage implements OnInit {
   onClick(check){
     console.log(check)
   }
+
+  async presentAlert(indice){
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia'+ (indice+1),
+      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Borrar',
+          handler: () => {
+            console.log("Antes", indice,this.eventSource)
+            this.eventSource.splice(indice,1)
+            console.log("Despues", indice,this.eventSource)
+            localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+            this.myCal.loadEvents();
+          }
+        }
+      ]
+    })
+    await alert.present();
+  }
+
 }
