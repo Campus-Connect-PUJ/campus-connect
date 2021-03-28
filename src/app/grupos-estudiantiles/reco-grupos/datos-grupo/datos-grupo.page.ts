@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { GrupoEstudiantil } from '../../../Model/GrupoEstudiantil/grupo-estudiantil';
 import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-estudiantil.service';
@@ -11,7 +11,7 @@ import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-e
 })
 export class DatosGrupoPage implements OnInit {
 
-  grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "", "");
+  grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "");
 
   constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService) { }
 

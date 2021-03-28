@@ -9,9 +9,9 @@ export class GrupoEstudiantil {
   tematicas: Tematica[] = [];
   calificacion: number;
   caracteristicas: Caracteristica[] = [];
-  requisitos: Requisito[]=[];
+  requisitos: Requisito[] = [];
   facultad: Facultad;
-  resenia: ReseniaGrupo[]=[];
+  resenia: ReseniaGrupo[] = [];
   constructor(
     public descripcion: string,
     public nombre: string,
