@@ -13,12 +13,12 @@ export class TematicaService {
   constructor(private net: NetService) { }
 
   getRestaurantes(): Observable<Tematica[]> {
-    const url = `${environment.baseUrl}/restaurantes`;
+    const url = `${environment.baseUrl}/tematica`;
     return this.net.get<Tematica[]>(url);
   }
 
   getRestauranteById(id: number): Observable<Tematica> {
-    const url = `${environment.baseUrl}/restaurante/${id}`;
+    const url = `${environment.baseUrl}/tematica/${id}`;
     return this.net.get<Tematica>(url);
   }
 }
