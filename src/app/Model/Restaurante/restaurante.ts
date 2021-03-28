@@ -1,4 +1,5 @@
 import { Lugar } from "../Lugar/lugar";
+import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
 import { TipoComida } from "../TipoComida/tipo-comida";
 import { TipoRestaurante } from "../TipoRestaurante/tipo-restaurante";
 
@@ -12,6 +13,7 @@ export class Restaurante {
   tiempoEntrega:number;
   ambientacion: string;
   ubicacion: Lugar;
+  reseniaRestaurnate: ReseniaRestaurante[]=[];
   constructor(
     public nombre: string,
     public descripcion: string,
