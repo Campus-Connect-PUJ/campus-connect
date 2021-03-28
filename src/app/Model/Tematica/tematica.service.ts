@@ -13,7 +13,7 @@ export class TematicaService {
   constructor(private net: NetService) { }
 
   getRestaurantes(): Observable<Tematica[]> {
-    const url = `${environment.baseUrl}/tematica`;
+    const url = `${environment.baseUrl}/tematicas`;
     return this.net.get<Tematica[]>(url);
   }
 

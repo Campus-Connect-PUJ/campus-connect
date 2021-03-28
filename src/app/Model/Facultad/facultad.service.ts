@@ -13,7 +13,7 @@ export class FacultadService {
   constructor(private net: NetService) { }
 
   getRestaurantes(): Observable<Facultad[]> {
-    const url = `${environment.baseUrl}/facultad`;
+    const url = `${environment.baseUrl}/facultades`;
     return this.net.get<Facultad[]>(url);
   }
 
