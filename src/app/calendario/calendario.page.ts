@@ -11,6 +11,29 @@ export class CalendarioPage implements OnInit {
 
   public eventos: evento[] = [];
 
+  data = [
+    {
+      name: 'Lunes',
+      selected: false
+    },
+    {
+      name: 'Martes',
+      selected: false
+    },
+    {
+      name: 'Miercoles',
+      selected: false
+    },
+    {
+      name: 'Jueves',
+      selected: false
+    },
+    {
+      name: 'Viernes',
+      selected: false
+    },
+  ]
+
   event = {
     title: '',
     desc: ' ',
@@ -50,6 +73,7 @@ export class CalendarioPage implements OnInit {
   }
 
   addEvent(){
+    console.log(this.event.startTime)
     let eventCopy = {
       title: this.event.title,
       startTime: new Date(this.event.startTime),
@@ -65,6 +89,7 @@ export class CalendarioPage implements OnInit {
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
+
 
     this.eventSource.push(eventCopy);
 
@@ -87,7 +112,8 @@ export class CalendarioPage implements OnInit {
         allDay: this.eventos[i].allDay,
         desc: this.eventos[i].desc
       }
-  
+      
+
       if(eventCopy.allDay){
         let start = eventCopy.startTime;
         let end = eventCopy.endTime;
@@ -138,5 +164,9 @@ export class CalendarioPage implements OnInit {
 
   onTimeSelected(){
 
+  }
+
+  onClick(check){
+    console.log(check)
   }
 }
