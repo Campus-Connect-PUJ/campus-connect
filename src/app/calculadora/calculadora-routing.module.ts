@@ -18,8 +18,6 @@ const routes: Routes = [
         loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then(m => m.IngresarNotasPageModule)
       }
     ]
-    //path: 'ingresar-notas',
-    //loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
   },
   {
     path: 'resultado',
