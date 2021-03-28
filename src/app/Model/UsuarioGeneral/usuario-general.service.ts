@@ -15,7 +15,7 @@ export class UsuarioGeneralService {
   constructor(private net: NetService) { }
 
   createReseniaGrupo(resenia: ReseniaGrupo, usuario: UsuarioGeneral) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo//${resenia.id}`;
+    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo_grupo_estudiantil/${resenia.id}`;
     return this.net.post(
       url,
       {

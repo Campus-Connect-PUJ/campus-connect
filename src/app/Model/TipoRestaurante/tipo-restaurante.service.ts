@@ -13,12 +13,12 @@ export class TipoRestauranteService {
   constructor(private net: NetService) { }
 
   getTipoRestaurantes(): Observable<TipoRestaurante[]> {
-    const url = `${environment.baseUrl}/TipoRestaurantes`;
+    const url = `${environment.baseUrl}/tipo_restaurantes`;
     return this.net.get<TipoRestaurante[]>(url);
   }
 
   getTipoRestauranteById(id: number): Observable<TipoRestaurante> {
-    const url = `${environment.baseUrl}/TipoRestaurante/${id}`;
+    const url = `${environment.baseUrl}/tipo_restaurante/${id}`;
     return this.net.get<TipoRestaurante>(url);
   }
 }
