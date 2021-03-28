@@ -48,8 +48,7 @@
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
       <ion-card-title>New Event</ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="!collapseCard">
- 
+    <ion-card-content *ngIf="collapseCard">
       <ion-item>
         <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
       </ion-item>
@@ -69,7 +68,6 @@
         <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
       </ion-item>
       <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event</ion-button>
- 
     </ion-card-content>
   </ion-card>
 

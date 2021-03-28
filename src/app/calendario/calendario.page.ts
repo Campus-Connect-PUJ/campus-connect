@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
+import { evento } from './evento.model';
 
 @Component({
   selector: 'app-calendario',
@@ -7,6 +8,8 @@ import { CalendarComponent } from 'ionic2-calendar';
   styleUrls: ['./calendario.page.scss'],
 })
 export class CalendarioPage implements OnInit {
+
+  public eventos: evento[] = [];
 
   event = {
     title: '',
@@ -32,6 +35,8 @@ export class CalendarioPage implements OnInit {
 
   ngOnInit() {
     this.resetEvent();
+
+    this.cargarEventos();
   }
 
   resetEvent(){
@@ -62,9 +67,46 @@ export class CalendarioPage implements OnInit {
     }
 
     this.eventSource.push(eventCopy);
+
     console.log(this.eventSource);
+    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+
     this.myCal.loadEvents();
     this.resetEvent();
+  }
+
+  cargarEventos(){
+    this.eventos = JSON.parse(localStorage.getItem("eventos"))
+    console.log("Lo que sale", this.eventos);
+
+    for(let i=0; i<this.eventos.length; i++){
+      let eventCopy = {
+        title: this.eventos[i].title,
+        startTime: new Date(this.eventos[i].startTime),
+        endTime: new Date(this.eventos[i].endTime),
+        allDay: this.eventos[i].allDay,
+        desc: this.eventos[i].desc
+      }
+  
+      if(eventCopy.allDay){
+        let start = eventCopy.startTime;
+        let end = eventCopy.endTime;
+  
+        eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+        eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+      }
+  
+      this.eventSource.push(eventCopy);
+    }
+
+    
+
+    console.log(this.eventSource);
+    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+
+    //this.myCal.loadEvents();
+
+
   }
 
   onEventSelected(){
