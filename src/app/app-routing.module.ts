@@ -96,7 +96,11 @@ const routes: Routes = [
   {
     path: 'crowd-restaurante',
     loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
+  },  {
+    path: 'monitores',
+    loadChildren: () => import('./monitores/monitores.module').then( m => m.MonitoresPageModule)
   }
+
 
 ];
 @NgModule({
