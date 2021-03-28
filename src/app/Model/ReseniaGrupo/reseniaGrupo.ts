@@ -1,4 +1,4 @@
-export class Resenia {
+export class ReseniaGrupo {
     id: number;
     cantEstrellas: number;
     constructor() {}
