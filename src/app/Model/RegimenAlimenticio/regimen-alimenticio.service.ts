@@ -12,12 +12,12 @@ export class RegimenAlimenticioService {
 
   constructor(private net: NetService) { }
 
-  getRestaurantes(): Observable<RegimenAlimenticio[]> {
-    const url = `${environment.baseUrl}/regimenAlimenticios`;
+  getRegimenAlimenticios(): Observable<RegimenAlimenticio[]> {
+    const url = `${environment.baseUrl}/regimenesAlimenticios`;
     return this.net.get<RegimenAlimenticio[]>(url);
   }
 
-  getRestauranteById(id: number): Observable<RegimenAlimenticio> {
+  getRegimenAlimenticioById(id: number): Observable<RegimenAlimenticio> {
     const url = `${environment.baseUrl}/regimenAlimenticio/${id}`;
     return this.net.get<RegimenAlimenticio>(url);
   }

@@ -12,12 +12,12 @@ export class FacultadService {
 
   constructor(private net: NetService) { }
 
-  getRestaurantes(): Observable<Facultad[]> {
+  getFacultades(): Observable<Facultad[]> {
     const url = `${environment.baseUrl}/facultades`;
     return this.net.get<Facultad[]>(url);
   }
 
-  getRestauranteById(id: number): Observable<Facultad> {
+  getFacultadById(id: number): Observable<Facultad> {
     const url = `${environment.baseUrl}/facultad/${id}`;
     return this.net.get<Facultad>(url);
   }
