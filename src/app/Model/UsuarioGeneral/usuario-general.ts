@@ -1,3 +1,4 @@
+import { RegimenAlimenticio } from "../RegimenAlimenticio/regimen-alimenticio";
 import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
 import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
 import { Tip } from "../Tip/tip";
@@ -10,6 +11,8 @@ export class UsuarioGeneral {
     estilosAprendizaje: TipoAprendizaje[];
     reseniasGrupo: ReseniaGrupo[];
     reseniaRestaurante: ReseniaRestaurante[];
+    regimenAlimenticio: RegimenAlimenticio;
+    nivelRegimenAlimenticio: number;
     constructor(
       public nombre: string,
       public correo: string,
