@@ -6,11 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<img src="../../../assets/fondo.png" id="bg">
+
 <ion-content padding class="background" [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Titulo</ion-card-title>
+      <ion-card-title>Descripción</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-input type="string" [(ngModel)]="titulo"></ion-input>
@@ -18,16 +18,15 @@
   </ion-card>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Descripción</ion-card-title>
+      <ion-card-title>Tipos de Aprendizaje</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
     </ion-card-content>
   </ion-card>
 
-
   <div class="btn-crearForo">
-    <ion-card class="boton-mas" (click)=crearForo() [routerLink]="['/tabs/servicios-academicos']">
+    <ion-card class="boton-mas" (click)=crearTip() [routerLink]="['/tabs/servicios-academicos']">
       <h1>+</h1>
     </ion-card>
   </div>

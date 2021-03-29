@@ -11,6 +11,7 @@ import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 })
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
+  color: boolean = false;
   foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -24,17 +25,21 @@ export class ForoDetallesPage implements OnInit {
       console.log("indice", this.indice)
       this.findForo(this.indice);
     })
-    
   }
 
   findForo(indice: number){
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
-        
       },
       error => console.error(error)
     )
+  }
+
+  calificacion(operacion: number){
+    console.log(operacion, this.color)
+    this.color = !this.color;
+    
   }
 
 

@@ -21,4 +21,16 @@ export class TipsService {
     return this.net.get<Tip>(url);
   }
 
+  createTip(tip: Tip) {
+    const url = `${environment.baseUrl}/tip/${tip.usuario.id}`;
+    return this.net.post(
+      url,
+      {
+        descripcion: tip.descripcion,
+        //tiposAprendizaje: tip.tiposAprendizaje
+      }
+    );
+  }
+
+
 }

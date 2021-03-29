@@ -1,3 +1,5 @@
+
+
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
@@ -25,8 +27,8 @@
       </div>
 
       <div class="votos">
-        <ion-icon name="arrow-down" id="abajo"></ion-icon>
-        <ion-icon name="arrow-up" id="abajo"></ion-icon>
+        <ion-icon name="arrow-down" (click)="calificacion(-1)"></ion-icon>
+        <ion-icon name="arrow-up" (click)="calificacion(1)"></ion-icon>
       </div>
     </div>
   </ion-card>
@@ -47,13 +49,11 @@
           <h2>{{foro.descripcion}}</h2>
         </ion-card-content>
       </div>
-
     <div class="informacion">
       <div class="usuario">
         <ion-icon name="person-circle-outline"></ion-icon>
         <h3>{{foro.usuario.nombre}}</h3>
       </div>
-      
       <div class="votos">
         <ion-icon name="arrow-down"></ion-icon>
         <ion-icon name="arrow-up"></ion-icon>
