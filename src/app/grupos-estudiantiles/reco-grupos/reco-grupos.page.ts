@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GrupoEstudiantil } from '../shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from '../shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../../Model/GrupoEstudiantil/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../Model/GrupoEstudiantil/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
 import { DatosGrupoPage } from './datos-grupo/datos-grupo.page';

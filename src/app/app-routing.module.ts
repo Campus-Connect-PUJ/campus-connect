@@ -87,7 +87,8 @@ const routes: Routes = [
   },
   {
     path: 'datos-restaurante',
-    loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+    loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+    // loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
   },
   {
     path: 'sugerencias-principal',

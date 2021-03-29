@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Restaurante } from '../restaurantes/clase/restaurante';
+import { Restaurante } from '../Model/Restaurante/restaurante';
 
 @Pipe({
   name: 'filtroRestaurantes'

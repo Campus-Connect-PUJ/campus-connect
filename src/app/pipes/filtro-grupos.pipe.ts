@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { GrupoEstudiantil } from '../grupos-estudiantiles/shared/grupo-estudiantil';
+import { GrupoEstudiantil } from '../Model/GrupoEstudiantil/grupo-estudiantil';
 
 @Pipe({
   name: 'filtroGrupos'

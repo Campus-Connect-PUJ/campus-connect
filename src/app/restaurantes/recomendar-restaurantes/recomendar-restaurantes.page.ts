@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { Restaurante } from '../clase/restaurante';
-import { RestauranteService } from '../clase/restaurante.service';
+import { Restaurante } from '../../Model/Restaurante/restaurante';
+import { RestauranteService } from '../../Model/Restaurante/restaurante.service';
 import {ModalController} from '@ionic/angular';
 import {FormularioPersoRestaurantesPage} from '../formulario-perso-restaurantes/formulario-perso-restaurantes.page';
 
