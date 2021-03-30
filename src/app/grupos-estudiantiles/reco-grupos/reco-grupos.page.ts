@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { GrupoEstudiantil } from '../shared/grupo-estudiantil';
-import { GrupoEstudiantilService } from '../shared/grupo-estudiantil.service';
+import { GrupoEstudiantil } from '../../Model/GrupoEstudiantil/grupo-estudiantil';
+import { GrupoEstudiantilService } from '../../Model/GrupoEstudiantil/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
 import { DatosGrupoPage } from './datos-grupo/datos-grupo.page';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 
-import {FormularioPersoGruposPage} from '../formulario-perso-grupos/formulario-perso-grupos.page';
+import { FormularioPersoGruposPage } from '../formulario-perso-grupos/formulario-perso-grupos.page';
+import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudiantiles/grupos-estudiantiles.component';
+
 
 @Component({
   selector: 'app-reco-grupos',

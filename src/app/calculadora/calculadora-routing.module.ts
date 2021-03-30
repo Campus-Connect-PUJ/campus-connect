@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { CalculadoraPage } from './calculadora.page';
-
 const routes: Routes = [
   {
     path: '',
@@ -10,16 +8,40 @@ const routes: Routes = [
   },
   {
     path: 'ingresar-notas',
-    loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
-  },  {
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then(m => m.IngresarNotasPageModule)
+      },
+      {
+        path: ":tipId",
+        loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then(m => m.IngresarNotasPageModule)
+      }
+    ]
+    //path: 'ingresar-notas',
+    //loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
+  },
+  {
     path: 'resultado',
-    loadChildren: () => import('./resultado/resultado.module').then( m => m.ResultadoPageModule)
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./resultado/resultado.module').then( m => m.ResultadoPageModule)
+      },
+      {
+        path: ":tipId",
+        loadChildren: () => import('./resultado/resultado.module').then( m => m.ResultadoPageModule)
+      }
+    ]
   },
   {
     path: 'materias',
     loadChildren: () => import('./materias/materias.module').then( m => m.MateriasPageModule)
+  },
+  {
+    path: 'alerta',
+    loadChildren: () => import('./alerta/alerta.module').then( m => m.AlertaPageModule)
   }
-
 
 
 ];

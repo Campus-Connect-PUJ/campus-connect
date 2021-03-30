@@ -1,0 +1,43 @@
+ion-tab-button {
+    --color: var(--ion-color-medium);
+    --color-selected: var(--ion-color-primary);
+  
+    &::before {
+      background-color: transparent;
+      display: block;
+      content: "";
+      margin: 0 auto;
+      width: 20px;
+      height: 2px;
+    }
+  
+    &.tab-selected::before {
+      background-color: var(--ion-color-primary);
+    }
+  }
+
+
+#prueba{
+  display: flex;
+  align-items: center;
+}
+
+#prueba h1{
+  font-size: 20px;
+  padding-right: 10px;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+ion-fab-button{
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+ion-fab-list{
+  background-color: red;
+}
