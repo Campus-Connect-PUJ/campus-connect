@@ -79,7 +79,7 @@ export class RegistroPage implements OnInit {
           // console.log("User ",user);
           // TODO Check email.
           console.log("User created.", user);
-          this.router.navigate(["auth-home"]);
+          this.router.navigate(["formulario_registro"]);
           // Check Email
         }
       }

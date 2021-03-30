@@ -9,12 +9,8 @@ import { AuthHomePageRoutingModule } from './auth-home-routing.module';
 import { AuthHomePage } from './auth-home.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AuthHomePageRoutingModule
-  ],
-  declarations: [AuthHomePage]
+  imports: [CommonModule, FormsModule, IonicModule, AuthHomePageRoutingModule],
+  declarations: [AuthHomePage],
 })
-export class AuthHomePageModule {}
+export class AuthHomePageModule {
+}

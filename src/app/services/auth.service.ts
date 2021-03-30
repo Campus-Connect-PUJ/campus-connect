@@ -26,6 +26,7 @@ export class AuthService {
         return of(null);
       })
     );
+
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -101,7 +102,7 @@ export class AuthService {
 
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
+      `users/${user.email}`
     );
     const data: User = {
       uid: user.uid,
@@ -117,5 +118,25 @@ export class AuthService {
 
   async isEmailVerified(user: User) {
     return user.emailVerified === true ? true : false;
+  }
+
+  public async getUserdata(email: string){
+    let data
+    await this.afs
+      .collection("users")
+      .doc(email)
+      .ref.get()
+      .then(function (doc) {
+        if (doc.exists) {
+          //console.log("Document data:", doc.data());
+          data = doc.data();
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+    return data;
   }
 }
