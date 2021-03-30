@@ -2,8 +2,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { evento } from './evento.model';
 import { AlertController } from '@ionic/angular';
+import * as moment from 'moment';
 
-
+export class listaEventos{
+  title: string;
+  desc: string;
+  allDay: boolean;
+  endTime: Date;
+  startTime: Date;
+  id: number;
+  constructor(){    
+  }
+}
 
 @Component({
   selector: 'app-calendario',
@@ -11,8 +21,6 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./calendario.page.scss'],
 })
 export class CalendarioPage implements OnInit {
-
-
 
   public eventos: evento[] = [];
 
@@ -47,6 +55,16 @@ export class CalendarioPage implements OnInit {
     allDay: false
   };
 
+  event2 = {
+    title: '',
+    desc: ' ',
+    startTime: ' ',
+    endTime: ' ',
+    sTime: ' ',
+    eTime: ' ',
+    allDay: false
+  };
+
   minDate = new Date().toISOString;
 
   eventSource = [];
@@ -61,6 +79,8 @@ export class CalendarioPage implements OnInit {
   
   constructor(public alertaCtrl: AlertController) { }
 
+  muchosEventos: listaEventos[] = [];
+
   ngOnInit() {
     this.resetEvent();
     this.cargarEventos();
@@ -74,6 +94,16 @@ export class CalendarioPage implements OnInit {
       startTime: new Date().toISOString(),
       endTime: new Date().toISOString(),
       allDay: false
+    };
+
+    this.event2 = {
+      title: '',
+      desc: ' ',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false,
+      sTime: ' ',
+      eTime: ' ',
     };
   }
 
@@ -102,9 +132,7 @@ export class CalendarioPage implements OnInit {
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
 
-
     this.eventSource.push(eventCopy);
-
     console.log(this.eventSource);
     localStorage.setItem("eventos", JSON.stringify(this.eventSource))
 
@@ -112,8 +140,74 @@ export class CalendarioPage implements OnInit {
     this.resetEvent();
   }
 
+  addEventMateria(){
+    let cantidadDeEventos = 0;
+    cantidadDeEventos = this.eventSource.length;
+    if(cantidadDeEventos == null){
+      cantidadDeEventos = 0;
+    }
+
+    let eventCopy = {
+      title: this.event2.title,
+      startTime: new Date(this.event2.startTime),
+      endTime: new Date(this.event2.endTime),
+      allDay: this.event2.allDay,
+      desc: this.event2.desc,
+      id: cantidadDeEventos
+    }
+
+    let eventCopy2 = {
+      title: this.event2.title,
+      startTime: new Date(this.event2.startTime),
+      endTime: new Date(this.event2.endTime),
+      allDay: this.event2.allDay,
+      sTime: this.event2.sTime,
+      eTime: this.event2.eTime,
+      desc: this.event2.desc,
+      id: cantidadDeEventos
+    }
+    
+
+    let fechaInicioTotal = moment(eventCopy2.startTime);
+    let fechaFinTotal = moment(eventCopy2.endTime);
+    let horaInicio = moment(eventCopy2.sTime) 
+    let horaFinal = moment(eventCopy2.eTime)
+    let tiempos1 = eventCopy2.sTime.split(":");
+    let tiempos2 = eventCopy2.eTime.split(":");
+    let a = 0;
+
+    fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
+
+    
+    for(let i=0; moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal); i=7){
+
+
+      eventCopy = eventCopy2;
+      eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
+      eventCopy.endTime = moment(eventCopy.startTime).add(Number(tiempos2[0])- Number(tiempos1[0]),'hours').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1])- Number(tiempos1[1]),'minutes').toDate();
+      fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
+      
+      localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
+      eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
+      eventCopy.startTime = moment(eventCopy.startTime).toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).toDate();
+      this.eventSource.push(eventCopy);
+      localStorage.removeItem(eventCopy.title);
+    }
+
+    console.log("->",this.eventSource);
+    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+
+    
+    this.myCal.loadEvents();
+    this.resetEvent();
+
+  }
+
   cargarEventos(){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"))
+
+    //this.eventos = JSON.parse(localStorage.getItem("eventos"))
     console.log("Lo que sale", this.eventos);
     try {
       for(let i=0; i<this.eventos.length; i++){
@@ -150,7 +244,7 @@ export class CalendarioPage implements OnInit {
   onEventSelected(aaaa){
     console.log("->",aaaa)
     console.log("-->", aaaa.id)
-    this.presentAlert(aaaa.id)
+    //this.presentAlert(aaaa.id)
   }
 
 
@@ -185,6 +279,7 @@ export class CalendarioPage implements OnInit {
     console.log(check)
   }
 
+  /*
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
       header: '¿Borrar materia?',
@@ -212,5 +307,6 @@ export class CalendarioPage implements OnInit {
     })
     await alert.present();
   }
+  */
 
 }

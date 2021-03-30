@@ -77,18 +77,26 @@
     </ion-card-header>
     <ion-card-content *ngIf="collapseCard2">
       <ion-item>
-        <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+        <ion-input type="text" placeholder="Title" [(ngModel)]="event2.title"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
+        <ion-input type="text" placeholder="Description" [(ngModel)]="event2.desc"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event.startTime"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="D MMM"[(ngModel)]="event2.endTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm"[(ngModel)]="event2.eTime"></ion-datetime>
       </ion-item>
 
       <ion-item *ngFor="let check of data" (click)="onClick(check)">
@@ -96,7 +104,7 @@
         <ion-checkbox [(ngModel)]="check.selected"></ion-checkbox>
       </ion-item>
 
-      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event</ion-button>
+      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Add Event</ion-button>
     </ion-card-content>
   </ion-card>
 
