@@ -170,8 +170,6 @@ export class CalendarioPage implements OnInit {
 
     let fechaInicioTotal = moment(eventCopy2.startTime);
     let fechaFinTotal = moment(eventCopy2.endTime);
-    let horaInicio = moment(eventCopy2.sTime) 
-    let horaFinal = moment(eventCopy2.eTime)
     let tiempos1 = eventCopy2.sTime.split(":");
     let tiempos2 = eventCopy2.eTime.split(":");
     let a = 0;
@@ -179,8 +177,9 @@ export class CalendarioPage implements OnInit {
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
 
     
-    for(let i=0; moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal); i=7){
-
+    
+    for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
+      console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
 
       eventCopy = eventCopy2;
       eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
@@ -188,6 +187,8 @@ export class CalendarioPage implements OnInit {
       eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1])- Number(tiempos1[1]),'minutes').toDate();
       fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
       
+      
+
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
       eventCopy.startTime = moment(eventCopy.startTime).toDate();
@@ -197,6 +198,11 @@ export class CalendarioPage implements OnInit {
     }
 
     console.log("->",this.eventSource);
+
+    if(!moment(fechaInicioTotal).isBefore(fechaFinTotal) ){
+      this.eventSource.splice( this.eventSource.length-1, 1)
+    }
+    
     localStorage.setItem("eventos", JSON.stringify(this.eventSource))
 
     
@@ -207,7 +213,7 @@ export class CalendarioPage implements OnInit {
 
   cargarEventos(){
 
-    //this.eventos = JSON.parse(localStorage.getItem("eventos"))
+    this.eventos = JSON.parse(localStorage.getItem("eventos"))
     console.log("Lo que sale", this.eventos);
     try {
       for(let i=0; i<this.eventos.length; i++){
