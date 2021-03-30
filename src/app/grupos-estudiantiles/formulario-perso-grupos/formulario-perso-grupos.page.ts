@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-formulario-perso-grupos',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormularioPersoGruposPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalController:ModalController) { }
 
   ngOnInit() {
+  }
+
+  closeModal(){
+    this.modalController.dismiss();
   }
 
 }

@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 
 import { DatosGrupoPage } from './datos-grupo/datos-grupo.page';
 import { NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+
+import { FormularioPersoGruposPage } from '../formulario-perso-grupos/formulario-perso-grupos.page';
 import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudiantiles/grupos-estudiantiles.component';
+
 
 @Component({
   selector: 'app-reco-grupos',
@@ -20,7 +24,8 @@ export class RecoGruposPage implements OnInit {
   constructor(
     private geService: GrupoEstudiantilService,
     public router: Router,
-    public navCtrl : NavController
+    public navCtrl : NavController,
+    private modalController :ModalController
   ) { }
 
   ngOnInit() {
@@ -45,5 +50,11 @@ export class RecoGruposPage implements OnInit {
 
   infoGrupo(){
     
+  }
+
+  openModal(){
+    this.modalController.create({component:FormularioPersoGruposPage}).then((modalElement)=>{
+      modalElement.present();
+    });
   }
 }

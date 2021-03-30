@@ -12,16 +12,22 @@
 <ion-content>
   <ion-searchbar placeholder="Buscar Grupo Estudiantil..."  animated (ionChange)="buscarGrupoEstudiantil ($event)"></ion-searchbar>
   
-    <ion-button  class="button button-assertive button-clear" >
+    <ion-button (click) = "activarFiltros()" class="button button-assertive button-clear" >
       Filtros <ion-icon name="arrow-dropdown"></ion-icon>
     </ion-button>
-   <ion-item>
-        <ion-label>Horario</ion-label>
-        <ion-datetime displayFormat="h:mm a"></ion-datetime>
+      <ion-item>
+        <ion-label>Tematica</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="f">A</ion-select-option>
+          <ion-select-option value="m">B</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Actividades de interes</ion-label>
-        <ion-input type="text"  ></ion-input>
+        <ion-label>Facultad</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="f">A</ion-select-option>
+          <ion-select-option value="m">B</ion-select-option>
+        </ion-select>
       </ion-item>
       
   <ion-list>
