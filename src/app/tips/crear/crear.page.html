@@ -25,8 +25,18 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-item *ngFor="let tipo of tipoDeAprendizaje">
+    <ion-input type="string" [(ngModel)]="tipo.descripcion"></ion-input>
+  </ion-item>
+
+  <ion-button (click)=masEstilos()>
+    mas
+  </ion-button>
+
+
+
   <div class="btn-crearForo">
-    <ion-card class="boton-mas" (click)=crearTip() [routerLink]="['/tabs/servicios-academicos']">
+    <ion-card class="boton-mas" [routerLink]="['/tabs/servicios-academicos']">
       <h1>+</h1>
     </ion-card>
   </div>
