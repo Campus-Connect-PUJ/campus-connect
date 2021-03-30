@@ -21,7 +21,7 @@
   </ion-item>
   <ion-item>
           <ion-label>Caracteristicas</ion-label>
-            <ion-item *ngFor="let caracteristica of {{tematica.caracteristicas}}">
+            <ion-item *ngFor="let caracteristica of caracteristicas">
               <ion-label>{{caracteristica.descripcion}}</ion-label>
               <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
             </ion-item>

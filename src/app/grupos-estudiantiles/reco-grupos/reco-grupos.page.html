@@ -12,24 +12,26 @@
 <ion-content>
   <ion-searchbar placeholder="Buscar Grupo Estudiantil..."  animated (ionChange)="buscarGrupoEstudiantil ($event)"></ion-searchbar>
   
-    <ion-button (click) = "activarFiltros()" class="button button-assertive button-clear" >
-      Filtros <ion-icon name="arrow-dropdown"></ion-icon>
-    </ion-button>
+    <ion-card>
+      <ion-card-header tappable (click)="collapseCard = !collapseCard">
+        <ion-card-title>Filtros</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard">
       <ion-item>
         <ion-label>Tematica</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option value="f">A</ion-select-option>
-          <ion-select-option value="m">B</ion-select-option>
+        <ion-select [compareWith]="compareWith">
+          <ion-select-option *ngFor="let tematica of tematicas" [value]="tematica">{{tematica.descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>Facultad</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option value="f">A</ion-select-option>
-          <ion-select-option value="m">B</ion-select-option>
+        <ion-select [compareWith]="compareWith">
+          <ion-select-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad.descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
-      
+      </ion-card-content>
+    </ion-card>  
+
   <ion-list>
     <ion-card *ngFor="let grupo of grupos | filtroGrupos:textoBuscar">
       <ion-card-header>

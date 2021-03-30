@@ -9,6 +9,10 @@ import { ModalController } from '@ionic/angular';
 
 import { FormularioPersoGruposPage } from '../formulario-perso-grupos/formulario-perso-grupos.page';
 import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudiantiles/grupos-estudiantiles.component';
+import { Tematica } from 'src/app/Model/Tematica/tematica';
+import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
+import { Facultad } from 'src/app/Model/Facultad/facultad';
+import { FacultadService } from 'src/app/Model/Facultad/facultad.service';
 
 
 @Component({
@@ -19,13 +23,17 @@ import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudian
 export class RecoGruposPage implements OnInit {
 
   grupos: GrupoEstudiantil[] = [];
+  tematicas: Tematica[] = [];
+  facultades: Facultad[] = [];
   textoBuscar='';
 
   constructor(
     private geService: GrupoEstudiantilService,
     public router: Router,
     public navCtrl : NavController,
-    private modalController :ModalController
+    private modalController :ModalController,
+    private tematicasService : TematicaService,
+    private facService : FacultadService
   ) { }
 
   ngOnInit() {
@@ -56,5 +64,25 @@ export class RecoGruposPage implements OnInit {
     this.modalController.create({component:FormularioPersoGruposPage}).then((modalElement)=>{
       modalElement.present();
     });
+  }
+
+  findTematica() {
+    this.tematicasService.getTematicas().subscribe(
+      results => {
+        console.log(results);
+        this.tematicas = results;
+      },
+      error => console.error(error)
+    )
+  }
+
+  findFacultad() {
+    this.facService.getFacultades().subscribe(
+      results => {
+        console.log(results);
+        this.facultades = results;
+      },
+      error => console.error(error)
+    )
   }
 }
