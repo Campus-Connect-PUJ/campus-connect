@@ -5,6 +5,8 @@ import { Restaurante } from '../../Model/Restaurante/restaurante';
 import { RestauranteService } from '../../Model/Restaurante/restaurante.service';
 import {ModalController} from '@ionic/angular';
 import {FormularioPersoRestaurantesPage} from '../formulario-perso-restaurantes/formulario-perso-restaurantes.page';
+import { TipoComidaService } from 'src/app/Model/TipoComida/tipo-comida.service';
+import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
 
 
 @Component({
@@ -15,13 +17,15 @@ import {FormularioPersoRestaurantesPage} from '../formulario-perso-restaurantes/
 export class RecomendarRestaurantesPage implements OnInit {
 
   restaurantes: Restaurante[] = [];
+  comidas: TipoComida[] = [];
   textoBuscar='';
 
   constructor(
     private restauranteService: RestauranteService,
     public router: Router,
     public navCtrl : NavController,
-    private modalControler : ModalController
+    private modalControler : ModalController,
+    private tcService : TipoComidaService
   ) { }
 
   ngOnInit() {
@@ -42,6 +46,16 @@ export class RecomendarRestaurantesPage implements OnInit {
     const texto = event.target.value;
     this.textoBuscar = texto;
     
+  }
+
+  findComida() {
+    this.tcService.getTipoComida().subscribe(
+      results => {
+        console.log(results);
+        this.comidas = results;
+      },
+      error => console.error(error)
+    )
   }
 
   infoRestaurante(){
