@@ -37,21 +37,20 @@
       <ion-radio slot="start" value="no"></ion-radio>
     </ion-item>
   </ion-item>
-
-  <ion-item>
-    <ion-label>Actividades de interes</ion-label>
-    <ion-list *ngFor="let actividad of actividades">
-      <ion-input type="string" [(ngModel)]="actividad"></ion-input>
-    </ion-list>
+  
+  <ion-label>Actividades de interes</ion-label>
+  <ion-item *ngFor="let act of actividades; let i = index">
+    <ion-input type="string" [(ngModel)]="act.nombre"></ion-input>
   </ion-item>
   <ion-button (click)="masActividad()"> + actividades </ion-button>
-  <ion-item>
-    <ion-label>Hobbies</ion-label>
-    <ion-list *ngFor="let hobbie of Hobbies">
-    <ion-input placeholder="Actividad" type="string" [(ngModel)]="hobbie"></ion-input>
-    </ion-list>
+
+
+
+  <ion-label>Hobbies</ion-label>
+  <ion-item *ngFor="let hobbie of hobbies">
+    <ion-input placeholder="Hobbies" type="string" [(ngModel)]="hobbie.nombre"></ion-input>
   </ion-item>
   <ion-button (click)="masHobbies()"> + hobbies </ion-button>
-  
+
   <ion-button>Guardar</ion-button>
 </ion-content>
