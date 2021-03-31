@@ -7,7 +7,8 @@
 
 <ion-content>
   <ion-item>
-    <ion-label>Hola! Con el fin de brindarte un mejor servicio te proponemos llenar este formulario con tus gustos
+    <ion-label class="ion-text-wrap">
+      Hola! Con el fin de brindarte un mejor servicio te proponemos llenar este formulario con tus gustos
       y preferencias. En caso de que no lo desees puedes darle click a "Cerrar".
     </ion-label>
   </ion-item>
@@ -42,7 +43,10 @@
   <ion-item *ngFor="let act of actividades; let i = index">
     <ion-input type="string" [(ngModel)]="act.nombre"></ion-input>
   </ion-item>
-  <ion-button (click)="masActividad()"> + actividades </ion-button>
+  <ion-item>
+    <ion-button (click)="masActividad()"> + actividades </ion-button>
+  </ion-item>
+  
 
 
 
@@ -50,7 +54,10 @@
   <ion-item *ngFor="let hobbie of hobbies">
     <ion-input placeholder="Hobbies" type="string" [(ngModel)]="hobbie.nombre"></ion-input>
   </ion-item>
-  <ion-button (click)="masHobbies()"> + hobbies </ion-button>
+  <ion-item>
+    <ion-button (click)="masHobbies()"> + hobbies </ion-button>
+  </ion-item>
+  
 
-  <ion-button>Guardar</ion-button>
+  <ion-button expand="block">Guardar</ion-button>
 </ion-content>
