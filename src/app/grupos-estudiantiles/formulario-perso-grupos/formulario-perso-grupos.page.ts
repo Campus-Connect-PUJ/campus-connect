@@ -11,6 +11,8 @@ import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
 export class FormularioPersoGruposPage implements OnInit {
 
   tematicas: Tematica[]=[];
+  actividades: String[]=[];
+  hobbies: String[]=[];
 
   constructor(private modalController:ModalController, private tematicasService: TematicaService) { }
 
@@ -31,4 +33,11 @@ export class FormularioPersoGruposPage implements OnInit {
     )
   }
 
+  masActividad(){
+    this.actividades.push(new String());
+  }
+
+  masHobbies(){
+    this.hobbies.push(new String());
+  }
 }

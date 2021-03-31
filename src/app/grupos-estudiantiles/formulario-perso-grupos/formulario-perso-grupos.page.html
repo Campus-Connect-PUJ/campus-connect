@@ -39,16 +39,19 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>Actividades</ion-label>
-    <ion-list>
-      <ion-input></ion-input>
+    <ion-label>Actividades de interes</ion-label>
+    <ion-list *ngFor="let actividad of actividades">
+      <ion-input type="string" [(ngModel)]="actividad"></ion-input>
     </ion-list>
   </ion-item>
+  <ion-button (click)="masActividad()"> + actividades </ion-button>
   <ion-item>
     <ion-label>Hobbies</ion-label>
-    <ion-input placeholder="Actividad"></ion-input>
-    <ion-input placeholder="Motivación"></ion-input>
+    <ion-list *ngFor="let hobbie of Hobbies">
+    <ion-input placeholder="Actividad" type="string" [(ngModel)]="hobbie"></ion-input>
+    </ion-list>
   </ion-item>
+  <ion-button (click)="masHobbies()"> + hobbies </ion-button>
   
   <ion-button>Guardar</ion-button>
 </ion-content>
