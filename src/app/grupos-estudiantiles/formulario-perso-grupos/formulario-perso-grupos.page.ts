@@ -6,6 +6,9 @@ import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
 
 export class actividad{
   nombre: String;
+  constructor(n){
+    this.nombre = n;
+  }
 }
 
 @Component({
@@ -17,8 +20,8 @@ export class actividad{
 export class FormularioPersoGruposPage implements OnInit {
 
   tematicas: Tematica[]=[];
-  actividades: Array<actividad> = [ {nombre: ""}];
-  hobbies: Array<actividad> = [ {nombre: ""}];
+  actividades: Array<actividad> = [ new actividad(" ")];
+  hobbies: Array<actividad> = [ new actividad(" ")];
 
 
   constructor(private modalController:ModalController, private tematicasService: TematicaService) { }
@@ -42,12 +45,12 @@ export class FormularioPersoGruposPage implements OnInit {
   }
 
   masActividad(){
-    this.actividades.push(new actividad());
+    this.actividades.push(new actividad(" "));
     console.log(this.actividades)
   }
 
   masHobbies(){
-    this.hobbies.push(new actividad());
+    this.hobbies.push(new actividad(" "));
     console.log(this.hobbies)
   }
 }
