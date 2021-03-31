@@ -17,8 +17,8 @@ export class actividad{
 export class FormularioPersoGruposPage implements OnInit {
 
   tematicas: Tematica[]=[];
-  actividades: Array<actividad> = [ {nombre: "algo"}];
-  hobbies: Array<actividad> = [ {nombre: "algo"}];
+  actividades: Array<actividad> = [ {nombre: ""}];
+  hobbies: Array<actividad> = [ {nombre: ""}];
 
 
   constructor(private modalController:ModalController, private tematicasService: TematicaService) { }
