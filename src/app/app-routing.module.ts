@@ -20,11 +20,16 @@ const routes: Routes = [
   },
   {
     path: 'reco-grupos',
-    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
-  },
-  {
-    path: 'datos-grupo',
-    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+    children: [
+      {
+        path:"",
+        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+      },
+      {
+        path: ":grupoID",
+        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+      }
+    ]
   },
   {
     path: 'formulario-perso-grupos',
@@ -84,11 +89,6 @@ const routes: Routes = [
   {
     path: 'formulario-perso-restaurantes',
     loadChildren: () => import('./restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module').then( m => m.FormularioPersoRestaurantesPageModule)
-  },
-  {
-    path: 'datos-restaurante',
-    loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
-    // loadChildren: () => import('./datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
   },
   {
     path: 'sugerencias-principal',

@@ -33,7 +33,7 @@ import { FormularioPersoRestaurantesPageModule } from './restaurantes/formulario
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
-    FormularioPersoGruposPageModule
+    FormularioPersoGruposPageModule,
     IonicStorageModule.forRoot(),
     FormularioPersoRestaurantesPageModule
     //RecoGruposPage

@@ -35,9 +35,13 @@ export class FormularioPersoGruposPage implements OnInit {
 
   masActividad(){
     this.actividades.push(new String());
+    console.log(this.actividades.length);
+    console.log(this.actividades)
   }
 
   masHobbies(){
     this.hobbies.push(new String());
+    console.log(this.hobbies.length);
+    console.log(this.hobbies)
   }
 }
