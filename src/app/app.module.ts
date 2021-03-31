@@ -14,7 +14,7 @@ import { PipesModule } from './pipes/pipes.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormularioPersoGruposPageModule } from './grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module';
 import { FormularioPersoRestaurantesPageModule } from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
-import { FiltroTematicaGurposPipe } from './pipes/filtro-tematica-gurpos.pipe';
+
 
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
@@ -23,7 +23,6 @@ import { FiltroTematicaGurposPipe } from './pipes/filtro-tematica-gurpos.pipe';
   declarations: [
     AppComponent,
     GruposEstudiantilesComponent
-    //FiltroTematicaGurposPipe
   ],
   entryComponents: [
     //RecoGruposPage,
