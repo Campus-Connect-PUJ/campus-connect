@@ -16,6 +16,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
   public user$: Observable<User>;
   private newUser: User = {} as User;
+  authState: any = null;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
@@ -27,6 +28,9 @@ export class AuthService {
       })
     );
 
+    this.afAuth.authState.subscribe((authState) => {
+      this.authState = authState;
+    });
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -56,7 +60,7 @@ export class AuthService {
         email,
         password
       );
-      
+
       this.newUser.email = user.email;
       this.newUser.emailVerified = user.emailVerified;
       this.newUser.displayName = user.displayName;
@@ -120,8 +124,8 @@ export class AuthService {
     return user.emailVerified === true ? true : false;
   }
 
-  public async getUserdata(email: string){
-    let data
+  public async getUserdata(email: string) {
+    let data;
     await this.afs
       .collection("users")
       .doc(email)
@@ -138,5 +142,28 @@ export class AuthService {
         console.log("Error getting document:", error);
       });
     return data;
+  }
+
+  public isAuthenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  currentUserId(): string {
+    return this.isAuthenticated() ? this.authState.uid : null;
+  }
+
+  userData(): any {
+    if (!this.isAuthenticated) {
+      return [];
+    }
+    return [
+      {
+        id: this.authState.uid,
+        displayName: this.authState.displayName,
+        email: this.authState.email,
+        phoneNumber: this.authState.phoneNumber,
+        photoURL: this.authState.photoURL,
+      },
+    ];
   }
 }

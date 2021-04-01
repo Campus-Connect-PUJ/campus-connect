@@ -1,11 +1,10 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AlertController } from "@ionic/angular";
-import { RequestOptions } from '@angular/http';
 
 @Component({
   selector: "app-formulario",
@@ -107,19 +106,8 @@ export class FormularioPage implements OnInit {
         });
         await alert.present();
         } else {
-          let user = this.userData();
-          //console.log(user);
+          let user = this.authSvc.userData();
           const userData = await this.authSvc.getUserdata(user[0].email);
-          // console.log(userData);
-          // TODO Mandar datos a Heroku
-          // Nombre - Email - semestre - carreras - semestre
-          console.log(userData.email)
-          console.log(userData.name);
-          console.log(userData.last_name);
-          console.log(this.myDate);
-          console.log(this.semestre_seleccionado);
-          console.log(this.carreras_seleccionadas);
-          this.router.navigate(["auth-home"]);
           var postCarreras = []
           this.carreras_seleccionadas.forEach(element => {
             postCarreras.push(element)
@@ -132,43 +120,14 @@ export class FormularioPage implements OnInit {
             semestre_seleccionado: this.semestre_seleccionado,
             carreras_seleccionadas: postCarreras,
           };
-          const options = {
-            headers: {
-              "Content-Type": "application/json",
+          const navigationExtras: NavigationExtras = {
+            state: {
+              postData
             },
-          };
-
-          const url = "http://localhost:8080/createusuario/";
-          console.log("postData: ")
-          console.log(postData)
-          console.log(this.http
-            .post(url, postData, options)
-            .toPromise());
+          }; 
+          this.router.navigate(["formulario_registro2"], navigationExtras);
         }
       }
     }
-  }
-
-  private isAuthenticated(): boolean {
-    return this.authState !== null;
-  }
-
-  currentUserId(): string {
-    return this.isAuthenticated() ? this.authState.uid : null;
-  }
-
-  userData(): any {
-    if (!this.isAuthenticated) {
-      return [];
-    }
-    return [
-      {
-        id: this.authState.uid,
-        displayName: this.authState.displayName,
-        email: this.authState.email,
-        phoneNumber: this.authState.phoneNumber,
-        photoURL: this.authState.photoURL,
-      },
-    ];
   }
 }

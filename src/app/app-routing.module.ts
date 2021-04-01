@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
-    redirectTo: "formulario_registro",
+    redirectTo: "home",
     pathMatch: "full",
   },
   {
@@ -128,6 +128,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./auth/formulario/formulario.module").then(
         (m) => m.FormularioPageModule
+      ),
+  },
+  {
+    path: "formulario_registro2",
+    loadChildren: () =>
+      import("./auth/formulario2/formulario2.module").then(
+        (m) => m.Formulario2PageModule
       ),
   },
 ];
