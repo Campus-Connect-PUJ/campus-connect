@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NetService } from 'src/app/utils/net.service';
 import { GrupoEstudiantil } from './grupo-estudiantil';
+import { Caracteristica } from '../Caracteristica/caracteristica';
 
 
 @Injectable({
@@ -22,9 +23,9 @@ export class GrupoEstudiantilService {
     return this.net.get<GrupoEstudiantil>(url);
   }
   
-  getCaracteristicasGrupoById(id: number): Observable<GrupoEstudiantil> {
+  getCaracteristicasGrupoById(id: number): Observable<Caracteristica[]> {
     const url = `${environment.baseUrl}/grupos_estudiantiles/${id}/caracteristicas`;
-    return this.net.get<GrupoEstudiantil>(url);
+    return this.net.get<Caracteristica[]>(url);
   }
   // create(grupoEstudiantil: GrupoEstudiantil) {
   //   const url = `${environment.baseUrl}/foros`;
