@@ -96,10 +96,21 @@ const routes: Routes = [
   {
     path: 'crowd-restaurante',
     loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
-  },  {
+  },
+  {
     path: 'monitores',
     loadChildren: () => import('./monitores/monitores.module').then( m => m.MonitoresPageModule)
+  },
+  {
+    path: 'foro-crear',
+    loadChildren: () => import('./foros/foro-crear/foro-crear.module').then( m => m.ForoCrearPageModule)
+  },
+  {
+    path: 'tip-crear',
+    loadChildren: () => import('./tips/tip-crear/tip-crear.module').then( m => m.TipCrearPageModule)
   }
+  
+
 
 
 ];

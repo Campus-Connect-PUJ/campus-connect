@@ -4,11 +4,11 @@ import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
-  selector: 'app-crear',
-  templateUrl: './crear.page.html',
-  styleUrls: ['./crear.page.scss'],
+  selector: 'app-foro-crear',
+  templateUrl: './foro-crear.page.html',
+  styleUrls: ['./foro-crear.page.scss'],
 })
-export class CrearPage implements OnInit {
+export class ForoCrearPage implements OnInit {
   id: number;
   fecha: Date;
   titulo: string;
@@ -17,7 +17,6 @@ export class CrearPage implements OnInit {
 
   usuario: UsuarioGeneral;
   foroCreado: Foro = new Foro("", "", null);
-
   constructor(private foroService: ForoService) { }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class CrearPage implements OnInit {
 
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
     this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
-    this.usuario.id = 0;
+    this.usuario.id = 1;
 
     console.log(this.descripcion, this.titulo)
     this.foroCreado.titulo = this.titulo;

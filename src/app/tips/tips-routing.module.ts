@@ -11,9 +11,10 @@ const routes: Routes = [
   {
     path: 'tip-detalles',
     loadChildren: () => import('./tip-detalles/tip-detalles.module').then( m => m.TipDetallesPageModule)
-  },  {
+  },
+  {
     path: 'crear',
-    loadChildren: () => import('./crear/crear.module').then( m => m.CrearPageModule)
+    loadChildren: () => import('./tip-crear/tip-crear.module').then( m => m.TipCrearPageModule)
   }
 
 ];

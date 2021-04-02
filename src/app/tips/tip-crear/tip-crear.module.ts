@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrearPageRoutingModule } from './crear-routing.module';
+import { TipCrearPageRoutingModule } from './tip-crear-routing.module';
 
-import { CrearPage } from './crear.page';
+import { TipCrearPage } from './tip-crear.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CrearPageRoutingModule
+    TipCrearPageRoutingModule
   ],
-  declarations: [CrearPage]
+  declarations: [TipCrearPage]
 })
-export class CrearPageModule {}
+export class TipCrearPageModule {}

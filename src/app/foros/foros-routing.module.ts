@@ -9,8 +9,8 @@ const routes: Routes = [
     component: ForosPage
   },
   {
-    path: 'crear',
-    loadChildren: () => import('./crear/crear.module').then( m => m.CrearPageModule)
+    path: 'foro-crear',
+    loadChildren: () => import('./foro-crear/foro-crear.module').then( m => m.ForoCrearPageModule)
   },
   {
     path: 'foro-detalles',

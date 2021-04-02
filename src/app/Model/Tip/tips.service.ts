@@ -12,7 +12,7 @@ export class TipsService {
   constructor(private net: NetService) { }
 
   getTips(): Observable<Tip[]>{
-    const url = `${environment.baseUrl}/tips`;
+    const url = `${environment.baseUrl}/tip/all`;
     return this.net.get<Tip[]>(url);
   }
 
@@ -23,6 +23,7 @@ export class TipsService {
 
   createTip(tip: Tip) {
     const url = `${environment.baseUrl}/tip/${tip.usuario.id}`;
+    console.log(tip)
     return this.net.post(
       url,
       {

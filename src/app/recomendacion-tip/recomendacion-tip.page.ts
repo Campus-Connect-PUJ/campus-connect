@@ -12,4 +12,8 @@ export class RecomendacionTipPage implements OnInit {
   ngOnInit() {
   }
 
+  votar(voto: Number){
+    console.log(voto)
+  }
+
 }

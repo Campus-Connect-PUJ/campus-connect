@@ -15,13 +15,14 @@
   <div id="buscador">
     <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
   </div>
+    <ion-button [routerLink]="['/tip-crear']">
+    crear
+  </ion-button>
   <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
     <ion-card [routerLink]="['/tips', tip.id]">
       <h2>{{tip.descripcion}}</h2>
     </ion-card>
   </div>
-  <ion-button [routerLink]="['/tips/crear']">
-    crear
-  </ion-button>
+
 </ion-content>
 

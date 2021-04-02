@@ -5,11 +5,11 @@ import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje'
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
-  selector: 'app-crear',
-  templateUrl: './crear.page.html',
-  styleUrls: ['./crear.page.scss'],
+  selector: 'app-tip-crear',
+  templateUrl: './tip-crear.page.html',
+  styleUrls: ['./tip-crear.page.scss'],
 })
-export class CrearPage implements OnInit {
+export class TipCrearPage implements OnInit {
   usuario: UsuarioGeneral;
   descripcion: string;
   tipoDeAprendizaje: Array<TipoAprendizaje>= [new TipoAprendizaje()];
@@ -18,7 +18,6 @@ export class CrearPage implements OnInit {
   
 
   tip: Tip = new Tip();
-
   constructor(private tipsService: TipsService) { }
 
   ngOnInit() {
@@ -45,13 +44,6 @@ export class CrearPage implements OnInit {
         error => console.error(error)
       )
 
-  }
-
-
-  masEstilos(){
-    this.tipoDeAprendizaje.push(new TipoAprendizaje());
-    console.log(this.tipoDeAprendizaje.length);
-    console.log(this.tipoDeAprendizaje)
   }
 
 }
