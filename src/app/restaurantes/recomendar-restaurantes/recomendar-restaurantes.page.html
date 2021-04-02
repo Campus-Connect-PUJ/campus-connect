@@ -24,8 +24,8 @@
     </ion-item>
     <ion-item>
       <ion-label>Tipo de comida</ion-label>
-      <ion-select [compareWith]="compareWith" multiple="true">
-        <ion-select-option *ngFor="let comida of comidas" [value]="comida">{{comida.tipo}}</ion-select-option>
+      <ion-select [(ngModel)]="itemSelected" class="custom-options" placeholder="Select One" (ionChange)="buscarRestauranteComida($event)">
+        <ion-select-option *ngFor="let comida of comidas" [value]="" >{{comida.tipo}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -36,7 +36,7 @@
   </ion-card>
 
 <ion-list>
-  <ion-card *ngFor="let restaurante of restaurantes | filtroRestaurantes:textoBuscar">
+  <ion-card *ngFor="let restaurante of restaurantes | filtroRestaurantes:textoBuscar | filtroRestaurantesTipoComida:comidaBuscar">
     <ion-card-header>
       <ion-card-title>{{restaurante.nombre}}</ion-card-title>
     </ion-card-header>

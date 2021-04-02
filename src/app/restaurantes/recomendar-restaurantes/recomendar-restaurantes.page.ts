@@ -19,6 +19,9 @@ export class RecomendarRestaurantesPage implements OnInit {
   restaurantes: Restaurante[] = [];
   comidas: TipoComida[] = [];
   textoBuscar='';
+  comidaBuscar='';
+
+  itemSelected: TipoComida;
 
   constructor(
     private restauranteService: RestauranteService,
@@ -30,6 +33,7 @@ export class RecomendarRestaurantesPage implements OnInit {
 
   ngOnInit() {
     this.findRestaurantes();
+    this.findComida();
   }
 
   findRestaurantes() {
@@ -60,6 +64,12 @@ export class RecomendarRestaurantesPage implements OnInit {
 
   infoRestaurante(){
     
+    
+  }
+
+  buscarRestauranteComida(event){
+    const comida = event.target.value;
+    this.comidaBuscar = comida;
   }
 
   openModal(){
