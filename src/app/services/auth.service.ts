@@ -7,30 +7,35 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from "@angular/fire/firestore";
-import { Observable, of } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import * as firebase from "firebase";
+import { Storage } from "@ionic/storage";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   public user$: Observable<User>;
-  private newUser: User = {} as User;
+  public newUser: User = {} as User;
   authState: any = null;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap((user) => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        }
-        return of(null);
-      })
-    );
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private storage: Storage
+  ) {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.user$ = this.afs.doc<User>(`users/${user.email}`).valueChanges();
+      }
+      return of(null);
+    });
 
     this.afAuth.authState.subscribe((authState) => {
       this.authState = authState;
     });
+    
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -70,6 +75,7 @@ export class AuthService {
       this.newUser.last_name = apellido;
 
       this.updateUserData(this.newUser);
+      this.login(email, password);
       return this.newUser;
     } catch (error) {
       console.log("Error -> ", error);
@@ -88,7 +94,8 @@ export class AuthService {
       this.newUser.emailVerified = user.emailVerified;
       this.newUser.displayName = user.displayName;
       this.newUser.uid = user.uid;
-
+      console.log("Logged in");
+      this.storage.set("user_email",this.newUser.email);
       return this.newUser;
     } catch (error) {
       console.log("Error -> ", error);
@@ -152,7 +159,7 @@ export class AuthService {
     return this.isAuthenticated() ? this.authState.uid : null;
   }
 
-  userData(): any {
+  public userData(): any {
     if (!this.isAuthenticated) {
       return [];
     }
@@ -165,5 +172,16 @@ export class AuthService {
         photoURL: this.authState.photoURL,
       },
     ];
+  }
+
+  async current_user() {
+    return await this.afAuth.currentUser;
+    // firebase.onAuthStateChanged(function (user) {
+    //   if (user) {
+    //     // User is signed in.
+    //   } else {
+    //     // No user is signed in.
+    //   }
+    // });
   }
 }

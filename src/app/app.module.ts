@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 
 
 import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
+import { IonicStorageModule } from '@ionic/storage';
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 
@@ -38,7 +39,8 @@ import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-p
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    FormularioPersoRestaurantesPageModule
+    FormularioPersoRestaurantesPageModule,
+    IonicStorageModule.forRoot()
     //RecoGruposPage
   ],
   providers: [

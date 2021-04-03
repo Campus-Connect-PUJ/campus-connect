@@ -1,13 +1,79 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/auth-home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen>
+  <div class="home">
+    <div class="content">
 
-<ion-content fullscreen class="ion-padding">
-  <p>Back-Button is displayed when there is history</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-fab-button color="light">
+              <ion-icon name="caret-back-outline"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+
+          <ion-col>
+          </ion-col>
+          
+          <ion-col>
+          </ion-col>
+
+          <ion-col>
+            <ion-fab-button color="light">
+              <ion-icon name="settings"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+          
+        </ion-row>
+      </ion-grid>
+
+      <!-- <div class="logo">
+        <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
+      </div> -->
+      <div style="display: flex; justify-content: center;">
+        <ion-avatar>
+          <img src="/assets/avatar/Avatar (4).jpeg">
+        </ion-avatar>
+      </div>
+
+      <div style="display: flex; justify-content: center;">
+        <ion-label class="text-center">{{Nombre}}</ion-label>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <span>
+          <ion-label>Correo registrado</ion-label>
+        </span>
+        <span>
+          <ion-label>{{email}}</ion-label>
+        </span>
+      </div>
+      
+      <div>
+        <ion-label>Semestre</ion-label>
+        <ion-label>{{semestre}}</ion-label>
+      </div>
+      
+      <div>
+        <ion-label>Carreras</ion-label>
+        <ion-label *ngFor="let item of carreras">{{item}}</ion-label>
+      </div>
+
+    </div>
+  </div>
 </ion-content>
+
+<div class="menu">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="dark" href="/perfil">
+        <ion-icon name="person"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-label>Perfil</ion-label> -->
+      <ion-fab-button color="dark" href="/auth-home">
+        <ion-icon name="Home"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-label>Menú</ion-label> -->
+    </ion-fab-list>
+  </ion-fab>
+</div>

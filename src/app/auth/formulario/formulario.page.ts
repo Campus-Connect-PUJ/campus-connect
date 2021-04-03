@@ -12,7 +12,7 @@ import { AlertController } from "@ionic/angular";
   styleUrls: ["./formulario.page.scss"],
 })
 export class FormularioPage implements OnInit {
-  private url = "https://campusconnectjava.herokuapp.com/carreras";
+  private url = "http://localhost:8080/carreras";
   public carrerasJson;
   public carreras = [];
   public carreras_seleccionadas = ["Ninguna"];
