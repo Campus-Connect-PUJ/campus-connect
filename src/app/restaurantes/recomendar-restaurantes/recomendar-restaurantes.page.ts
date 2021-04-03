@@ -20,6 +20,8 @@ export class RecomendarRestaurantesPage implements OnInit {
   comidas: TipoComida[] = [];
   textoBuscar='';
   comidaBuscar='';
+  tiempoBuscar=0;
+  precioBuscar=0;
 
   itemSelected: TipoComida;
 
@@ -70,6 +72,18 @@ export class RecomendarRestaurantesPage implements OnInit {
   buscarRestauranteComida(event){
     const comida = event.target.value;
     this.comidaBuscar = comida;
+    
+  }
+
+  buscarRestauranteTiempo(event){
+    const tiempo = event.target.value;
+    this.tiempoBuscar = tiempo;
+    console.log(this.tiempoBuscar);
+  }
+
+  buscarRestaurantePrecio(event){
+    const precio = event.target.value;
+    this.precioBuscar = precio;
   }
 
   openModal(){
