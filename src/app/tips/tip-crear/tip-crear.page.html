@@ -13,27 +13,16 @@
       <ion-card-title>Descripción</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-input type="string" [(ngModel)]="titulo"></ion-input>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Tipos de Aprendizaje</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
       <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
     </ion-card-content>
   </ion-card>
 
-  <ion-item *ngFor="let tipo of tipoDeAprendizaje">
-    <ion-input type="string" [(ngModel)]="tipo.descripcion"></ion-input>
+  <ion-item>
+    <ion-label>Tipo aprendizaje</ion-label>
+    <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+      <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
+    </ion-select>
   </ion-item>
-
-  <ion-button (click)=masEstilos()>
-    mas
-  </ion-button>
-
-
 
   <div class="btn-crearForo">
     <ion-card class="boton-mas" (click)=crearTip() [routerLink]="['/tabs/servicios-academicos']">

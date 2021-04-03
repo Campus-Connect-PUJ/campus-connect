@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
+import { TipoAprendizajeService } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
@@ -13,29 +14,44 @@ export class TipCrearPage implements OnInit {
   usuario: UsuarioGeneral;
   descripcion: string;
   tipoDeAprendizaje: Array<TipoAprendizaje>= [new TipoAprendizaje()];
+  aprendizajesExistentes: Array<TipoAprendizaje> = [];
+
   tipoAprendizajePrueba: TipoAprendizaje = new TipoAprendizaje();
+
+
+  tiposDeAprendizajeSeleccionados = [];
+
 
   
 
   tip: Tip = new Tip();
-  constructor(private tipsService: TipsService) { }
+  constructor(private tipsService: TipsService, private tipoAprendizajeService: TipoAprendizajeService) { }
 
   ngOnInit() {
+    this.obtenerTiposDeAprendizaje();
+    
+    
+
+  }
+
+  obtenerTiposDeAprendizaje(){
+    this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
+      results => {
+        this.aprendizajesExistentes = results;
+        console.log(this.aprendizajesExistentes)
+      }, error =>console.error(error)
+    )
   }
 
   crearTip(){
 
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
     this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
-    this.usuario.id = 0;
+    this.usuario.id = 1;
 
-    console.log(this.descripcion, this.tipoDeAprendizaje)
     this.tip.descripcion = this.descripcion;
     this.tip.usuario = this.usuario;
-
-    this.tipoDeAprendizaje[0] = this.tipoAprendizajePrueba;
-    this.tip.tiposAprendizaje = this.tipoDeAprendizaje;
-    console.log("tip enviado->", this.tip)
+    this.tip.tiposAprendizaje = this.tiposDeAprendizajeSeleccionados;
 
 
     this.tipsService.createTip(this.tip)
@@ -44,6 +60,10 @@ export class TipCrearPage implements OnInit {
         error => console.error(error)
       )
 
+  }
+
+  act(){
+    console.log(this.aprendizajesExistentes)
   }
 
 }

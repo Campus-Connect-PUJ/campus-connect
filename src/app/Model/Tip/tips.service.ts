@@ -21,14 +21,17 @@ export class TipsService {
     return this.net.get<Tip>(url);
   }
 
-  createTip(tip: Tip) {
-    const url = `${environment.baseUrl}/tip/${tip.usuario.id}`;
-    console.log(tip)
+  createTip(tipEnviar: Tip) {
+    const url = `${environment.baseUrl}/tip/${tipEnviar.usuario.id}`;
+    console.log("->",tipEnviar.usuario.id, tipEnviar, tipEnviar.tiposAprendizaje)
     return this.net.post(
       url,
       {
-        descripcion: tip.descripcion,
-        //tiposAprendizaje: tip.tiposAprendizaje
+        idUsuario: tipEnviar.usuario.id,
+        tip: {
+          descripcion: tipEnviar.descripcion
+        },
+        tiposAprendizaje: tipEnviar.tiposAprendizaje
       }
     );
   }
