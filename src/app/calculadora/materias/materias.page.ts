@@ -61,6 +61,12 @@ export class MateriasPage {
     await alert.present();
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
 
 }
 

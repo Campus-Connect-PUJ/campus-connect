@@ -66,4 +66,6 @@ export class TipCrearPage implements OnInit {
     console.log(this.aprendizajesExistentes)
   }
 
+  
+
 }
