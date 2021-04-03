@@ -15,6 +15,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { FormularioPersoGruposPageModule } from './grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module';
 import { FormularioPersoRestaurantesPageModule } from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
 
+
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 

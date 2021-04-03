@@ -1,5 +1,5 @@
 export class Facultad {
     id: number;
-    descripcion: string;
+    nombre: string;
     constructor() {}
 }

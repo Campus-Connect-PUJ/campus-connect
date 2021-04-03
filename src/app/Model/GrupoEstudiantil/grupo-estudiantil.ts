@@ -10,7 +10,7 @@ export class GrupoEstudiantil {
   calificacion: number;
   caracteristicas: Caracteristica[] = [];
   requisitos: Requisito[] = [];
-  facultad: Facultad;
+  facultades: Facultad[] = [];
   resenia: ReseniaGrupo[] = [];
   constructor(
     public descripcion: string,
