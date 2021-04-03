@@ -7,13 +7,13 @@ import { Tematica } from '../Model/Tematica/tematica';
 })
 export class FiltroTematicaGurposPipe implements PipeTransform {
 
-  transform(grupos: GrupoEstudiantil[], tematica: Tematica): GrupoEstudiantil[] {
-    if(tematica===null){
+  transform(grupos: GrupoEstudiantil[], tematica: string): GrupoEstudiantil[] {
+    if(tematica.length===0){
       return grupos;
     }
 
     return grupos.filter(grupo =>{
-      return grupo.tematicas.includes(tematica) ;
+      return grupo.tematicas.some(tem => tem.nombre === tematica);
     } );
 
   }

@@ -14,17 +14,17 @@ export class GrupoEstudiantilService {
   constructor(private net: NetService) { }
 
   getGrupos(): Observable<GrupoEstudiantil[]> {
-    const url = `${environment.baseUrl}/grupos_estudiantil/all`;
+    const url = `${environment.baseUrl}/grupo_estudiantil/all`;
     return this.net.get<GrupoEstudiantil[]>(url);
   }
 
   getGrupoById(id: number): Observable<GrupoEstudiantil> {
-    const url = `${environment.baseUrl}/grupos_estudiantiles/${id}`;
+    const url = `${environment.baseUrl}/grupo_estudiantil/${id}`;
     return this.net.get<GrupoEstudiantil>(url);
   }
   
   getCaracteristicasGrupoById(id: number): Observable<Caracteristica[]> {
-    const url = `${environment.baseUrl}/grupos_estudiantiles/${id}/caracteristicas`;
+    const url = `${environment.baseUrl}/grupo_estudiantil/${id}/caracteristicas`;
     return this.net.get<Caracteristica[]>(url);
   }
   // create(grupoEstudiantil: GrupoEstudiantil) {

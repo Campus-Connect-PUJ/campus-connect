@@ -19,26 +19,28 @@
       <ion-card-content *ngIf="collapseCard">
       <ion-item>
         <ion-label>Tematica</ion-label>
-        <ion-select [compareWith]="compareWith">
-          <ion-select-option *ngFor="let tematica of tematicas" [value]="tematica">{{tematica.descripcion}}</ion-select-option>
+        <ion-select class="custom-options" placeholder="Select One"  (ionChange)="buscarGrupoTematics($event)">
+          <ion-select-option *ngFor="let tematica of tematicas" [value]="">{{tematica.nombre}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>Facultad</ion-label>
-        <ion-select [compareWith]="compareWith">
-          <ion-select-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad.descripcion}}</ion-select-option>
+        <ion-select [compareWith]="compareWith" (ionChange)="buscarGrupoFacultad($event)">
+          <ion-select-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad.nombre}}</ion-select-option>
         </ion-select>
       </ion-item>
       </ion-card-content>
     </ion-card>  
 
   <ion-list>
-    <ion-card *ngFor="let grupo of grupos | filtroGrupos:textoBuscar">
+    <ion-card *ngFor="let grupo of grupos | filtroGrupos:textoBuscar | filtroTematicaGurpos:tematicaSelect | filtroFacultadGrupos:facultadSelect">
       <ion-card-header>
         <ion-card-title>{{grupo.nombre}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        {{grupo.tematicas}}
+        <ion-label *ngFor= "let tema of grupo.tematicas">
+          {{tema.nombre}}
+        </ion-label>
       </ion-card-content>
       <ion-button (click) = "infoGrupo()" [routerLink]="['/reco-grupos',grupo.id]">
           <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>

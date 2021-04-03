@@ -26,6 +26,8 @@ export class RecoGruposPage implements OnInit {
   tematicas: Tematica[] = [];
   facultades: Facultad[] = [];
   textoBuscar='';
+  facultadSelect='';
+  tematicaSelect='';
 
   constructor(
     private geService: GrupoEstudiantilService,
@@ -38,6 +40,7 @@ export class RecoGruposPage implements OnInit {
 
   ngOnInit() {
     this.findGrupos();
+    this.findTematica();
   }
 
   findGrupos() {
@@ -84,5 +87,15 @@ export class RecoGruposPage implements OnInit {
       },
       error => console.error(error)
     )
+  }
+
+  buscarGrupoTematics(event){
+    const texto = event.target.value;
+    this.tematicaSelect = texto;
+  }
+
+  buscarGrupoFacultad(event){
+    const texto = event.target.value;
+    this.facultadSelect= texto;
   }
 }

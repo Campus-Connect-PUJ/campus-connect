@@ -7,13 +7,13 @@ import { GrupoEstudiantil } from '../Model/GrupoEstudiantil/grupo-estudiantil';
 })
 export class FiltroFacultadGruposPipe implements PipeTransform {
 
-  transform(grupos: GrupoEstudiantil[], facultad: Facultad): GrupoEstudiantil[] {
-    if(facultad===null){
+  transform(grupos: GrupoEstudiantil[], facultad: string): GrupoEstudiantil[] {
+    if(facultad.length===0){
       return grupos;
     }
 
     return grupos.filter(grupo =>{
-      return grupo.facultad.descripcion.includes(facultad.descripcion) ;
+      return grupo.facultades.some(facu => facu.nombre===facultad);
     } );
 
   }

@@ -1,5 +1,5 @@
 export class Caracteristica {
     id: number;
-    descripcion: string;
+    nombre: string;
     constructor() {}
 }
