@@ -33,12 +33,6 @@ export class TipsPage implements OnInit {
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
-        /*
-        results.forEach(element => {
-
-          this.tiposDeAprendizaje[element.id]=element.tipoAprendizaje;
-         });
-         */
       },
       error => console.error(error)
     )
@@ -49,5 +43,13 @@ export class TipsPage implements OnInit {
     this.textoBuscar = texto;
 
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.findTips()
+      event.target.complete();
+    }, 300);
+  }
+
 
 }

@@ -10,11 +10,15 @@
   </ion-toolbar>
 </ion-header>
 
+
 <img src="../../assets/fondo.png" id="bg">
 <ion-content padding class="background" [fullscreen]="true">
   <div id="buscador">
     <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
   </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
     <ion-card [routerLink]="['/tips', tip.id]">
       <h2>{{tip.descripcion}}</h2>
