@@ -6,7 +6,7 @@ import { TipoRestaurante } from "../TipoRestaurante/tipo-restaurante";
 
 export class Restaurante {
   id: number;
-  tipoComida: TipoComida[] = [];
+  tiposComida: TipoComida[] = [];
   tipoRestaurante: TipoRestaurante[] = [];
   calificacion: number;
   franquicia: string;
