@@ -16,7 +16,7 @@
   <ion-item>
     <ion-label>Tématicas</ion-label>
     <ion-item *ngFor="let tematica of tematicas">
-      <ion-label>{{tematica.descripcion}}</ion-label>
+      <ion-label>{{tematica.nombre}}</ion-label>
         <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>   
     </ion-item>
   </ion-item>
