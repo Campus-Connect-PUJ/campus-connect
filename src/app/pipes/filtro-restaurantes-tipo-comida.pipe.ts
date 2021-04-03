@@ -15,11 +15,10 @@ export class FiltroRestaurantesTipoComidaPipe implements PipeTransform {
     if(tipoComida.length===0){
       return restaurantes;
     }
-
+    tipoComida=tipoComida.toLowerCase();
+    
     return restaurantes.filter(restaurante =>{
-        return restaurante.tipoComida.toString().toLowerCase().includes(tipoComida);
+      return restaurante.tiposComida.some(tc => tc.tipo === tipoComida);
     } );
-
   }
-
 }
