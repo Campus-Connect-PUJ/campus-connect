@@ -33,7 +33,6 @@ export class MateriasPage {
 
   reload() {
     this.materias = this.calculadoraService.load();
-    // window.location.replace('/calculadora/materias')
   }
 
   async presentAlert(indice){

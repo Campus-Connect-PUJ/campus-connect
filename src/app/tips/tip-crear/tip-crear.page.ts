@@ -15,23 +15,13 @@ export class TipCrearPage implements OnInit {
   descripcion: string;
   tipoDeAprendizaje: Array<TipoAprendizaje>= [new TipoAprendizaje()];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
-
-  tipoAprendizajePrueba: TipoAprendizaje = new TipoAprendizaje();
-
+  tip: Tip = new Tip();
 
   tiposDeAprendizajeSeleccionados = [];
-
-
-  
-
-  tip: Tip = new Tip();
   constructor(private tipsService: TipsService, private tipoAprendizajeService: TipoAprendizajeService) { }
 
   ngOnInit() {
     this.obtenerTiposDeAprendizaje();
-    
-    
-
   }
 
   obtenerTiposDeAprendizaje(){
@@ -44,7 +34,6 @@ export class TipCrearPage implements OnInit {
   }
 
   crearTip(){
-
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
     this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
     this.usuario.id = 1;
@@ -53,13 +42,11 @@ export class TipCrearPage implements OnInit {
     this.tip.usuario = this.usuario;
     this.tip.tiposAprendizaje = this.tiposDeAprendizajeSeleccionados;
 
-
     this.tipsService.createTip(this.tip)
       .subscribe(
         results => console.log(results),
         error => console.error(error)
       )
-
   }
 
   act(){

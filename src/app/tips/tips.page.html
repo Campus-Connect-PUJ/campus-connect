@@ -7,18 +7,43 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
     </ion-buttons>
+    <div id="titulo">
+      <h1>Tips</h1>
+      <h2>Deslizar para actualizar</h2>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 
 <img src="../../assets/fondo.png" id="bg">
 <ion-content padding class="background" [fullscreen]="true">
-  <div id="buscador">
-    <ion-searchbar placeholder="Buscar Tip de estudio" animated (ionChange)="buscarTips($event)"></ion-searchbar>
-  </div>
+  
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <ion-card id="buscar">
+    <div id="buscador">
+      <ion-searchbar placeholder="Buscar Tip de estudio" (ionChange)="buscarTips($event)"></ion-searchbar>
+    </div>
+    <ion-card-header tappable (click)="collapseCard = !collapseCard">
+      <ion-card-title>
+        <h1>Filtros</h1>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="collapseCard">
+    <ion-item>
+      <ion-label>Tematica</ion-label>
+        <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+          <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.descripcion" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div id="BuscandoCon">
+      <h1>Buscando con {{tiposDeAprendizajeSeleccionados}}</h1>
+    </div>
+    </ion-card-content>
+  </ion-card>  
+
   <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar; let indice=index">
     <ion-card [routerLink]="['/tips', tip.id]">
       <h2>{{tip.descripcion}}</h2>

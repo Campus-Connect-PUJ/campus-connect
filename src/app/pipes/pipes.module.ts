@@ -4,6 +4,7 @@ import { FiltroGruposPipe } from './filtro-grupos.pipe';
 import { FiltroTipsPipe } from './filtro-tips.pipe';
 import { FiltroForosPipe } from './filtro-foros.pipe';
 import { FiltroRestaurantesPipe } from './filtro-restaurantes.pipe';
+import { FiltroTipsAprendizajePipe } from './filtro-tips-aprendizaje.pipe';
 
 @NgModule({
 
@@ -11,7 +12,7 @@ import { FiltroRestaurantesPipe } from './filtro-restaurantes.pipe';
     FiltroGruposPipe,
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
-    FiltroForosPipe
+    FiltroForosPipe, FiltroTipsAprendizajePipe
   ],
   exports: [
     FiltroGruposPipe,
