@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: "app-perfil",
@@ -15,10 +16,15 @@ export class PerfilPage implements OnInit {
   public semestre = null;
   public Nombre = null;
   public carreras = [];
-  constructor(private http: HttpClient, private storage: Storage, private aus: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private storage: Storage,
+    private aus: AuthService,
+    private _location: Location
+  ) {}
 
   async ngOnInit() {
-    let emai_storage
+    let emai_storage;
     await this.storage.get("user_email").then((val) => {
       console.log("user_email", val);
       emai_storage = val;
@@ -31,12 +37,16 @@ export class PerfilPage implements OnInit {
       //console.log(response);
       user_data = response;
       //console.log(user_data.carrerasUsuario);
-      user_data.carrerasUsuario.forEach(element => {
-        this.carreras.push(element.nombre)
+      user_data.carrerasUsuario.forEach((element) => {
+        this.carreras.push(element.nombre);
       });
       this.semestre = user_data.semestre;
       this.Nombre = user_data.nombre;
     });
     //console.log(data)
+  }
+
+  public onBackAction($event) {
+    this._location.back();
   }
 }

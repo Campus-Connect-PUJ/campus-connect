@@ -27,6 +27,7 @@ ion-avatar {
     height: 25vh;
     display: flex;
     justify-content: center;
+    border: 5px solid rgba(0, 0, 0, 0.09);
 }
 
 .home {
@@ -52,4 +53,49 @@ ion-avatar {
 
 .content {
     position: relative;
+}
+
+.center_text{
+    display: flex;
+    justify-content: center;
+}
+
+.box{
+    padding: 3%;
+    margin: 3%;
+    border-radius: 10%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.26);
+}
+
+.name{
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5em;
+}
+
+.item{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.text_box {
+    padding: 3%;
+    margin-top: 1%;
+    border-radius: 5%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.26);
+    font-family: 'Indie Flower',cursive;
+    font-size: 1em;
+}
+
+.text_box ion-label{
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.9em;
+}
+
+.title{
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 0.9em;
+    color: rgba(80, 80, 80);
+    font-weight: bold;
 }
