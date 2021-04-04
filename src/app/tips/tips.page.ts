@@ -16,8 +16,9 @@ export class TipsPage implements OnInit {
   tips: Tip[] = [];
   tiposDeAprendizaje: TipoAprendizaje[][] = [];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
-  tiposDeAprendizajeSeleccionados = [];
+  tiposDeAprendizajeSeleccionados = []
   textoBuscar='';
+  textoBuscar2='';
   tipos: string[] = [];
 
   constructor(
@@ -53,6 +54,7 @@ export class TipsPage implements OnInit {
   buscarTips(event){
     const texto = event.target.value;
     this.textoBuscar = texto;
+    this.textoBuscar2 = texto;
 
   }
 

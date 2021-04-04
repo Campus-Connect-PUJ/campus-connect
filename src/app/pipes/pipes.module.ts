@@ -12,13 +12,15 @@ import { FiltroTipsAprendizajePipe } from './filtro-tips-aprendizaje.pipe';
     FiltroGruposPipe,
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
-    FiltroForosPipe, FiltroTipsAprendizajePipe
+    FiltroForosPipe, 
+    FiltroTipsAprendizajePipe
   ],
   exports: [
     FiltroGruposPipe,
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
-    FiltroForosPipe
+    FiltroForosPipe,
+    FiltroTipsAprendizajePipe
   ]
 })
 export class PipesModule { }
