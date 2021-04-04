@@ -1,12 +1,15 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-back-button slot= "start" text=" " defaultHref="folder/Inbox"></ion-back-button>
+ <ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="today()">Today</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
- 
+
+
 <ion-content>
 
   <ion-segment [(ngModel)]="calendar.mode">

@@ -108,6 +108,11 @@ const routes: Routes = [
   {
     path: 'tip-crear',
     loadChildren: () => import('./tips/tip-crear/tip-crear.module').then( m => m.TipCrearPageModule)
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
+
   }
   
 
