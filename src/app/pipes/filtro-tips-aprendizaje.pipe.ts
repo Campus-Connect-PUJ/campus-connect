@@ -10,7 +10,7 @@ export class FiltroTipsAprendizajePipe implements PipeTransform {
     let listaDeTips = []
 
     if(texto.length == 0){
-      console.log("todos")
+      console.log("todos", tips)
       return tips;
     }
 
@@ -18,19 +18,12 @@ export class FiltroTipsAprendizajePipe implements PipeTransform {
       console.log(texto[i])
       for(let j=0; j<tips.length; j++){
         for(let k=0; k<tips[j].tiposAprendizaje.length; k++){
-          if(tips[j].tiposAprendizaje[k].descripcion == texto[i]){
+          if(tips[j].tiposAprendizaje[k].descripcion == texto[i] && !listaDeTips.includes(tips[j])){
             listaDeTips.push(tips[j])
           }
         }
       }
     }
-
-    const even = (element) => element === texto[0];
-    console.log(tips[0].descripcion," ", tips[0].tiposAprendizaje," ", tips[0].tiposAprendizaje.some(even))
-
-    listaDeTips = tips.filter(tip => {
-      tip.tiposAprendizaje.some(res => res.descripcion === texto[0])
-    })
 
     console.log("lista", listaDeTips)
     return listaDeTips;
