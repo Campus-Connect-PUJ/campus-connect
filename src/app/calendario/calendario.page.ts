@@ -143,6 +143,7 @@ export class CalendarioPage implements OnInit {
   addEventMateria(){
     let cantidadDeEventos = 0;
     cantidadDeEventos = this.eventSource.length;
+    console.log("cantidad eventos ", cantidadDeEventos)
     if(cantidadDeEventos == null){
       cantidadDeEventos = 0;
     }
@@ -177,7 +178,6 @@ export class CalendarioPage implements OnInit {
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
 
     
-    
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
       console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
 
@@ -185,10 +185,9 @@ export class CalendarioPage implements OnInit {
       eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
       eventCopy.endTime = moment(eventCopy.startTime).add(Number(tiempos2[0])- Number(tiempos1[0]),'hours').toDate();
       eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1])- Number(tiempos1[1]),'minutes').toDate();
+      eventCopy.id = cantidadDeEventos;
+      cantidadDeEventos++;
       fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
-      
-      
-
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
       eventCopy.startTime = moment(eventCopy.startTime).toDate();
@@ -197,7 +196,6 @@ export class CalendarioPage implements OnInit {
       localStorage.removeItem(eventCopy.title);
     }
 
-    console.log("->",this.eventSource);
 
     if(!moment(fechaInicioTotal).isBefore(fechaFinTotal) ){
       this.eventSource.splice( this.eventSource.length-1, 1)
@@ -225,8 +223,7 @@ export class CalendarioPage implements OnInit {
           desc: this.eventos[i].desc,
           id: this.eventos[i].id
         }
-        
-  
+
         if(eventCopy.allDay){
           let start = eventCopy.startTime;
           let end = eventCopy.endTime;
@@ -250,7 +247,7 @@ export class CalendarioPage implements OnInit {
   onEventSelected(aaaa){
     console.log("->",aaaa)
     console.log("-->", aaaa.id)
-    //this.presentAlert(aaaa.id)
+    this.presentAlert(aaaa.id)
   }
 
 
@@ -285,12 +282,12 @@ export class CalendarioPage implements OnInit {
     console.log(check)
   }
 
-  /*
+  
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice),
-      message: 'Esta apunto de borrar la materia '+ (indice),
+      header: '¿Borrar Evento?',
+      subHeader: 'Evento'+ (indice),
+      message: 'Esta apunto de borrar el evento '+ (indice),
       buttons: [
         {
           text: 'Cancel',
@@ -302,8 +299,15 @@ export class CalendarioPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
+            let a = 0;
             console.log("Antes", indice,this.eventSource)
-            this.eventSource.splice(indice,1)
+            console.log(this.eventSource[0])
+            for(let i=0; i< this.eventSource.length && a==0; i++){
+              if(this.eventSource[i].id == indice ){
+                a=i;
+              }
+            }
+            this.eventSource.splice(a,1)
             console.log("Despues", indice,this.eventSource)
             localStorage.setItem("eventos", JSON.stringify(this.eventSource))
             this.myCal.loadEvents();
@@ -313,6 +317,6 @@ export class CalendarioPage implements OnInit {
     })
     await alert.present();
   }
-  */
+  
 
 }
