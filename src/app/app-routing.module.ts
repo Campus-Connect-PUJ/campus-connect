@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "mapa-principal",
     pathMatch: "full",
   },
   {
@@ -136,11 +136,14 @@ const routes: Routes = [
       import("./auth/formulario2/formulario2.module").then(
         (m) => m.Formulario2PageModule
       ),
-  },  {
-    path: 'mapa-principal',
-    loadChildren: () => import('./mapa/mapa-principal/mapa-principal.module').then( m => m.MapaPrincipalPageModule)
   },
-
+  {
+    path: "mapa-principal",
+    loadChildren: () =>
+      import("./mapa/mapa-principal/mapa-principal.module").then(
+        (m) => m.MapaPrincipalPageModule
+      ),
+  },
 ];
 
 @NgModule({
