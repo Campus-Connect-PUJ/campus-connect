@@ -53,8 +53,13 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   onClickRegimen(event){
     const regimen = event.target.value;
-
-    this.regimenUsuario.tipo=regimen;
+    this.regimenService.getRegimenAlimenticioById(regimen).subscribe(
+      results => {
+        console.log(results);
+        this.regimenUsuario = results;
+      },
+      error => console.error(error)
+    )
     console.log(this.regimenUsuario.tipo);
   }
   onClickRegimenNivel(event){

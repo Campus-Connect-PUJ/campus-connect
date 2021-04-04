@@ -21,7 +21,7 @@
     <ion-label>Regimen alimenticio</ion-label>
     <ion-list>
       <ion-select [(ngModel)]="itemSelected" class="custom-options" placeholder="Select One" (ionChange)="onClickRegimen($event)">
-        <ion-select-option *ngFor="let regimen of regimenes" [value]="" >{{regimen.tipo}}</ion-select-option>
+        <ion-select-option *ngFor="let regimen of regimenes" [value]="regimen.id" >{{regimen.tipo}}</ion-select-option>
       </ion-select>
     </ion-list>
   </ion-item>
