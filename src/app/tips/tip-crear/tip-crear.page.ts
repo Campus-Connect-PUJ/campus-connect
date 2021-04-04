@@ -4,6 +4,7 @@ import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
 import { TipoAprendizajeService } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tip-crear',
@@ -18,7 +19,10 @@ export class TipCrearPage implements OnInit {
   tip: Tip = new Tip();
 
   tiposDeAprendizajeSeleccionados = [];
-  constructor(private tipsService: TipsService, private tipoAprendizajeService: TipoAprendizajeService) { }
+  constructor(private tipsService: TipsService, 
+    private tipoAprendizajeService: TipoAprendizajeService,
+    public toastCtrl: ToastController
+    ) { }
 
   ngOnInit() {
     this.obtenerTiposDeAprendizaje();
@@ -34,6 +38,7 @@ export class TipCrearPage implements OnInit {
   }
 
   crearTip(){
+    let mensaje = "Se publico el tip";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
     this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
     this.usuario.id = 1;
@@ -47,12 +52,17 @@ export class TipCrearPage implements OnInit {
         results => console.log(results),
         error => console.error(error)
       )
+    this.presentToast(mensaje);
   }
 
-  act(){
-    console.log(this.aprendizajesExistentes)
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
-
-  
 
 }
