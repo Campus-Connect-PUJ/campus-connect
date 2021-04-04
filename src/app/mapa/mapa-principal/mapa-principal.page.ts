@@ -25,9 +25,10 @@ export class MapaPrincipalPage implements OnInit {
   ngOnInit() {}
 
   leafletMap() {
-    this.map = new Map("mapId").setView([17.385, 78.4867], 13);
+    this.map = new Map("mapId").setView([4.62877, -74.06363], 17);
     tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(this.map);
     this.map.removeControl(this.map.zoomControl);
     this.map.addControl(L.control.zoom({ position: "bottomright" }));
+    
   }
 }
