@@ -20,11 +20,16 @@ const routes: Routes = [
   },
   {
     path: 'reco-grupos',
-    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
-  },
-  {
-    path: 'datos-grupo',
-    loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+    children: [
+      {
+        path:"",
+        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/reco-grupos.module').then( m => m.RecoGruposPageModule)
+      },
+      {
+        path: ":grupoID",
+        loadChildren: () => import('./grupos-estudiantiles/reco-grupos/datos-grupo/datos-grupo.module').then( m => m.DatosGrupoPageModule)
+      }
+    ]
   },
   {
     path: 'formulario-perso-grupos',

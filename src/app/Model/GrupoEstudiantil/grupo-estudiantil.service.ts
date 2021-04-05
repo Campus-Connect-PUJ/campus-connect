@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NetService } from 'src/app/utils/net.service';
 import { GrupoEstudiantil } from './grupo-estudiantil';
+import { Caracteristica } from '../Caracteristica/caracteristica';
 
 
 @Injectable({
@@ -13,15 +14,19 @@ export class GrupoEstudiantilService {
   constructor(private net: NetService) { }
 
   getGrupos(): Observable<GrupoEstudiantil[]> {
-    const url = `${environment.baseUrl}/grupos_estudiantiles`;
+    const url = `${environment.baseUrl}/grupo_estudiantil/all`;
     return this.net.get<GrupoEstudiantil[]>(url);
   }
 
   getGrupoById(id: number): Observable<GrupoEstudiantil> {
-    const url = `${environment.baseUrl}/grupos_estudiantiles/${id}`;
+    const url = `${environment.baseUrl}/grupo_estudiantil/${id}`;
     return this.net.get<GrupoEstudiantil>(url);
   }
-
+  
+  getCaracteristicasGrupoById(id: number): Observable<Caracteristica[]> {
+    const url = `${environment.baseUrl}/grupo_estudiantil/${id}/caracteristicas`;
+    return this.net.get<Caracteristica[]>(url);
+  }
   // create(grupoEstudiantil: GrupoEstudiantil) {
   //   const url = `${environment.baseUrl}/foros`;
   //   return this.net.post(
