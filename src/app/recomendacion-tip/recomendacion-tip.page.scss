@@ -54,8 +54,6 @@ ion-card-header{
     margin-right: 5%;
     margin-left: 5%;
     margin-top: 10%;
-
-    
 }
 
 .todoslostips ion-button{
@@ -108,7 +106,8 @@ ion-card-header{
 
 .botonesRealimentacion ion-button{
     background: #FDFDFD;
-    width: 135px;
+
+    width: 40%;
     height: 64px;
     border: 1px solid rgba(199, 199, 199, 0.25);
     //box-sizing: border-box;
@@ -127,6 +126,7 @@ ion-card-header{
     opacity: 0.5;
     text-decoration: none;
 }
+
 
 ion-card{
     height: 40%;
