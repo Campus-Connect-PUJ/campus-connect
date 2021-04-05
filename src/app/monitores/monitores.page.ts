@@ -1,4 +1,6 @@
+import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.component';
 
 @Component({
   selector: 'app-monitores',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonitoresPage implements OnInit {
 
-  constructor() { }
+  constructor(private popoverCtrl:PopoverController) { }
 
   ngOnInit() {
   }
 
+
+  async mostrarInfo(){
+    const popover = await this.popoverCtrl.create({
+      component: MonitorDetallesComponent,
+      cssClass: 'popover',
+      translucent: true
+    }); 
+    return await popover.present();
+  }
 }
