@@ -18,8 +18,7 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
     FiltroForosPipe, 
-    FiltroTipsAprendizajePipe
-    FiltroForosPipe,
+    FiltroTipsAprendizajePipe,
     FiltroRestaurantesTipoComidaPipe,
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
@@ -31,7 +30,7 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
     FiltroForosPipe,
-    FiltroTipsAprendizajePipe
+    FiltroTipsAprendizajePipe,
     FiltroRestaurantesTipoComidaPipe,
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
