@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item class="">
+    Para mejorar tu experiencia en Campus Connect, necesitaremos esta información.
+  </ion-item>
+
+  <ion-label>Fecha de nacimiento</ion-label>
+  <ion-item>
+    <ion-datetime id="dat" [(ngModel)]="myDate" placeholder="Selección"
+    displayFormat="DD MMM YYYY"
+    monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+    monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Carrera</ion-label>
+    <ion-select multiple (ionChange)="onSelectChange($event)">
+      <ion-select-option *ngFor="let item of carreras" value={{item[0]}}>{{item[1]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-list-header>
+      Carreras seleccionadas
+    </ion-list-header>
+    <ion-item *ngFor="let item of carreras_seleccionadas">{{ item }}</ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Semestre</ion-label>
+    <ion-select (ionChange)="onSelectChangeSemestre($event)">
+      <ion-select-option *ngFor="let item of semestre" value={{item}}>{{item}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="register">
+    <button class="myButton" (click)="completar_registro()">
+      Completar registro
+    </button>
+  </div>
+</ion-content>
