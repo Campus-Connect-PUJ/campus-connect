@@ -15,10 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 import { PipesModule } from './pipes/pipes.module';
 import { environment } from 'src/environments/environment';
-
-
-import {FormularioPersoRestaurantesPageModule} from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
+import { FormularioPersoRestaurantesPageModule } from './restaurantes/formulario-perso-restaurantes/formulario-perso-restaurantes.module';
 import { IonicStorageModule } from '@ionic/storage';
+import { FormularioPersoGruposPageModule } from './grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module';
+
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
 
@@ -40,6 +40,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FormularioPersoRestaurantesPageModule,
+    FormularioPersoGruposPageModule,
     IonicStorageModule.forRoot()
     //RecoGruposPage
   ],
@@ -50,4 +51,6 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  
+}

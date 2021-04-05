@@ -1,26 +1,26 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button [routerLink]="['/calculadora/ingresar-notas']" text=" "></ion-back-button>
+      <ion-back-button defaultHref="calculadora/ingresar-notas" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
-    Se realizara la recomendación con respecto al perfil de usuario proporcinado. 
-    Entre mas datos se hayan proporcionado, mejor sera la recomendación que se realizara</h3>
   <ion-card>
     <ion-card-header>
-      <h1>¡Tip!</h1>
+      <h1>Nota</h1>
     </ion-card-header>
     <ion-card-content>
-      {{porcentajeFaltante}}
-      {{notaFaltante}}
-      {{notaEsperada}}
+      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
     </ion-card-content>
   </ion-card>
-
+  <div class="boton">
+    <ion-button (click)=guardarMateria() style="text-align:center" >
+      <h1>Siguiente</h1>
+    </ion-button>
+  </div>
+  
 
 </ion-content>

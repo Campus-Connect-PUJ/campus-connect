@@ -12,22 +12,17 @@
 <ion-content>
   <ion-card>
     <ion-img src="https://www.civico.com/lugar/el-mirador-universidad-javeriana-bogota/"> </ion-img>
+    <ion-card-header>
+      <ion-card-title>{{restauranteSelect.nombre}}</ion-card-title>
+    </ion-card-header>
     <ion-card-content> 
-      {{restauranteSelect.nombre}}
       {{restauranteSelect.descripcion}}
     </ion-card-content>
   </ion-card>
   
-  <ion-row>
-    <ion-col width-50 style="text-align: right">
-      <ion-button>
-        <ion-icon name="thumbs-up-outline"></ion-icon>
-      </ion-button>
-    </ion-col>
-    <ion-col width-50 style="text-align: left">
-      <ion-button>
-        <ion-icon name="thumbs-down-outline"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
+  <ion-item>
+    <ion-icon name="star-outline"></ion-icon>
+    <ion-range min="0" max="5" step="1" snaps="true" color="secondary"></ion-range>
+    <ion-icon name="star-outline"></ion-icon>
+  </ion-item>
 </ion-content>

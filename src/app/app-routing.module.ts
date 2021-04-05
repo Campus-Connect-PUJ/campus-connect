@@ -79,7 +79,45 @@ const routes: Routes = [
       ).then((m) => m.FormularioPersoGruposPageModule),
   },
   {
-    path: "recomendar-restaurantes",
+    path: 'servicios-academicos',
+    loadChildren: () => import('./servicios-academicos/servicios-academicos.module').then( m => m.ServiciosAcademicosPageModule)
+  },
+  {
+    path: 'recomendacion-tip',
+    loadChildren: () => import('./recomendacion-tip/recomendacion-tip.module').then(m => m.RecomendacionTipPageModule)
+  },
+  {
+    path: 'tips',
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      },
+      {
+        path: ":tipId",
+        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
+      }
+    ]
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'foros',
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+      },
+      {
+        path: ":foroId",
+        loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
+      }
+    ]
+  },
+  {
+    path: 'recomendar-restaurantes',
     children: [
       {
         path: "",
@@ -144,8 +182,15 @@ const routes: Routes = [
         (m) => m.MapaPrincipalPageModule
       ),
   },
+  {
+    path: 'sugerencias-principal',
+    loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
+  },
+  {
+    path: 'crowd-restaurante',
+    loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
+  }
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
