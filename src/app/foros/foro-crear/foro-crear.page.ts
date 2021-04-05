@@ -49,7 +49,7 @@ export class ForoCrearPage implements OnInit {
     const toast = await this.toastCtrl.create(
       {
         message: mensaje,
-        duration: 4000
+        duration: 3000
       }
     );
     toast.present();
