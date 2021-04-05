@@ -1,0 +1,49 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100;400&display=swap');
+  </style>
+
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="folder/inbox" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
+    Se realizara la recomendación con respecto al perfil de usuario proporcinado. 
+    Entre mas datos se hayan proporcionado, mejor sera la recomendación que se realizara</h3>
+  <ion-card>
+    <ion-card-header>
+      <div class="recargar" href="folder">
+        <a href="/folder/inbox"><img src="assets/recargar.png" alt=""></a>
+      </div>
+      <h1>¡Tip!</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>bbbb</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="botones">
+    <div class="botonesRealimentacion">
+      <ion-button color=#FDFDFD id="unlike">
+        <img src="assets/unlike.png" alt="">
+      </ion-button>
+      <ion-button color=#FDFDFD id="like">
+        <img src="assets/like.png" alt="">
+      </ion-button>
+    </div>
+    <div class="todoslostips">
+      <ion-button [routerLink] = "['/tips']">
+        <h2>Ver todos los tips</h2>
+      </ion-button>
+    </div>
+    <div class="crearTip">
+      <ion-button>
+        <h2>Crear tip</h2>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

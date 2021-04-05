@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="foros" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="Principal">
+
+    <div class="foro">
+      <ion-card-header>
+        <h1>{{foro.titulo}}</h1>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{foro.descripcion}}</h2>
+      </ion-card-content>
+    </div>
+
+    <div class="informacion">
+      <div class="usuario">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <h3>{{foro.usuario.nombre}}</h3>
+      </div>
+
+      <div class="votos">
+        <ion-icon name="arrow-down" id="abajo"></ion-icon>
+        <ion-icon name="arrow-up" id="abajo"></ion-icon>
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-item-divider>
+    <ion-label>
+      Respuestas
+    </ion-label>
+  </ion-item-divider>
+
+  <div class="Lista de respuestas">
+    <ion-card class="Respuestas">
+      <div class="foro">
+        <ion-card-header>
+          <h1>{{foro.titulo}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>{{foro.descripcion}}</h2>
+        </ion-card-content>
+      </div>
+
+    <div class="informacion">
+      <div class="usuario">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <h3>{{foro.usuario.nombre}}</h3>
+      </div>
+      
+      <div class="votos">
+        <ion-icon name="arrow-down"></ion-icon>
+        <ion-icon name="arrow-up"></ion-icon>
+      </div>
+    </div>
+    </ion-card>
+  </div>
+</ion-content>

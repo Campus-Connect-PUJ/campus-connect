@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalculadoraService } from'./calculadora.service';
+import { CalculadoraService } from'./shared/calculadora.service';
 
 @Component({
   selector: 'app-calculadora',
@@ -7,17 +7,22 @@ import { CalculadoraService } from'./calculadora.service';
   styleUrls: ['./calculadora.page.scss'],
 })
 export class CalculadoraPage implements OnInit {
-  cantidadNotas: string;
-  notaEsperada: string;
+  cantidadNotas: number;
+  notaEsperada: number;
+  nombreMateria: string;
 
   constructor(
     private calculadoraService: CalculadoraService
   ) {}
+  
   ngOnInit() {
   }
 
-  guardarVar(){
-    this.calculadoraService.addNotas(this.cantidadNotas, this.notaEsperada)
-    console.log(this.calculadoraService.getNotas());
+  guardarVar() {
+    this.calculadoraService.addNotas(
+      this.cantidadNotas,
+      this.notaEsperada,
+      this.nombreMateria
+    );
   }
 }
