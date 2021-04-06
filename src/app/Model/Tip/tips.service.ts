@@ -12,7 +12,7 @@ export class TipsService {
   constructor(private net: NetService) { }
 
   getTips(): Observable<Tip[]>{
-    const url = `${environment.baseUrl}/tips`;
+    const url = `${environment.baseUrl}/tip/all`;
     return this.net.get<Tip[]>(url);
   }
 
@@ -20,5 +20,21 @@ export class TipsService {
     const url = `${environment.baseUrl}/tip/${id}`;
     return this.net.get<Tip>(url);
   }
+
+  createTip(tipEnviar: Tip) {
+    const url = `${environment.baseUrl}/tip`;
+    console.log("->",tipEnviar.usuario.id, tipEnviar, tipEnviar.tiposAprendizaje)
+    return this.net.post(
+      url,
+      {
+        idUsuario: tipEnviar.usuario.id,
+        tip: {
+          descripcion: tipEnviar.descripcion
+        },
+        tiposAprendizaje: tipEnviar.tiposAprendizaje
+      }
+    );
+  }
+
 
 }

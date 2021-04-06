@@ -4,6 +4,7 @@ import { FiltroGruposPipe } from './filtro-grupos.pipe';
 import { FiltroTipsPipe } from './filtro-tips.pipe';
 import { FiltroForosPipe } from './filtro-foros.pipe';
 import { FiltroRestaurantesPipe } from './filtro-restaurantes.pipe';
+import { FiltroTipsAprendizajePipe } from './filtro-tips-aprendizaje.pipe';
 import { FiltroRestaurantesTipoComidaPipe } from './filtro-restaurantes-tipo-comida.pipe';
 import { FiltroRestaurantesPrecioPipe } from './filtro-restaurantes-precio.pipe';
 import { FiltroRestauranteTiempoPipe } from './filtro-restaurante-tiempo.pipe';
@@ -16,7 +17,8 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroGruposPipe,
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
-    FiltroForosPipe,
+    FiltroForosPipe, 
+    FiltroTipsAprendizajePipe,
     FiltroRestaurantesTipoComidaPipe,
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
@@ -28,6 +30,7 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroRestaurantesPipe,
     FiltroTipsPipe, 
     FiltroForosPipe,
+    FiltroTipsAprendizajePipe,
     FiltroRestaurantesTipoComidaPipe,
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,

@@ -17,18 +17,25 @@ ion-tab-button {
   }
 
 
-#prueba{
+#botonFlotante{
   display: flex;
   align-items: center;
 }
 
-#prueba h1{
+#botonFlotante h1{
   font-size: 20px;
-  padding-right: 10px;
   text-align: right;
   width: 100%;
   margin-bottom: 20px;
   margin-top: 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 5px;
 }
 
 ion-fab-button{
@@ -39,5 +46,6 @@ ion-fab-button{
 }
 
 ion-fab-list{
-  background-color: red;
+  
+  height: 100%;
 }

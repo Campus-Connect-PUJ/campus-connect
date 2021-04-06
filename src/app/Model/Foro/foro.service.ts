@@ -12,7 +12,7 @@ export class ForoService {
   constructor(private net: NetService) { }
 
   getPosts(): Observable<Foro[]>{
-    const url = `${environment.baseUrl}/foros`;
+    const url = `${environment.baseUrl}/foro/all`;
     return this.net.get<Foro[]>(url);
   }
 

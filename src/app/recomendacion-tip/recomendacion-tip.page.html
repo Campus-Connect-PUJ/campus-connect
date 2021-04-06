@@ -5,15 +5,14 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="folder/inbox" text=" "></ion-back-button>
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
-    Se realizara la recomendación con respecto al perfil de usuario proporcinado. 
-    Entre mas datos se hayan proporcionado, mejor sera la recomendación que se realizara</h3>
+      Esta sugerencia se realiza con respecto a el estilo de aprendizaje ingresado por el usuario, como también de los tips que le haya gustado anteriormente.</h3>
   <ion-card>
     <ion-card-header>
       <div class="recargar" href="folder">
@@ -28,10 +27,10 @@
 
   <div class="botones">
     <div class="botonesRealimentacion">
-      <ion-button color=#FDFDFD id="unlike">
+      <ion-button (click)="votar(-1)" color=#FDFDFD id="unlike">
         <img src="assets/unlike.png" alt="">
       </ion-button>
-      <ion-button color=#FDFDFD id="like">
+      <ion-button (click)="votar(1)" color=#FDFDFD id="like">
         <img src="assets/like.png" alt="">
       </ion-button>
     </div>

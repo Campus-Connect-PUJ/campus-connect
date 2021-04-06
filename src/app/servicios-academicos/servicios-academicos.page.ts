@@ -14,7 +14,4 @@ export class ServiciosAcademicosPage implements OnInit {
   ngOnInit() {
   }
 
-  cargarNotas(){
-    console.log("Entra a caargar")
-  }
 }

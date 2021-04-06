@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="buscador">
+    <ion-searchbar placeholder="Buscar monitores" (ionChange)="buscarForos($event)"></ion-searchbar>
+  </div>
+
+  
+
+  <div id="listaSugerencias">
+    <div class="titulo">
+      <h2>Sugerencia de monitores</h2>
+    </div>
+    <div id="tarjetasSugerencias">
+      <ion-card class="sugerencia">
+        <ion-card-header>
+          <ion-avatar>
+            <img src="https://i.pinimg.com/736x/50/2c/e6/502ce612623e76f1026986ea0d249b7d.jpg">
+          </ion-avatar>
+        </ion-card-header>
+        <ion-card-content>
+          <h1>Nombre Nombre</h1>
+          <h2>Materia</h2>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="sugerencia">
+        <ion-card-header>
+          <ion-avatar>
+            <img src="https://i.pinimg.com/originals/3c/cb/9c/3ccb9ca70695adf6de270c0d016c338c.jpg">
+          </ion-avatar>
+        </ion-card-header>
+        <ion-card-content>
+          <h1>Nombre Nombre</h1>
+          <h2>Materia</h2>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="sugerencia">
+        <ion-card-header>
+          <ion-avatar>
+            <img src="https://memegenerator.net/img/images/73024887.jpg">
+          </ion-avatar>
+        </ion-card-header>
+        <ion-card-content>
+          <h1>Nombre Nombre</h1>
+          <h2>Materia</h2>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </div>
+  
+  <div id="listaMonitores">
+    <div class="titulo">
+      <h2>Monitores</h2>
+    </div>
+
+    <div id="tarjetasMonitores">
+
+      <ion-card (click)="mostrarInfo()">
+
+        <div class="datosMonitor">
+          <ion-card-header>
+            <h1>Nombre monitor</h1>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>Materias</h2>
+          </ion-card-content>
+        </div>
+
+      </ion-card>
+
+      <ion-card>
+
+
+        <div class="datosMonitor">
+          <ion-card-header>
+            <h1>Nombre monitor</h1>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>Materias</h2>
+          </ion-card-content>
+        </div>
+
+      </ion-card>
+
+    </div>
+  </div>
+  
+  
+</ion-content>

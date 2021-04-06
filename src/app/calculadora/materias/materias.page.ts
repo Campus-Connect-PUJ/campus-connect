@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GuardsCheckStart } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../shared/calculadora.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { NotasMateria } from 'src/app/Model/Nota/nota';
 
 @Component({
@@ -14,11 +14,11 @@ export class MateriasPage {
   materias: NotasMateria[];
 
   constructor(
-    private calculadoraService: CalculadoraService,
-    public alertaCtrl: AlertController
-  ) {
+          private calculadoraService: CalculadoraService,
+          public alertaCtrl: AlertController, 
+          public toastCtrl: ToastController
+) {
 
-    console.log("Entra en constructor", this.materias)
     this.reload();
   }
 
@@ -31,9 +31,18 @@ export class MateriasPage {
     console.log("destruyendo");
   }
 
+  async presentToast(){
+    const toast = await this.toastCtrl.create(
+      {
+        message: "Prueba",
+        duration: 4000
+      }
+    );
+    toast.present();
+  }
+
   reload() {
     this.materias = this.calculadoraService.load();
-    // window.location.replace('/calculadora/materias')
   }
 
   async presentAlert(indice){
@@ -54,6 +63,7 @@ export class MateriasPage {
           handler: () => {
             this.materias.splice(indice,1)
             this.calculadoraService.guardarMaterias(this.materias);
+            this.presentToast();
           }
         }
       ]
@@ -61,6 +71,12 @@ export class MateriasPage {
     await alert.present();
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
 
 }
 

@@ -6,50 +6,51 @@
   </ion-toolbar>
 </ion-header>
 
-<img src="../../../assets/fondo.png" id="bg">
+
 <ion-content padding class="background" [fullscreen]="true">
   <div id="titulo">
     <h1>Materias</h1>
-    <div class="recargarMaterias">
-      <ion-card class="boton-mas" (click)="reload()">
-        <h1>+</h1>
-      </ion-card>
-    </div>
+    <h2>Deslizar para actualizar</h2>
   </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <div id="materias">
-  <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
-    <ion-item [routerLink]="['/calculadora/resultado', indice]">
-      <ion-card-header>
-        {{materia.nombreMateria}}
-      </ion-card-header>
-      <ion-card-content>
-        <h2>Nota actual: {{materia.notaActual}}</h2>
-        <h2>% actual: {{materia.porcentajeActual}}%</h2>
-      </ion-card-content>
-    </ion-item>
+    
+      <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
+        <ion-item [routerLink]="['/calculadora/resultado', indice]">
+          <ion-card-header>
+            {{materia.nombreMateria}}
+          </ion-card-header>
+          <ion-card-content>
+            <h2>Nota actual: {{materia.notaActual}}</h2>
+            <h2>% actual: {{materia.porcentajeActual}}%</h2>
+          </ion-card-content>
+        </ion-item>
 
-    <ion-item-options id="start" side="start">
-      <ion-item-option [routerLink]="['/calculadora/ingresar-notas', indice]">
-        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
+        <ion-item-options id="start" side="start">
+          <ion-item-option [routerLink]="['/calculadora/ingresar-notas', indice]">
+            <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
 
-    <ion-item-options id="end" side="end">
-      <ion-item-option color="danger" (click)="presentAlert(indice)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
+        <ion-item-options id="end" side="end">
+          <ion-item-option color="danger" (click)="presentAlert(indice)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      
+     
+  </div>
 
-  </ion-item-sliding>
-</div>
-
-<div class="agregarMateria">
-  <ion-card class="boton-mas" [routerLink]="['/calculadora'] ">
-    <h1>+</h1>
-  </ion-card>
-</div>
-</ion-content>
+  <div class="agregarMateria">
+    <ion-card class="boton-mas" [routerLink]="['/calculadora'] ">
+      <h1>+</h1>
+    </ion-card>
+  </div>
+  </ion-content>
 <!---
 <ion-card [routerLink]="['/tips', tip.id]">
 -->

@@ -183,12 +183,33 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'datos-restaurante',
+    loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
+  },
+  {
     path: 'sugerencias-principal',
     loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
   },
   {
     path: 'crowd-restaurante',
     loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
+  },
+  {
+    path: 'monitores',
+    loadChildren: () => import('./monitores/monitores.module').then( m => m.MonitoresPageModule)
+  },
+  {
+    path: 'foro-crear',
+    loadChildren: () => import('./foros/foro-crear/foro-crear.module').then( m => m.ForoCrearPageModule)
+  },
+  {
+    path: 'tip-crear',
+    loadChildren: () => import('./tips/tip-crear/tip-crear.module').then( m => m.TipCrearPageModule)
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
+
   }
 ];
 @NgModule({
