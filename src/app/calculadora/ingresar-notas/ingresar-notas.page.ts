@@ -83,7 +83,10 @@ export class IngresarNotasPage implements OnInit {
     this.porcentaje=0;
     this.realizarCiclo()
     for(let i = 0; i < this.ciclo; i++){
-      this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
+      if(this.notas[i].notaObtenida!=-1){
+        this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
+      }
+      
     }
     this.p_bar_value = +this.porcentaje/100;
   }
