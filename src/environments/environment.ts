@@ -4,7 +4,19 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080'
+  baseUrl: 'http://localhost:8080',
+  
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  firebaseConfig : {
+    apiKey: "AIzaSyDTy7pM2QpgKquYeP3iZb3hgSqqfzOAK0A",
+    authDomain: "campusconnectlogin.firebaseapp.com",
+    projectId: "campusconnectlogin",
+    storageBucket: "campusconnectlogin.appspot.com",
+    messagingSenderId: "366979604385",
+    appId: "1:366979604385:web:8b125db74dba7f62fb75e0",
+    measurementId: "G-25LP5HK53H"
+  }
+  
 };
 
 /*
