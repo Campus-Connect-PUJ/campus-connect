@@ -84,8 +84,10 @@ export class LoginPage implements OnInit {
           console.log(typeof user);
           console.log("User validated.", user);
           this.router.navigate(["auth-home"]);
+          localStorage.setItem("Usuario", JSON.stringify(user))
         }
       }
+
     } catch (error) {
       console.log("Error -> ", error);
     }

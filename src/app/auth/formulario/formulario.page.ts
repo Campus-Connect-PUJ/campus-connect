@@ -83,7 +83,7 @@ export class FormularioPage implements OnInit {
       });
       await alert.present();
     } else{
-      if (i == 0) {
+      if (i != 0) {  //Aqui va ==0
         console.log(this.myDate);
         let alert = await this.alertController.create({
           cssClass: "custom-class-alert",
