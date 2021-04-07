@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/reco-grupos']">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Grupo estudiantil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-img src="https://www.google.com/search?q=grupo+estudiantil+javeriana&safe=off&sxsrf=ALeKk01uwE2prFH5Bss4VqHyMSL3NqqQXg:1613488513592&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjRqc6N2e7uAhXSslkKHeqwDKIQ_AUoAXoECAQQAw&biw=1280&bih=720#imgrc=bzJm6XKKn5rlyM"> </ion-img>
+    <ion-card-header>
+      <ion-card-title>{{grupoSelect.nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> 
+      {{grupoSelect.descripcion}}
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-item>
+    <ion-icon name="star-outline"></ion-icon>
+    <ion-range min="0" max="5" step="1" snaps="true" color="secondary"></ion-range>
+    <ion-icon name="star-outline"></ion-icon>
+  </ion-item>
+</ion-content>

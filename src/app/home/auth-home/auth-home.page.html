@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar class="title_auth_home">
+    <ion-title>
+      <p style="text-align: center;"><strong><em>Campus Connect</em></strong></p>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="home">
+    <div class="content">
+      <div>
+        <ion-card class="ion-text-center ion-activatable ripple-parent" href="/servicios-academicos">
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>Servicios académicos</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Aquí encontrarás los servicios relacionados con tus formación académica
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="ion-text-center ion-activatable ripple-parent" href="/sugerencias-principal">
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>Sugerencias</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Aquí encontrarás la información de los restaurantes dentro y alrededor de la universidad y de los grupos estudiantiles. 
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="ion-text-center" href="/mapa-principal">
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>Mapa</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Aquí encontrarás los servicios relacionados a la ubicación dentro la universidad 
+          </ion-card-content>
+        </ion-card>
+        
+      </div>
+
+    </div>
+  </div>
+</ion-content>
+
+<div class="menu">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="dark" href="/perfil">
+        <ion-icon name="person"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-label>Perfil</ion-label> -->
+      <ion-fab-button color="dark" href="/auth-home">
+        <ion-icon name="Home"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-label>Menú</ion-label> -->
+    </ion-fab-list>
+  </ion-fab>
+</div>

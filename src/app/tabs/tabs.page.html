@@ -1,0 +1,33 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="servicios-academicos">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>servicios-academicos</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="settings">
+      <ion-icon name="settings"></ion-icon>
+      <ion-label>Settings</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="albums"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <div id="botonFlotante" [routerLink]="['/foros']">
+      <h1>Buscar foro</h1>
+      <ion-fab-button><ion-icon name="search"></ion-icon></ion-fab-button>
+    </div>
+    <div id="botonFlotante" [routerLink]="['/foros/foro-crear']">
+      <h1>Crear foro</h1>
+      <ion-fab-button> <ion-icon name="add-circle"></ion-icon></ion-fab-button>
+    </div>
+    <div id="botonFlotante">
+      <h1>Preguntar CAE</h1>
+      <ion-fab-button>  <ion-icon name="person"></ion-icon></ion-fab-button>
+    </div>
+
+  </ion-fab-list>
+</ion-fab>

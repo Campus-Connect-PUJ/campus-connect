@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div id="buscador">
+    <ion-searchbar placeholder="Buscar foros" animated (ionChange)="buscarForos($event)"></ion-searchbar>
+  </div>
+  <div id="lista" *ngFor="let foro of foros | filtroForos:textoBuscar; let indice=index">
+    <ion-card [routerLink]="['/foros', foro.id]">
+      <ion-card-header>
+        {{foro.titulo}}
+        ID->{{foro.id}}
+      </ion-card-header>
+      <ion-card-content>
+        {{foro.respuestaPost}}
+        {{foro.descripcion}}
+        {{foro.usuario.nombre}}
+        {{foro.usuario.correo}}
+        {{foro.usuario.id}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
+</ion-content>
+<ion-button (click)="mostrarPop( $event )">
+  +
+</ion-button>

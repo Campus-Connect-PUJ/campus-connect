@@ -17,10 +17,25 @@
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  
 </head>
 
-<body>
+<body class="light">
   <app-root></app-root>
+  <div class="bot" style="display: none">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Wall-e"
+    agent-id="1c369321-b54c-4f59-ac6c-6fa23b6cf65f"
+    language-code="es"
+  ></df-messenger>
+  </div>
+
 </body>
 
 </html>

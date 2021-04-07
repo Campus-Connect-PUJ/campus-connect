@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>formulario2</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label>
+    Ya casi completas tu registro. Hacen falta estas pocas preguntas para que puedas disfrutar tu experiencia en Campus Connect.
+  </ion-label>
+  <ion-item>
+    <ion-label>¿Cuál es tu religión?</ion-label>
+    <ion-select (ionChange)="onReligionChange($event)">
+      <ion-select-option *ngFor="let item of religiones" value={{item[0]}}>{{item[1]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>¿A cuál grupo étnico perteneces?</ion-label>
+    <ion-select (ionChange)="onEtnicityChange($event)">
+      <ion-select-option *ngFor="let item of grupo_etnicos" value={{item[0]}}>{{item[1]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-radio-group (ionChange)="onBirthChange($event)" value="lugarOrigen">
+    <ion-list-header>
+      <ion-label>¿Tú lugar de nacimiento es Bogotá?</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio slot="start" color="success" value="si"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio slot="start" color="success" value="no"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item>
+    <ion-label>¿Cómo se identifica según su género?</ion-label>
+    <ion-select (ionChange)="onGenderChange($event)">
+      <ion-select-option *ngFor="let item of generos" value={{item}}>{{item}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>¿Cuál es su sexo?</ion-label>
+    <ion-select (ionChange)="onSexChange($event)">
+      <ion-select-option *ngFor="let item of sexos" value={{item}}>{{item}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="register">
+    <button class="myButton" (click)="completar_registro()">
+      Completar registro
+    </button>
+  </div>
+
+</ion-content>

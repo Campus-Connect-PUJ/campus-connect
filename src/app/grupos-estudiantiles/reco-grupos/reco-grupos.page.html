@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/sugerencias-principal']" >
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Grupos Estudiantiles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Buscar Grupo Estudiantil..."  animated (ionChange)="buscarGrupoEstudiantil ($event)"></ion-searchbar>
+  
+    <ion-card>
+      <ion-card-header tappable (click)="collapseCard = !collapseCard">
+        <ion-card-title>Filtros</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard">
+      <ion-item>
+        <ion-label>Tematica</ion-label>
+        <ion-select class="custom-options" placeholder="Select One"  (ionChange)="buscarGrupoTematics($event)">
+          <ion-select-option *ngFor="let tematica of tematicas" [value]="">{{tematica.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Facultad</ion-label>
+        <ion-select [compareWith]="compareWith" (ionChange)="buscarGrupoFacultad($event)">
+          <ion-select-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      </ion-card-content>
+    </ion-card>  
+
+  <ion-list>
+    <ion-card *ngFor="let grupo of grupos | filtroGrupos:textoBuscar | filtroTematicaGurpos:tematicaSelect | filtroFacultadGrupos:facultadSelect">
+      <ion-card-header>
+        <ion-card-title>{{grupo.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label *ngFor= "let tema of grupo.tematicas">
+          {{tema.nombre}}
+        </ion-label>
+      </ion-card-content>
+      <ion-button (click) = "infoGrupo()" [routerLink]="['/reco-grupos',grupo.id]">
+          <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
+        </ion-button>
+    </ion-card>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

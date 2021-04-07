@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>formularioPersoGrupos</ion-title>
+    <ion-button (click)="closeModal()" size="small" slot="end" [routerLink]="['/reco-grupos']" >Cerrar</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label class="ion-text-wrap">
+      Hola! Con el fin de brindarte un mejor servicio te proponemos llenar este formulario con tus gustos
+      y preferencias. En caso de que no lo desees puedes darle click a "Cerrar".
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tématicas</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-list>
+    <ion-item *ngFor="let tematica of tematicas" (click)="onClickTematica(tematica)">
+      <ion-label>{{tematica.nombre}}</ion-label>
+        <ion-checkbox slot="end" ></ion-checkbox>   
+    </ion-item>
+    </ion-list>
+  </ion-item>
+  <ion-item>
+    <ion-label>Caracteristicas</ion-label>
+  </ion-item>
+  <ion-item>
+          
+          <ion-list>
+            <ion-item *ngFor="let caracteristica of caracteristicas" (click)="onClickCaracteristica(caracteristica)">
+              <ion-label>{{caracteristica.nombre}}</ion-label>
+              <ion-checkbox slot="end" ></ion-checkbox>
+            </ion-item>
+           </ion-list> 
+        </ion-item>
+  <ion-item>
+    <ion-label>¿Crees en Dios?</ion-label>
+    <ion-select placeholder="Select One"  (ionChange)="onClickCreencia($event)">
+        <ion-select-option value="true">Si</ion-select-option>
+        <ion-select-option value="false">No</ion-select-option>
+      </ion-select>
+  </ion-item>
+  
+  <ion-label>Actividades de interes</ion-label>
+  <ion-item *ngFor="let act of actividades; let i = index">
+    <ion-input type="string" [(ngModel)]="act.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="masActividad()"> + actividades </ion-button>
+  </ion-item>
+
+  <ion-label>Hobbies</ion-label>
+  <ion-item *ngFor="let hobbie of hobbies">
+    <ion-input placeholder="Hobbies" type="string" [(ngModel)]="hobbie.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="masHobbies()"> + hobbies </ion-button>
+  </ion-item>
+  
+
+  <ion-button expand="block" (click)="guardar()">Guardar</ion-button>
+</ion-content>

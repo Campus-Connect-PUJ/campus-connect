@@ -1,0 +1,59 @@
+#Primer-boton{
+    margin: 10%;
+    display: flex;
+}
+
+#Segundo-boton{
+    margin: 10%;
+    display: flex;
+}
+
+#Tercer-boton{
+    margin: 10%;
+    display: flex;
+}
+
+#Opciones{
+    width: 100%;
+
+}
+
+#imagen{
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    -moz-border-radius:50px;
+    -webkit-border-radius:50px;
+    border-radius: 50%;
+    background-color: #4BD4F2;
+}
+
+img{
+    display: block;
+    margin: auto;
+    padding: 25%;
+}
+
+#texto{
+    width: 500px;
+    height: 50px;
+}
+
+h1{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.4);
+    margin: 0%;
+    padding: 5% 0;
+    padding-right: 5%;
+}
