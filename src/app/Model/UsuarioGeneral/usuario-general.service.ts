@@ -11,6 +11,11 @@ import { UsuarioGeneral } from './usuario-general';
   providedIn: 'root'
 })
 export class UsuarioGeneralService {
+  user: UsuarioGeneral =  new UsuarioGeneral(" "," ", 0);
+  nombreUsuario: string = "usuario1";
+  correo: string;
+  semestre: number;
+
 
   constructor(private net: NetService) { }
 
@@ -33,4 +38,19 @@ export class UsuarioGeneralService {
       }
     );
   }
+
+  crearUsuario(){
+    const url = `${environment.baseUrl}/usuario`;
+    console.log("usuario enviar ", this.nombreUsuario, this.correo, this.semestre)
+    return this.net.post(
+      url,
+      {
+        correo: this.correo,
+        nombre: this.nombreUsuario,
+        semestre: this.semestre
+      }
+    );
+  }
+
+
 }

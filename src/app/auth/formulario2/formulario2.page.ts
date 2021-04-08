@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { user_data } from './../../model/shared/user_data';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
 
 @Component({
   selector: "app-formulario2",
@@ -42,7 +43,8 @@ export class Formulario2Page implements OnInit {
   constructor(
     private router: Router,
     public alertController: AlertController,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UsuarioGeneralService
   ) {}
 
   ngOnInit() {
@@ -160,9 +162,18 @@ export class Formulario2Page implements OnInit {
               };
 
               const url = "http://localhost:8080/createusuario/";
+
+              this.userService.crearUsuario()
+              .subscribe(
+                results => console.log(results),
+                error => console.error(error)
+              )
+              
+              /*
               console.log("postData: ");
               console.log(postData);
               console.log(this.http.post(url, postData, options).toPromise());
+              */
               this.router.navigate(["auth-home"]);
             }
           }

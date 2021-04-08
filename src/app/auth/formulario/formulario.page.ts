@@ -2,6 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AlertController } from "@ionic/angular";
@@ -18,7 +19,7 @@ export class FormularioPage implements OnInit {
   public carreras_seleccionadas = ["Ninguna"];
   public myDate;
   public semestre = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-  public semestre_seleccionado
+  public semestre_seleccionado;
   authState: any = null;
 
   constructor(
@@ -26,7 +27,8 @@ export class FormularioPage implements OnInit {
     public alertController: AlertController,
     private router: Router,
     private firebaseAuth: AngularFireAuth,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private userService: UsuarioGeneralService
   ) {
     this.firebaseAuth.authState.subscribe((authState) => {
       this.authState = authState;
@@ -61,7 +63,9 @@ export class FormularioPage implements OnInit {
     if (selected_values.length == 0) {
       this.semestre_seleccionado = null
     } else {
-      this.semestre_seleccionado = selectedValue.detail.value;    
+      this.semestre_seleccionado = selectedValue.detail.value;   
+      console.log("semestre seleccionado", this.semestre_seleccionado) 
+      this.userService.semestre = this.semestre_seleccionado;
     }
   }
 

@@ -1,3 +1,4 @@
+import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
@@ -15,7 +16,8 @@ export class RegistroPage implements OnInit {
   constructor(
     public nav: NavController,
     private authSvc: AuthService,
-    private router: Router
+    private router: Router, 
+    private userService: UsuarioGeneralService
   ) {}
 
   ngOnInit() {
@@ -78,7 +80,10 @@ export class RegistroPage implements OnInit {
         }else{
           // console.log("User ",user);
           // TODO Check email.
-          console.log("User created.", user);
+          console.log("User created.", email.value);
+          this.userService.correo = email.value;
+          this.userService.nombreUsuario = nombre.value;
+          console.log("el correo es ", email.value)
           this.router.navigate(["formulario_registro"]);
           // Check Email
         }
