@@ -40,7 +40,7 @@
   </ion-item-divider>
 
   <div class="Lista de respuestas">
-    <ion-card class="Respuestas">
+    <ion-card *ngFor="let respuesta of foro.respuestaPost" class="Respuestas">
       <div class="foro">
         <ion-card-header>
           <h1>{{foro.titulo}}</h1>
@@ -61,4 +61,20 @@
     </div>
     </ion-card>
   </div>
+
+<div id="contestar">
+  Agregar respuesta
+  <ion-textarea type="string" [(ngModel)]="respuestaTexto"></ion-textarea>
+  <ion-button (click)="crearRespuesta()">Crear respuesta</ion-button>
+</div>
+
+<!---------
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="mostrarPop( $event )">
+    <ion-icon name="albums"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+-------->
+
 </ion-content>

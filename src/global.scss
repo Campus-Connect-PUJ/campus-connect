@@ -69,3 +69,40 @@
     left: 0%;
 
 }
+
+.estilosContestar{
+
+
+    .modal-wrapper{
+        
+    }
+
+    .popover-content{
+        --background: rgb(97, 67, 67) !important; 
+        max-height: 50%;
+        width: 95%;
+        background-color: red;
+    }
+
+    #enviar{
+        color: red;
+        background-color: red;
+    }
+
+    #areaEscribir{
+        margin: 0;
+        margin-right: 5%;
+        margin-left: 5%;
+        padding: 0;
+        border-radius: 10%;
+
+        ion-textarea{
+            border-radius: 10%;
+            background-color: blue;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+}
+

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { OpcionesComponent } from '../opciones/opciones.component';
 import { ForoService } from '../Model/Foro/foro.service';
 import { Foro } from '../Model/Foro/foro';
 
@@ -38,18 +37,7 @@ export class ForosPage implements OnInit {
     this.textoBuscar = texto;
   }
 
-  /*
-  async mostrarPop(evento){
-    const popover = await this.popoverController.create({
-      component: OpcionesComponent,
-      cssClass: 'prueba',
-      event: evento
-    });
-    await popover.present();
 
-    const { data } = await popover.onWillDismiss();
-    console.log("En principal",data)
-  }
-  */
+  
 
 }

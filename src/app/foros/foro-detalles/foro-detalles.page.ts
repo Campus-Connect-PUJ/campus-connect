@@ -1,6 +1,8 @@
+import { RespuestaForo } from './../../Model/RespuestasForo/respuestas-foro';
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Foro } from 'src/app/Model/Foro/foro';
+import { PopoverController, ModalController } from '@ionic/angular';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
@@ -12,10 +14,14 @@ import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
   color: boolean = false;
+  respuestaTexto: string;
   foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private forosService: ForoService
+  constructor(
+    private popoverController: PopoverController,
+    private modalCtrl: ModalController,
+    private activatedRoute: ActivatedRoute,
+    private forosService: ForoService
   ) { }
 
   ngOnInit() {
@@ -31,6 +37,7 @@ export class ForoDetallesPage implements OnInit {
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
+        console.log("cant respues", this.foro)
       },
       error => console.error(error)
     )
@@ -42,5 +49,37 @@ export class ForoDetallesPage implements OnInit {
     
   }
 
+  crearRespuesta(){
+    let respuestanueva: RespuestaForo = new RespuestaForo();
+    let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
+    console.log("Reespuesta", this.respuestaTexto)
+    respuestanueva.id = this.indice;
+    respuestanueva.texto = this.respuestaTexto;
+    respuestanueva.usuario = JSON.parse(localStorage.getItem("Usuario"));
+    try {
+      this.foro.respuestaPost.push(respuestanueva);
+      console.log("Ahora entra aca")
+    } catch (error) {
+      respuestas.push(respuestanueva);
+      console.log(respuestas)
+      this.foro.respuestaPost = respuestas;
+    }
+    
+  }
+
+  /*
+  async mostrarPop(evento){
+
+    const popover = await this.modalCtrl.create({
+      component: ContestarComponent,
+      cssClass: 'estilosContestar',
+      
+    });
+    await popover.present();
+
+    const {data} = await popover.onWillDismiss();
+    console.log(data)
+  }
+*/
 }
