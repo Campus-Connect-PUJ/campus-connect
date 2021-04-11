@@ -18,7 +18,7 @@ export class TabsPage implements OnInit {
   cambiarUsuario(){
 
     this.user = JSON.parse(localStorage.getItem("Usuario"));
-
+    
     if(this.user.correo === "correo1@hotmail.com"){
       this.user.nombre = "usuario2";
       this.user.correo =  "correo2@hotmail.com";

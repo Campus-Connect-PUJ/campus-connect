@@ -16,6 +16,7 @@ export class ForoDetallesPage implements OnInit {
   color: boolean = false;
   respuestaTexto: string;
   foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
+  respuestas: RespuestaForo[];
 
   constructor(
     private popoverController: PopoverController,
@@ -37,7 +38,9 @@ export class ForoDetallesPage implements OnInit {
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
-        console.log("cant respues", this.foro)
+        this.respuestas = this.foro.respuestas;
+        console.log(this.foro)
+        console.log(this.foro.respuestas, " ", this.respuestas.length)
       },
       error => console.error(error)
     )
@@ -53,19 +56,22 @@ export class ForoDetallesPage implements OnInit {
     let respuestanueva: RespuestaForo = new RespuestaForo();
     let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
-    console.log("Reespuesta", this.respuestaTexto)
+    console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
     respuestanueva.usuario = JSON.parse(localStorage.getItem("Usuario"));
     try {
-      this.foro.respuestaPost.push(respuestanueva);
-      console.log("Ahora entra aca")
+      this.foro.respuestas.push(respuestanueva);
     } catch (error) {
       respuestas.push(respuestanueva);
       console.log(respuestas)
-      this.foro.respuestaPost = respuestas;
+      this.foro.respuestas = respuestas;
     }
-    
+
+    this.forosService.updatePost(respuestanueva).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    )
   }
 
   /*

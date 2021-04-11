@@ -19,7 +19,6 @@
         <h2>{{foro.descripcion}}</h2>
       </ion-card-content>
     </div>
-
     <div class="informacion">
       <div class="usuario">
         <ion-icon name="person-circle-outline"></ion-icon>
@@ -40,13 +39,11 @@
   </ion-item-divider>
 
   <div class="Lista de respuestas">
-    <ion-card *ngFor="let respuesta of foro.respuestaPost" class="Respuestas">
+    <ion-card *ngFor="let respuesta of respuestas" class="Respuestas">
       <div class="foro">
-        <ion-card-header>
-          <h1>{{foro.titulo}}</h1>
-        </ion-card-header>
+
         <ion-card-content>
-          <h2>{{foro.descripcion}}</h2>
+          <h2>{{respuesta.texto}}</h2>
         </ion-card-content>
       </div>
     <div class="informacion">

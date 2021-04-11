@@ -3,6 +3,7 @@ import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Foro } from './foro';
+import { RespuestaForo } from '../RespuestasForo/respuestas-foro';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,19 @@ export class ForoService {
       }
     );
   }
+
+  updatePost(respuesta: RespuestaForo){
+    console.log("Aca ", respuesta);
+    //const url = `${environment.baseUrl}/foro/${foro.usuario.id}/respuesta`;
+    const url = `${environment.baseUrl}/foro/258/respuesta`;
+    return this.net.post(
+      url, 
+      {
+        "texto": respuesta.texto,
+        "idUsuario": respuesta.usuario.id
+      }
+    )
+  }
+
 
 }
