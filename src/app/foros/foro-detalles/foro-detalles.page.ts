@@ -1,6 +1,6 @@
 import { RespuestaForo } from './../../Model/RespuestasForo/respuestas-foro';
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Foro } from 'src/app/Model/Foro/foro';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { ForoService } from 'src/app/Model/Foro/foro.service';

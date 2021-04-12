@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ForoService } from '../Model/Foro/foro.service';
 import { Foro } from '../Model/Foro/foro';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-foros',
@@ -15,17 +16,44 @@ export class ForosPage implements OnInit {
 
   constructor(
     private popoverController: PopoverController,
-    private forosService: ForoService
+    private forosService: ForoService, 
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
-    this.cargarForos();
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      const recipeId = paraMap.get('usuarioId')
+      if(recipeId != null){
+        console.log(recipeId)
+        this.cargarForosUsuarios(Number(recipeId));
+      }
+      else{
+        this.cargarForos();
+      }
+    })
   }
 
   cargarForos(){
     this.forosService.getPosts().subscribe(
       results => {
         this.foros = results;
+        console.log("Los foros", this.foros)
+      },
+      error => console.error(error)
+    )
+  }
+
+  cargarForosUsuarios(id: number){
+    let forosUsuario = new Array<Foro>();
+    this.forosService.getPosts().subscribe(
+      results => {
+        this.foros = results;
+        for(let i=0; i<this.foros.length; i++){
+          if(this.foros[i].usuario.id === id){
+            forosUsuario.push(this.foros[i]);
+          }
+        }
+        this.foros = forosUsuario;
         console.log("Los foros", this.foros)
       },
       error => console.error(error)
