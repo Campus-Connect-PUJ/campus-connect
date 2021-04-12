@@ -33,10 +33,8 @@ export class ForoService {
     );
   }
 
-  updatePost(respuesta: RespuestaForo){
-    console.log("Aca ", respuesta);
-    //const url = `${environment.baseUrl}/foro/${foro.usuario.id}/respuesta`;
-    const url = `${environment.baseUrl}/foro/258/respuesta`;
+  agregarRespuesta(respuesta: RespuestaForo, idForo: number){
+    const url = `${environment.baseUrl}/foro/${idForo}/respuesta`;
     return this.net.post(
       url, 
       {
@@ -46,5 +44,36 @@ export class ForoService {
     )
   }
 
+  sumarVotoRespuesta(indice: number){
+    const url = `${environment.baseUrl}/respuestaForo/sumar/${indice}`;
+    return this.net.put(
+      url,{}
+      )
+    
+  }
+
+  restarVotoRespuesta(indice: number){
+    const url = `${environment.baseUrl}/respuestaForo/restar/${indice}`;
+    return this.net.put(
+      url,{}
+      )
+    
+  }
+
+  sumarVoto(indice: number){
+    const url = `${environment.baseUrl}/foro/sumar/${indice}`;
+    return this.net.put(
+      url,{}
+      )
+    
+  }
+
+  restarVoto(indice: number){
+    const url = `${environment.baseUrl}/foro/restar/${indice}`;
+    return this.net.put(
+      url,{}
+      )
+    
+  }
 
 }

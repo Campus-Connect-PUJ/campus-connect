@@ -6,6 +6,7 @@ export class RespuestaForo {
     reportado: boolean;
     texto: string;
     usuario: UsuarioGeneral;
+    puntaje: number;
     constructor(){
       this.reportado = false;
     }

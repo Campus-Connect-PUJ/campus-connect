@@ -49,7 +49,45 @@ export class ForoDetallesPage implements OnInit {
   calificacion(operacion: number){
     console.log(operacion, this.color)
     this.color = !this.color;
-    
+  }
+
+  calificacionForo(operacion: number){
+    this.color = !this.color;
+
+    if(operacion === 1){
+      this.forosService.sumarVoto(this.foro.id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.foro.puntaje = this.foro.puntaje+1;
+    }
+    else{
+      this.forosService.restarVoto(this.foro.id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.foro.puntaje = this.foro.puntaje-1;
+    }
+  }
+
+  
+  calificacionRespuestas(operacion: number, id: number, indice: number){
+    this.color = !this.color;
+
+    if(operacion === 1){
+      this.forosService.sumarVotoRespuesta(id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
+    }
+    else{
+      this.forosService.restarVotoRespuesta(id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje-1;
+    }
   }
 
   crearRespuesta(){
@@ -68,7 +106,7 @@ export class ForoDetallesPage implements OnInit {
       this.foro.respuestas = respuestas;
     }
 
-    this.forosService.updatePost(respuestanueva).subscribe(
+    this.forosService.agregarRespuesta(respuestanueva, this.foro.id).subscribe(
       results => console.log(results),
       error => console.error(error)
     )

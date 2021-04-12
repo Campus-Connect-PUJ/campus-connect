@@ -50,7 +50,16 @@ ion-toolbar {
 .votos{
     display: flex;
     justify-content: space-between;
-    width: 15%;
+    width: 25%;
+    
+    .puntaje{
+        width: 20%;
+    }
+    .flechas{
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+    }
 }
 
 .foro h1{

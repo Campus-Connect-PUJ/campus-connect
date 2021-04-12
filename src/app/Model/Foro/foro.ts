@@ -6,6 +6,7 @@ export class Foro {
   fecha: Date;
   reportado: boolean;
   respuestas: RespuestaForo[];
+  puntaje: number;
   constructor(
     public titulo: string,
     public descripcion: string,

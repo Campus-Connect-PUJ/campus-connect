@@ -26,8 +26,13 @@
       </div>
 
       <div class="votos">
-        <ion-icon name="arrow-down" (click)="calificacion(-1)"></ion-icon>
-        <ion-icon name="arrow-up" (click)="calificacion(1)"></ion-icon>
+        <div class="puntaje">
+          {{foro.puntaje}}
+        </div>
+       <div class="flechas">
+          <ion-icon name="arrow-down" (click)="calificacionForo(-1)"></ion-icon>
+          <ion-icon name="arrow-up" (click)="calificacionForo(1)"></ion-icon>
+        </div>
       </div>
     </div>
   </ion-card>
@@ -39,9 +44,8 @@
   </ion-item-divider>
 
   <div class="Lista de respuestas">
-    <ion-card *ngFor="let respuesta of respuestas" class="Respuestas">
+    <ion-card *ngFor="let respuesta of respuestas; let indice=index" class="Respuestas">
       <div class="foro">
-
         <ion-card-content>
           <h2>{{respuesta.texto}}</h2>
         </ion-card-content>
@@ -49,11 +53,16 @@
     <div class="informacion">
       <div class="usuario">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <h3>{{foro.usuario.nombre}}</h3>
+        <h3>{{respuesta.usuario.nombre}}</h3>
       </div>
       <div class="votos">
-        <ion-icon name="arrow-down"></ion-icon>
-        <ion-icon name="arrow-up"></ion-icon>
+        <div class="puntaje">
+          {{respuesta.puntaje}}
+        </div>
+        <div class="flechas">
+          <ion-icon name="arrow-down" (click)="calificacionRespuestas(-1, respuesta.id, indice)"></ion-icon>
+          <ion-icon name="arrow-up" (click)="calificacionRespuestas(1, respuesta.id, indice)"></ion-icon>
+        </div>
       </div>
     </div>
     </ion-card>
