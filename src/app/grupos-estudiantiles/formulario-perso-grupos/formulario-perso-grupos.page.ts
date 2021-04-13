@@ -30,6 +30,8 @@ export class FormularioPersoGruposPage implements OnInit {
   caracteristicasUsuario: Caracteristica[]=[];
   creenciaUsuario: Boolean;
 
+  textoBuscar='';
+
   constructor(private modalController:ModalController, private tematicasService: TematicaService, private caracteristicaService: CaracteristicaService) { }
 
   ngOnInit() {
@@ -89,5 +91,10 @@ export class FormularioPersoGruposPage implements OnInit {
 
   guardar(){
     console.log("Enviar datos al back")
+  }
+
+  buscarCaracteristica(event){
+    const texto = event.target.value;
+    this.textoBuscar= texto;
   }
 }
