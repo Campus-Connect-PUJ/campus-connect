@@ -11,6 +11,8 @@ import { RestauranteService } from '../../../Model/Restaurante/restaurante.servi
 })
 export class DatosRestaurantePage implements OnInit {
 
+  puntajeAsig: number;
+
   restauranteSelect: Restaurante =new Restaurante ("","",0,0);
 
   constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService ) { }
@@ -32,5 +34,9 @@ export class DatosRestaurantePage implements OnInit {
     )
   }
 
+  guardarPuntajeRestaurnate(event){
+    const puntaje = event.target.value;
+    this.puntajeAsig = puntaje;
+  }
 
 }
