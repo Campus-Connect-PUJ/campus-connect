@@ -46,8 +46,18 @@ export class TipsService {
     );
   }
 
-  sumarVoto(indice: number){
-    const url = `${environment.baseUrl}/tip/sumar/${indice}`;
+  agregarTipNoGustado(idUsuario: number, idTip: number){
+    const url = `${environment.baseUrl}/tip/tipsNoGustados/${idUsuario}/${idTip}`;
+    console.log("->",idUsuario, idTip);
+    return this.net.put(
+      url,
+      {}
+    );
+  }
+
+
+  sumarVoto(indiceUsuario: number, indiceTip: number){
+    const url = `${environment.baseUrl}/tip/tipsGustados/${indiceUsuario}/${indiceTip}`;
     return this.net.put(
       url,{}
       )
@@ -59,6 +69,14 @@ export class TipsService {
     return this.net.put(
       url,{}
       )
+  }
+
+  obtenerRecomendacion(idUsuario: number){
+    const url = `${environment.baseUrl}/reglas/usuario/${idUsuario}`;
+    return this.net.get<Tip>(
+      url
+    )
+
   }
 
 

@@ -53,29 +53,31 @@ export class TipDetallesPage implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem("Usuario"));
     this.indice = this.user.id;
+    /*
     this.tipsService.agregarTipGustado(this.indice, this.tip.id).subscribe(
       results => console.log(results),
       error => console.error(error)
     );
-
+      */
     this.calificacionTip(voto, this.tip.id);
 
   }
 
 
-  calificacionTip(operacion: number, id: number){
-    console.log("el id", id)
+  calificacionTip(operacion: number, idTip: number){
+    let a: number;
+    a=1
     if(operacion === 1){
-      this.tipsService.sumarVoto(id).subscribe(
+      this.tipsService.agregarTipGustado(a,this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
     }
     else{
-      this.tipsService.restarVoto(id).subscribe(
+      this.tipsService.agregarTipNoGustado(a,this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
-      )    
+      )
     }
   }
 

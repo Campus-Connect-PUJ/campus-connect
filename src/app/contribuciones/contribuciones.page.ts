@@ -10,11 +10,19 @@ export class ContribucionesPage implements OnInit {
   indice: number;
   user: UsuarioGeneral;
 
-  constructor() { }
+  constructor() { 
+    this.user = JSON.parse(localStorage.getItem("Usuario"));
+    this.indice = this.user.id;
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("Usuario"));
     this.indice = this.user.id;
+    this.ngOnDestroy();
+  }
+
+  ngOnDestroy() {
+
   }
 
 }
