@@ -73,7 +73,6 @@ export class ForoService {
     return this.net.put(
       url,{}
       )
-    
   }
 
 }
