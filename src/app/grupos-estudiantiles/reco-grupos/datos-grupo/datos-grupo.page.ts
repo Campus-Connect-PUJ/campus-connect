@@ -15,6 +15,7 @@ export class DatosGrupoPage implements OnInit {
 
   grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "");
   tematicas: Tematica[];
+  puntajeAsig: number;
 
   constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService ) { }
 
@@ -43,5 +44,10 @@ export class DatosGrupoPage implements OnInit {
       },
       error => console.error(error)
     )
+  }
+
+  guardarPuntajeGrupo(event){
+    const puntaje = event.target.value;
+    this.puntajeAsig = puntaje;
   }
 }
