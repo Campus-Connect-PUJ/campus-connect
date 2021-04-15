@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
-import { AuthService } from "src/app/services/auth.service";
+import { LoginService } from "src/app/services/login.service";
 
 @Component({
   selector: "page-register",
@@ -14,7 +14,7 @@ export class RegistroPage implements OnInit {
 
   constructor(
     public nav: NavController,
-    private authSvc: AuthService,
+    private authSvc: LoginService,
     private router: Router
   ) {}
 
@@ -55,34 +55,35 @@ export class RegistroPage implements OnInit {
   // register and go to home page
   async onRegister(nombre, apellido, email, password) {
     try {
-      const user = await this.authSvc.register(email.value, password.value, nombre.value, apellido.value);
-      if (user) {
-        if (typeof user === "string") {
-          this.data = user;
-          this.error_visibility = 1;
-          if (user == "auth/invalid-email") {
-            this.data = "Correo ingresado inválido.";
-          }
-          if (user == "auth/wrong-password") {
-            this.data = "Contraseña ingresada inválida.";
-          }
-          if (user == "auth/user-not-found") {
-            this.data = "Usuario inexistente.";
-          }
-          if(user == "auth/weak-password"){
-            this.data = "Contraseña debe ser de al menos 6 caracteres";
-          }
-          if(user == "auth/email-already-in-use"){
-            this.data = "Correo ya existente";
-          }
-        }else{
-          // console.log("User ",user);
-          // TODO Check email.
-          console.log("User created.", user);
-          this.router.navigate(["formulario_registro"]);
-          // Check Email
-        }
-      }
+      // TODO: hacer registro
+      // const user = await this.authSvc.register(email.value, password.value, nombre.value, apellido.value);
+      // if (user) {
+      //   if (typeof user === "string") {
+      //     this.data = user;
+      //     this.error_visibility = 1;
+      //     if (user == "auth/invalid-email") {
+      //       this.data = "Correo ingresado inválido.";
+      //     }
+      //     if (user == "auth/wrong-password") {
+      //       this.data = "Contraseña ingresada inválida.";
+      //     }
+      //     if (user == "auth/user-not-found") {
+      //       this.data = "Usuario inexistente.";
+      //     }
+      //     if(user == "auth/weak-password"){
+      //       this.data = "Contraseña debe ser de al menos 6 caracteres";
+      //     }
+      //     if(user == "auth/email-already-in-use"){
+      //       this.data = "Correo ya existente";
+      //     }
+      //   }else{
+      //     // console.log("User ",user);
+      //     // TODO Check email.
+      //     console.log("User created.", user);
+      //     this.router.navigate(["formulario_registro"]);
+      //     // Check Email
+      //   }
+      // }
     } catch (error) {
       console.log("Error -> ", error);
     }

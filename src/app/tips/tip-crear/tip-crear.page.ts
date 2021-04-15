@@ -40,7 +40,7 @@ export class TipCrearPage implements OnInit {
   crearTip(){
     let mensaje = "Se publico el tip";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
+    this.usuario = new UsuarioGeneral("usuario1", "",  "correo@falso.com", 3);
     this.usuario.id = 1;
 
     this.tip.descripcion = this.descripcion;

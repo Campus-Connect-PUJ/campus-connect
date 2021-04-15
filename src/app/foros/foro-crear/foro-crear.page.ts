@@ -26,7 +26,7 @@ export class ForoCrearPage implements OnInit {
   crearForo(){
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = new UsuarioGeneral("usuario1", "correo@falso.com", 3);
+    this.usuario = new UsuarioGeneral("usuario1", "", "correo@falso.com", 3);
     this.usuario.id = 1;
 
     console.log(this.descripcion, this.titulo)

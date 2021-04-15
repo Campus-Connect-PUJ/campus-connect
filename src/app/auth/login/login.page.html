@@ -18,19 +18,25 @@
       <div class="form_login">
         <form>
           <ion-item>
-            <ion-icon name="mail"></ion-icon>
             <div class="space">a</div>
-            <ion-input type="email" #email placeholder="Ingresa tu correo"></ion-input>
+            <ion-input
+              name="mail"
+              type="email"
+              placeholder="Ingresa tu correo"
+              [(ngModel)]="email"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-icon name="key"></ion-icon>
             <div class="space">a</div>
-            <ion-input type="password" #password placeholder="Ingresa tu contraseña"></ion-input>
+            <ion-input
+              name="password"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              [(ngModel)]="password"></ion-input>
           </ion-item>
         </form>
       </div>
       <div class="log_in">
-        <button class="myButton" (click)="onLogin(email,password)">
+        <button class="myButton" (click)="onLogin()">
           Iniciar sesión
         </button>
       </div>

@@ -1,8 +1,8 @@
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { user_data } from './../../model/shared/user_data';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 
 @Component({
   selector: "app-formulario2",
@@ -28,11 +28,11 @@ export class Formulario2Page implements OnInit {
     ["OTRO", "Otro"],
     ["RAIZAL", "Raizal"],
   ];
-  public generos = ["Hombre", "Mujer", "De otro modo", "Prefiero no decirlo"];
+  public generos = ["Hombre", "Mujer", "LGTBI", "Prefiero no decirlo"];
 
   public sexos = ["Masculino", "Femenino", "Prefiero no decirlo"];
 
-  public user_data: user_data;
+  public user_data: UsuarioGeneral;
   private religion: any = null;
   private ethnicity: any = null;
   private birth: any = null;
@@ -42,7 +42,7 @@ export class Formulario2Page implements OnInit {
   constructor(
     private router: Router,
     public alertController: AlertController,
-    private http: HttpClient
+    private ugService: UsuarioGeneralService
   ) {}
 
   ngOnInit() {
@@ -77,97 +77,46 @@ export class Formulario2Page implements OnInit {
     this.sex = selected_values;
   }
 
+  async alertaElementoNoSeleccionado(elemento, mensaje) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
+  }
+
   async completar_registro() {
     if (this.religion == null) {
-      let alert = await this.alertController.create({
-        cssClass: "custom-class-alert",
-        header: "Error",
-        subHeader: "Creencia no seleccionada",
-        message:
-          "Para continuar con el registro debes seleccionar una creencia válida.",
-        buttons: ["OK"],
-      });
-      await alert.present();
-    } else {
-      if (this.ethnicity == null) {
-        let alert = await this.alertController.create({
-          cssClass: "custom-class-alert",
-          header: "Error",
-          subHeader: "Etnia no seleccionada",
-          message:
-            "Para continuar con el registro debes seleccionar una étnia válida.",
-          buttons: ["OK"],
-        });
-        await alert.present();
-      } else {
-        if (this.birth == null) {
-          let alert = await this.alertController.create({
-            cssClass: "custom-class-alert",
-            header: "Error",
-            subHeader: "Lugar de nacimiento no seleccionado",
-            message:
-              "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento.",
-            buttons: ["OK"],
-          });
-          await alert.present();
-        } else {
-          if (this.gender == null) {
-            let alert = await this.alertController.create({
-              cssClass: "custom-class-alert",
-              header: "Error",
-              subHeader: "Género no seleccionado",
-              message:
-                "Para continuar con el registro responder la pregunta de orientación de género.",
-              buttons: ["OK"],
-            });
-            await alert.present();
-          } else {
-            if (this.sex == null) {
-              let alert = await this.alertController.create({
-                cssClass: "custom-class-alert",
-                header: "Error",
-                subHeader: "Sexo no seleccionado",
-                message:
-                  "Para continuar con el registro responder la pregunta del sexo.",
-                buttons: ["OK"],
-              });
-              await alert.present();
-            } else {
-              //Datos ingresados completos
-              let obj = [];
-              let i = 0;
-              this.user_data.carreras_seleccionadas.forEach(
-                (item) => obj.push(item)
-              );
-              let postData = {
-                email: this.user_data.email,
-                name: this.user_data.name,
-                last_name: this.user_data.last_name,
-                myDate: this.user_data.myDate,
-                semestre_seleccionado: this.user_data.semestre_seleccionado,
-                carreras_seleccionadas: obj,
-                religion: this.religion,
-                etnico: this.ethnicity,
-                nacimiento: this.birth,
-                genero: this.gender,
-                sexo: this.sex
-              };
-              console.log(this.birth);
-              const options = {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              };
-
-              const url = "http://localhost:8080/createusuario/";
-              console.log("postData: ");
-              console.log(postData);
-              console.log(this.http.post(url, postData, options).toPromise());
-              this.router.navigate(["auth-home"]);
-            }
-          }
-        }
-      }
+      await this.alertaElementoNoSeleccionado(
+        "Creencia no seleccionada",
+        "Para continuar con el registro debes seleccionar una creencia válida."
+      );
+    } else if (this.ethnicity == null) {
+      await this.alertaElementoNoSeleccionado(
+        "Etnia no seleccionada",
+        "Para continuar con el registro debes seleccionar una étnia válida."
+      );
+    } else if (this.birth == null) {
+      await this.alertaElementoNoSeleccionado(
+        "Lugar de nacimiento no seleccionado",
+        "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento."
+      );
+    } else if (this.gender == null) {
+      await this.alertaElementoNoSeleccionado(
+        "Género no seleccionado",
+        "Para continuar con el registro responder la pregunta de orientación de género."
+      );
+    } else if (this.sex == null) {
+      await this.alertaElementoNoSeleccionado(
+        "Sexo no seleccionado",
+        "Para continuar con el registro responder la pregunta del sexo."
+      );
+    } else {  //Datos completos
+      this.ugService.createUsuarioGeneral(this.user_data);
+      this.router.navigate(["auth-home"]);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, Directive , OnInit} from "@angular/core";
 import { Router } from "@angular/router";
-import {NavController, AlertController, ToastController, MenuController} from "@ionic/angular";
-import { AuthService } from 'src/app/services/auth.service';
+import { NavController, AlertController, ToastController, MenuController } from "@ionic/angular";
+import { LoginService } from "src/app/services/login.service";
 
 @Component({
   selector: "page-login",
@@ -12,9 +12,12 @@ export class LoginPage implements OnInit {
   data: string;
   error_visibility: number;
 
+  email: string;
+  password: string;
+
   constructor(
     public nav: NavController,
-    private authSvc: AuthService,
+    private login: LoginService,
     private router: Router
   ) {
     this.error_visibility = 0;
@@ -62,33 +65,21 @@ export class LoginPage implements OnInit {
   }
 
   // login and go to home page
-  async onLogin(email, password) {
-    try {
-      const user = await this.authSvc.login(email.value, password.value);
-      if (user) {
-        //Todo: Check Email.
-        if (typeof user === "string") {
-          console.log("Error ", user);
-          this.data = user;
-          this.error_visibility = 1;
-          if (user == "auth/invalid-email") {
-            this.data = "Correo ingresado inválido."
-          }
-          if (user == "auth/wrong-password") {
-            this.data = "Contraseña ingresada inválida.";
-          }
-          if (user == "auth/user-not-found") {
-            this.data = "Usuario inexistente.";
-          }
-        } else {
-          console.log(typeof user);
-          console.log("User validated.", user);
+  onLogin() {
+    // console.log(JSON.stringify(email));
+    // console.log(JSON.stringify(password));
+    // console.log(this.email + " " + this.password);
+    this.login.login(this.email, this.password)
+      .subscribe(
+        results => {
+          console.log("ingreso exitoso: ", results)
           this.router.navigate(["auth-home"]);
+        },
+        error => {
+          console.error(error);
+          this.password = "";
         }
-      }
-    } catch (error) {
-      console.log("Error -> ", error);
-    }
+      )
   }
 
   forgotPass() {}
