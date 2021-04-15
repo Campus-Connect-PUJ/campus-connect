@@ -38,12 +38,23 @@ export class LoginService {
     return respuesta;
   }
 
-  // TODO: register(
-  //     email: string,
-  //     password: string,
-  //     nombre: string,
-  //     apellido: string
-  //   )
+  register(
+    username: string,
+    apellido: string,
+    email: string,
+    password: string
+  ) {
+    const url = `${environment.baseUrl}/usuario`;
+    return this.net.post(
+      url,
+      {
+        username: username,
+        apellido: apellido,
+        email: email,
+        password: password
+      }
+    );
+  }
 
   // TODO: update
 

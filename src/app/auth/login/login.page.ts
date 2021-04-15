@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild, Directive , OnInit} from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { Router } from "@angular/router";
-import { NavController, AlertController, ToastController, MenuController } from "@ionic/angular";
+import { NavController } from "@ionic/angular";
 import { LoginService } from "src/app/services/login.service";
 
 @Component({
@@ -65,10 +65,7 @@ export class LoginPage implements OnInit {
   }
 
   // login and go to home page
-  onLogin() {
-    // console.log(JSON.stringify(email));
-    // console.log(JSON.stringify(password));
-    // console.log(this.email + " " + this.password);
+  onLogin(): void {
     this.login.login(this.email, this.password)
       .subscribe(
         results => {
@@ -79,7 +76,7 @@ export class LoginPage implements OnInit {
           console.error(error);
           this.password = "";
         }
-      )
+      );
   }
 
   forgotPass() {}

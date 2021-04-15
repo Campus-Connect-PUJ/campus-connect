@@ -10,9 +10,10 @@
         <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
       </div>
 
-      <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility == '1' ? 'visible' : 'hidden'}">
-        <p *ngIf="data==null; else elseBlock" ></p>
-        <ng-template #elseBlock><p  [innerHTML] = "data"></p></ng-template>
+      <div class="error_message" #error_message
+           [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
+        <p *ngIf="mensajeError==null; else elseBlock" ></p>
+        <ng-template #elseBlock><p  [innerHTML] = "mensajeError"></p></ng-template>
       </div>
 
       <!-- Login form -->
@@ -20,30 +21,49 @@
         <ion-item>
           <ion-icon name="person"></ion-icon>
           <div class="space">a</div>
-          <ion-input type="text" #nombre required placeholder="Ingresa tu nombre"></ion-input>
+          <ion-input
+            name="nombre"
+            [(ngModel)]="nombre"
+            type="text"
+            required placeholder="Ingresa tu nombre">
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-icon name="person"></ion-icon>
           <div class="space">a</div>
-          <ion-input type="text" #apellido required placeholder="Ingresa tu apellido"></ion-input>
+          <ion-input
+            name="apellido"
+            type="text"
+            [(ngModel)]="apellido"
+            required placeholder="Ingresa tu apellido">
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-icon name="mail"></ion-icon>
           <div class="space">a</div>
-          <ion-input type="email" #email required placeholder="Ingresa tu correo"></ion-input>
+          <ion-input
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            required placeholder="Ingresa tu correo">
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-icon name="key"></ion-icon>
           <div class="space">a</div>
-          <ion-input type="password" #password required placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-input
+            name="password"
+            type="password"
+            [(ngModel)]="password"
+            required placeholder="Ingresa tu contraseña"></ion-input>
         </ion-item>
       </form>
 
       <div class="register">
-        <button class="myButton" (click)="onRegister(nombre,apellido,email,password)">
+        <button class="myButton" (click)="onRegister()">
           Registrarse
         </button>
       </div>

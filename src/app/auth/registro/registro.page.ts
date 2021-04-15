@@ -9,51 +9,44 @@ import { LoginService } from "src/app/services/login.service";
   styleUrls: ["./registro.page.scss"],
 })
 export class RegistroPage implements OnInit {
-  data: string;
-  error_visibility: number;
+  mensajeError: string;
+  error_visibility: boolean;
+
+  nombre: string;
+  apellido: string;
+  email: string;
+  password: string;
 
   constructor(
     public nav: NavController,
-    private authSvc: LoginService,
+    private loginService: LoginService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  ngOnDestroy() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to is about to animate into view.
-  ionViewWillEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing from is about to animate.
-  ionViewWillLeave() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidLeave() {
-    this.error_visibility = 0;
-    this.data = "";
+    this.error_visibility = false;
+    this.mensajeError = "";
   }
 
   // register and go to home page
-  async onRegister(nombre, apellido, email, password) {
+  async onRegister() {
+
+    // TODO: this.error_visibility = true;
+    this.loginService.register(
+      this.nombre,
+      this.apellido,
+      this.email,
+      this.password
+    ).subscribe(
+        results => {
+          console.log("ingreso exitoso: ", results)
+          this.router.navigate(["formulario_registro"]);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
     try {
       // TODO: hacer registro
       // const user = await this.authSvc.register(email.value, password.value, nombre.value, apellido.value);
@@ -80,7 +73,6 @@ export class RegistroPage implements OnInit {
       //     // console.log("User ",user);
       //     // TODO Check email.
       //     console.log("User created.", user);
-      //     this.router.navigate(["formulario_registro"]);
       //     // Check Email
       //   }
       // }

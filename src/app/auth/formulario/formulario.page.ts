@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AlertController } from "@ionic/angular";
 import { LoginService } from 'src/app/services/login.service';
 import { Carrera } from 'src/app/Model/Carrera/carrera';
+import { CarrerasService } from 'src/app/Model/Carrera/carreras.service';
 
 @Component({
   selector: "app-formulario",
@@ -13,10 +14,9 @@ import { Carrera } from 'src/app/Model/Carrera/carrera';
 })
 export class FormularioPage implements OnInit {
   private url = "http://localhost:8080/carreras";
-  public carrerasJson;
   public carreras = [];
   public carreras_seleccionadas = ["Ninguna"];
-  public myDate;
+  public fechaNacimiento;
   public semestre = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
   public semestre_seleccionado // TODO: limpiar esto
   authState: any = null;
@@ -25,14 +25,15 @@ export class FormularioPage implements OnInit {
     private http: HttpClient,
     public alertController: AlertController,
     private router: Router,
-    private authSvc: LoginService
+    private login: LoginService,
+    private carrerasService: CarrerasService
   ) {
   }
 
   async ngOnInit() {
-    let result = await this.http.get(this.url).toPromise();
-    this.carrerasJson = JSON.parse(JSON.stringify(result));
-    this.carrerasJson.forEach((element: Carrera, i: number ) => {
+    let result = this.carrerasService.getCarreras();
+    let carrerasJson = JSON.parse(JSON.stringify(result));
+    carrerasJson.forEach((element: Carrera, i: number) => {
       this.carreras.push([i, element.nombre]);
     });
     console.log(this.carreras);
@@ -77,7 +78,7 @@ export class FormularioPage implements OnInit {
         i++;
       }
     });
-    if (typeof this.myDate == "undefined") {
+    if (typeof this.fechaNacimiento == "undefined") {
       await this.alertaElementoNoSeleccionado(
         "Fecha de nacimiento seleccionada",
         "Para continuar con el registro debes seleccionar una fecha válida."
@@ -94,7 +95,7 @@ export class FormularioPage implements OnInit {
         "Para continuar con el registro debes seleccionar el semestre en el cual te encuentras."
       );
     } else {
-      const user = this.authSvc.getUser();
+      const user = this.login.getUser();
       var postCarreras = []
       this.carreras_seleccionadas.forEach(element => {
         postCarreras.push(element)
@@ -103,7 +104,7 @@ export class FormularioPage implements OnInit {
         email: user.email,
         name: user.nombre,
         last_name: user.last_name,
-        myDate: this.myDate,
+        fechaNacimiento: this.fechaNacimiento,
         semestre_seleccionado: this.semestre_seleccionado,
         carreras_seleccionadas: postCarreras,
       };
@@ -114,5 +115,6 @@ export class FormularioPage implements OnInit {
       };
       this.router.navigate(["formulario_registro2"], navigationExtras);
     }
+    // this.router.navigate(["formulario_registro2"]);
   }
 }
