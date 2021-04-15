@@ -23,7 +23,7 @@ export class TabsPage implements OnInit {
       this.user.nombre = "usuario2";
       this.user.correo =  "correo2@hotmail.com";
       this.user.semestre = 1;
-      this.user.id = 2;
+      this.user.id = 3;
       console.log("entra")
     }
     else{
@@ -34,6 +34,11 @@ export class TabsPage implements OnInit {
     }
 
     localStorage.setItem("Usuario", JSON.stringify(this.user))
+    
+  }
+
+  MostrarChat(){
+    console.log("Mostrar")
     
   }
 
