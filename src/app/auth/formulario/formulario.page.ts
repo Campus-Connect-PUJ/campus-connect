@@ -47,7 +47,7 @@ export class FormularioPage implements OnInit {
   }
 
   async completar_registro() {
-    if (typeof this.fechaNacimiento == "undefined") {
+    if (this.fechaNacimiento === undefined) {
       await this.alertaElementoNoSeleccionado(
         "Fecha de nacimiento seleccionada",
         "Para continuar con el registro debes seleccionar una fecha válida."
@@ -58,11 +58,6 @@ export class FormularioPage implements OnInit {
         "Carrera seleccionada",
         "Para continuar con el registro debes seleccionar al menos una carrera."
       );
-    // } else if (this.semestre_seleccionado == null) {
-    //   await this.alertaElementoNoSeleccionado(
-    //     "Semestre seleccionado",
-    //     "Para continuar con el registro debes seleccionar el semestre en el cual te encuentras."
-    //   );
     } else {
 
       this.carreras_seleccionadas.forEach((a)=> console.log(">>>>" + a.id));

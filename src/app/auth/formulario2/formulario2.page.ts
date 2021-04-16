@@ -59,10 +59,6 @@ export class Formulario2Page implements OnInit {
 
     this.fechaNacimiento = datos.fechaNacimiento;
     this.carreras = datos.carreras;
-
-    datos.carreras.forEach((a)=> console.log("datos >>>>" + a));
-    this.carreras.forEach((a)=> console.log("carreras >>>>" + a));
-
   }
 
   onBirthChange(selectedValue: any) {
@@ -82,34 +78,32 @@ export class Formulario2Page implements OnInit {
   }
 
   async completar_registro() {
-    if (this.religion == null) {
+    if (this.religion.length === 0) {
       await this.alertaElementoNoSeleccionado(
         "Creencia no seleccionada",
         "Para continuar con el registro debes seleccionar una creencia válida."
       );
-    } else if (this.ethnicity == null) {
+    } else if (this.ethnicity.length === 0) {
       await this.alertaElementoNoSeleccionado(
         "Etnia no seleccionada",
         "Para continuar con el registro debes seleccionar una étnia válida."
       );
-    } else if (this.local == null) {
+    } else if (this.local.length === 0) {
       await this.alertaElementoNoSeleccionado(
         "Lugar de nacimiento no seleccionado",
         "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento."
       );
-    } else if (this.gender == null) {
+    } else if (this.gender.length === 0) {
       await this.alertaElementoNoSeleccionado(
         "Género no seleccionado",
         "Para continuar con el registro responder la pregunta de orientación de género."
       );
-    } else if (this.sex == null) {
+    } else if (this.sex.length === 0) {
       await this.alertaElementoNoSeleccionado(
         "Sexo no seleccionado",
         "Para continuar con el registro responder la pregunta del sexo."
       );
     } else {  //Datos completos
-      this.carreras.forEach((a)=> console.log("ye >>>>" + a));
-
       const user_data = this.login.getUser();
       this.ugService.agregarInformacionUsuario(
         user_data.id, // esto tal vez se podria meter en un objeto, pero meh

@@ -1,6 +1,6 @@
 import { Component, OnInit} from "@angular/core";
 import { Router } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { AlertController, NavController } from "@ionic/angular";
 import { UsuarioGeneral } from "src/app/Model/UsuarioGeneral/usuario-general";
 import { LoginService } from "src/app/services/login.service";
 
@@ -10,22 +10,18 @@ import { LoginService } from "src/app/services/login.service";
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  errorMessage: string;
-  error_visibility: boolean;
-
-  email: string;
-  password: string;
+  email: string = "";
+  password: string = "";
 
   constructor(
     public nav: NavController,
+    public alertController: AlertController,
     private login: LoginService,
     private router: Router
   ) {
   }
 
   ngOnInit() {
-    this.error_visibility = false;
-    this.errorMessage = "";
   }
 
   // go to register page
@@ -34,23 +30,44 @@ export class LoginPage implements OnInit {
     this.router.navigate(["registro"]);
   }
 
+  async alertaElementoNoSeleccionado(elemento, mensaje) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
+  }
+
   // login and go to home page
-  onLogin(): void {
-    this.login.login(this.email, this.password)
-      .subscribe(
-        results => {
-          console.log("ingreso exitoso: ", results)
-          let usuario: UsuarioGeneral = results;
-          this.login.storeUser(usuario);
-          this.router.navigate(["auth-home"]);
-        },
-        error => {
-          this.error_visibility = true;
-          this.errorMessage = error; // TODO: poner un mensaje de error valido
-          console.error(error);
-          this.password = "";
-        }
+  async onLogin() {
+    if (this.email.length === 0) { // TODO: hacer validacion del correo
+      await this.alertaElementoNoSeleccionado(
+        "Correo vacío",
+        "Para continuar con el registro se debe ingresar un correo valido."
       );
+    } else if (this.password.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Contraseña vacía",
+        "Para continuar con el registro se debe ingresar una contraseña."
+      );
+    } else {
+      this.login.login(this.email, this.password)
+        .subscribe(
+          results => {
+            console.log("ingreso exitoso: ", results)
+            let usuario: UsuarioGeneral = results;
+            this.login.storeUser(usuario);
+            this.router.navigate(["auth-home"]);
+          },
+          error => {
+            console.error(error);
+            this.password = "";
+          }
+        );
+    }
   }
 
   forgotPass() {}
