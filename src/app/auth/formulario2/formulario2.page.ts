@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
+import { Carrera } from 'src/app/Model/Carrera/carrera';
 
 @Component({
   selector: "app-formulario2",
@@ -32,49 +34,40 @@ export class Formulario2Page implements OnInit {
 
   public sexos = ["Masculino", "Femenino", "Prefiero no decirlo"];
 
-  public user_data: UsuarioGeneral;
-  private religion: any = null;
-  private ethnicity: any = null;
-  private birth: any = null;
-  private gender: any = null;
-  private sex: any = null;
+  // user_data: UsuarioGeneral = new UsuarioGeneral("","","");
+  religion: string = "";
+  ethnicity: string = "";
+  local: string = "";
+  gender: string = "";
+  sex: string = "";
+
+  fechaNacimiento: Date;
+
+  carreras: Carrera[] = [];
 
   constructor(
     private router: Router,
     public alertController: AlertController,
-    private ugService: UsuarioGeneralService
+    private ugService: UsuarioGeneralService,
+    private login: LoginService
   ) {}
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     const postData = navigation.extras.state;
-    this.user_data = postData.postData;
-    console.log(this.user_data);
-  }
+    const datos = postData.postData;
 
-  onReligionChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.religion = selected_values;
-  }
+    this.fechaNacimiento = datos.fechaNacimiento;
+    this.carreras = datos.carreras;
 
-  onEtnicityChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.ethnicity = selected_values;
+    datos.carreras.forEach((a)=> console.log("datos >>>>" + a));
+    this.carreras.forEach((a)=> console.log("carreras >>>>" + a));
+
   }
 
   onBirthChange(selectedValue: any) {
     let selected_values = selectedValue.detail.value;
-    this.birth = selected_values;
-  }
-
-  onGenderChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.gender = selected_values;
-  }
-
-  onSexChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.sex = selected_values;
+    this.local = selected_values;
   }
 
   async alertaElementoNoSeleccionado(elemento, mensaje) {
@@ -99,7 +92,7 @@ export class Formulario2Page implements OnInit {
         "Etnia no seleccionada",
         "Para continuar con el registro debes seleccionar una étnia válida."
       );
-    } else if (this.birth == null) {
+    } else if (this.local == null) {
       await this.alertaElementoNoSeleccionado(
         "Lugar de nacimiento no seleccionado",
         "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento."
@@ -115,8 +108,27 @@ export class Formulario2Page implements OnInit {
         "Para continuar con el registro responder la pregunta del sexo."
       );
     } else {  //Datos completos
-      this.ugService.createUsuarioGeneral(this.user_data);
-      this.router.navigate(["auth-home"]);
+      this.carreras.forEach((a)=> console.log("ye >>>>" + a));
+
+      const user_data = this.login.getUser();
+      this.ugService.agregarInformacionUsuario(
+        user_data.id, // esto tal vez se podria meter en un objeto, pero meh
+        this.fechaNacimiento,
+        this.carreras,
+        this.religion,
+        this.local == "true",
+        this.ethnicity,
+        this.sex,
+        this.gender
+      ).subscribe(
+        results => {
+          console.log("ingreso exitoso: ", results)
+          this.router.navigate(["auth-home"]);
+        },
+        error => {
+          console.error(error);
+        }
+      );
     }
   }
 }

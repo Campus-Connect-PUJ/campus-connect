@@ -1,6 +1,7 @@
 import { Component, OnInit} from "@angular/core";
 import { Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
+import { UsuarioGeneral } from "src/app/Model/UsuarioGeneral/usuario-general";
 import { LoginService } from "src/app/services/login.service";
 
 @Component({
@@ -9,8 +10,8 @@ import { LoginService } from "src/app/services/login.service";
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  data: string;
-  error_visibility: number;
+  errorMessage: string;
+  error_visibility: boolean;
 
   email: string;
   password: string;
@@ -20,42 +21,11 @@ export class LoginPage implements OnInit {
     private login: LoginService,
     private router: Router
   ) {
-    this.error_visibility = 0;
-    this.data = "";
   }
 
   ngOnInit() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  ngOnDestroy() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to is about to animate into view.
-  ionViewWillEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing from is about to animate.
-  ionViewWillLeave() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidLeave() {
-    this.error_visibility = 0;
-    this.data = "";
+    this.error_visibility = false;
+    this.errorMessage = "";
   }
 
   // go to register page
@@ -70,9 +40,13 @@ export class LoginPage implements OnInit {
       .subscribe(
         results => {
           console.log("ingreso exitoso: ", results)
+          let usuario: UsuarioGeneral = results;
+          this.login.storeUser(usuario);
           this.router.navigate(["auth-home"]);
         },
         error => {
+          this.error_visibility = true;
+          this.errorMessage = error; // TODO: poner un mensaje de error valido
           console.error(error);
           this.password = "";
         }

@@ -18,18 +18,20 @@ export class UsuarioGeneral {
   informacion: InformacionUsuario;
 
   carreras: Carrera[] = [];
+  semestre: number;
 
-  public enabled: boolean;
-  public accountNonExpired: boolean;
-  public accountNonLocked: boolean;
-  public credentialsNonExpired: boolean;
-  public rol: Rol;
+  fechaNacimiento: Date;
+
+  enabled: boolean;
+  accountNonExpired: boolean;
+  accountNonLocked: boolean;
+  credentialsNonExpired: boolean;
+  rol: Rol;
 
   constructor(
     public nombre: string,
-    public last_name: string,
+    public apellido: string,
     public email: string,
-    public semestre: number
   ) {
     this.rol = undefined;
     this.id = undefined;

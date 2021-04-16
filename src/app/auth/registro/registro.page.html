@@ -62,6 +62,18 @@
         </ion-item>
       </form>
 
+
+      <ion-item>
+        <ion-label>Semestre</ion-label>
+        <ion-select
+          [(ngModel)]="semestre">
+          <ion-select-option *ngFor="let item of semestres" >
+            {{item}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
       <div class="register">
         <button class="myButton" (click)="onRegister()">
           Registrarse

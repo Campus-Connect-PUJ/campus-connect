@@ -1,4 +1,6 @@
 export class Carrera {
   id: number;
-  nombre: string;
+  constructor(
+    public nombre: string
+  ) {}
 }

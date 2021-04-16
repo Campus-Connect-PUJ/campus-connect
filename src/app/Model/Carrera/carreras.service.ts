@@ -12,7 +12,7 @@ export class CarrerasService {
   constructor(private net: NetService) { }
 
   getCarreras(): Observable<Carrera[]> {
-    const url = `${environment.baseUrl}/facultad/all`;
+    const url = `${environment.baseUrl}/carrera/all`;
     return this.net.get<Carrera[]>(url);
   }
 }

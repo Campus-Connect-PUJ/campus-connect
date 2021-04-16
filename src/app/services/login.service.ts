@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from "src/environments/environment";
 import { NetService } from '../utils/net.service';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
+import { Observable } from 'rxjs';
+import { Carrera } from '../Model/Carrera/carrera';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string) :Observable<UsuarioGeneral> {
     const formHeaders = new HttpHeaders();
     formHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -33,29 +35,61 @@ export class LoginService {
           params: formParams,
           withCredentials: true
         }
-      )
-      ;
-    return respuesta;
+      );
+
+    return respuesta as Observable<UsuarioGeneral>;
   }
 
   register(
-    username: string,
+    nombre: string,
     apellido: string,
     email: string,
-    password: string
-  ) {
+    password: string,
+    semestre: number
+  ): Observable<UsuarioGeneral> {
     const url = `${environment.baseUrl}/usuario`;
-    return this.net.post(
+
+    let ret = this.net.post(
       url,
       {
-        username: username,
+        nombre: nombre,
         apellido: apellido,
         email: email,
-        password: password
+        password: password,
+        semestre: semestre
       }
     );
+
+    return ret as unknown as Observable<UsuarioGeneral>;
   }
 
+  agregarInformacionUsuario(
+    fechaNacimiento: Date,
+    carreras: Carrera[],
+    religion: string,
+    local: Boolean,
+    grupoEtnico: string,
+    sexo: string,
+    genero: string
+  ) {
+    const url = `${environment.baseUrl}/usuario`;
+    let info = {
+      fechaNacimiento: fechaNacimiento,
+      carreras: carreras.map((c) => c.id),
+      religion: religion,
+      local: local,
+      grupoEtnico: grupoEtnico,
+      sexo: sexo,
+      genero: genero
+    };
+
+    console.log(JSON.stringify(info))
+    return this.net.post(
+      url,
+      info
+    );
+
+  }
   // TODO: update
 
   findUser() {
