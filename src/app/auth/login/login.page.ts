@@ -1,7 +1,8 @@
-import { Component, ElementRef, ViewChild, Directive , OnInit} from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { Router } from "@angular/router";
-import {NavController, AlertController, ToastController, MenuController} from "@ionic/angular";
-import { AuthService } from 'src/app/services/auth.service';
+import { AlertController, NavController } from "@ionic/angular";
+import { UsuarioGeneral } from "src/app/Model/UsuarioGeneral/usuario-general";
+import { LoginService } from "src/app/services/login.service";
 
 @Component({
   selector: "page-login",
@@ -9,50 +10,18 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  data: string;
-  error_visibility: number;
+  email: string = "";
+  password: string = "";
 
   constructor(
     public nav: NavController,
-    private authSvc: AuthService,
+    public alertController: AlertController,
+    private login: LoginService,
     private router: Router
   ) {
-    this.error_visibility = 0;
-    this.data = "";
   }
 
   ngOnInit() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  ngOnDestroy() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to is about to animate into view.
-  ionViewWillEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidEnter() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing from is about to animate.
-  ionViewWillLeave() {
-    this.error_visibility = 0;
-    this.data = "";
-  }
-
-  //Fired when the component routing to has finished animating.
-  ionViewDidLeave() {
-    this.error_visibility = 0;
-    this.data = "";
   }
 
   // go to register page
@@ -61,33 +30,43 @@ export class LoginPage implements OnInit {
     this.router.navigate(["registro"]);
   }
 
+  async alertaElementoNoSeleccionado(elemento, mensaje) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
+  }
+
   // login and go to home page
-  async onLogin(email, password) {
-    try {
-      const user = await this.authSvc.login(email.value, password.value);
-      if (user) {
-        //Todo: Check Email.
-        if (typeof user === "string") {
-          console.log("Error ", user);
-          this.data = user;
-          this.error_visibility = 1;
-          if (user == "auth/invalid-email") {
-            this.data = "Correo ingresado inválido."
+  async onLogin() {
+    if (this.email.length === 0) { // TODO: hacer validacion del correo
+      await this.alertaElementoNoSeleccionado(
+        "Correo vacío",
+        "Para continuar con el registro se debe ingresar un correo valido."
+      );
+    } else if (this.password.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Contraseña vacía",
+        "Para continuar con el registro se debe ingresar una contraseña."
+      );
+    } else {
+      this.login.login(this.email, this.password)
+        .subscribe(
+          results => {
+            console.log("ingreso exitoso: ", results)
+            let usuario: UsuarioGeneral = results;
+            this.login.storeUser(usuario);
+            this.router.navigate(["auth-home"]);
+          },
+          error => {
+            console.error(error);
+            this.password = "";
           }
-          if (user == "auth/wrong-password") {
-            this.data = "Contraseña ingresada inválida.";
-          }
-          if (user == "auth/user-not-found") {
-            this.data = "Usuario inexistente.";
-          }
-        } else {
-          console.log(typeof user);
-          console.log("User validated.", user);
-          this.router.navigate(["auth-home"]);
-        }
-      }
-    } catch (error) {
-      console.log("Error -> ", error);
+        );
     }
   }
 

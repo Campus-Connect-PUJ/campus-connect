@@ -12,7 +12,7 @@ import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
   color: boolean = false;
-  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
+  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", ""));
 
   constructor(private activatedRoute: ActivatedRoute,
               private forosService: ForoService
