@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "mapa-principal",
     pathMatch: "full",
   },
   {

@@ -28,10 +28,11 @@
     "@ionic/storage": "^2.3.1",
     "@types/leaflet": "^1.7.0",
     "angular": "^1.8.2",
-    "ionic2-calendar": "^0.6.7",
-    "moment": "^2.29.1",
     "firebase": "^8.3.0",
+    "ionic2-calendar": "^0.6.7",
     "leaflet": "^1.7.1",
+    "leaflet-routing-machine": "^3.2.12",
+    "moment": "^2.29.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
