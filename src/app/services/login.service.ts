@@ -129,7 +129,7 @@ export class LoginService {
     console.log('usuario', user.rol);
 
     let valido = false;
-    if (allowedRoles.includes(user.rol.authority)) {
+    if (allowedRoles.includes(user.rol)) {
       valido = true;
     }
 

@@ -3,7 +3,6 @@ import { InformacionUsuario } from "../InformacionUsuario/informacion-usuario";
 import { RegimenAlimenticio } from "../RegimenAlimenticio/regimen-alimenticio";
 import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
 import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
-import { Rol } from "../Rol/rol";
 import { Tip } from "../Tip/tip";
 import { TipoAprendizaje } from "../TipoAprendizaje/tipo-aprendizaje";
 
@@ -26,7 +25,7 @@ export class UsuarioGeneral {
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   credentialsNonExpired: boolean;
-  rol: Rol;
+  rol: string;
 
   constructor(
     public nombre: string,
