@@ -7,6 +7,8 @@ import { UsuarioGeneral } from './usuario-general';
 import { Carrera } from '../Carrera/carrera';
 import { Observable } from 'rxjs';
 import { InformacionUsuario } from '../InformacionUsuario/informacion-usuario';
+import { GrupoEstudiantil } from '../GrupoEstudiantil/grupo-estudiantil';
+import { Restaurante } from '../Restaurante/restaurante';
 
 @Injectable({
   providedIn: 'root'
@@ -52,22 +54,26 @@ export class UsuarioGeneralService {
 
   }
 
-  createReseniaGrupo(resenia: ReseniaGrupo, usuario: UsuarioGeneral) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo_grupo_estudiantil/${resenia.id}`;
+  createReseniaGrupo(resenia: ReseniaGrupo, usuario: UsuarioGeneral, grupo: GrupoEstudiantil) {
+    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo_grupo_estudiantil/${grupo.id}`;
     return this.net.post(
       url,
       {
-        cantidadEstrellas: resenia.cantEstrellas
+        "foroData": resenia,
+        "idUsuario": usuario.id,
+        "idRestaurante": grupo.id
       }
     );
   }
 
-  createReseniaRestaurante(resenia: ReseniaRestaurante, usuario: UsuarioGeneral) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_restaurante/${resenia.id}`;
+  createReseniaRestaurante(resenia: ReseniaRestaurante, usuario: UsuarioGeneral, restaurante:Restaurante) {
+    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_restaurante/${restaurante.id}`;
     return this.net.post(
       url,
       {
-        cantidadEstrellas: resenia.cantEstrellas
+        "foroData": resenia,
+        "idUsuario": usuario.id,
+        "idRestaurante": restaurante.id
       }
     );
   }
