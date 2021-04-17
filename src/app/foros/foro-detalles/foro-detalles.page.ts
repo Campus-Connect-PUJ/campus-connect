@@ -39,11 +39,36 @@ export class ForoDetallesPage implements OnInit {
       result => {
         this.foro = result;
         this.respuestas = this.foro.respuestas;
+
+        this.respuestas = this.organizarRespuestas(this.respuestas);
+
         console.log(this.foro)
         console.log(this.foro.respuestas, " ", this.respuestas.length)
       },
       error => console.error(error)
     )
+  }
+
+  organizarRespuestas(respuestas: RespuestaForo[]){
+    let respuestasOrdenadas = respuestas;
+
+    respuestasOrdenadas.sort();
+    console.log("Ordenasa ",respuestasOrdenadas)
+
+    respuestasOrdenadas.sort(function (a, b) {
+      if (a.puntaje > b.puntaje) {
+        return -1;
+      }
+      if (a.puntaje < b.puntaje) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+
+
+
+    return respuestasOrdenadas;
   }
 
   calificacion(operacion: number){
@@ -73,12 +98,13 @@ export class ForoDetallesPage implements OnInit {
   
   calificacionRespuestas(operacion: number, id: number, indice: number){
     this.color = !this.color;
-
+    console.log("el id",id, " - ", indice, " Cantidad total: ", this.respuestas.length);
     if(operacion === 1){
       this.forosService.sumarVotoRespuesta(id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+      console.log("Respuestas: ", this.respuestas.length, this.respuestas)
       this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
     }
     else{
@@ -97,19 +123,22 @@ export class ForoDetallesPage implements OnInit {
     console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
-    respuestanueva.usuario = JSON.parse(localStorage.getItem("Usuario"));
+    respuestanueva.usuario = JSON.parse(sessionStorage.getItem("user"));
     try {
       this.foro.respuestas.push(respuestanueva);
     } catch (error) {
       respuestas.push(respuestanueva);
       console.log(respuestas)
-      this.foro.respuestas = respuestas;
     }
 
+    console.log("->", respuestanueva, " - ",this.foro.id);
     this.forosService.agregarRespuesta(respuestanueva, this.foro.id).subscribe(
-      results => console.log(results),
+      results => console.log("Se agrego respuesta"),
       error => console.error(error)
     )
+    
+    console.log("respuestas1" , this.respuestas);
+    console.log("respuestas2" , this.respuestas);
   }
 
   /*
