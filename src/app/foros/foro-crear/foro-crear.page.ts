@@ -39,7 +39,7 @@ export class ForoCrearPage implements OnInit {
     this.foroCreado.descripcion = this.descripcion;
     // this.postCreado.fecha = new Date("2018-03-16");
     this.foroCreado.usuario = this.usuario;
-
+    
     console.log(this.foroCreado)
     this.foroService.createPost(this.foroCreado)
       .subscribe(

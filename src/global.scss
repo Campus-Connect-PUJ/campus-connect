@@ -109,3 +109,50 @@
 .bot{
     display: flex;
 }
+
+.chatbot{
+    display: none;
+}
+
+button#widgetIcon {
+    background: #42A5F5;
+    border: none;
+    border-radius: 50%;
+    bottom: 150px;
+    box-shadow: rgba(0, 0, 0, 0.24) 1px 4px 15px 0px;
+    cursor: pointer;
+    height: 56px;
+    position: absolute;
+    right: 0px;
+    width: 56px;
+}
+
+df-messenger{
+    bottom: 150px;
+}
+
+df-messenger{
+    padding-bottom: 500px;
+    --df-messenger-bot-message: #878fac;
+    --df-messenger-button-titlebar-color: #df9b56;
+    --df-messenger-chat-background-color: #fafafa;
+    --df-messenger-font-color: white;
+    --df-messenger-send-icon: #878fac;
+    --df-messenger-user-message: #479b3d;
+}
+
+.df-messenger-wrapper {
+    background-color: white;
+        border: 0;
+        bottom: 60px;
+        color: rgba(0,0,0,0.87);
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        right: 20px;
+        text-decoration: none;
+        z-index: 100;
+  }
