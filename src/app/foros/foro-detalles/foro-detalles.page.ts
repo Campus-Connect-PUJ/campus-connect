@@ -66,8 +66,6 @@ export class ForoDetallesPage implements OnInit {
       return 0;
     });
 
-
-
     return respuestasOrdenadas;
   }
 
