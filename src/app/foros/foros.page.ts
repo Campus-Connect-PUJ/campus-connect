@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { OpcionesComponent } from '../opciones/opciones.component';
 import { ForoService } from '../Model/Foro/foro.service';
 import { Foro } from '../Model/Foro/foro';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-foros',
@@ -16,11 +16,21 @@ export class ForosPage implements OnInit {
 
   constructor(
     private popoverController: PopoverController,
-    private forosService: ForoService
+    private forosService: ForoService, 
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
-    this.cargarForos();
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      const recipeId = paraMap.get('usuarioId')
+      if(recipeId != null){
+        console.log(recipeId)
+        this.cargarForosUsuarios(Number(recipeId));
+      }
+      else{
+        this.cargarForos();
+      }
+    })
   }
 
   cargarForos(){
@@ -33,23 +43,29 @@ export class ForosPage implements OnInit {
     )
   }
 
+  cargarForosUsuarios(id: number){
+    let forosUsuario = new Array<Foro>();
+    this.forosService.getPosts().subscribe(
+      results => {
+        this.foros = results;
+        for(let i=0; i<this.foros.length; i++){
+          if(this.foros[i].usuario.id === id){
+            forosUsuario.push(this.foros[i]);
+          }
+        }
+        this.foros = forosUsuario;
+        console.log("Los foros", this.foros)
+      },
+      error => console.error(error)
+    )
+  }
+
   buscarForos(event){
     const texto = event.target.value;
     this.textoBuscar = texto;
   }
 
-  /*
-  async mostrarPop(evento){
-    const popover = await this.popoverController.create({
-      component: OpcionesComponent,
-      cssClass: 'prueba',
-      event: evento
-    });
-    await popover.present();
 
-    const { data } = await popover.onWillDismiss();
-    console.log("En principal",data)
-  }
-  */
+  
 
 }

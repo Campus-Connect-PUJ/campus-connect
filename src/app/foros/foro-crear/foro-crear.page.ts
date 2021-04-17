@@ -3,6 +3,7 @@ import { Foro } from 'src/app/Model/Foro/foro';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { ToastController } from '@ionic/angular';
+import { LoginService } from "src/app/services/login.service";
 
 @Component({
   selector: 'app-foro-crear',
@@ -18,7 +19,11 @@ export class ForoCrearPage implements OnInit {
 
   usuario: UsuarioGeneral;
   foroCreado: Foro = new Foro("", "", null);
-  constructor(private foroService: ForoService, public toastCtrl: ToastController) { }
+  constructor(
+    private foroService: ForoService,
+    public toastCtrl: ToastController,
+    private loginService: LoginService,
+    ) { }
 
   ngOnInit() {
   }
@@ -26,8 +31,8 @@ export class ForoCrearPage implements OnInit {
   crearForo(){
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = new UsuarioGeneral("usuario1", "", "correo@falso.com");
-    this.usuario.id = 1;
+
+    this.usuario = this.loginService.getUser();
 
     console.log(this.descripcion, this.titulo)
     this.foroCreado.titulo = this.titulo;

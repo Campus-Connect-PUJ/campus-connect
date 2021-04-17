@@ -1,5 +1,6 @@
 import { NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
 
 import { AlertController } from "@ionic/angular";
 import { Carrera } from 'src/app/Model/Carrera/carrera';
@@ -11,6 +12,7 @@ import { CarrerasService } from 'src/app/Model/Carrera/carreras.service';
   styleUrls: ["./formulario.page.scss"],
 })
 export class FormularioPage implements OnInit {
+
   public carreras: Carrera[] = [];
   public carreras_seleccionadas: Carrera[] = [];
   public fechaNacimiento: Date;
@@ -60,7 +62,6 @@ export class FormularioPage implements OnInit {
       );
     } else {
 
-      this.carreras_seleccionadas.forEach((a)=> console.log(">>>>" + a.id));
       let postData = {
         fechaNacimiento: this.fechaNacimiento,
         carreras: this.carreras_seleccionadas,

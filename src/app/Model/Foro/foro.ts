@@ -5,7 +5,8 @@ export class Foro {
   id: number;
   fecha: Date;
   reportado: boolean;
-  respuestaPost: RespuestaForo[] = [];
+  respuestas: RespuestaForo[];
+  puntaje: number;
   constructor(
     public titulo: string,
     public descripcion: string,

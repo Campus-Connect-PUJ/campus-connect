@@ -63,33 +63,6 @@ export class LoginService {
     return ret as unknown as Observable<UsuarioGeneral>;
   }
 
-  agregarInformacionUsuario(
-    fechaNacimiento: Date,
-    carreras: Carrera[],
-    religion: string,
-    local: Boolean,
-    grupoEtnico: string,
-    sexo: string,
-    genero: string
-  ) {
-    const url = `${environment.baseUrl}/usuario`;
-    let info = {
-      fechaNacimiento: fechaNacimiento,
-      carreras: carreras.map((c) => c.id),
-      religion: religion,
-      local: local,
-      grupoEtnico: grupoEtnico,
-      sexo: sexo,
-      genero: genero
-    };
-
-    console.log(JSON.stringify(info))
-    return this.net.post(
-      url,
-      info
-    );
-
-  }
   // TODO: update
 
   findUser() {

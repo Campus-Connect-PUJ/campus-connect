@@ -12,6 +12,11 @@ import { InformacionUsuario } from '../InformacionUsuario/informacion-usuario';
   providedIn: 'root'
 })
 export class UsuarioGeneralService {
+  user: UsuarioGeneral =  new UsuarioGeneral(" "," "," ");
+  nombreUsuario: string = "usuario1";
+  correo: string;
+  semestre: number;
+
 
   constructor(private net: NetService) { }
 
@@ -66,4 +71,5 @@ export class UsuarioGeneralService {
       }
     );
   }
+
 }
