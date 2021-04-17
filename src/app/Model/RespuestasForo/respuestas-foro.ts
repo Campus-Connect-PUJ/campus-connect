@@ -4,11 +4,10 @@ export class RespuestaForo {
     id: number;
     fecha: Date;
     reportado: boolean;
-    constructor(
-      public foroId: number,
-      public texto: string,
-      public usuario: UsuarioGeneral
-    ){
+    texto: string;
+    usuario: UsuarioGeneral;
+    puntaje: number;
+    constructor(){
       this.reportado = false;
     }
   }

@@ -19,7 +19,6 @@
         <h2>{{foro.descripcion}}</h2>
       </ion-card-content>
     </div>
-
     <div class="informacion">
       <div class="usuario">
         <ion-icon name="person-circle-outline"></ion-icon>
@@ -27,8 +26,13 @@
       </div>
 
       <div class="votos">
-        <ion-icon name="arrow-down" (click)="calificacion(-1)"></ion-icon>
-        <ion-icon name="arrow-up" (click)="calificacion(1)"></ion-icon>
+        <div class="puntaje">
+          {{foro.puntaje}}
+        </div>
+       <div class="flechas">
+          <ion-icon name="arrow-down" (click)="calificacionForo(-1)"></ion-icon>
+          <ion-icon name="arrow-up" (click)="calificacionForo(1)"></ion-icon>
+        </div>
       </div>
     </div>
   </ion-card>
@@ -40,25 +44,43 @@
   </ion-item-divider>
 
   <div class="Lista de respuestas">
-    <ion-card class="Respuestas">
+    <ion-card *ngFor="let respuesta of respuestas; let indice=index" class="Respuestas">
       <div class="foro">
-        <ion-card-header>
-          <h1>{{foro.titulo}}</h1>
-        </ion-card-header>
         <ion-card-content>
-          <h2>{{foro.descripcion}}</h2>
+          <h2>{{respuesta.texto}}</h2>
         </ion-card-content>
       </div>
     <div class="informacion">
       <div class="usuario">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <h3>{{foro.usuario.nombre}}</h3>
+        <h3>{{respuesta.usuario.nombre}}</h3>
       </div>
       <div class="votos">
-        <ion-icon name="arrow-down"></ion-icon>
-        <ion-icon name="arrow-up"></ion-icon>
+        <div class="puntaje">
+          {{respuesta.puntaje}}
+        </div>
+        <div class="flechas">
+          <ion-icon name="arrow-down" (click)="calificacionRespuestas(-1, respuesta.id, indice)"></ion-icon>
+          <ion-icon name="arrow-up" (click)="calificacionRespuestas(1, respuesta.id, indice)"></ion-icon>
+        </div>
       </div>
     </div>
     </ion-card>
   </div>
+
+<div id="contestar">
+  Agregar respuesta
+  <ion-textarea type="string" [(ngModel)]="respuestaTexto"></ion-textarea>
+  <ion-button (click)="crearRespuesta()">Crear respuesta</ion-button>
+</div>
+
+<!---------
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="mostrarPop( $event )">
+    <ion-icon name="albums"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+-------->
+
 </ion-content>

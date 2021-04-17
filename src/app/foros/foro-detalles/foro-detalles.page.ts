@@ -1,6 +1,8 @@
+import { RespuestaForo } from './../../Model/RespuestasForo/respuestas-foro';
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Foro } from 'src/app/Model/Foro/foro';
+import { PopoverController, ModalController } from '@ionic/angular';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
@@ -12,10 +14,15 @@ import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 export class ForoDetallesPage implements OnInit {
   indice: number = 0;
   color: boolean = false;
-  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
+  respuestaTexto: string;
+  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", ""));
+  respuestas: RespuestaForo[];
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private forosService: ForoService
+  constructor(
+    private popoverController: PopoverController,
+    private modalCtrl: ModalController,
+    private activatedRoute: ActivatedRoute,
+    private forosService: ForoService
   ) { }
 
   ngOnInit() {
@@ -31,6 +38,9 @@ export class ForoDetallesPage implements OnInit {
     this.forosService.getPostById(indice).subscribe(
       result => {
         this.foro = result;
+        this.respuestas = this.foro.respuestas;
+        console.log(this.foro)
+        console.log(this.foro.respuestas, " ", this.respuestas.length)
       },
       error => console.error(error)
     )
@@ -39,8 +49,81 @@ export class ForoDetallesPage implements OnInit {
   calificacion(operacion: number){
     console.log(operacion, this.color)
     this.color = !this.color;
-    
   }
 
+  calificacionForo(operacion: number){
+    this.color = !this.color;
 
+    if(operacion === 1){
+      this.forosService.sumarVoto(this.foro.id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.foro.puntaje = this.foro.puntaje+1;
+    }
+    else{
+      this.forosService.restarVoto(this.foro.id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.foro.puntaje = this.foro.puntaje-1;
+    }
+  }
+
+  
+  calificacionRespuestas(operacion: number, id: number, indice: number){
+    this.color = !this.color;
+
+    if(operacion === 1){
+      this.forosService.sumarVotoRespuesta(id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
+    }
+    else{
+      this.forosService.restarVotoRespuesta(id).subscribe(
+        results => console.log(results),
+        error => console.error(error)
+      )
+      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje-1;
+    }
+  }
+
+  crearRespuesta(){
+    let respuestanueva: RespuestaForo = new RespuestaForo();
+    let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
+
+    console.log("Respuesta", this.respuestaTexto)
+    respuestanueva.id = this.indice;
+    respuestanueva.texto = this.respuestaTexto;
+    respuestanueva.usuario = JSON.parse(localStorage.getItem("Usuario"));
+    try {
+      this.foro.respuestas.push(respuestanueva);
+    } catch (error) {
+      respuestas.push(respuestanueva);
+      console.log(respuestas)
+      this.foro.respuestas = respuestas;
+    }
+
+    this.forosService.agregarRespuesta(respuestanueva, this.foro.id).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    )
+  }
+
+  /*
+  async mostrarPop(evento){
+
+    const popover = await this.modalCtrl.create({
+      component: ContestarComponent,
+      cssClass: 'estilosContestar',
+      
+    });
+    await popover.present();
+
+    const {data} = await popover.onWillDismiss();
+    console.log(data)
+  }
+*/
 }

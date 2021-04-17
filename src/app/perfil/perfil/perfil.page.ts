@@ -1,9 +1,9 @@
-import { user_data } from './../../model/shared/user_data';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '@angular/common';
+import { LoginService } from 'src/app/services/login.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 
 @Component({
   selector: "app-perfil",
@@ -19,7 +19,7 @@ export class PerfilPage implements OnInit {
   constructor(
     private http: HttpClient,
     private storage: Storage,
-    private aus: AuthService,
+    private aus: LoginService,
     private _location: Location
   ) {}
 
@@ -29,7 +29,7 @@ export class PerfilPage implements OnInit {
       console.log("user_email", val);
       emai_storage = val;
     });
-    let data = await this.aus.getUserdata(emai_storage);
+    let data: UsuarioGeneral = this.aus.getUser();
     this.email = data.email;
     let new_url = this.url + this.email;
     let user_data;
