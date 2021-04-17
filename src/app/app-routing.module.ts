@@ -210,7 +210,15 @@ const routes: Routes = [
     path: 'calendario',
     loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
 
+  },  {
+    path: 'mapa-ruta',
+    loadChildren: () => import('./mapa/mapa-ruta/mapa-ruta.module').then( m => m.MapaRutaPageModule)
+  },
+  {
+    path: 'lista-sitios',
+    loadChildren: () => import('./mapa/lista-sitios/lista-sitios.module').then( m => m.ListaSitiosPageModule)
   }
+
 ];
 @NgModule({
   imports: [
