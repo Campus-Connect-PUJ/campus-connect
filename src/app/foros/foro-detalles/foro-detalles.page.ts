@@ -15,7 +15,7 @@ export class ForoDetallesPage implements OnInit {
   indice: number = 0;
   color: boolean = false;
   respuestaTexto: string;
-  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", 0));
+  foro: Foro = new Foro("", "", new UsuarioGeneral("", "", ""));
   respuestas: RespuestaForo[];
 
   constructor(

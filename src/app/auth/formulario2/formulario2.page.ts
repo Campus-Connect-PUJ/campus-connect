@@ -1,9 +1,11 @@
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { user_data } from './../../model/shared/user_data';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
+
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
+import { Carrera } from 'src/app/Model/Carrera/carrera';
 
 @Component({
   selector: "app-formulario2",
@@ -29,156 +31,99 @@ export class Formulario2Page implements OnInit {
     ["OTRO", "Otro"],
     ["RAIZAL", "Raizal"],
   ];
-  public generos = ["Hombre", "Mujer", "De otro modo", "Prefiero no decirlo"];
+  public generos = ["Hombre", "Mujer", "LGTBI", "Prefiero no decirlo"];
 
   public sexos = ["Masculino", "Femenino", "Prefiero no decirlo"];
 
-  public user_data: user_data;
-  private religion: any = null;
-  private ethnicity: any = null;
-  private birth: any = null;
-  private gender: any = null;
-  private sex: any = null;
+  // user_data: UsuarioGeneral = new UsuarioGeneral("","","");
+  religion: string = "";
+  ethnicity: string = "";
+  local: string = "";
+  gender: string = "";
+  sex: string = "";
+
+  fechaNacimiento: Date;
+
+  carreras: Carrera[] = [];
 
   constructor(
     private router: Router,
     public alertController: AlertController,
-    private http: HttpClient,
-    private userService: UsuarioGeneralService
+    private ugService: UsuarioGeneralService,
+    private login: LoginService
   ) {}
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     const postData = navigation.extras.state;
-    this.user_data = postData.postData;
-    console.log(this.user_data);
-  }
+    const datos = postData.postData;
 
-  onReligionChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.religion = selected_values;
-  }
-
-  onEtnicityChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.ethnicity = selected_values;
+    this.fechaNacimiento = datos.fechaNacimiento;
+    this.carreras = datos.carreras;
   }
 
   onBirthChange(selectedValue: any) {
     let selected_values = selectedValue.detail.value;
-    this.birth = selected_values;
+    this.local = selected_values;
   }
 
-  onGenderChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.gender = selected_values;
-  }
-
-  onSexChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.sex = selected_values;
+  async alertaElementoNoSeleccionado(elemento, mensaje) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
   async completar_registro() {
-    if (this.religion == null) {
-      let alert = await this.alertController.create({
-        cssClass: "custom-class-alert",
-        header: "Error",
-        subHeader: "Creencia no seleccionada",
-        message:
-          "Para continuar con el registro debes seleccionar una creencia válida.",
-        buttons: ["OK"],
-      });
-      await alert.present();
-    } else {
-      if (this.ethnicity == null) {
-        let alert = await this.alertController.create({
-          cssClass: "custom-class-alert",
-          header: "Error",
-          subHeader: "Etnia no seleccionada",
-          message:
-            "Para continuar con el registro debes seleccionar una étnia válida.",
-          buttons: ["OK"],
-        });
-        await alert.present();
-      } else {
-        if (this.birth == null) {
-          let alert = await this.alertController.create({
-            cssClass: "custom-class-alert",
-            header: "Error",
-            subHeader: "Lugar de nacimiento no seleccionado",
-            message:
-              "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento.",
-            buttons: ["OK"],
-          });
-          await alert.present();
-        } else {
-          if (this.gender == null) {
-            let alert = await this.alertController.create({
-              cssClass: "custom-class-alert",
-              header: "Error",
-              subHeader: "Género no seleccionado",
-              message:
-                "Para continuar con el registro responder la pregunta de orientación de género.",
-              buttons: ["OK"],
-            });
-            await alert.present();
-          } else {
-            if (this.sex == null) {
-              let alert = await this.alertController.create({
-                cssClass: "custom-class-alert",
-                header: "Error",
-                subHeader: "Sexo no seleccionado",
-                message:
-                  "Para continuar con el registro responder la pregunta del sexo.",
-                buttons: ["OK"],
-              });
-              await alert.present();
-            } else {
-              //Datos ingresados completos
-              let obj = [];
-              let i = 0;
-              this.user_data.carreras_seleccionadas.forEach(
-                (item) => obj.push(item)
-              );
-              let postData = {
-                email: this.user_data.email,
-                name: this.user_data.name,
-                last_name: this.user_data.last_name,
-                myDate: this.user_data.myDate,
-                semestre_seleccionado: this.user_data.semestre_seleccionado,
-                carreras_seleccionadas: obj,
-                religion: this.religion,
-                etnico: this.ethnicity,
-                nacimiento: this.birth,
-                genero: this.gender,
-                sexo: this.sex
-              };
-              console.log(this.birth);
-              const options = {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              };
-
-              const url = "http://localhost:8080/createusuario/";
-
-              this.userService.crearUsuario()
-              .subscribe(
-                results => console.log(results),
-                error => console.error(error)
-              )
-              
-              /*
-              console.log("postData: ");
-              console.log(postData);
-              console.log(this.http.post(url, postData, options).toPromise());
-              */
-              this.router.navigate(["auth-home"]);
-            }
-          }
+    if (this.religion.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Creencia no seleccionada",
+        "Para continuar con el registro debes seleccionar una creencia válida."
+      );
+    } else if (this.ethnicity.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Etnia no seleccionada",
+        "Para continuar con el registro debes seleccionar una étnia válida."
+      );
+    } else if (this.local.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Lugar de nacimiento no seleccionado",
+        "Para continuar con el registro debes responder la pregunta de tu lugar de nacimiento."
+      );
+    } else if (this.gender.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Género no seleccionado",
+        "Para continuar con el registro responder la pregunta de orientación de género."
+      );
+    } else if (this.sex.length === 0) {
+      await this.alertaElementoNoSeleccionado(
+        "Sexo no seleccionado",
+        "Para continuar con el registro responder la pregunta del sexo."
+      );
+    } else {  //Datos completos
+      const user_data = this.login.getUser();
+      this.ugService.agregarInformacionUsuario(
+        user_data.id, // esto tal vez se podria meter en un objeto, pero meh
+        this.fechaNacimiento,
+        this.carreras,
+        this.religion,
+        this.local == "true",
+        this.ethnicity,
+        this.sex,
+        this.gender
+      ).subscribe(
+        results => {
+          console.log("ingreso exitoso: ", results)
+          this.router.navigate(["auth-home"]);
+        },
+        error => {
+          console.error(error);
         }
-      }
+      );
     }
   }
 }

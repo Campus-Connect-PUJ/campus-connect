@@ -9,28 +9,35 @@
         <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
       </div>
       
-      <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility == '1' ? 'visible' : 'hidden'}">
-        <p *ngIf="data==null; else elseBlock" ></p>
-        <ng-template #elseBlock><p  [innerHTML] = "data"></p></ng-template>
+      <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
+        <p *ngIf="errorMessage==null; else elseBlock" ></p>
+        <ng-template #elseBlock><p  [innerHTML] = "errorMessage"></p></ng-template>
       </div>
-
 
       <div class="form_login">
         <form>
           <ion-item>
             <ion-icon name="mail"></ion-icon>
             <div class="space">a</div>
-            <ion-input type="email" #email placeholder="Ingresa tu correo"></ion-input>
+            <ion-input
+              name="mail"
+              type="email"
+              placeholder="Ingresa tu correo"
+              [(ngModel)]="email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-icon name="key"></ion-icon>
             <div class="space">a</div>
-            <ion-input type="password" #password placeholder="Ingresa tu contraseña"></ion-input>
+            <ion-input
+              name="password"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              [(ngModel)]="password"></ion-input>
           </ion-item>
         </form>
       </div>
       <div class="log_in">
-        <button class="myButton" (click)="onLogin(email,password)">
+        <button class="myButton" (click)="onLogin()">
           Iniciar sesión
         </button>
       </div>
