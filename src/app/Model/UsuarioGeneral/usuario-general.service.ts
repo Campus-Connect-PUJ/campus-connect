@@ -72,18 +72,4 @@ export class UsuarioGeneralService {
     );
   }
 
-  crearUsuario(){
-    const url = `${environment.baseUrl}/usuario`;
-    console.log("usuario enviar ", this.nombreUsuario, this.correo, this.semestre)
-    return this.net.post(
-      url,
-      {
-        correo: this.correo,
-        nombre: this.nombreUsuario,
-        semestre: this.semestre
-      }
-    );
-  }
-
-
 }

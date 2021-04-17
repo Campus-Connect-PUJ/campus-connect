@@ -2,7 +2,6 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Carrera } from 'src/app/Model/Carrera/carrera';
