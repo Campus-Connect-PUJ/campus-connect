@@ -32,7 +32,7 @@ export class ForoCrearPage implements OnInit {
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
 
-    this.usuario = loginService.getUser();
+    this.usuario = this.loginService.getUser();
 
     console.log(this.descripcion, this.titulo)
     this.foroCreado.titulo = this.titulo;
