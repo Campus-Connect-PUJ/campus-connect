@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from "src/environments/environment";
 import { NetService } from '../utils/net.service';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
@@ -17,27 +17,28 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
-  login(username: string, password: string) :Observable<UsuarioGeneral> {
-    const formHeaders = new HttpHeaders();
-    formHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-
-    const formParams = new HttpParams()
-      .set('username', username)
-      .set('password', password);
-
-    let url = `${environment.baseUrl}/login`;
-
+  loginPost(url: string, msg): Observable<HttpResponse<UsuarioGeneral>> {
     let respuesta = this.http
       .post(
-        url, null,
+        url,
+        msg,
         {
-          headers: formHeaders,
-          params: formParams,
-          withCredentials: true
+          withCredentials: true,
+          observe: 'response'
         }
       );
 
-    return respuesta as Observable<UsuarioGeneral>;
+    return respuesta as Observable<HttpResponse<UsuarioGeneral>> ;
+  }
+
+  login(username: string, password: string): Observable<HttpResponse<UsuarioGeneral>> {
+    let url = `${environment.baseUrl}/usuario/login`;
+    return this.loginPost(url,
+      {
+        "username": username,
+        "password": password
+      }
+    );
   }
 
   register(
@@ -46,11 +47,9 @@ export class LoginService {
     email: string,
     password: string,
     semestre: number
-  ): Observable<UsuarioGeneral> {
-    const url = `${environment.baseUrl}/usuario`;
-
-    let ret = this.net.post(
-      url,
+  ): Observable<HttpResponse<UsuarioGeneral>> {
+    const url = `${environment.baseUrl}/usuario/login/registro`;
+    return this.loginPost(url,
       {
         nombre: nombre,
         apellido: apellido,
@@ -59,8 +58,6 @@ export class LoginService {
         semestre: semestre
       }
     );
-
-    return ret as unknown as Observable<UsuarioGeneral>;
   }
 
   agregarInformacionUsuario(
@@ -102,12 +99,18 @@ export class LoginService {
     return usuario;
   }
 
-  storeUser(u: UsuarioGeneral) {
+  getToken(): string {
+    return sessionStorage.getItem("token");
+  }
+
+  storeUser(u: UsuarioGeneral, token: string) {
     sessionStorage.setItem('user', JSON.stringify(u));
+    sessionStorage.setItem('token', token);
   }
 
   logout() {
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
     return this.http.post(`${environment.baseUrl}/logout`, '', {
       withCredentials: true
     });
