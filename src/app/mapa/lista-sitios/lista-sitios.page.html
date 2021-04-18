@@ -1,9 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>lista_sitios</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-list>
+    <ion-list-header>
+      Sitios de la Universidad
+    </ion-list-header>
+    <ion-item *ngFor="let item of lugares">
+      <ion-label>
+        <h2>{{item.id}}</h2>
+        <h3>{{item.name}}</h3> 
+      </ion-label>
+      <ion-button size="small" color="light" (click) ="next_page(item)">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

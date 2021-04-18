@@ -258,22 +258,22 @@ export class MapaPrincipalPage implements OnInit {
       console.log(clickEvent.latlng);
     });
 
-    let coordinates = {
-      coordinates: [
-        [this.lng_origen, this.lat_origen],
-        [this.lng_destino, this.lat_destino],
-      ],
-    };
-    const body = JSON.stringify(coordinates);
+    // let coordinates = {
+    //   coordinates: [
+    //     [this.lng_origen, this.lat_origen],
+    //     [this.lng_destino, this.lat_destino],
+    //   ],
+    // };
+    // const body = JSON.stringify(coordinates);
 
-    var httpOptions = {
-      headers: new HttpHeaders({
-        Accept:
-          "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-        "Content-Type": "application/json",
-        Authorization: this.api_key_openrouteservice,
-      }),
-    };
+    // var httpOptions = {
+    //   headers: new HttpHeaders({
+    //     Accept:
+    //       "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+    //     "Content-Type": "application/json",
+    //     Authorization: this.api_key_openrouteservice,
+    //   }),
+    // };
     this.lugares.forEach((element) => {
       var marker = L.marker([element.lat, element.lng]).addTo(this.map);
       var message = "<b>" + element.id + "</b><br>" + element.name;
@@ -316,5 +316,11 @@ export class MapaPrincipalPage implements OnInit {
 
   toNextPage(){
     this.router.navigate(["lista-sitios"]);
+  }
+
+  ionViewWillLeave(){
+   if (this.map) {
+     this.map.remove();
+   }
   }
 }
