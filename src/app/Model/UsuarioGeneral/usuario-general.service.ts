@@ -77,4 +77,9 @@ export class UsuarioGeneralService {
     return this.net.get<UsuarioGeneral>(url);
   }
 
+  getUsuarios(): Observable<UsuarioGeneral[]>{
+    const url = `${environment.baseUrl}/usuario/all`;
+    return this.net.get<UsuarioGeneral[]>(url);
+  }
+
 }

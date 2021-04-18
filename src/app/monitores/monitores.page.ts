@@ -1,6 +1,8 @@
+import { UsuarioGeneralService } from './../Model/UsuarioGeneral/usuario-general.service';
 import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.component';
+import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 
 @Component({
   selector: 'app-monitores',
@@ -9,9 +11,24 @@ import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.co
 })
 export class MonitoresPage implements OnInit {
 
-  constructor(private popoverCtrl:PopoverController) { }
+
+
+  monitores: Array<UsuarioGeneral> = [];
+
+
+  constructor(private popoverCtrl:PopoverController, 
+    private userService: UsuarioGeneralService
+  ) { }
 
   ngOnInit() {
+    this.userService.getUsuarios().subscribe(
+      usuarios => {
+        this.monitores = usuarios;
+        this.monitores = this.guardarSoloMonitores(this.monitores);
+        console.log("moni ", this.monitores);
+      },
+      error => console.error(error)
+    );
   }
 
 
@@ -23,4 +40,17 @@ export class MonitoresPage implements OnInit {
     }); 
     return await popover.present();
   }
+
+  guardarSoloMonitores(monitores: Array<UsuarioGeneral>){
+    let soloMonitores: Array<UsuarioGeneral> = [];
+
+    for(let i=0; i< this.monitores.length; i++){
+      if(monitores[i].rol === "MONITOR"){
+        soloMonitores.push(monitores[i]);
+      }
+    }
+
+    return soloMonitores;
+  }
+
 }

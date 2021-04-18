@@ -226,7 +226,11 @@ const routes: Routes = [
   {
     path: 'agregar-tipo-aprendizaje',
     loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
+  },  {
+    path: 'cambiar-monitor',
+    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   }
+
 
 ];
 @NgModule({

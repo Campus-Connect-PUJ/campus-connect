@@ -3,6 +3,8 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { evento } from './evento.model';
 import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
+import { LoginService } from '../services/login.service';
+import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 
 export class listaEventos{
   title: string;
@@ -23,6 +25,8 @@ export class listaEventos{
 export class CalendarioPage implements OnInit {
 
   public eventos: evento[] = [];
+  monitoria: boolean = false;
+  esMonitor: boolean = false;
 
   data = [
     {
@@ -77,14 +81,25 @@ export class CalendarioPage implements OnInit {
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   
-  constructor(public alertaCtrl: AlertController) { }
+  constructor(public alertaCtrl: AlertController, 
+    public logService: LoginService
+  ) { }
 
   muchosEventos: listaEventos[] = [];
 
   ngOnInit() {
+    this.monitor();
     this.resetEvent();
     this.cargarEventos();
     this.resetEvent();
+  }
+
+  monitor(){
+    let user = new UsuarioGeneral(" ","","");
+    user = this.logService.getUser();
+    if(user.rol == "MONITOR"){
+      this.esMonitor = true;
+    }
   }
 
   resetEvent(){
@@ -141,6 +156,7 @@ export class CalendarioPage implements OnInit {
   }
 
   addEventMateria(){
+    console.log("Seleccionado", this.monitoria);
     let cantidadDeEventos = 0;
     cantidadDeEventos = this.eventSource.length;
     console.log("cantidad eventos ", cantidadDeEventos)
