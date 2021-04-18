@@ -19,7 +19,7 @@ export class DatosGrupoPage implements OnInit {
 
   grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "");
   tematicas: Tematica[];
-  puntajeAsig: number;
+  puntajeAsig: number =0;
   usuario: UsuarioGeneral;
   resenia: ReseniaGrupo = new ReseniaGrupo();
 
@@ -59,9 +59,9 @@ export class DatosGrupoPage implements OnInit {
 
   }
 
-  guardarResenia(){console.log("entre");
+  guardarResenia(){
     this.usuario = this.loginService.getUser(); 
-
+    
     this.usuarioSer.createReseniaGrupo(this.puntajeAsig,this.usuario.id,this.grupoSelect.id).subscribe(
       results => console.log(results),
       error => console.error(error)
