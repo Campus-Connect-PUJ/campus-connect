@@ -29,14 +29,13 @@
   </ion-item>
   <ion-searchbar placeholder="Buscar caracteristica..."  animated (ionChange)="buscarCaracteristica($event)"></ion-searchbar>
   <ion-item>
-          
-          <ion-list>
-            <ion-item *ngFor="let caracteristica of caracteristicas | filtroCaracteristicas:textoBuscar" (click)="onClickCaracteristica(caracteristica)">
-              <ion-label>{{caracteristica.nombre}}</ion-label>
-              <ion-checkbox slot="end" ></ion-checkbox>
-            </ion-item>
-           </ion-list> 
-        </ion-item>
+    <ion-list>
+      <ion-item *ngFor="let caracteristica of caracteristicas | filtroCaracteristicas:textoBuscar" (click)="onClickCaracteristica(caracteristica)">
+        <ion-label>{{caracteristica.nombre}}</ion-label>
+        <ion-checkbox slot="end" ></ion-checkbox>
+      </ion-item>
+      </ion-list> 
+    </ion-item>
   <ion-item>
     <ion-label>¿Crees en Dios?</ion-label>
     <ion-select placeholder="Select One"  (ionChange)="onClickCreencia($event)">

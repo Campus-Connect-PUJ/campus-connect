@@ -32,11 +32,14 @@ export class FormularioPersoGruposPage implements OnInit {
 
   textoBuscar='';
 
-  constructor(private modalController:ModalController, private tematicasService: TematicaService, private caracteristicaService: CaracteristicaService) { }
+  constructor(
+    private modalController:ModalController, 
+    private tematicasService: TematicaService, 
+    private caracteristicaService: CaracteristicaService) { }
 
   ngOnInit() {
     this.findTematica();
-    this.findCaracteristica();
+    this.findCaracteristica(); 
   }
 
   closeModal(){
