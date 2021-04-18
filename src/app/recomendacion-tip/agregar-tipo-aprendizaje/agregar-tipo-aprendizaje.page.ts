@@ -61,11 +61,18 @@ export class AgregarTipoAprendizajePage implements OnInit {
         results => console.log(results),
         error => console.error(error)
       )
+
       for(let j=0; j< this.aprendizajesExistentes.length; j++){
-        if(this.aprendizajesExistentes[j].id === this.tiposDeAprendizajeSeleccionados[i] && !this.tiposDeAprendizajeUsuario.includes(this.aprendizajesExistentes[j])){
-          this.tiposDeAprendizajeUsuario.push(this.aprendizajesExistentes[j]);
+
+
+        if(this.aprendizajesExistentes[j].id === this.tiposDeAprendizajeSeleccionados[i]){
+          if(!this.tiposDeAprendizajeUsuario.includes(this.aprendizajesExistentes[j])){
+            this.tiposDeAprendizajeUsuario.push(this.aprendizajesExistentes[j]);
+          }
+          
         }
       }
+
     }
     
 

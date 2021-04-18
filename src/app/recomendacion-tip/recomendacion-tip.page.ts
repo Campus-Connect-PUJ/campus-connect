@@ -24,30 +24,29 @@ export class RecomendacionTipPage implements OnInit {
   }
 
   votar(voto: Number){
-    console.log(voto)
-    let a: number;
-    let b: number;
-    a=1
+    console.log(voto);
+
+    this.user = this.loginService.getUser();
+    this.indice = this.user.id;
     if(voto == 1){
-      this.tipsService.agregarTipGustado(a,this.tipRecomendado.id).subscribe(
-        results => console.log(results),
+      this.tipsService.agregarTipGustado(this.indice, this.tipRecomendado.id).subscribe(
+        results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
-      this.obtenerTipRecomendado();
+      
     }
     else{ 
-      this.tipsService.agregarTipNoGustado(a,this.tipRecomendado.id).subscribe(
-        results => console.log(results),
+      this.tipsService.agregarTipNoGustado(this.indice, this.tipRecomendado.id).subscribe(
+        results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
-      this.obtenerTipRecomendado();
     }
   }
 
   obtenerTipRecomendado(){
     this.user = this.loginService.getUser();
     this.indice = this.user.id;
-
+    console.log(this.indice)
     this.tipsService.obtenerRecomendacion(this.indice).subscribe(
       results => {
         this.tipRecomendado = results;
