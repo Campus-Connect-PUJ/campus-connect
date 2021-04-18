@@ -7,6 +7,7 @@ import "leaflet-routing-machine";
 import "leaflet.awesome-markers";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: "app-mapa-ruta",
@@ -32,7 +33,8 @@ export class MapaRutaPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public http: HttpClient
+    public http: HttpClient,
+    private _location: Location
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params && params.special) {
@@ -55,7 +57,7 @@ export class MapaRutaPage implements OnInit {
     );
     this.map.removeControl(this.map.zoomControl);
     console.log(this.data);
-    
+
     var redMarker = L.AwesomeMarkers.icon({
       markerColor: "red",
     });
@@ -70,7 +72,7 @@ export class MapaRutaPage implements OnInit {
     var greenMarker = L.AwesomeMarkers.icon({
       markerColor: "green",
     });
-    
+
     var marker_origin = L.marker([this.lat_origen, this.lng_origen], {
       icon: greenMarker,
     }).addTo(this.map);
@@ -111,5 +113,13 @@ export class MapaRutaPage implements OnInit {
     if (this.map) {
       this.map.remove();
     }
+  }
+
+  public onBackAction($event) {
+    this._location.back();
+  }
+
+  public toHome($event) {
+    this.router.navigate(["auth-home"]);
   }
 }

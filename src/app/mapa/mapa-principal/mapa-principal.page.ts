@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
-import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { AlertController, Platform } from '@ionic/angular';
 import { Map, tileLayer, marker, LeafletMouseEvent } from "leaflet";
 
 import * as L from "leaflet";
@@ -18,6 +18,8 @@ export class MapaPrincipalPage implements OnInit {
   map: Map;
 
   public markers_onoff = true;
+
+  private marker_selected = null;
 
   private lugares = [
     {
@@ -221,7 +223,7 @@ export class MapaPrincipalPage implements OnInit {
     },
   ];
 
-  private markers = new Array()
+  private markers = new Array();
 
   lat_origen = 4.626680783542464;
   lng_origen = -74.06383752822877;
@@ -238,7 +240,8 @@ export class MapaPrincipalPage implements OnInit {
   constructor(
     public platform: Platform,
     public router: Router,
-    public http: HttpClient
+    public http: HttpClient,
+    public alertController: AlertController
   ) {}
 
   ionViewDidEnter() {
@@ -276,8 +279,11 @@ export class MapaPrincipalPage implements OnInit {
     // };
     this.lugares.forEach((element) => {
       var marker = L.marker([element.lat, element.lng]).addTo(this.map);
-      var message = "<b>" + element.id + "</b><br>" + element.name;
-      marker.bindPopup(message);
+      var message = "<b>" + element.id + "</b><br>" + element.name + "<br>";
+      marker.bindPopup(message).addEventListener("click", (e) => {
+        console.log(element);
+        this.marker_selected = element;
+      });
       this.markers.push(marker);
     });
 
@@ -291,36 +297,59 @@ export class MapaPrincipalPage implements OnInit {
   change_markers($event) {
     //this.markers_onoff = !this.markers_onoff;
     console.log(this.markers_onoff);
-    if(this.markers_onoff == true){
+    if (this.markers_onoff == true) {
       //Show Markers
-      if(this.markers.length == 0){
+      if (this.markers.length == 0) {
         console.log("SHOW");
         this.lugares.forEach((element) => {
           var marker = L.marker([element.lat, element.lng]).addTo(this.map);
-          var message = "<b>" + element.id + "</b><br>" + element.name;
+          var message = "<br>" + element.id + "</br><br>" + element.name;
           marker.bindPopup(message);
           this.markers.push(marker);
         });
       }
-    }else{
+    } else {
       //Remove Markers
       if (this.markers.length != 0) {
         console.log("REMOVE");
         this.markers.forEach((element) => {
           this.map.removeLayer(element);
         });
-        this.markers = new Array()
+        this.markers = new Array();
       }
     }
   }
 
-  toNextPage(){
+  toNextPage() {
     this.router.navigate(["lista-sitios"]);
   }
 
-  ionViewWillLeave(){
-   if (this.map) {
-     this.map.remove();
-   }
+  ionViewWillLeave() {
+    if (this.map) {
+      this.map.remove();
+    }
+    this.marker_selected = null
+  }
+
+  async toNavigation() {
+    if (this.marker_selected == null) {
+      let alert = await this.alertController.create({
+        cssClass: "custom-class-alert",
+        header: "Error",
+        subHeader: "Marcador no seleccionado",
+        message:
+          "Para continuar a la generación de la ruta debes seleccionar un marcador antes.",
+        buttons: ["OK"],
+      });
+      await alert.present();
+    } else {
+      console.log(this.marker_selected);
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          special: JSON.stringify(this.marker_selected),
+        },
+      };
+      this.router.navigate(["mapa-ruta"], navigationExtras);
+    }
   }
 }
