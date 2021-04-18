@@ -33,3 +33,56 @@ ion-card{
     justify-content: center;
 }
 
+
+
+ion-card-header{
+    #TyP{
+        display: flex;
+        justify-content: space-between;
+
+        h1{
+            margin: 0;
+            font-size: 25px;
+        }   
+
+        h2{
+            margin: 0;
+            font-size: 18px;
+        }
+
+    }
+}
+
+ion-card-content{
+    h2{
+        font-size: 15px;
+    }
+}
+
+
+#informacion{
+    display: flex;
+    justify-content: space-between;
+    #iusuario{
+        display: flex;
+        flex-direction: row;
+        margin-left: 5%;
+        margin-bottom: 5%;
+    
+        h3{
+            font-size: 12px;
+            margin: 0;
+            margin-left: 5%;
+        }
+    }
+
+    #ipuntaje{
+        margin-right: 5%;
+        margin-bottom: 5%;
+
+        h3{
+            font-size: 15px;
+            margin: 0;
+        }
+    }
+}

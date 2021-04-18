@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { Tip } from '../Model/Tip/tip';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-recomendacion-tip',
@@ -14,7 +15,8 @@ export class RecomendacionTipPage implements OnInit {
   user: UsuarioGeneral;
 
   constructor(
-    private tipsService: TipsService
+    private tipsService: TipsService,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -22,30 +24,29 @@ export class RecomendacionTipPage implements OnInit {
   }
 
   votar(voto: Number){
-    console.log(voto)
-    let a: number;
-    let b: number;
-    a=1
+    console.log(voto);
+
+    this.user = this.loginService.getUser();
+    this.indice = this.user.id;
     if(voto == 1){
-      this.tipsService.agregarTipGustado(a,this.tipRecomendado.id).subscribe(
-        results => console.log(results),
+      this.tipsService.agregarTipGustado(this.indice, this.tipRecomendado.id).subscribe(
+        results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
-      this.obtenerTipRecomendado();
+      
     }
     else{ 
-      this.tipsService.agregarTipNoGustado(a,this.tipRecomendado.id).subscribe(
-        results => console.log(results),
+      this.tipsService.agregarTipNoGustado(this.indice, this.tipRecomendado.id).subscribe(
+        results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
-      this.obtenerTipRecomendado();
     }
   }
 
   obtenerTipRecomendado(){
-    this.user = JSON.parse(localStorage.getItem("Usuario"));
+    this.user = this.loginService.getUser();
     this.indice = this.user.id;
-
+    console.log(this.indice)
     this.tipsService.obtenerRecomendacion(this.indice).subscribe(
       results => {
         this.tipRecomendado = results;

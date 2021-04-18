@@ -81,4 +81,10 @@ export class UsuarioGeneralService {
       }
     );
   }
+
+  getUsuario(id: number): Observable<UsuarioGeneral> {
+    const url = `${environment.baseUrl}/usuario/${id}`;
+    return this.net.get<UsuarioGeneral>(url);
+  }
+
 }

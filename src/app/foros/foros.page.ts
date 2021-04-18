@@ -38,9 +38,27 @@ export class ForosPage implements OnInit {
       results => {
         this.foros = results;
         console.log("Los foros", this.foros)
+        this.foros = this.organizarForos(this.foros);
       },
       error => console.error(error)
     )
+  }
+
+  organizarForos(foros){
+    let forosOrdenados = foros;
+
+    forosOrdenados.sort(function (a, b) {
+      if (a.puntaje > b.puntaje) {
+        return -1;
+      }
+      if (a.puntaje < b.puntaje) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+
+    return forosOrdenados;
   }
 
   cargarForosUsuarios(id: number){
