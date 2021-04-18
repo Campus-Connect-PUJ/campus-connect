@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
-import { evento } from './evento.model';
+import { evento } from './evento';
 import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { LoginService } from '../services/login.service';
