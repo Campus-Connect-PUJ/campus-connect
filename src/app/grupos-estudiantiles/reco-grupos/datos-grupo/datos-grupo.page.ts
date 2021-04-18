@@ -56,11 +56,12 @@ export class DatosGrupoPage implements OnInit {
   guardarPuntajeGrupo(event){
     const puntaje = event.target.value;
     this.puntajeAsig = puntaje;
-    
+    this.usuario = this.loginService.getUser(); 
+
     this.usuarioSer.createReseniaGrupo(this.puntajeAsig,this.usuario.id,this.grupoSelect.id).subscribe(
       results => console.log(results),
       error => console.error(error)
-    )
+    );
 
   }
 }

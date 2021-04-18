@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 import { Restaurante } from '../../../Model/Restaurante/restaurante';
 import { RestauranteService } from '../../../Model/Restaurante/restaurante.service';
 
@@ -14,8 +17,9 @@ export class DatosRestaurantePage implements OnInit {
   puntajeAsig: number;
 
   restauranteSelect: Restaurante =new Restaurante ("","",0,0);
+  usuario: UsuarioGeneral;
 
-  constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService ) { }
+  constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService, private usuarioSer: UsuarioGeneralService, private loginService: LoginService ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -37,6 +41,12 @@ export class DatosRestaurantePage implements OnInit {
   guardarPuntajeRestaurnate(event){
     const puntaje = event.target.value;
     this.puntajeAsig = puntaje;
+    this.usuario = this.loginService.getUser(); 
+
+    this.usuarioSer.createReseniaRestaurante(this.puntajeAsig,this.usuario.id,this.restauranteSelect.id).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
   }
 
 }

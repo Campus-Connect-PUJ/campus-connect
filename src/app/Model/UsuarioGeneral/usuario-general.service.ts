@@ -61,15 +61,11 @@ export class UsuarioGeneralService {
       );
   }
 
-  createReseniaRestaurante(resenia: ReseniaRestaurante, usuario: UsuarioGeneral, restaurante:Restaurante) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_restaurante/${restaurante.id}`;
+  createReseniaRestaurante(calificacion: number, id: number, id_res: number) {
+    const url = `${environment.baseUrl}/usuario/${id}/resenha_restaurante/${id_res}/${calificacion}`;
     return this.net.post(
       url,
-      {
-        "foroData": resenia,
-        "idUsuario": usuario.id,
-        "idRestaurante": restaurante.id
-      }
+      {}
     );
   }
 
