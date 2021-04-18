@@ -5,6 +5,7 @@ import { Foro } from 'src/app/Model/Foro/foro';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-foro-detalles',
@@ -22,7 +23,8 @@ export class ForoDetallesPage implements OnInit {
     private popoverController: PopoverController,
     private modalCtrl: ModalController,
     private activatedRoute: ActivatedRoute,
-    private forosService: ForoService
+    private forosService: ForoService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -121,7 +123,7 @@ export class ForoDetallesPage implements OnInit {
     console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
-    respuestanueva.usuario = JSON.parse(sessionStorage.getItem("user"));
+    respuestanueva.usuario = this.loginService.getUser();
     try {
       this.foro.respuestas.push(respuestanueva);
     } catch (error) {

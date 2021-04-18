@@ -222,6 +222,10 @@ const routes: Routes = [
   {
     path: 'contribuciones',
     loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   }
 
 ];

@@ -64,10 +64,29 @@ export class TipsPage implements OnInit {
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
+        this.tips = this.organizartips(this.tips);
       },
       error => console.error(error)
     )
   }
+
+  organizartips(tips){
+    let tipsOrdenados = tips;
+
+    tipsOrdenados.sort(function (a, b) {
+      if (a.puntaje > b.puntaje) {
+        return -1;
+      }
+      if (a.puntaje < b.puntaje) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+
+    return tipsOrdenados;
+  }
+
 
   obtenerTiposDeAprendizaje(){
     this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
