@@ -5,6 +5,10 @@ import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
 
 import { GrupoEstudiantil } from '../../../Model/GrupoEstudiantil/grupo-estudiantil';
 import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-estudiantil.service';
+import { LoginService } from "src/app/services/login.service";
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { ReseniaGrupo } from 'src/app/Model/ReseniaGrupo/reseniaGrupo';
 
 @Component({
   selector: 'app-datos-grupo',
@@ -16,8 +20,11 @@ export class DatosGrupoPage implements OnInit {
   grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "");
   tematicas: Tematica[];
   puntajeAsig: number;
+  usuario: UsuarioGeneral;
+  resenia: ReseniaGrupo = new ReseniaGrupo();
 
-  constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService ) { }
+  constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService, private loginService: LoginService,
+    private usuarioSer: UsuarioGeneralService ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -49,5 +56,11 @@ export class DatosGrupoPage implements OnInit {
   guardarPuntajeGrupo(event){
     const puntaje = event.target.value;
     this.puntajeAsig = puntaje;
+    
+    this.usuarioSer.createReseniaGrupo(this.puntajeAsig,this.usuario.id,this.grupoSelect.id).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    )
+
   }
 }

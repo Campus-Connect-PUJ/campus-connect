@@ -54,16 +54,11 @@ export class UsuarioGeneralService {
 
   }
 
-  createReseniaGrupo(resenia: ReseniaGrupo, usuario: UsuarioGeneral, grupo: GrupoEstudiantil) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo_grupo_estudiantil/${grupo.id}`;
+  createReseniaGrupo(calificacion: number, id: number, id_res: number) {
+    const url = `${environment.baseUrl}/${id}/resenha_grupo_estudiantil/${id_res}/${calificacion}`;
     return this.net.post(
-      url,
-      {
-        "foroData": resenia,
-        "idUsuario": usuario.id,
-        "idRestaurante": grupo.id
-      }
-    );
+      url,{}
+      );
   }
 
   createReseniaRestaurante(resenia: ReseniaRestaurante, usuario: UsuarioGeneral, restaurante:Restaurante) {

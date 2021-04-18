@@ -37,7 +37,8 @@ import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
     FiltroFacultadGruposPipe,
-    FiltroTematicaGurposPipe
+    FiltroTematicaGurposPipe,
+    FiltroCaracteristicasPipe
   ]
 })
 export class PipesModule { }
