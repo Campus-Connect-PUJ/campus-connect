@@ -41,6 +41,10 @@ export class DatosRestaurantePage implements OnInit {
   guardarPuntajeRestaurnate(event){
     const puntaje = event.target.value;
     this.puntajeAsig = puntaje;
+    
+  }
+
+  guardarResenia(){
     this.usuario = this.loginService.getUser(); 
 
     this.usuarioSer.createReseniaRestaurante(this.puntajeAsig,this.usuario.id,this.restauranteSelect.id).subscribe(
