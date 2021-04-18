@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>agregarTipoAprendizaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="background" [fullscreen]="true">
+  <h2>Los tipos de aprendaje del usuario son:</h2>
+  <div id="tiposDelUsuario">
+    <ion-item *ngFor="let tipos of tiposDeAprendizajeUsuario">
+      {{tipos.descripcion}}
+    </ion-item>
+  </div>
+  
+  <ion-item>
+    <ion-label>Tipo aprendizaje</ion-label>
+    <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+      <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="btn-crearForo">
+    <ion-card class="boton-mas" (click)="agregarTipo()">
+      <h1>+</h1>
+    </ion-card>
+  </div>
+</ion-content>

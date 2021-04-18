@@ -20,4 +20,14 @@ export class TipoAprendizajeService {
     const url = `${environment.baseUrl}/tipo_aprendizaje/${id}`;
     return this.net.get<TipoAprendizaje>(url);
   }
+
+  agregarTipoAprendizaje(idUsuario: number, idTipoAprendizaje: number){
+    const url = `${environment.baseUrl}/usuario/${idUsuario}/agregarTipoAprendizaje/${idTipoAprendizaje}`;
+    return this.net.post(
+      url,
+      {}
+    );
+
+  }
+
 }

@@ -6,6 +6,7 @@ import { Tip } from 'src/app/Model/Tip/tip';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class TipDetallesPage implements OnInit {
   constructor(
     private tipsService: TipsService,
     private activatedRoute: ActivatedRoute,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private loginService: LoginService
   ) { 
 
   }
@@ -51,15 +53,10 @@ export class TipDetallesPage implements OnInit {
   votar(voto: number){
     console.log(voto)
 
-    this.user = JSON.parse(localStorage.getItem("Usuario"));
+    this.user = this.loginService.getUser();
     this.indice = this.user.id;
-    /*
-    this.tipsService.agregarTipGustado(this.indice, this.tip.id).subscribe(
-      results => console.log(results),
-      error => console.error(error)
-    );
-      */
     this.calificacionTip(voto, this.tip.id);
+    this.tip.puntaje = this.tip.puntaje + voto;
 
   }
 

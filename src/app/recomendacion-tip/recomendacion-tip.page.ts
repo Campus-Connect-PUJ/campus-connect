@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { Tip } from '../Model/Tip/tip';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-recomendacion-tip',
@@ -14,7 +15,8 @@ export class RecomendacionTipPage implements OnInit {
   user: UsuarioGeneral;
 
   constructor(
-    private tipsService: TipsService
+    private tipsService: TipsService,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class RecomendacionTipPage implements OnInit {
   }
 
   obtenerTipRecomendado(){
-    this.user = JSON.parse(localStorage.getItem("Usuario"));
+    this.user = this.loginService.getUser();
     this.indice = this.user.id;
 
     this.tipsService.obtenerRecomendacion(this.indice).subscribe(
