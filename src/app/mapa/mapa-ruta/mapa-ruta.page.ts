@@ -19,7 +19,10 @@ export class MapaRutaPage implements OnInit {
   data: any;
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
-  geoJSON_layer: L.GeoJSON;
+  geoJSON_layer: L.GeoJSON = null;
+
+  route_type = "Normal"
+  route_selected = true;
 
   lat_origen = 4.626680783542464;
   lng_origen = -74.06383752822877;
@@ -121,5 +124,68 @@ export class MapaRutaPage implements OnInit {
 
   public toHome($event) {
     this.router.navigate(["auth-home"]);
+  }
+
+  onChange($event){
+    console.log(this.route_selected)
+    if(this.route_selected){
+      this.route_type = "Evitar escalones";
+      if(this.geoJSON_layer != null){
+        this.map.removeLayer(this.geoJSON_layer)
+      }
+
+      let coordinates = {
+        coordinates: [
+          [this.lng_origen, this.lat_origen],
+          [this.data.lng, this.data.lat],
+        ],
+        options: { avoid_features: ["steps"] },
+      };
+      const body = JSON.stringify(coordinates);
+
+      var httpOptions = {
+        headers: new HttpHeaders({
+          Accept:
+            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+          "Content-Type": "application/json",
+          Authorization: this.api_key_openrouteservice,
+        }),
+      };
+
+      var response = this.http
+        .post(this.url_route, body, httpOptions)
+        .subscribe((resp) => {
+          console.log(resp);
+          this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
+        });
+    }else{
+      this.route_type = "Normal";
+      if (this.geoJSON_layer != null) {
+        this.map.removeLayer(this.geoJSON_layer);
+      }
+      let coordinates = {
+        coordinates: [
+          [this.lng_origen, this.lat_origen],
+          [this.data.lng, this.data.lat],
+        ],
+      };
+      const body = JSON.stringify(coordinates);
+
+      var httpOptions = {
+        headers: new HttpHeaders({
+          Accept:
+            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+          "Content-Type": "application/json",
+          Authorization: this.api_key_openrouteservice,
+        }),
+      };
+
+      var response = this.http
+        .post(this.url_route, body, httpOptions)
+        .subscribe((resp) => {
+          console.log(resp);
+          this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
+        });
+    }
   }
 }

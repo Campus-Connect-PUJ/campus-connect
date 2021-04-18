@@ -294,6 +294,7 @@ export class MapaPrincipalPage implements OnInit {
     //     var geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map)
     //   })
   }
+  
   change_markers($event) {
     //this.markers_onoff = !this.markers_onoff;
     console.log(this.markers_onoff);
