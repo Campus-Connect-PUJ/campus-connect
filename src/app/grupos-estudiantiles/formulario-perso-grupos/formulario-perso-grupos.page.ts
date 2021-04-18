@@ -4,6 +4,7 @@ import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
 import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 
 
 export class actividad{
@@ -35,7 +36,8 @@ export class FormularioPersoGruposPage implements OnInit {
   constructor(
     private modalController:ModalController, 
     private tematicasService: TematicaService, 
-    private caracteristicaService: CaracteristicaService) { }
+    private caracteristicaService: CaracteristicaService,
+    private usuarioSer: UsuarioGeneralService) { }
 
   ngOnInit() {
     this.findTematica();
@@ -76,24 +78,32 @@ export class FormularioPersoGruposPage implements OnInit {
     console.log(this.hobbies)
   }
 
-  onClickTematica(tematica){
-    this.tematicasUsuario.push(tematica);
-    console.log(this.tematicasUsuario);
-  }
 
   onClickCaracteristica(caracteristica){
     this.caracteristicasUsuario.push(caracteristica);
     console.log(this.caracteristicasUsuario);
   }
 
-  onClickCreencia(event){
-    const creecnia = event.target.value;
-    this.creenciaUsuario =creecnia;
-    console.log(this.creenciaUsuario);
-  }
-
   guardar(){
-    console.log("Enviar datos al back")
+    console.log("Enviar datos al back");
+
+    let activi: String[]=[];
+
+    for(let i=0;i<this.actividades.length;i++){
+      activi.push(this.actividades[i].nombre);
+    }
+
+    let hobby: String[]=[];
+
+    for(let i=0;i<this.actividades.length;i++){
+      hobby.push(this.hobbies[i].nombre);
+    }
+
+    this.usuarioSer.persoGrupos(this.caracteristicasUsuario,activi,hobby).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
+
   }
 
   buscarCaracteristica(event){

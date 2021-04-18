@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { InformacionUsuario } from '../InformacionUsuario/informacion-usuario';
 import { GrupoEstudiantil } from '../GrupoEstudiantil/grupo-estudiantil';
 import { Restaurante } from '../Restaurante/restaurante';
+import { Caracteristica } from '../Caracteristica/caracteristica';
 
 @Injectable({
   providedIn: 'root'
@@ -69,4 +70,15 @@ export class UsuarioGeneralService {
     );
   }
 
+  persoGrupos(carac: Caracteristica[], actividades: String[], hobbies: String[]){
+    const url = `${environment.baseUrl}/persoGrupos`;
+    return this.net.post(
+      url,
+      {
+        carac,
+        actividades,
+        hobbies
+      }
+    );
+  }
 }
