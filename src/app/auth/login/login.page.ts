@@ -57,9 +57,8 @@ export class LoginPage implements OnInit {
       this.login.login(this.email, this.password)
         .subscribe(
           results => {
-            console.log("ingreso exitoso: ", results)
-            let usuario: UsuarioGeneral = results;
-            this.login.storeUser(usuario);
+            let usuario: UsuarioGeneral = results.body;
+            this.login.storeUser(usuario, results.headers.get('authorization'));
             this.router.navigate(["auth-home"]);
           },
           error => {
