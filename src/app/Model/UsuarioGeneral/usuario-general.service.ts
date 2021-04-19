@@ -70,14 +70,27 @@ export class UsuarioGeneralService {
     );
   }
 
-  persoGrupos(carac: Caracteristica[], actividades: String[], hobbies: String[]){
-    const url = `${environment.baseUrl}/persoGrupos`;
-    return this.net.post(
+  persoGrupos(carac: number[], actividades: string[], hobbies: string[]){
+    const url = `${environment.baseUrl}/usuario/persoGrupos`;
+    return this.net.put(
       url,
       {
-        carac,
-        actividades,
-        hobbies
+        "caracteristicas":carac,
+        "actividades":actividades,
+        "hobbies":hobbies
+      }
+    );
+  }
+
+  persoRestaurantes(regimenAl: number, nivelExigencia: number, ambientacion: string, comida: number[]){
+    const url = `${environment.baseUrl}/usuario/persoRestaurantes`;
+    return this.net.put(
+      url,
+      {
+        "regimenAlimenticio":regimenAl,
+        "nivelExigencia":nivelExigencia,
+        "comidas":comida,
+        "ambientacion":ambientacion
       }
     );
   }
