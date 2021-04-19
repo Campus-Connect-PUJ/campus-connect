@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from "src/environments/environment";
 import { NetService } from '../utils/net.service';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 import { Observable } from 'rxjs';
-import { Carrera } from '../Model/Carrera/carrera';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,8 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
-  loginPost(url: string, msg): Observable<HttpResponse<UsuarioGeneral>> {
-    let respuesta = this.http
+  loginPost(url: string, msg: unknown): Observable<HttpResponse<UsuarioGeneral>> {
+    const respuesta = this.http
       .post(
         url,
         msg,
@@ -32,7 +31,7 @@ export class LoginService {
   }
 
   login(username: string, password: string): Observable<HttpResponse<UsuarioGeneral>> {
-    let url = `${environment.baseUrl}/usuario/login`;
+    const url = `${environment.baseUrl}/usuario/login`;
     return this.loginPost(url,
       {
         "username": username,
@@ -63,12 +62,12 @@ export class LoginService {
   // TODO: update
 
   findUser() {
-    let url = `${environment.baseUrl}/user/current`;
+    const url = `${environment.baseUrl}/user/current`;
     return this.net.get<UsuarioGeneral>(url);
   }
 
   getUser(): UsuarioGeneral {
-    let usuario: UsuarioGeneral = JSON.parse(sessionStorage.getItem('user'));
+    const usuario: UsuarioGeneral = JSON.parse(sessionStorage.getItem('user'));
     return usuario;
   }
 
@@ -90,24 +89,30 @@ export class LoginService {
   }
 
   isAuthorized(allowedRoles: string[]): boolean {
-    // // check if the list of allowed roles is empty, if empty, authorize the user to access the page
+    // check if the list of allowed roles is empty, if empty,
+    // authorize the user to access the page
     if (allowedRoles == null || allowedRoles.length === 0) {
       return true;
     }
 
-    let user: UsuarioGeneral = this.getUser();
+    const user: UsuarioGeneral = this.getUser();
 
     if (!user) {
       return false;
     }
 
-    console.log('object', allowedRoles);
-    console.log('usuario', user.rol);
+    // console.log('object', allowedRoles);
+    // console.log('usuario', user.roles);
 
     let valido = false;
-    if (allowedRoles.includes(user.rol)) {
-      valido = true;
-    }
+
+    user.roles.forEach(
+      (rol: string) => {
+        if (allowedRoles.includes(rol)) {
+          valido = true;
+        }
+      }
+    )
 
     return valido;
   }
