@@ -57,7 +57,7 @@ export class UsuarioGeneralService {
   createReseniaGrupo(resenia: ReseniaGrupo) {
     const url = `${environment.baseUrl}/usuario/resenha_grupo_grupo_estudiantil/${resenia.id}`;
     return this.net.post(
-      url,{}
+      url,{} // TODO
       );
   }
 

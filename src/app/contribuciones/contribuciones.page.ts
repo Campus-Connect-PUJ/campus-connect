@@ -33,7 +33,7 @@ export class ContribucionesPage implements OnInit {
 
   cambiarRol(){
     let idRol = 1;
-    if(this.user.rol === "MONITOR"){
+    if(this.user.roles.includes("MONITOR")){
       idRol = 1;
     }
     else{
