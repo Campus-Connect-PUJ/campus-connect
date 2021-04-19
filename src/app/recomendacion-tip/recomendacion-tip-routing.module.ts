@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: RecomendacionTipPage
+  },  {
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   },
+
 
 
 ];

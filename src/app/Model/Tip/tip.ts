@@ -6,6 +6,7 @@ export class Tip {
     descripcion: string;
     usuario: UsuarioGeneral;
     tiposAprendizaje: TipoAprendizaje[];
+    puntaje: number;
 
     constructor(){}
 }

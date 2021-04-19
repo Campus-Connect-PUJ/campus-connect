@@ -17,6 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./foro-detalles/foro-detalles.module').then( m => m.ForoDetallesPageModule)
   }
 
+
 ];
 
 @NgModule({

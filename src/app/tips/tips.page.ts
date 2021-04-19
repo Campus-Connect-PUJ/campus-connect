@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Tip } from '../Model/Tip/tip';
 import { TipsService } from '../Model/Tip/tips.service';
@@ -24,14 +24,69 @@ export class TipsPage implements OnInit {
   constructor(
     private tipsService: TipsService,
     private tipoAprendizajeService: TipoAprendizajeService,
-    public router: Router,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.findTips();
     this.obtenerTiposDeAprendizaje();
+
+    this.activatedRoute.paramMap.subscribe(paraMap => {
+      const recipeId = paraMap.get('usuarioId')
+      if(recipeId != null){
+        console.log(recipeId)
+        this.cargarTipsUsuarios(Number(recipeId));
+      }
+      else{
+        this.cargarTips();
+      }
+    })
   }
+
+  cargarTipsUsuarios(id: number){
+    let tipsUsuario = new Array<Tip>();
+    this.tipsService.getTips().subscribe(
+      results => {
+        this.tips = results;
+        for(let i=0; i<this.tips.length; i++){
+          if(this.tips[i].usuario.id === id){
+            tipsUsuario.push(this.tips[i]);
+          }
+        }
+        this.tips = tipsUsuario;
+        console.log("Los foros", this.tips)
+      },
+      error => console.error(error)
+    )
+  }
+
+  cargarTips(){
+    this.tipsService.getTips().subscribe(
+      results => {
+        this.tips = results;
+        this.tips = this.organizartips(this.tips);
+      },
+      error => console.error(error)
+    )
+  }
+
+  organizartips(tips){
+    let tipsOrdenados = tips;
+
+    tipsOrdenados.sort(function (a, b) {
+      if (a.puntaje > b.puntaje) {
+        return -1;
+      }
+      if (a.puntaje < b.puntaje) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+
+    return tipsOrdenados;
+  }
+
 
   obtenerTiposDeAprendizaje(){
     this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
@@ -42,14 +97,6 @@ export class TipsPage implements OnInit {
     )
   }
 
-  findTips(){
-    this.tipsService.getTips().subscribe(
-      results => {
-        this.tips = results;
-      },
-      error => console.error(error)
-    )
-  }
 
   buscarTips(event){
     const texto = event.target.value;
@@ -60,7 +107,7 @@ export class TipsPage implements OnInit {
 
   doRefresh(event) {
     setTimeout(() => {
-      this.findTips()
+      this.cargarTips()
       event.target.complete();
     }, 300);
   }

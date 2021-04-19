@@ -96,6 +96,10 @@ const routes: Routes = [
       {
         path: ":tipId",
         loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
+      },
+      {
+        path: "usuario/:usuarioId",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       }
     ]
   },
@@ -113,6 +117,10 @@ const routes: Routes = [
       {
         path: ":foroId",
         loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
+      },
+      {
+        path: "usuario/:usuarioId",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       }
     ]
   },
@@ -218,6 +226,14 @@ const routes: Routes = [
   {
     path: 'lista-sitios',
     loadChildren: () => import('./mapa/lista-sitios/lista-sitios.module').then( m => m.ListaSitiosPageModule)
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   }
 
 ];

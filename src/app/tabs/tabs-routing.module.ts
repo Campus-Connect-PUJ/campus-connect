@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: 'servicios-academicos',
         loadChildren: '../servicios-academicos/servicios-academicos.module#ServiciosAcademicosPageModule'
+      },
+      {
+        path: 'contribuciones',
+        loadChildren: '../contribuciones/contribuciones.module#ContribucionesPageModule'
       }
     ]
   }
