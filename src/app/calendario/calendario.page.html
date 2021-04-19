@@ -107,7 +107,19 @@
         <ion-label>¿Espacio para monitoria?</ion-label>
         <ion-checkbox [(ngModel)]="monitoria"></ion-checkbox>
       </ion-item>
-      
+
+      <ion-item>
+      <ion-label>Asignatura</ion-label>
+        <ion-select
+            [(ngModel)]="asignatura"
+          >
+            <ion-select-option *ngFor="let item of asignaturas" value="{{item}}"
+                              [value]="{id: item.id, nombre: item.nombre}"
+            >
+              {{item.nombre}}
+            </ion-select-option>
+          </ion-select>
+      </ion-item>
 
       <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
     </ion-card-content>

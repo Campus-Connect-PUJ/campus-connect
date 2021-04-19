@@ -4,10 +4,13 @@ import { evento } from './evento';
 import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { LoginService } from '../services/login.service';
+import { AsignaturaService } from '../Model/Asignatura/asignatura.service';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 import { Monitoria } from '../Model/Monitoria/monitoria';
 import { Horario } from '../Model/Horario/horario';
 import { Asignatura } from '../Model/Asignatura/asignatura';
+import { title } from 'process';
+import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 
 export class listaEventos{
   title: string;
@@ -30,36 +33,16 @@ export class CalendarioPage implements OnInit {
   public eventos: evento[] = [];
   monitoria: boolean = false;
   esMonitor: boolean = false;
-
-  data = [
-    {
-      name: 'Lunes',
-      selected: false
-    },
-    {
-      name: 'Martes',
-      selected: false
-    },
-    {
-      name: 'Miercoles',
-      selected: false
-    },
-    {
-      name: 'Jueves',
-      selected: false
-    },
-    {
-      name: 'Viernes',
-      selected: false
-    },
-  ]
+  asignaturas: Asignatura[] = [];
+  asignatura: Asignatura;
 
   event = {
     title: '',
     desc: ' ',
     startTime: ' ',
     endTime: ' ',
-    allDay: false
+    allDay: false,
+    monitoria: false
   };
 
   event2 = {
@@ -86,25 +69,28 @@ export class CalendarioPage implements OnInit {
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   
   constructor(public alertaCtrl: AlertController, 
-    public logService: LoginService
+    public logService: LoginService,
+    public asigService: AsignaturaService,
+    public moniService: MonitoriaService
   ) { }
 
   muchosEventos: listaEventos[] = [];
 
   ngOnInit() {
-    this.monitor();
+    this.cargarAsignaturas();
     this.resetEvent();
     this.cargarEventos();
     this.resetEvent();
   }
 
-  monitor(){
-    let user = new UsuarioGeneral(" ","","");
-    user = this.logService.getUser();
-    if(user.rol == "MONITOR"){
-      this.esMonitor = true;
-    }
+  cargarAsignaturas(){
+    
+    this.asigService.obtenerAsignaturas().subscribe(
+      result => this.asignaturas = result,
+      error => console.log(error)
+    )
   }
+
 
   resetEvent(){
     this.event = {
@@ -112,7 +98,8 @@ export class CalendarioPage implements OnInit {
       desc: ' ',
       startTime: new Date().toISOString(),
       endTime: new Date().toISOString(),
-      allDay: false
+      allDay: false,
+      monitoria: false
     };
 
     this.event2 = {
@@ -141,7 +128,8 @@ export class CalendarioPage implements OnInit {
       endTime: new Date(this.event.endTime),
       allDay: this.event.allDay,
       desc: this.event.desc,
-      id: cantidadDeEventos
+      id: cantidadDeEventos,
+      monitoria: false
     }
 
     if(eventCopy.allDay){
@@ -169,6 +157,7 @@ export class CalendarioPage implements OnInit {
       cantidadDeEventos = 0;
     }
 
+
     let eventCopy = {
       title: this.event2.title,
       startTime: new Date(this.event2.startTime),
@@ -191,6 +180,11 @@ export class CalendarioPage implements OnInit {
       monitoria: this.monitoria
     }
     
+    if(this.monitoria){
+      console.log("Cambia")
+      eventCopy2.title = this.asignatura.nombre;
+    }
+    console.log("asgin ", this.asignatura.nombre)
 
     let fechaInicioTotal = moment(eventCopy2.startTime);
     let fechaFinTotal = moment(eventCopy2.endTime);
@@ -246,20 +240,36 @@ export class CalendarioPage implements OnInit {
   enviarHorariosMonitoria(){
     let monitorias = new Array<Monitoria>();
     this.eventos = JSON.parse(localStorage.getItem("eventos"));
-
+    console.log("Lo que sale", this.eventos);
     for(let i=0; i<this.eventos.length; i++){
       let monitoria: Monitoria = new Monitoria();
       let asignatura: Asignatura = new Asignatura();
+      let horario: Horario = new Horario();
+      let horarios: Array<Horario> = [];
+
       if(this.eventos[i].monitoria){
         asignatura.nombre = this.eventos[i].title;
         monitoria.id = this.eventos[i].id;
         monitoria.asignatura = asignatura;
         monitoria.usuario = this.logService.getUser();
+        horario.fechaInicial = this.eventos[i].startTime;
+        horario.fechaFinal = this.eventos[i].endTime;
+        horarios.push(horario);
+        monitoria.horarios = horarios;
         monitorias.push(monitoria);
       }
     }
     
     console.log("Monitorias ->", monitorias)
+    for(let i=0; i<monitorias.length; i++) {
+      this.moniService.guardarMonitorias(1, monitorias[i]).subscribe(
+        result => console.log(result),
+        error => console.log(error)
+      );
+    }
+    
+
+
 
   }
 
@@ -269,13 +279,15 @@ export class CalendarioPage implements OnInit {
     console.log("Lo que sale", this.eventos);
     try {
       for(let i=0; i<this.eventos.length; i++){
+        console.log("Monit -> ", this.eventos[i].monitoria)
         let eventCopy = {
           title: this.eventos[i].title,
           startTime: new Date(this.eventos[i].startTime),
           endTime: new Date(this.eventos[i].endTime),
           allDay: this.eventos[i].allDay,
           desc: this.eventos[i].desc,
-          id: this.eventos[i].id
+          id: this.eventos[i].id,
+          monit: this.eventos[i].monitoria
         }
 
         if(eventCopy.allDay){
