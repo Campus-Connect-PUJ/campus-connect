@@ -35,7 +35,8 @@ export class UsuarioGeneralService {
   ): Observable<InformacionUsuario> {
     const date = new Date(fechaNacimiento).toISOString();
     const url = `${environment.baseUrl}/informacion_usuario/${idUs}`;
-    let info = {
+
+    const info = {
       fechaNacimiento: date,
       carreras: carreras.map((c) => c.id),
       religion: religion,
@@ -45,18 +46,16 @@ export class UsuarioGeneralService {
       genero: genero
     };
 
-    console.log("cosa esta: " + JSON.stringify(info))
-    let ret = this.net.post(
+    const ret = this.net.post(
       url,
       info
     );
 
     return ret as unknown as Observable<InformacionUsuario>;
-
   }
 
-  createReseniaGrupo(calificacion: number, id: number, id_res: number) {
-    const url = `${environment.baseUrl}/usuario/${id}/resenha_grupo_estudiantil/${id_res}/${calificacion}`;
+  createReseniaGrupo(resenia: ReseniaGrupo) {
+    const url = `${environment.baseUrl}/usuario/resenha_grupo_grupo_estudiantil/${resenia.id}`;
     return this.net.post(
       url,{}
       );
@@ -66,7 +65,7 @@ export class UsuarioGeneralService {
     const url = `${environment.baseUrl}/usuario/${id}/resenha_restaurante/${id_res}/${calificacion}`;
     return this.net.post(
       url,
-      {}
+      {} // TODO
     );
   }
 
@@ -98,6 +97,22 @@ export class UsuarioGeneralService {
   getUsuario(id: number): Observable<UsuarioGeneral> {
     const url = `${environment.baseUrl}/usuario/${id}`;
     return this.net.get<UsuarioGeneral>(url);
+  }
+
+  getUsuarios(): Observable<UsuarioGeneral[]>{
+    const url = `${environment.baseUrl}/usuario/all`;
+    return this.net.get<UsuarioGeneral[]>(url);
+  }
+
+  cambiarRol(idUsuario: number, rol: number): Observable<UsuarioGeneral> {
+    console.log("Se envia ", idUsuario, " ", rol);
+    //const url = `${environment.baseUrl}/usuario/rol/${idUsuario}/${rol}`;
+    const url = `${environment.baseUrl}/usuario/rolMonitor`
+    return this.net.get<UsuarioGeneral>(url);
+    //return this.net.post(
+      //url,
+      //{}
+    //);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Carrera } from "../Carrera/carrera";
 import { InformacionUsuario } from "../InformacionUsuario/informacion-usuario";
+import { Monitoria } from "../Monitoria/monitoria";
 import { RegimenAlimenticio } from "../RegimenAlimenticio/regimen-alimenticio";
 import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
 import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
@@ -21,22 +22,16 @@ export class UsuarioGeneral {
 
   fechaNacimiento: Date;
 
-  enabled: boolean;
-  accountNonExpired: boolean;
-  accountNonLocked: boolean;
-  credentialsNonExpired: boolean;
-  rol: string;
+  enabled: boolean = true;
+  accountNonExpired: boolean = true;
+  accountNonLocked: boolean = true;
+  credentialsNonExpired: boolean = true;
+  roles: string[] = [];
+  monitorias: Monitoria[] = [];
 
   constructor(
     public nombre: string,
     public apellido: string,
     public email: string,
-  ) {
-    this.rol = undefined;
-    this.id = undefined;
-    this.enabled = undefined;
-    this.accountNonExpired = undefined;
-    this.accountNonLocked = undefined;
-    this.credentialsNonExpired = undefined;
-  }
+  ) { }
 }
