@@ -21,22 +21,15 @@ export class UsuarioGeneral {
 
   fechaNacimiento: Date;
 
-  enabled: boolean;
-  accountNonExpired: boolean;
-  accountNonLocked: boolean;
-  credentialsNonExpired: boolean;
-  roles: string[];
+  enabled: boolean = true;
+  accountNonExpired: boolean = true;
+  accountNonLocked: boolean = true;
+  credentialsNonExpired: boolean = true;
+  roles: string[] = [];
 
   constructor(
     public nombre: string,
     public apellido: string,
     public email: string,
-  ) {
-    this.roles = undefined;
-    this.id = undefined;
-    this.enabled = undefined;
-    this.accountNonExpired = undefined;
-    this.accountNonLocked = undefined;
-    this.credentialsNonExpired = undefined;
-  }
+  ) { }
 }
