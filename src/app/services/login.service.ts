@@ -63,12 +63,12 @@ export class LoginService {
   // TODO: update
 
   findUser() {
-    let url = `${environment.baseUrl}/user/current`;
+    const url = `${environment.baseUrl}/user/current`;
     return this.net.get<UsuarioGeneral>(url);
   }
 
   getUser(): UsuarioGeneral {
-    let usuario: UsuarioGeneral = JSON.parse(sessionStorage.getItem('user'));
+    const usuario: UsuarioGeneral = JSON.parse(sessionStorage.getItem('user'));
     return usuario;
   }
 
