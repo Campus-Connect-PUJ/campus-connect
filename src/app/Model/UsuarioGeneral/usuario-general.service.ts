@@ -76,4 +76,20 @@ export class UsuarioGeneralService {
     return this.net.get<UsuarioGeneral>(url);
   }
 
+  getUsuarios(): Observable<UsuarioGeneral[]>{
+    const url = `${environment.baseUrl}/usuario/all`;
+    return this.net.get<UsuarioGeneral[]>(url);
+  }
+
+  cambiarRol(idUsuario: number, rol: number): Observable<UsuarioGeneral> {
+    console.log("Se envia ", idUsuario, " ", rol);
+    //const url = `${environment.baseUrl}/usuario/rol/${idUsuario}/${rol}`;
+    const url = `${environment.baseUrl}/usuario/rolMonitor`
+    return this.net.get<UsuarioGeneral>(url);
+    //return this.net.post(
+      //url,
+      //{}
+    //);
+  }
+
 }

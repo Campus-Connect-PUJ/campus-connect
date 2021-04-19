@@ -1,4 +1,4 @@
-import { Monitor } from './monitor';
+import { Monitoria } from './monitoria';
 
 describe('Monitor', () => {
   it('should create an instance', () => {

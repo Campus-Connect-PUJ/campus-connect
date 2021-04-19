@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-monitor-detalles',
@@ -6,9 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monitor-detalles.component.scss'],
 })
 export class MonitorDetallesComponent implements OnInit {
+  @Input() idUsuario
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.idUsuario)
+
+  }
 
 }

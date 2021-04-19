@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "calculadora",
+    loadChildren: () =>
+      import("./calculadora/calculadora.module").then(
+        (m) => m.CalculadoraPageModule
+      ),
+  },
+  {
     path: "reco-grupos",
     children: [
       {
@@ -217,7 +224,14 @@ const routes: Routes = [
   {
     path: 'calendario',
     loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
-
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   },
   {
     path: 'mapa-ruta',
@@ -232,9 +246,10 @@ const routes: Routes = [
     loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
   },
   {
-    path: 'agregar-tipo-aprendizaje',
-    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
+    path: 'cambiar-monitor',
+    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   }
+
 
 ];
 @NgModule({

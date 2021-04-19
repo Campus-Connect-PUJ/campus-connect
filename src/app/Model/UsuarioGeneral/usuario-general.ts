@@ -1,5 +1,6 @@
 import { Carrera } from "../Carrera/carrera";
 import { InformacionUsuario } from "../InformacionUsuario/informacion-usuario";
+import { Monitoria } from "../Monitoria/monitoria";
 import { RegimenAlimenticio } from "../RegimenAlimenticio/regimen-alimenticio";
 import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
 import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
@@ -26,6 +27,7 @@ export class UsuarioGeneral {
   accountNonLocked: boolean = true;
   credentialsNonExpired: boolean = true;
   roles: string[] = [];
+  monitorias: Monitoria[] = [];
 
   constructor(
     public nombre: string,
