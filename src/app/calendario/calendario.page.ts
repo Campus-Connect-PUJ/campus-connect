@@ -5,6 +5,9 @@ import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { LoginService } from '../services/login.service';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
+import { Monitoria } from '../Model/Monitoria/monitoria';
+import { Horario } from '../Model/Horario/horario';
+import { Asignatura } from '../Model/Asignatura/asignatura';
 
 export class listaEventos{
   title: string;
@@ -66,7 +69,8 @@ export class CalendarioPage implements OnInit {
     endTime: ' ',
     sTime: ' ',
     eTime: ' ',
-    allDay: false
+    allDay: false,
+    monitoria: false
   };
 
   minDate = new Date().toISOString;
@@ -119,6 +123,7 @@ export class CalendarioPage implements OnInit {
       allDay: false,
       sTime: ' ',
       eTime: ' ',
+      monitoria: false
     };
   }
 
@@ -170,7 +175,8 @@ export class CalendarioPage implements OnInit {
       endTime: new Date(this.event2.endTime),
       allDay: this.event2.allDay,
       desc: this.event2.desc,
-      id: cantidadDeEventos
+      id: cantidadDeEventos,
+      monitoria: this.monitoria
     }
 
     let eventCopy2 = {
@@ -181,7 +187,8 @@ export class CalendarioPage implements OnInit {
       sTime: this.event2.sTime,
       eTime: this.event2.eTime,
       desc: this.event2.desc,
-      id: cantidadDeEventos
+      id: cantidadDeEventos,
+      monitoria: this.monitoria
     }
     
 
@@ -196,11 +203,22 @@ export class CalendarioPage implements OnInit {
     
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
       console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
-
       eventCopy = eventCopy2;
       eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
-      eventCopy.endTime = moment(eventCopy.startTime).add(Number(tiempos2[0])- Number(tiempos1[0]),'hours').toDate();
-      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1])- Number(tiempos1[1]),'minutes').toDate();
+      let horas = Number(tiempos2[0])- Number(tiempos1[0]);
+      let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
+      console.log("Horas ", horas)
+      console.log("Minutos ", minutos)
+      
+      eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
+      //eventCopy.endTime = moment(eventCopy.endTime).add(0,'minutes').toDate();
+      //console.log("Diferencia de horas "+ eventCopy.endTime)
+      console.log("Minutos", eventCopy.endTime.getMinutes())
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
+      //console.log("Diferencia de minutos "+ eventCopy.endTime)
       eventCopy.id = cantidadDeEventos;
       cantidadDeEventos++;
       fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
@@ -222,6 +240,26 @@ export class CalendarioPage implements OnInit {
     
     this.myCal.loadEvents();
     this.resetEvent();
+
+  }
+
+  enviarHorariosMonitoria(){
+    let monitorias = new Array<Monitoria>();
+    this.eventos = JSON.parse(localStorage.getItem("eventos"));
+
+    for(let i=0; i<this.eventos.length; i++){
+      let monitoria: Monitoria = new Monitoria();
+      let asignatura: Asignatura = new Asignatura();
+      if(this.eventos[i].monitoria){
+        asignatura.nombre = this.eventos[i].title;
+        monitoria.id = this.eventos[i].id;
+        monitoria.asignatura = asignatura;
+        monitoria.usuario = this.logService.getUser();
+        monitorias.push(monitoria);
+      }
+    }
+    
+    console.log("Monitorias ->", monitorias)
 
   }
 

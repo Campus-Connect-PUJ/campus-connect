@@ -5,6 +5,7 @@ export class evento{
     endTime: Date;
     startTime: Date;
     id: number;
+    monitoria: boolean;
     constructor(){
         
     }
