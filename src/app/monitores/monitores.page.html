@@ -63,35 +63,26 @@
     </div>
 
     <div id="tarjetasMonitores">
-      <ion-card (click)="mostrarInfo()">
-        <div class="datosMonitor">
-          <ion-card-header>
-            <h1>Nombre monitor</h1>
-          </ion-card-header>
-          <ion-card-content>
-            <h2>Materias</h2>
-          </ion-card-content>
-        </div>
-      </ion-card>
+      
+        <ion-card *ngFor="let monitor of monitores; let indice=index" (click)="mostrarInfo(monitor.id)">
+          <div class="datosMonitor">
+            <ion-card-header>
+              <h1>Nombre monitor {{monitor.nombre}}</h1>
+            </ion-card-header>
+            <ion-card-content>
+              <h2>Materias</h2>
+            </ion-card-content>
+          </div>
+        </ion-card>
+      
 
 
 
 
 
 
-      <ion-card>
 
 
-        <div class="datosMonitor">
-          <ion-card-header>
-            <h1>Nombre monitor</h1>
-          </ion-card-header>
-          <ion-card-content>
-            <h2>Materias</h2>
-          </ion-card-content>
-        </div>
-
-      </ion-card>
 
     </div>
   </div>

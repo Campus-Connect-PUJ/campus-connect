@@ -1,5 +1,5 @@
 export class evento{
-    title: '';
+    title: string;
     desc: string;
     allDay: boolean;
     endTime: Date;
