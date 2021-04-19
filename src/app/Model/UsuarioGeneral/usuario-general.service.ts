@@ -81,4 +81,17 @@ export class UsuarioGeneralService {
       }
     );
   }
+
+  persoRestaurantes(regimenAl: number, nivelExigencia: number, ambientacion: string, comida: number[]){
+    const url = `${environment.baseUrl}/usuario/persoRestaurantes`;
+    return this.net.put(
+      url,
+      {
+        "regimenAlimenticio":regimenAl,
+        "nivelExigencia":nivelExigencia,
+        "comidas":comida,
+        "ambientacion":ambientacion
+      }
+    );
+  }
 }
