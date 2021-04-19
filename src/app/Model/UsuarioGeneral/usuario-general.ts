@@ -25,14 +25,14 @@ export class UsuarioGeneral {
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   credentialsNonExpired: boolean;
-  rol: string;
+  roles: string[];
 
   constructor(
     public nombre: string,
     public apellido: string,
     public email: string,
   ) {
-    this.rol = undefined;
+    this.roles = undefined;
     this.id = undefined;
     this.enabled = undefined;
     this.accountNonExpired = undefined;

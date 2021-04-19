@@ -1,6 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoginService } from './login.service';
 
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
