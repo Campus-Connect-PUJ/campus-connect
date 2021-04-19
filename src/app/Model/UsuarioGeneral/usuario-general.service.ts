@@ -32,7 +32,8 @@ export class UsuarioGeneralService {
   ): Observable<InformacionUsuario> {
     const date = new Date(fechaNacimiento).toISOString();
     const url = `${environment.baseUrl}/informacion_usuario/${idUs}`;
-    let info = {
+
+    const info = {
       fechaNacimiento: date,
       carreras: carreras.map((c) => c.id),
       religion: religion,
@@ -42,18 +43,16 @@ export class UsuarioGeneralService {
       genero: genero
     };
 
-    console.log("cosa esta: " + JSON.stringify(info))
-    let ret = this.net.post(
+    const ret = this.net.post(
       url,
       info
     );
 
     return ret as unknown as Observable<InformacionUsuario>;
-
   }
 
-  createReseniaGrupo(resenia: ReseniaGrupo, usuario: UsuarioGeneral) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_grupo_grupo_estudiantil/${resenia.id}`;
+  createReseniaGrupo(resenia: ReseniaGrupo) {
+    const url = `${environment.baseUrl}/usuario/resenha_grupo_grupo_estudiantil/${resenia.id}`;
     return this.net.post(
       url,
       {
@@ -62,8 +61,8 @@ export class UsuarioGeneralService {
     );
   }
 
-  createReseniaRestaurante(resenia: ReseniaRestaurante, usuario: UsuarioGeneral) {
-    const url = `${environment.baseUrl}/usuario/${usuario.id}/resenha_restaurante/${resenia.id}`;
+  createReseniaRestaurante(resenia: ReseniaRestaurante) {
+    const url = `${environment.baseUrl}/usuario/resenha_restaurante/${resenia.id}`;
     return this.net.post(
       url,
       {
