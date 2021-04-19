@@ -8,7 +8,7 @@ import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-gene
 
 
 export class actividad{
-  nombre: String;
+  nombre: string;
   constructor(n){
     this.nombre = n;
   }
@@ -87,19 +87,25 @@ export class FormularioPersoGruposPage implements OnInit {
   guardar(){
     console.log("Enviar datos al back");
 
-    let activi: String[]=[];
+    let activi: string[]=[];
 
     for(let i=0;i<this.actividades.length;i++){
       activi.push(this.actividades[i].nombre);
     }
 
-    let hobby: String[]=[];
+    let hobby: string[]=[];
 
     for(let i=0;i<this.actividades.length;i++){
       hobby.push(this.hobbies[i].nombre);
     }
 
-    this.usuarioSer.persoGrupos(this.caracteristicasUsuario,activi,hobby).subscribe(
+    let idCar: number[]=[];
+
+    for(let i=0;i<this.caracteristicasUsuario.length;i++){
+      idCar.push(this.caracteristicasUsuario[i].id);
+    }
+
+    this.usuarioSer.persoGrupos(idCar,activi,hobby).subscribe(
       results => console.log(results),
       error => console.error(error)
     );
