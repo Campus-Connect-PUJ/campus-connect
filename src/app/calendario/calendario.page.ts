@@ -305,7 +305,7 @@ export class CalendarioPage implements OnInit {
     
     console.log("Monitorias ->", monitorias)
     for(let i=0; i<monitorias.length; i++) {
-      this.moniService.guardarMonitorias(1, monitorias[i]).subscribe(
+      this.moniService.guardarMonitorias(monitorias[i]).subscribe(
         result => console.log(result),
         error => console.log(error)
       );
