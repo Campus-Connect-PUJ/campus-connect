@@ -58,7 +58,7 @@ export class UsuarioGeneralService {
     const url = `${environment.baseUrl}/usuario/resenha_grupo_estudiantil/${resenia.grupoEstudiantil.id}`;
     return this.net.post(
       url,{
-        "resenha": resenia
+        "estrellas": resenia.estrellas
       } // TODO
       );
   }
