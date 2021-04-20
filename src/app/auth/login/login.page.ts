@@ -59,7 +59,7 @@ export class LoginPage implements OnInit {
           results => {
             // console.log("ingreso exitoso: ", results)
             // console.log(results.headers)
-            let usuario: UsuarioGeneral = results.body;
+            const usuario: UsuarioGeneral = results.body;
             this.login.storeUser(usuario, results.headers.get('authorization'));
             this.router.navigate(["auth-home"]);
           },

@@ -1,11 +1,19 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>servicios-academicos</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button href="/auth-home">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Servicios Academicos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <img src="../../assets/fondo.png" id="bg">
 <ion-content padding class="background" [fullscreen]="true">
+  <ion-list>
     <ion-card [routerLink]="['/calculadora/materias']">
       <ion-card-header>
         <h1>Calculadora</h1>
@@ -38,6 +46,6 @@
         <h2>Podra ver los monitores disponibles, ademas de poder mirar cual podria resultar mejor segun el perfil del usuario</h2>
       </ion-card-content>
     </ion-card>
-
+  </ion-list>
 </ion-content>
 
