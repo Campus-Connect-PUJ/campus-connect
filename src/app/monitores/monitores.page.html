@@ -18,6 +18,8 @@
       <h2>Sugerencia de monitores</h2>
     </div>
     <div id="tarjetasSugerencias">
+
+    <!----
       <ion-card class="sugerencia">
         <ion-card-header>
           <ion-avatar>
@@ -53,7 +55,7 @@
           <h2>Materia</h2>
         </ion-card-content>
       </ion-card>
-
+      ---->
     </div>
   </div>
   
@@ -66,10 +68,10 @@
         <ion-card *ngFor="let monitor of monitores; let indice=index">
           <div class="datosMonitor" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
             <ion-card-header>
-              <h1>Nombre monitor {{monitor.nombre}}</h1>
+              <h1>{{monitor.nombre}}</h1>
             </ion-card-header>
             <ion-card-content>
-              <h2>Materias</h2>
+              <h2>{{monitor.puntajeTotal}}</h2>
             </ion-card-content>
           </div>
         </ion-card>

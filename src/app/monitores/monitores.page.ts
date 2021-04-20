@@ -29,7 +29,7 @@ export class MonitoresPage implements OnInit {
         this.monitores = result;
         console.log("Monitores ",this.monitores)
         console.log(".>", this.monitores[0].monitorDe)
-        this.monitores = this.ordenarMonitores(this.monitores)
+        this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
         //this.sugerenciasMonitores(this.monitores)
       },
       error => console.log(error)
@@ -116,7 +116,7 @@ export class MonitoresPage implements OnInit {
         cantidadVotos += monitores[i].monitorDe[j].cantidadVotos;
         sumaTotal += monitores[i].monitorDe[j].calificacion;
       }
-      monitores[i].puntajeTotal = sumaTotal/cantidadVotos;
+      monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
     }
 
     return monitores;
