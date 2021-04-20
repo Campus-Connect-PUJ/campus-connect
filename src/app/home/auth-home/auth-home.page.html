@@ -1,8 +1,16 @@
 <ion-header>
-  <ion-toolbar class="title_auth_home">
-    <ion-title>
-      <p style="text-align: center;"><strong><em>Campus Connect</em></strong></p>
-    </ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button
+        (click)="logout()"
+        href="home">
+        <ion-icon
+          slot="icon-only"
+          name="power"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Campus Connect</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +18,8 @@
   <div class="home">
     <div class="content">
       <div>
-        <ion-card class="ion-text-center ion-activatable ripple-parent" href="/tabs/servicios-academicos">
+        <ion-card class="ion-text-center ion-activatable ripple-parent"
+                  href="/tabs/servicios-academicos">
           <ion-card-header>
             <ion-card-subtitle></ion-card-subtitle>
             <ion-card-title>Servicios académicos</ion-card-title>
@@ -20,7 +29,8 @@
           </ion-card-content>
         </ion-card>
 
-        <ion-card class="ion-text-center ion-activatable ripple-parent" href="/sugerencias-principal">
+        <ion-card class="ion-text-center ion-activatable ripple-parent"
+                  href="/sugerencias-principal">
           <ion-card-header>
             <ion-card-subtitle></ion-card-subtitle>
             <ion-card-title>Sugerencias</ion-card-title>

@@ -11,6 +11,9 @@ import { Observable } from 'rxjs';
 
 export class LoginService {
 
+  USER = "user";
+  TOKEN = "token"
+
   constructor(
     private net: NetService,
     private http: HttpClient
@@ -74,7 +77,7 @@ export class LoginService {
   }
 
   getToken(): string {
-    return sessionStorage.getItem("token");
+    return sessionStorage.getItem(this.TOKEN);
   }
 
   storeUser(u: UsuarioGeneral, token: string) {
@@ -83,8 +86,8 @@ export class LoginService {
   }
 
   logout() {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem(this.USER);
+    sessionStorage.removeItem(this.TOKEN);
     return this.http.post(`${environment.baseUrl}/logout`, '', {
       withCredentials: true
     });

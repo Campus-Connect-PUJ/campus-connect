@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
-import { ReseniaRestaurante } from '../ReseniaRestaurante/resenia-restaurante';
-import { ReseniaGrupo } from '../ReseniaGrupo/reseniaGrupo';
 import { UsuarioGeneral } from './usuario-general';
 import { Carrera } from '../Carrera/carrera';
 import { Observable } from 'rxjs';
 import { InformacionUsuario } from '../InformacionUsuario/informacion-usuario';
+
+import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
+import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
+
 import { GrupoEstudiantil } from '../GrupoEstudiantil/grupo-estudiantil';
 import { Restaurante } from '../Restaurante/restaurante';
 import { Caracteristica } from '../Caracteristica/caracteristica';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioGeneralService {
-  user: UsuarioGeneral =  new UsuarioGeneral(" "," "," ");
-  nombreUsuario: string = "usuario1";
-  correo: string;
-  semestre: number;
-
 
   constructor(private net: NetService) { }
 
@@ -59,7 +57,7 @@ export class UsuarioGeneralService {
     return this.net.post(
       url,{
         "estrellas": resenia.estrellas
-      } // TODO
+      } 
       );
   }
 
@@ -69,7 +67,7 @@ export class UsuarioGeneralService {
       url,
       {
         "estrellas": resenia.estrellas
-      } // TODO
+      } 
     );
   }
 
