@@ -68,7 +68,7 @@ export class UsuarioGeneralService {
     return this.net.post(
       url,
       {
-        "resenha": resenia
+        "estrellas": resenia.estrellas
       } // TODO
     );
   }
