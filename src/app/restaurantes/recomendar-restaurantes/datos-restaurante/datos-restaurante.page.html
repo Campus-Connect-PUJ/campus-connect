@@ -22,7 +22,10 @@
   
   <ion-item>
     <ion-icon name="star-outline"></ion-icon>
-    <ion-range min="0" max="5" step="1" snaps="true" color="secondary"></ion-range>
+    <ion-range min="0" max="5" step="1" snaps="true" color="secondary" (ionChange)="guardarPuntajeRestaurnate($event)"></ion-range>
     <ion-icon name="star-outline"></ion-icon>
+    <ion-button (click) = "guardarResenia()">
+      <ion-icon  slot="start" name="star"></ion-icon>
+    </ion-button>
   </ion-item>
 </ion-content>

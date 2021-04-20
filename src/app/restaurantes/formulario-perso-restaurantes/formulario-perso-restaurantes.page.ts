@@ -4,6 +4,7 @@ import { RegimenAlimenticio } from 'src/app/Model/RegimenAlimenticio/regimen-ali
 import { RegimenAlimenticioService } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio.service';
 import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
 import { TipoComidaService } from 'src/app/Model/TipoComida/tipo-comida.service';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 
 @Component({
   selector: 'app-formulario-perso-restaurantes',
@@ -17,10 +18,14 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   regimenUsuario: RegimenAlimenticio = new RegimenAlimenticio();
   comidasUsuario: TipoComida[]=[];
-  nivelExigencia='';
+  nivelExigencia=0;
   ambientacion='';
 
-  constructor(private modalController : ModalController, private regimenService:RegimenAlimenticioService, private tcService:TipoComidaService) { }
+  constructor(
+    private modalController : ModalController, 
+    private regimenService:RegimenAlimenticioService, 
+    private tcService:TipoComidaService,
+    private usuarioSer: UsuarioGeneralService) { }
 
   ngOnInit() {
     this.findRegimenes();
@@ -78,5 +83,16 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   }
   guardar(){
     console.log("enviar info al back");
+
+    let idComida: number[]=[];
+
+    for(let i=0;i<this.comidasUsuario.length;i++){
+      idComida.push(this.comidasUsuario[i].id);
+    }
+
+    this.usuarioSer.persoRestaurantes(this.regimenUsuario.id,this.nivelExigencia,this.ambientacion,idComida).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
   }
 }

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ReseniaRestaurante } from 'src/app/Model/ReseniaRestaurante/resenia-restaurante';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 import { Restaurante } from '../../../Model/Restaurante/restaurante';
 import { RestauranteService } from '../../../Model/Restaurante/restaurante.service';
 
@@ -11,9 +15,12 @@ import { RestauranteService } from '../../../Model/Restaurante/restaurante.servi
 })
 export class DatosRestaurantePage implements OnInit {
 
-  restauranteSelect: Restaurante =new Restaurante ("","",0,0);
+  puntajeAsig: number;
 
-  constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService ) { }
+  restauranteSelect: Restaurante =new Restaurante ("","",0,0);
+  usuario: UsuarioGeneral;
+
+  constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService, private usuarioSer: UsuarioGeneralService, private loginService: LoginService ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -32,5 +39,23 @@ export class DatosRestaurantePage implements OnInit {
     )
   }
 
+  guardarPuntajeRestaurnate(event){
+    const puntaje = event.target.value;
+    this.puntajeAsig = puntaje;
+    
+  }
+
+  guardarResenia(){
+    this.usuario = this.loginService.getUser(); 
+    let resenia: ReseniaRestaurante = new ReseniaRestaurante();
+    resenia.estrellas=this.puntajeAsig;
+    resenia.restaurante=this.restauranteSelect;
+    resenia.usuario=this.usuario;
+
+    this.usuarioSer.createReseniaRestaurante(resenia).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
+  }
 
 }

@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { FormularioPersoGruposPageRoutingModule } from './formulario-perso-grupos-routing.module';
 
 import { FormularioPersoGruposPage } from './formulario-perso-grupos.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
+    PipesModule,
     CommonModule,
     FormsModule,
     IonicModule,
