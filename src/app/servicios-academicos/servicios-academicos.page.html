@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-back-button (click)="quitarChat()" defaultHref="auth-home" text=" "></ion-back-button>
-      <ion-button href="/auth-home">
+      <ion-button
+        (click)="quitarChat()"
+        href="/auth-home">
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -17,7 +18,6 @@
 <ion-content padding class="background" [fullscreen]="true">
   <ion-list>
     <ion-card (click)="quitarChat()" [routerLink]="['/calculadora/materias']">
-    <ion-card [routerLink]="['/calculadora/materias']">
       <ion-card-header>
         <h1>Calculadora</h1>
       </ion-card-header>
