@@ -20,10 +20,14 @@
         <h2>Materia</h2>
         <h2>Materia</h2>
         <div id="formEnviar">
-          <ion-input type="string"></ion-input>
-          <ion-button></ion-button>
+          <ion-input></ion-input>
+          <ion-button (click)="votar()"></ion-button>
         </div>
         
+        <div id="formEnviar">
+          <ion-button (click)="ides()" >Ver horarios</ion-button>
+          {{id}}
+        </div>
 
 
       </ion-card-content>

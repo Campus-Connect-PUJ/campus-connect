@@ -27,7 +27,7 @@ export class UsuarioGeneral {
   accountNonLocked: boolean = true;
   credentialsNonExpired: boolean = true;
   roles: string[] = [];
-  monitorias: Monitoria[] = [];
+  monitorDe: Monitoria[] = [];
 
   constructor(
     public nombre: string,

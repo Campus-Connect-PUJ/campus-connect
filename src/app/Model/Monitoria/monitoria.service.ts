@@ -12,8 +12,8 @@ export class MonitoriaService {
 
   constructor(private net: NetService) { }
 
-  guardarMonitorias(monitoria: Monitoria ){
-    const url = `${environment.baseUrl}/usuario/agregarMonitoria`;
+  guardarMonitorias(idUsuario: number, monitoria: Monitoria ){
+    const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
 
     console.log("->",monitoria);
     return this.net.post(
@@ -28,8 +28,20 @@ export class MonitoriaService {
 
   obtenerMonitores(): Observable<UsuarioGeneral[]>{
     const url = `${environment.baseUrl}/usuario/monitores/all`;
-
     return this.net.get<UsuarioGeneral[]>(url);
+  }
+
+  buscarMonitor(idMonitor){
+    const url = `${environment.baseUrl}/usuario/${idMonitor}`;
+    return this.net.get<UsuarioGeneral>(url);
+  }
+
+  votarMonitor(idMonitor, calificacion){
+    const url = `${environment.baseUrl}/usuario/monitor/${idMonitor}/${calificacion}`;
+    return this.net.put(
+      url,
+      {}
+    )
   }
 
 
