@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "calculadora",
+    loadChildren: () =>
+      import("./calculadora/calculadora.module").then(
+        (m) => m.CalculadoraPageModule
+      ),
+  },
+  {
     path: "reco-grupos",
     children: [
       {
@@ -96,6 +103,10 @@ const routes: Routes = [
       {
         path: ":tipId",
         loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
+      },
+      {
+        path: "usuario/:usuarioId",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       }
     ]
   },
@@ -113,6 +124,10 @@ const routes: Routes = [
       {
         path: ":foroId",
         loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
+      },
+      {
+        path: "usuario/:usuarioId",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       }
     ]
   },
@@ -209,8 +224,46 @@ const routes: Routes = [
   {
     path: 'calendario',
     loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
-
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
+  },
+  {
+    path: 'mapa-ruta',
+    loadChildren: () => import('./mapa/mapa-ruta/mapa-ruta.module').then( m => m.MapaRutaPageModule)
+  },
+  {
+    path: 'lista-sitios',
+    loadChildren: () => import('./mapa/lista-sitios/lista-sitios.module').then( m => m.ListaSitiosPageModule)
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'cambiar-monitor',
+    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },
+  /*
+  {
+    path: "horarios-monitor",
+    children: [
+      {
+        path: ":monitorID",
+        loadChildren: () =>
+          import(
+            './monitores/monitor-horarios/monitor-horarios.module'
+          ).then((m) => m.MonitorHorariosPageModule),
+      }
+    ]
   }
+*/
+
 ];
 @NgModule({
   imports: [

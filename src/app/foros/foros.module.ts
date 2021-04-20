@@ -16,7 +16,7 @@ import { PipesModule } from '../pipes/pipes.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ForosPageRoutingModule, 
+    ForosPageRoutingModule
   ],
   declarations: [ForosPage, OpcionesComponent]
 })

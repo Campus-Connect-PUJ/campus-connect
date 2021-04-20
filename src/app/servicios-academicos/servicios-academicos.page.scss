@@ -1,4 +1,5 @@
-ion-content.background{
+
+ion-list.background{
   --background:url("../../assets/fondo.png");
 }
 
@@ -21,7 +22,7 @@ ion-back-button{
 }
 
 ion-toolbar {
-  --background: transparent;
+  // --background: transparent;
   --ion-color-base: transparent !important;
   --border-style: none;
 }

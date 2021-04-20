@@ -70,7 +70,7 @@
         <ion-label>All Day?</ion-label>
         <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
       </ion-item>
-      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event</ion-button>
+      <ion-button fill="outline" expand="block" (click)="addEvent()">Add Event</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -86,30 +86,46 @@
         <ion-input type="text" placeholder="Description" [(ngModel)]="event2.desc"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
+        <ion-label>Dia inicio</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>End</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="D MMM"[(ngModel)]="event2.endTime"></ion-datetime>
+        <ion-label>Dia fin</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
+        <ion-label>Hora Inicio</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>End</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm"[(ngModel)]="event2.eTime"></ion-datetime>
+        <ion-label>Hora fin</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"[(ngModel)]="event2.eTime"></ion-datetime>
       </ion-item>
 
-      <ion-item *ngFor="let check of data" (click)="onClick(check)">
-        <ion-label>{{ check.name }}</ion-label>
-        <ion-checkbox [(ngModel)]="check.selected"></ion-checkbox>
+
+      <ion-item>
+        <ion-label>¿Espacio para monitoria?</ion-label>
+        <ion-checkbox [(ngModel)]="monitoria"></ion-checkbox>
       </ion-item>
 
-      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Add Event</ion-button>
+      <ion-item>
+      <ion-label>Asignatura</ion-label>
+        <ion-select
+            [(ngModel)]="asignatura"
+          >
+            <ion-select-option *ngFor="let item of asignaturas" value="{{item}}"
+                              [value]="{id: item.id, nombre: item.nombre}"
+            >
+              {{item.nombre}}
+            </ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-button (click)="enviarHorariosMonitoria()">Enviar monitorias</ion-button>
 
   <calendar
     [eventSource]="eventSource"

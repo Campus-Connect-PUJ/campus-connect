@@ -36,5 +36,48 @@ export class TipsService {
     );
   }
 
+  agregarTipGustado(idUsuario: number, idTip: number){
+    const url = `${environment.baseUrl}/tip/tipsGustados/${idUsuario}/${idTip}`;
+
+    console.log("->",idUsuario, idTip);
+    return this.net.put(
+      url,
+      {}
+    );
+  }
+
+  agregarTipNoGustado(idUsuario: number, idTip: number){
+    const url = `${environment.baseUrl}/tip/tipsNoGustados/${idUsuario}/${idTip}`;
+    console.log("->",idUsuario, idTip);
+    return this.net.put(
+      url,
+      {}
+    );
+  }
+
+
+  sumarVoto(indiceUsuario: number, indiceTip: number){
+    const url = `${environment.baseUrl}/tip/tipsGustados/${indiceUsuario}/${indiceTip}`;
+    return this.net.put(
+      url,{}
+      )
+    
+  }
+
+  restarVoto(indice: number){
+    const url = `${environment.baseUrl}/tip/restar/${indice}`;
+    return this.net.put(
+      url,{}
+      )
+  }
+
+  obtenerRecomendacion(){
+    const url = `${environment.baseUrl}/reglas/usuario`;
+    return this.net.get<Tip>(
+      url
+    )
+
+  }
+
 
 }

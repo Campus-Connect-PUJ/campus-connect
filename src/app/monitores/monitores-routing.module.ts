@@ -7,8 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: MonitoresPage
+  },
+  {
+    path: "horarios-monitor",
+    children: [
+      {
+        path: ":monitorID",
+        loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
+      }
+    ]
   }
-
 ];
 
 @NgModule({

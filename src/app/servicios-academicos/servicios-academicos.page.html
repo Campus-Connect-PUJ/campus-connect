@@ -1,12 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>servicios-academicos</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button
+        (click)="quitarChat()"
+        href="/auth-home">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Servicios Academicos</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <img src="../../assets/fondo.png" id="bg">
 <ion-content padding class="background" [fullscreen]="true">
-    <ion-card [routerLink]="['/calculadora/materias']">
+  <ion-list>
+    <ion-card (click)="quitarChat()" [routerLink]="['/calculadora/materias']">
       <ion-card-header>
         <h1>Calculadora</h1>
       </ion-card-header>
@@ -14,7 +25,7 @@
         <h2>Podra calcular y guardar las notas de diversas materias</h2>
       </ion-card-content>
     </ion-card>
-    <ion-card [routerLink]="['/recomendacion-tip']" >
+    <ion-card (click)="quitarChat()" [routerLink]="['/recomendacion-tip']" >
       <ion-card-header>
         <h1>Tips</h1>
       </ion-card-header>
@@ -22,7 +33,7 @@
         <h2>Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema</h2>
       </ion-card-content>
     </ion-card>
-    <ion-card [routerLink]="['/calendario']" >
+    <ion-card (click)="quitarChat()" [routerLink]="['/calendario']" >
       <ion-card-header>
         <h1>Calendario</h1>
       </ion-card-header>
@@ -30,7 +41,7 @@
         <h2>El usuario podra tener ordenado aquellas actividades que se presenten</h2>
       </ion-card-content>
     </ion-card>
-    <ion-card [routerLink]="['/monitores']" >
+    <ion-card (click)="obtenerUsuario()" [routerLink]="['/monitores']" >
       <ion-card-header>
         <h1>Calificar monitores</h1>
       </ion-card-header>
@@ -38,7 +49,6 @@
         <h2>Podra ver los monitores disponibles, ademas de poder mirar cual podria resultar mejor segun el perfil del usuario</h2>
       </ion-card-content>
     </ion-card>
-    
-
+  </ion-list>
 </ion-content>
 

@@ -22,18 +22,23 @@
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin=""/>
   
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+  
+
 </head>
 
 <body class="light">
   <app-root></app-root>
-  <div class="bot" style="display: none">
+  
+  <div class="chatbot">
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-  <df-messenger
-    intent="WELCOME"
-    chat-title="Wall-e"
-    agent-id="1c369321-b54c-4f59-ac6c-6fa23b6cf65f"
-    language-code="es"
-  ></df-messenger>
+    <df-messenger
+      chat-title="Chatbot-CC"
+      agent-id="3a57558d-7ba9-4585-b9cb-5ff2f145cfb9"
+      language-code="es"
+      style="button: 50px"
+    ></df-messenger>
   </div>
 
 </body>

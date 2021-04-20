@@ -4,10 +4,11 @@ import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
 import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 
 
 export class actividad{
-  nombre: String;
+  nombre: string;
   constructor(n){
     this.nombre = n;
   }
@@ -30,11 +31,17 @@ export class FormularioPersoGruposPage implements OnInit {
   caracteristicasUsuario: Caracteristica[]=[];
   creenciaUsuario: Boolean;
 
-  constructor(private modalController:ModalController, private tematicasService: TematicaService, private caracteristicaService: CaracteristicaService) { }
+  textoBuscar='';
+
+  constructor(
+    private modalController:ModalController, 
+    private tematicasService: TematicaService, 
+    private caracteristicaService: CaracteristicaService,
+    private usuarioSer: UsuarioGeneralService) { }
 
   ngOnInit() {
     this.findTematica();
-    this.findCaracteristica();
+    this.findCaracteristica(); 
   }
 
   closeModal(){
@@ -71,23 +78,42 @@ export class FormularioPersoGruposPage implements OnInit {
     console.log(this.hobbies)
   }
 
-  onClickTematica(tematica){
-    this.tematicasUsuario.push(tematica);
-    console.log(this.tematicasUsuario);
-  }
 
   onClickCaracteristica(caracteristica){
     this.caracteristicasUsuario.push(caracteristica);
     console.log(this.caracteristicasUsuario);
   }
 
-  onClickCreencia(event){
-    const creecnia = event.target.value;
-    this.creenciaUsuario =creecnia;
-    console.log(this.creenciaUsuario);
+  guardar(){
+    console.log("Enviar datos al back");
+
+    let activi: string[]=[];
+
+    for(let i=0;i<this.actividades.length;i++){
+      activi.push(this.actividades[i].nombre);
+    }
+
+    let hobby: string[]=[];
+
+    for(let i=0;i<this.actividades.length;i++){
+      hobby.push(this.hobbies[i].nombre);
+    }
+
+    let idCar: number[]=[];
+
+    for(let i=0;i<this.caracteristicasUsuario.length;i++){
+      idCar.push(this.caracteristicasUsuario[i].id);
+    }
+
+    this.usuarioSer.persoGrupos(idCar,activi,hobby).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
+
   }
 
-  guardar(){
-    console.log("Enviar datos al back")
+  buscarCaracteristica(event){
+    const texto = event.target.value;
+    this.textoBuscar= texto;
   }
 }

@@ -14,13 +14,15 @@
 
 <ion-content>
   
-<ion-content class="background">
+<img src="../../assets/fondo.png" id="bg">
+<ion-content padding class="background" [fullscreen]="true">
  <ion-card>
     <ion-card-header>
       <h1>¡Tip!</h1>
     </ion-card-header>
     <ion-card-content>
       <h2>{{tip.descripcion}}</h2>
+      <h2>{{tip.puntaje}}</h2>
       <ion-list>
         <ion-item *ngFor = "let tipos of tiposDeAprendizaje">
           {{tipos.descripcion}}
@@ -29,8 +31,16 @@
     </ion-card-content>
   </ion-card>
 
-
-  
+ <div class="botones">
+    <div class="botonesRealimentacion">
+      <ion-button (click)="votar(-1)" color=#FDFDFD id="unlike">
+        <img src="assets/unlike.png" alt="">
+      </ion-button>
+      <ion-button (click)="votar(1)" color=#FDFDFD id="like">
+        <img src="assets/like.png" alt="">
+      </ion-button>
+    </div>
+  </div>
 
 <!----
 {{tip.id}}

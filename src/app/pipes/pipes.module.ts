@@ -10,6 +10,7 @@ import { FiltroRestaurantesPrecioPipe } from './filtro-restaurantes-precio.pipe'
 import { FiltroRestauranteTiempoPipe } from './filtro-restaurante-tiempo.pipe';
 import { FiltroFacultadGruposPipe } from './filtro-facultad-grupos.pipe';
 import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
+import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
 
 @NgModule({
 
@@ -23,7 +24,8 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
     FiltroFacultadGruposPipe,
-    FiltroTematicaGurposPipe
+    FiltroTematicaGurposPipe,
+    FiltroCaracteristicasPipe
   ],
   exports: [
     FiltroGruposPipe,
@@ -35,7 +37,8 @@ import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
     FiltroRestaurantesPrecioPipe,
     FiltroRestauranteTiempoPipe,
     FiltroFacultadGruposPipe,
-    FiltroTematicaGurposPipe
+    FiltroTematicaGurposPipe,
+    FiltroCaracteristicasPipe
   ]
 })
 export class PipesModule { }
