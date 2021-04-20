@@ -5,6 +5,7 @@ import { NavController, PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.component';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
+import { evento } from '../calendario/evento';
 
 @Component({
   selector: 'app-monitores',
@@ -15,6 +16,8 @@ export class MonitoresPage implements OnInit {
   monitores: Array<UsuarioGeneral> = [];
   monitoresRecomendados:  Array<UsuarioGeneral> = [];
   usuarioActual: UsuarioGeneral;
+
+  public eventos: evento[] = [];
 
   constructor(private popoverCtrl:PopoverController, 
     private monService: MonitoriaService,
@@ -28,9 +31,8 @@ export class MonitoresPage implements OnInit {
       result => {
         this.monitores = result;
         console.log("Monitores ",this.monitores)
-        console.log(".>", this.monitores[0].monitorDe)
         this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
-        //this.sugerenciasMonitores(this.monitores)
+        this.sugerenciasMonitores(this.monitores)
       },
       error => console.log(error)
     )
@@ -64,34 +66,43 @@ export class MonitoresPage implements OnInit {
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    
-    /*
     this.usuarioActual = this.logService.getUser();
-  
-    let monitoresOrdenados = monitores;
-    let monitoresRecomendar = Array<UsuarioGeneral>();
 
-    monitoresOrdenados = this.obtenerPuntajes(monitores);
-    console.log("orden", monitoresOrdenados)
-    monitoresOrdenados = this.ordenarMonitores(monitores);
-
-
-    for(let i = 0; i < monitoresOrdenados.length; i++){
-      for(let j = 0; j < usuarioActual.estilosAprendizaje.length; j++){
-        if(monitoresOrdenados[i].estilosAprendizaje.includes(usuarioActual.estilosAprendizaje[j])){
-          console.log("a")
+    for(let i=0; i<monitores.length; i++){
+      for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
+        for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
+            if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])){
+              this.mirarProblemasHorarios(monitores[i])
+              this.monitoresRecomendados.push(monitores[i]);
+            }
         }
       }
-      
     }
-    
 
-    
+    console.log(this.monitoresRecomendados)
 
-    return monitoresOrdenados;
-
-    */
   }
+
+  mirarProblemasHorarios(monitor: UsuarioGeneral){
+    this.eventos = JSON.parse(localStorage.getItem("eventos"))
+
+    /*
+    console.log(this.eventos)
+    console.log(monitor.monitorDe)
+    */
+
+
+    
+  }
+
+
+
+
+
+
+
+
+
 
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
     let monitoresOrdenados = monitores;

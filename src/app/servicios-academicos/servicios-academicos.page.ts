@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CalculadoraService } from'../calculadora/shared/calculadora.service';
 import { ViewChild, Renderer2} from '@angular/core';
 import { ElementRef } from '@angular/core';
+import { LoginService } from '../services/login.service';
+import { UsuarioGeneralService } from '../Model/UsuarioGeneral/usuario-general.service';
+import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 
 @Component({
   selector: 'app-servicios-academicos',
@@ -12,8 +15,13 @@ import { ElementRef } from '@angular/core';
 export class ServiciosAcademicosPage implements OnInit {
   @ViewChild("myDiv") divView: ElementRef;
   colorList = ['green', 'blue'];
+  usuarioActual: UsuarioGeneral;
 
-  constructor() {
+  constructor(
+    private logService: LoginService,
+    private userService: UsuarioGeneralService
+
+  ) {
     console.log("aaa1")
     //this.mostrarChat();
     
@@ -52,6 +60,20 @@ export class ServiciosAcademicosPage implements OnInit {
     let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     element[0].style.display = 'none'
     element[0].style.marginBottom = '50px';
+  }
+
+  obtenerUsuario(){
+    this.usuarioActual = this.logService.getUser();
+    this.userService.getUsuario(this.usuarioActual.id).subscribe(
+      result => {this.usuarioActual = result
+                this.logService.storeUser(this.usuarioActual, this.logService.getToken())
+                  console.log("user", this.usuarioActual)
+
+
+      },
+      error => console.error()
+    )
+    this.quitarChat();
   }
 
 
