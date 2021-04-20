@@ -31,22 +31,8 @@ export class ContribucionesPage implements OnInit {
 
   }
 
-  cambiarRol(){
-    let idRol = 1;
-    if(this.user.rol === "MONITOR"){
-      idRol = 1;
-    }
-    else{
-      idRol = 2;
-    }
-    console.log("esta con el rol ", this.user);
-    this.userService.cambiarRol(this.user.id, idRol).subscribe(
-      results => {
-        this.user = results;
-        console.log("Si sirvio ", this.user)
-      },
-      error => console.error(error)
-    );
+ 
+
 
     /*
     this.userService.getUsuario(this.user.id).subscribe(
@@ -58,6 +44,6 @@ export class ContribucionesPage implements OnInit {
       error => console.error(error)
     )
     */
-  }
+  
 
 }
