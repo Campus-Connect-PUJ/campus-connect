@@ -11,6 +11,9 @@ import { Observable } from 'rxjs';
 
 export class LoginService {
 
+  USER = "user";
+  TOKEN = "token"
+
   constructor(
     private net: NetService,
     private http: HttpClient
@@ -40,6 +43,8 @@ export class LoginService {
     );
   }
 
+
+
   register(
     nombre: string,
     apellido: string,
@@ -49,14 +54,14 @@ export class LoginService {
   ): Observable<HttpResponse<UsuarioGeneral>> {
     const url = `${environment.baseUrl}/usuario/login/registro`;
     return this.loginPost(url,
-      {
-        nombre: nombre,
-        apellido: apellido,
-        email: email,
-        password: password,
-        semestre: semestre
-      }
-    );
+                          {
+      nombre: nombre,
+      apellido: apellido,
+      email: email,
+      password: password,
+      semestre: semestre
+    }
+                         );
   }
 
   // TODO: update
@@ -72,7 +77,7 @@ export class LoginService {
   }
 
   getToken(): string {
-    return sessionStorage.getItem("token");
+    return sessionStorage.getItem(this.TOKEN);
   }
 
   storeUser(u: UsuarioGeneral, token: string) {
@@ -81,12 +86,14 @@ export class LoginService {
   }
 
   logout() {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem(this.USER);
+    sessionStorage.removeItem(this.TOKEN);
     return this.http.post(`${environment.baseUrl}/logout`, '', {
       withCredentials: true
     });
   }
+
+  
 
   isAuthorized(allowedRoles: string[]): boolean {
     // check if the list of allowed roles is empty, if empty,

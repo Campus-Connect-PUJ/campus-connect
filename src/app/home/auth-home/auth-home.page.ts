@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Platform } from "@ionic/angular";
+import { LoginService } from "../../services/login.service";
 
 @Component({
   selector: "app-auth-home",
@@ -8,8 +7,16 @@ import { Platform } from "@ionic/angular";
   styleUrls: ["./auth-home.page.scss"],
 })
 export class AuthHomePage implements OnInit {
-  constructor() {
+  constructor(
+    private login: LoginService
+  ) {
   }
 
   ngOnInit() {}
+
+  logout() {
+
+    this.login.logout();
+
+  }
 }

@@ -1,7 +1,6 @@
   
 import { Component, OnInit } from '@angular/core';
-import { CalculadoraService } from'../calculadora/shared/calculadora.service';
-import { ViewChild, Renderer2} from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { UsuarioGeneralService } from '../Model/UsuarioGeneral/usuario-general.service';

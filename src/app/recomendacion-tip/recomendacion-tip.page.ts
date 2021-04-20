@@ -23,7 +23,7 @@ export class RecomendacionTipPage implements OnInit {
     this.obtenerTipRecomendado();
   }
 
-  votar(voto: Number){
+  votar(voto: number){
     console.log(voto);
 
     this.user = this.loginService.getUser();
@@ -47,7 +47,7 @@ export class RecomendacionTipPage implements OnInit {
     this.user = this.loginService.getUser();
     this.indice = this.user.id;
     console.log(this.indice)
-    this.tipsService.obtenerRecomendacion(this.indice).subscribe(
+    this.tipsService.obtenerRecomendacion().subscribe(
       results => {
         this.tipRecomendado = results;
       },
