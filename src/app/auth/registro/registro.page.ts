@@ -82,8 +82,8 @@ export class RegistroPage implements OnInit {
         this.semestre
       ).subscribe(
         results => {
-          // console.log("ingreso exitoso: ", results)
-          // console.log(results.headers)
+          // console.log("ingreso exitoso: ", results);
+
           const usuario: UsuarioGeneral = results.body;
           this.loginService.storeUser(usuario, results.headers.get('authorization'));
           this.router.navigate(["formulario_registro"]);

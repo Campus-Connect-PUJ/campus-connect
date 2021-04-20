@@ -40,6 +40,8 @@ export class LoginService {
     );
   }
 
+
+
   register(
     nombre: string,
     apellido: string,
@@ -49,14 +51,14 @@ export class LoginService {
   ): Observable<HttpResponse<UsuarioGeneral>> {
     const url = `${environment.baseUrl}/usuario/login/registro`;
     return this.loginPost(url,
-      {
-        nombre: nombre,
-        apellido: apellido,
-        email: email,
-        password: password,
-        semestre: semestre
-      }
-    );
+                          {
+      nombre: nombre,
+      apellido: apellido,
+      email: email,
+      password: password,
+      semestre: semestre
+    }
+                         );
   }
 
   // TODO: update
@@ -87,6 +89,8 @@ export class LoginService {
       withCredentials: true
     });
   }
+
+  
 
   isAuthorized(allowedRoles: string[]): boolean {
     // check if the list of allowed roles is empty, if empty,

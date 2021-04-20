@@ -10,7 +10,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar placeholder="Buscar Restaurante..."  animated (ionChange)="buscarRestaurante ($event)"></ion-searchbar>
+  <ion-item>
+    <ion-searchbar placeholder="Buscar Restaurante..."  animated (ionChange)="buscarRestaurante ($event)"></ion-searchbar>
+    <ion-button (click)="openModal()">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
   
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">

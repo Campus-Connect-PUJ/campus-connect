@@ -5,6 +5,10 @@ import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
 
 import { GrupoEstudiantil } from '../../../Model/GrupoEstudiantil/grupo-estudiantil';
 import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-estudiantil.service';
+import { LoginService } from "src/app/services/login.service";
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { ReseniaGrupo } from 'src/app/Model/ReseniaGrupo/reseniaGrupo';
 
 @Component({
   selector: 'app-datos-grupo',
@@ -14,9 +18,13 @@ import { GrupoEstudiantilService } from '../../../Model/GrupoEstudiantil/grupo-e
 export class DatosGrupoPage implements OnInit {
 
   grupoSelect : GrupoEstudiantil =  new GrupoEstudiantil("", "", "");
-  tematicas: Tematica[];
+  tematicas: Tematica[] = [];
+  puntajeAsig: number =0;
+  usuario: UsuarioGeneral;
+  resenia: ReseniaGrupo = new ReseniaGrupo();
 
-  constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService ) { }
+  constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService, private loginService: LoginService,
+    private usuarioSer: UsuarioGeneralService ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -43,5 +51,27 @@ export class DatosGrupoPage implements OnInit {
       },
       error => console.error(error)
     )
+  }
+
+  guardarPuntajeGrupo(event){
+    const puntaje = event.target.value;
+    this.puntajeAsig = puntaje;
+
+  }
+
+  guardarResenia(){
+    this.usuario = this.loginService.getUser(); 
+    let resenia: ReseniaGrupo =new ReseniaGrupo();
+    resenia.estrellas=this.puntajeAsig;
+    resenia.grupoEstudiantil=this.grupoSelect;
+    resenia.usuario=this.usuario;
+    console.log(resenia);
+    this.usuarioSer.createReseniaGrupo(
+      resenia
+    ).subscribe(
+      results => console.log(results),
+      error => console.error(error)
+    );
+    
   }
 }

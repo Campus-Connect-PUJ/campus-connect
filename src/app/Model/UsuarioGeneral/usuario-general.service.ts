@@ -7,6 +7,9 @@ import { UsuarioGeneral } from './usuario-general';
 import { Carrera } from '../Carrera/carrera';
 import { Observable } from 'rxjs';
 import { InformacionUsuario } from '../InformacionUsuario/informacion-usuario';
+import { GrupoEstudiantil } from '../GrupoEstudiantil/grupo-estudiantil';
+import { Restaurante } from '../Restaurante/restaurante';
+import { Caracteristica } from '../Caracteristica/caracteristica';
 
 @Injectable({
   providedIn: 'root'
@@ -52,21 +55,45 @@ export class UsuarioGeneralService {
   }
 
   createReseniaGrupo(resenia: ReseniaGrupo) {
-    const url = `${environment.baseUrl}/usuario/resenha_grupo_grupo_estudiantil/${resenia.id}`;
+    const url = `${environment.baseUrl}/usuario/resenha_grupo_estudiantil/${resenia.grupoEstudiantil.id}`;
+    return this.net.post(
+      url,{
+        "estrellas": resenia.estrellas
+      } // TODO
+      );
+  }
+
+  createReseniaRestaurante(resenia: ReseniaRestaurante) {
+    const url = `${environment.baseUrl}/usuario/resenha_restaurante/${resenia.restaurante.id}`;
     return this.net.post(
       url,
       {
-        cantidadEstrellas: resenia.cantEstrellas
+        "estrellas": resenia.estrellas
+      } // TODO
+    );
+  }
+
+  persoGrupos(carac: number[], actividades: string[], hobbies: string[]){
+    const url = `${environment.baseUrl}/usuario/persoGrupos`;
+    return this.net.put(
+      url,
+      {
+        "caracteristicas":carac,
+        "actividades":actividades,
+        "hobbies":hobbies
       }
     );
   }
 
-  createReseniaRestaurante(resenia: ReseniaRestaurante) {
-    const url = `${environment.baseUrl}/usuario/resenha_restaurante/${resenia.id}`;
-    return this.net.post(
+  persoRestaurantes(regimenAl: number, nivelExigencia: number, ambientacion: string, comida: number[]){
+    const url = `${environment.baseUrl}/usuario/persoRestaurantes`;
+    return this.net.put(
       url,
       {
-        cantidadEstrellas: resenia.cantEstrellas
+        "regimenAlimenticio":regimenAl,
+        "nivelExigencia":nivelExigencia,
+        "comidas":comida,
+        "ambientacion":ambientacion
       }
     );
   }
