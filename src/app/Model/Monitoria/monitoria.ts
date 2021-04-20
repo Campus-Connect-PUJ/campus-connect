@@ -9,6 +9,7 @@ export class Monitoria {
     horarios: Horario[] = [];
     calificacion: number;
     cantidadVotos: number;
+    
     Monitoria(){
         
     }

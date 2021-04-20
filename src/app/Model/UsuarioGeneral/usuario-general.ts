@@ -28,6 +28,7 @@ export class UsuarioGeneral {
   credentialsNonExpired: boolean = true;
   roles: string[] = [];
   monitorDe: Monitoria[] = [];
+  puntajeTotal: number;
 
   constructor(
     public nombre: string,
