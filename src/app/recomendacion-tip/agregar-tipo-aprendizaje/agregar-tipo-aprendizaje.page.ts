@@ -58,7 +58,12 @@ export class AgregarTipoAprendizajePage implements OnInit {
     for(let i = 0; i < this.tiposDeAprendizajeSeleccionados.length; i++){
       console.log("aa");
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeSeleccionados[i]).subscribe(
-        results => console.log(results),
+        results => {
+          console.log(results);
+          this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
+          this.loginService.storeUser(this.usuario, this.loginService.getToken())
+
+        },
         error => console.error(error)
       )
 

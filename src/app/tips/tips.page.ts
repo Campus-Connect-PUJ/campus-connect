@@ -43,13 +43,14 @@ export class TipsPage implements OnInit {
     })
   }
 
-  cargarTipsUsuarios(id: number){
+  cargarTipsUsuarios(idUsuario: number){
     let tipsUsuario = new Array<Tip>();
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
         for(let i=0; i<this.tips.length; i++){
-          if(this.tips[i].usuario.id === id){
+          console.log(".>", this.tips[i])
+          if(this.tips[i].usuario.id === idUsuario){
             tipsUsuario.push(this.tips[i]);
           }
         }
