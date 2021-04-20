@@ -71,8 +71,8 @@ export class TipsService {
       )
   }
 
-  obtenerRecomendacion(idUsuario: number){
-    const url = `${environment.baseUrl}/reglas/usuario/${idUsuario}`;
+  obtenerRecomendacion(){
+    const url = `${environment.baseUrl}/reglas/usuario`;
     return this.net.get<Tip>(
       url
     )
