@@ -33,7 +33,7 @@ export class ContribucionesPage implements OnInit {
 
   cambiarRol(){
     let idRol = 1;
-    if(this.user.rol === "MONITOR"){
+    if(this.user.roles.includes("MONITOR")){
       idRol = 1;
     }
     else{
@@ -47,7 +47,6 @@ export class ContribucionesPage implements OnInit {
       },
       error => console.error(error)
     );
-
     /*
     this.userService.getUsuario(this.user.id).subscribe(
       results => {
@@ -59,5 +58,19 @@ export class ContribucionesPage implements OnInit {
     )
     */
   }
+ 
+
+
+    /*
+    this.userService.getUsuario(this.user.id).subscribe(
+      results => {
+        this.user = results;
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+        console.log("Si sirvio ", this.user)
+      },
+      error => console.error(error)
+    )
+    */
+  
 
 }
