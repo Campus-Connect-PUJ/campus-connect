@@ -44,5 +44,12 @@ export class MonitoriaService {
     )
   }
 
+  horariosMonitor(idMonitor): Observable<Monitoria[]>{
+    const url = `${environment.baseUrl}/usuario/monitor/15/${idMonitor}`;
+    return this.net.get<Monitoria[]>(url);
+  }
+
+  
+
 
 }

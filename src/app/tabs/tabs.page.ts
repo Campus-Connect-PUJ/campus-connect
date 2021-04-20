@@ -26,4 +26,8 @@ export class TabsPage implements OnInit {
     
   }
 
+  cargar(){
+    //window.location.reload("tabs/contribuciones");
+  }
+
 }

@@ -1,3 +1,4 @@
+import { LoginService } from 'src/app/services/login.service';
 import { UsuarioGeneralService } from './../Model/UsuarioGeneral/usuario-general.service';
 import { NavController, PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +18,7 @@ export class MonitoresPage implements OnInit {
   constructor(private popoverCtrl:PopoverController, 
     private monService: MonitoriaService,
     public navCtrl: NavController,
+    private logService: LoginService
   ) { }
 
   ngOnInit() {
@@ -25,9 +27,11 @@ export class MonitoresPage implements OnInit {
         this.monitores = result;
         console.log("Monitores ",this.monitores)
         console.log(".>", this.monitores[0].monitorDe)
+        this.sugerenciasMonitores(this.monitores)
       },
       error => console.log(error)
     )
+
   }
 
 
@@ -54,6 +58,26 @@ export class MonitoresPage implements OnInit {
       result => console.log(result),
       error => console.log(error)
     )
+  }
+
+  sugerenciasMonitores(monitores){
+    let usuarioActual = this.logService.getUser();
+    let monitoresOrdenados = monitores
+
+    /*
+    monitoresOrdenados.sort(function (a, b) {
+      if (a. > b.puntaje) {
+        return -1;
+      }
+      if (a.puntaje < b.puntaje) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    */
+
+    return monitoresOrdenados;
   }
 
 

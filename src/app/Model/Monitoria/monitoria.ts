@@ -7,6 +7,8 @@ export class Monitoria {
     usuario: UsuarioGeneral;
     asignatura: Asignatura;
     horarios: Horario[] = [];
+    calificacion: number;
+    cantidadVotos: number;
     Monitoria(){
         
     }
