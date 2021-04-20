@@ -61,9 +61,13 @@ export class DatosGrupoPage implements OnInit {
 
   guardarResenia(){
     this.usuario = this.loginService.getUser(); 
-    
+    let resenia: ReseniaGrupo =new ReseniaGrupo();
+    resenia.estrellas=this.puntajeAsig;
+    resenia.grupoEstudiantil=this.grupoSelect;
+    resenia.usuario=this.usuario;
+    console.log(resenia);
     this.usuarioSer.createReseniaGrupo(
-      this.puntajeAsig, this.usuario.id,this.grupoSelect.id
+      resenia
     ).subscribe(
       results => console.log(results),
       error => console.error(error)

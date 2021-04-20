@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ReseniaRestaurante } from 'src/app/Model/ReseniaRestaurante/resenia-restaurante';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -46,8 +47,12 @@ export class DatosRestaurantePage implements OnInit {
 
   guardarResenia(){
     this.usuario = this.loginService.getUser(); 
+    let resenia: ReseniaRestaurante = new ReseniaRestaurante();
+    resenia.estrellas=this.puntajeAsig;
+    resenia.restaurante=this.restauranteSelect;
+    resenia.usuario=this.usuario;
 
-    this.usuarioSer.createReseniaRestaurante(this.puntajeAsig,this.usuario.id,this.restauranteSelect.id).subscribe(
+    this.usuarioSer.createReseniaRestaurante(resenia).subscribe(
       results => console.log(results),
       error => console.error(error)
     );

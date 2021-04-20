@@ -55,17 +55,21 @@ export class UsuarioGeneralService {
   }
 
   createReseniaGrupo(resenia: ReseniaGrupo) {
-    const url = `${environment.baseUrl}/usuario/resenha_grupo_grupo_estudiantil/${resenia.id}`;
+    const url = `${environment.baseUrl}/usuario/resenha_grupo_estudiantil/${resenia.grupoEstudiantil.id}`;
     return this.net.post(
-      url,{} // TODO
+      url,{
+        "resenha": resenia
+      } // TODO
       );
   }
 
-  createReseniaRestaurante(calificacion: number, id: number, id_res: number) {
-    const url = `${environment.baseUrl}/usuario/${id}/resenha_restaurante/${id_res}/${calificacion}`;
+  createReseniaRestaurante(resenia: ReseniaRestaurante) {
+    const url = `${environment.baseUrl}/usuario/resenha_restaurante/${resenia.restaurante.id}`;
     return this.net.post(
       url,
-      {} // TODO
+      {
+        "resenha": resenia
+      } // TODO
     );
   }
 
