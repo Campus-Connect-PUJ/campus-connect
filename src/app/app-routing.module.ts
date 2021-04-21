@@ -248,7 +248,15 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },  {
+    path: 'suge-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/suge-grupos/suge-grupos.module').then( m => m.SugeGruposPageModule)
   },
+  {
+    path: 'suge-restaurantes',
+    loadChildren: () => import('./restaurantes/suge-restaurantes/suge-restaurantes.module').then( m => m.SugeRestaurantesPageModule)
+  },
+
   /*
   {
     path: "horarios-monitor",

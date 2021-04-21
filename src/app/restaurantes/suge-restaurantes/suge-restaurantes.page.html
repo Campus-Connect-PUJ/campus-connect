@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nuestra Selección para ti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let restaurante of restaurantes">
+      <ion-card-header>
+        <ion-card-title>{{restaurante.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>
+          {{restaurante.tipo}}
+        </ion-label>
+        <ion-label>
+          {{restaurante.descripcion}}
+        </ion-label>
+      </ion-card-content>
+  </ion-list>
+  <ion-button (click) = "infoRestaurantes()" [routerLink]="['/recomendar-restaurantes'">
+    <ion-icon  size="small" slot="icon-only" name="arrow-forward">Ver más restaurantes</ion-icon>
+  </ion-button>
+</ion-content>

@@ -1,9 +1,11 @@
 import { Carrera } from "../Carrera/carrera";
+import { GrupoEstudiantil } from "../GrupoEstudiantil/grupo-estudiantil";
 import { InformacionUsuario } from "../InformacionUsuario/informacion-usuario";
 import { Monitoria } from "../Monitoria/monitoria";
 import { RegimenAlimenticio } from "../RegimenAlimenticio/regimen-alimenticio";
 import { ReseniaGrupo } from "../ReseniaGrupo/reseniaGrupo";
 import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
+import { Restaurante } from "../Restaurante/restaurante";
 import { Tip } from "../Tip/tip";
 import { TipoAprendizaje } from "../TipoAprendizaje/tipo-aprendizaje";
 
@@ -16,6 +18,8 @@ export class UsuarioGeneral {
   regimenAlimenticio: RegimenAlimenticio;
   nivelRegimenAlimenticio: number;
   informacion: InformacionUsuario;
+  gruposSugeridos: GrupoEstudiantil[]=[];
+  restaurantesSugeridos: Restaurante[]=[];
 
   carreras: Carrera[] = [];
   semestre: number;
