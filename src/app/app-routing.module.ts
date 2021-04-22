@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "mapa-principal",
     pathMatch: "full",
   },
   {
@@ -248,7 +248,11 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },  {
+    path: 'lista-sitios-destino',
+    loadChildren: () => import('./mapa/lista-sitios-destino/lista-sitios-destino.module').then( m => m.ListaSitiosDestinoPageModule)
   },
+
   /*
   {
     path: "horarios-monitor",

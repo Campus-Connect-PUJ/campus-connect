@@ -151,7 +151,8 @@ export class MapaPrincipalPage implements OnInit {
       console.log(this.marker_selected);
       let navigationExtras: NavigationExtras = {
         queryParams: {
-          special: JSON.stringify(this.marker_selected),
+          destino: JSON.stringify(this.marker_selected),
+          origen: JSON.stringify(this.lugares[15]),
         },
       };
       this.router.navigate(["mapa-ruta"], navigationExtras);

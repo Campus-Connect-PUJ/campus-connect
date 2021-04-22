@@ -16,7 +16,10 @@ import { Location } from '@angular/common';
 })
 export class MapaRutaPage implements OnInit {
   map: Map;
-  data: any;
+
+  origen: any;
+  destino: any;
+
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
   geoJSON_layer: L.GeoJSON = null;
@@ -40,8 +43,9 @@ export class MapaRutaPage implements OnInit {
     private _location: Location
   ) {
     this.route.queryParams.subscribe((params) => {
-      if (params && params.special) {
-        this.data = JSON.parse(params.special);
+      if (params && params.destino && params.origen) {
+        this.origen = JSON.parse(params.origen);
+        this.destino = JSON.parse(params.destino);
         //console.log(this.data);
       }
     });
@@ -59,16 +63,15 @@ export class MapaRutaPage implements OnInit {
       this.map
     );
     this.map.removeControl(this.map.zoomControl);
-    console.log(this.data);
 
     var redMarker = L.AwesomeMarkers.icon({
       markerColor: "red",
     });
 
-    var marker = L.marker([this.data.lat, this.data.lng], {
+    var marker = L.marker([this.destino.lat, this.destino.lng], {
       icon: redMarker,
     }).addTo(this.map);
-    var message = "<b>" + this.data.id + "</b><br>" + this.data.name;
+    var message = "<b>" + this.destino.id + "</b><br>" + this.destino.name;
     marker.bindPopup(message);
     this.marker_destiny = marker;
 
@@ -76,7 +79,7 @@ export class MapaRutaPage implements OnInit {
       markerColor: "green",
     });
 
-    var marker_origin = L.marker([this.lat_origen, this.lng_origen], {
+    var marker_origin = L.marker([this.origen.lat, this.origen.lng], {
       icon: greenMarker,
     }).addTo(this.map);
     var message_origin = "<b>" + "Estás aquí." + "</b>";
@@ -89,8 +92,8 @@ export class MapaRutaPage implements OnInit {
 
     let coordinates = {
       coordinates: [
-        [this.lng_origen, this.lat_origen],
-        [this.data.lng, this.data.lat],
+        [this.origen.lng, this.origen.lat],
+        [this.destino.lng, this.destino.lat],
       ],
     };
     const body = JSON.stringify(coordinates);
@@ -136,8 +139,8 @@ export class MapaRutaPage implements OnInit {
 
       let coordinates = {
         coordinates: [
-          [this.lng_origen, this.lat_origen],
-          [this.data.lng, this.data.lat],
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
         ],
         options: { avoid_features: ["steps"] },
       };
@@ -165,8 +168,8 @@ export class MapaRutaPage implements OnInit {
       }
       let coordinates = {
         coordinates: [
-          [this.lng_origen, this.lat_origen],
-          [this.data.lng, this.data.lat],
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
         ],
       };
       const body = JSON.stringify(coordinates);
