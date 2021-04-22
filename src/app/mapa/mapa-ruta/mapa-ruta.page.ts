@@ -20,11 +20,13 @@ export class MapaRutaPage implements OnInit {
   origen: any;
   destino: any;
 
+  marker_action: any;
+
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
   geoJSON_layer: L.GeoJSON = null;
 
-  route_type = "Normal"
+  route_type = "Normal";
   route_selected = true;
 
   lat_origen = 4.626680783542464;
@@ -63,6 +65,21 @@ export class MapaRutaPage implements OnInit {
       this.map
     );
     this.map.removeControl(this.map.zoomControl);
+
+    var orangeMarker = L.AwesomeMarkers.icon({
+      markerColor: "orange",
+    });
+
+    this.map.on("click", <LeafletMouseEvent>(clickEvent) => {
+      console.log(clickEvent.latlng);
+      if (this.marker_action != null) {
+        this.map.removeLayer(this.marker_action);
+      }
+      var marker = L.marker([clickEvent.latlng.lat, clickEvent.latlng.lng], {
+        icon: orangeMarker,
+      }).addTo(this.map);
+      this.marker_action = marker;
+    });
 
     var redMarker = L.AwesomeMarkers.icon({
       markerColor: "red",
@@ -129,12 +146,12 @@ export class MapaRutaPage implements OnInit {
     this.router.navigate(["auth-home"]);
   }
 
-  onChange($event){
-    console.log(this.route_selected)
-    if(this.route_selected){
+  onChange($event) {
+    console.log(this.route_selected);
+    if (this.route_selected) {
       this.route_type = "Evitar escalones";
-      if(this.geoJSON_layer != null){
-        this.map.removeLayer(this.geoJSON_layer)
+      if (this.geoJSON_layer != null) {
+        this.map.removeLayer(this.geoJSON_layer);
       }
 
       let coordinates = {
@@ -161,7 +178,7 @@ export class MapaRutaPage implements OnInit {
           console.log(resp);
           this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
         });
-    }else{
+    } else {
       this.route_type = "Normal";
       if (this.geoJSON_layer != null) {
         this.map.removeLayer(this.geoJSON_layer);
