@@ -316,10 +316,30 @@ export class CalendarioPage implements OnInit {
 
     console.log("Monitorias ->", monitorias)
 
-    this.moniService.guardarMonitorias( this.logService.getUser().id, monitorias).subscribe(
-      result => console.log(result),
-      error => console.log(error)
-    );
+    //Guarda las monitorias sin horarios. Esto esta bien
+    for(let i = 0; i<monitorias.length; i++ ){
+      this.moniService.crearMonitoria( this.logService.getUser().id, monitorias[i]).subscribe(
+        result => {
+          console.log(result)
+        },
+        error => console.log(error)
+      );
+    
+      //Ya estan creadas las monitorias. Ahora se procede a guardar los horarios de la monitoria
+      
+      for(let j = 0; j<monitorias[i].horarios.length; j++ ){
+        console.log("Id asignatura", monitorias[j].asignatura.id)
+        this.moniService.agregarHorario( this.logService.getUser().id, monitorias[i], j).subscribe(
+          result => console.log(result),
+          error => console.log(error)
+        );
+      }
+
+
+    }
+
+
+    
 
     /*
     for(let i=0; i<monitorias.length; i++) {
