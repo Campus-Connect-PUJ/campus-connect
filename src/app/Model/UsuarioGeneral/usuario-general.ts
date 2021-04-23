@@ -1,3 +1,4 @@
+import { Caracteristica } from "../Caracteristica/caracteristica";
 import { Carrera } from "../Carrera/carrera";
 import { GrupoEstudiantil } from "../GrupoEstudiantil/grupo-estudiantil";
 import { InformacionUsuario } from "../InformacionUsuario/informacion-usuario";
@@ -20,6 +21,7 @@ export class UsuarioGeneral {
   informacion: InformacionUsuario;
   gruposSugeridos: GrupoEstudiantil[]=[];
   restaurantesSugeridos: Restaurante[]=[];
+  caracteristicas: Caracteristica[]=[];
 
   carreras: Carrera[] = [];
   semestre: number;
