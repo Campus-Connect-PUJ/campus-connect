@@ -12,16 +12,14 @@ export class MonitoriaService {
 
   constructor(private net: NetService) { }
 
-  guardarMonitorias(idUsuario: number, monitoria: Monitoria ){
+  guardarMonitorias(idUsuario: number, monitorias: Array<Monitoria> ){
     const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
-
-    console.log("->",monitoria);
+    
+    //console.log("->",monitoria.horarios);
     return this.net.post(
       url,
       {
-        "asignatura": monitoria.asignatura.id,
-        "fechaInicial": monitoria.horarios[0].fechaInicial,
-        "fechaFinal": monitoria.horarios[0].fechaFinal
+        monitorias
       }
     );
   }
