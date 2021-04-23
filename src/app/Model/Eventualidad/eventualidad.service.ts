@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NetService } from 'src/app/utils/net.service';
 import { environment } from 'src/environments/environment';
+import { Eventualidad } from './eventualidad';
 
 @Injectable({
   providedIn: "root",
