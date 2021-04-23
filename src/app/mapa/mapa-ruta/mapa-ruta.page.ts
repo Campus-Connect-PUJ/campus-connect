@@ -1,3 +1,4 @@
+
 import { NumericValueAccessor } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer, marker, LeafletMouseEvent } from "leaflet";
@@ -8,6 +9,8 @@ import "leaflet.awesome-markers";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
+import circle  from "@turf/circle";
+import { Units } from '@turf/helpers';
 
 @Component({
   selector: "app-mapa-ruta",
@@ -21,6 +24,7 @@ export class MapaRutaPage implements OnInit {
   destino: any;
 
   marker_action: any;
+  circle_GEO_JSON : any = null;
 
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
@@ -79,6 +83,15 @@ export class MapaRutaPage implements OnInit {
         icon: orangeMarker,
       }).addTo(this.map);
       this.marker_action = marker;
+      var center = [clickEvent.latlng.lng, clickEvent.latlng.lat];
+      var radius = 0.01;
+      var options = {steps: 10, units: 'kilometers' as Units, properties: {foo: 'bar'}};
+      var circle_var = circle(center, radius, options);
+      console.log(circle_var)
+      if (this.circle_GEO_JSON != null) {
+        this.map.removeLayer(this.circle_GEO_JSON)
+      }
+      this.circle_GEO_JSON = new L.GeoJSON(circle_var).addTo(this.map);
     });
 
     var redMarker = L.AwesomeMarkers.icon({
