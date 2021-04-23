@@ -42,10 +42,10 @@ export class MapaPrincipalPage implements OnInit {
     public platform: Platform,
     public router: Router,
     public http: HttpClient,
-    public alertController: AlertController,
+    public alertController: AlertController
   ) {
     var lugaresUniversidad = new Lugares_universidad();
-    this.lugares = lugaresUniversidad.getLugares()
+    this.lugares = lugaresUniversidad.getLugares();
   }
 
   ionViewDidEnter() {
@@ -158,4 +158,9 @@ export class MapaPrincipalPage implements OnInit {
       this.router.navigate(["mapa-ruta"], navigationExtras);
     }
   }
+
+  onBackAction(){
+    this.router.navigate(['auth-home'])
+  }
+
 }

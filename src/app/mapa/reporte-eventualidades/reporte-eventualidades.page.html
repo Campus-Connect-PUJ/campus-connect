@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reporte-eventualidades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="button">
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="onBackAction($event)">
+      <ion-fab-button color="light">
+        <ion-icon name="caret-back-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-label>
+    Enviar un reporte de una eventualidad.
+  </ion-label>
+  <ion-radio-group value="tipo_eventualidad">
+    <ion-list-header>
+      <ion-label>Tipo de eventualidad</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Cierre</ion-label>
+      <ion-radio slot="start" color="danger" value="cierre"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Peligro</ion-label>
+      <ion-radio slot="start" color="danger" value="peligro"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tráfico</ion-label>
+      <ion-radio slot="start" color="danger" value="trafico"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item>
+    <ion-label position="stacked">Ingresa una pequeña descripción de la eventualidad</ion-label>
+    <ion-textarea placeholder="Ingresa la descripción aquí..."></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block">Enviar reporte</ion-button>
+
+</ion-content>

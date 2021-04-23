@@ -12,9 +12,17 @@
 </ion-content>
 
 <div class="button">
-  <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="onBackAction($event)">
+  <ion-fab horizontal="start" vertical="top" slot="fixed" (click)="onBackAction($event)">
     <ion-fab-button color="light">
       <ion-icon name="caret-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</div>
+
+<div class="button">
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="eventualidad($event)">
+    <ion-fab-button color="light">
+      <ion-icon name="flag"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </div>

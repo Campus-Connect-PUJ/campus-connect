@@ -1,12 +1,12 @@
 
-import { NumericValueAccessor } from '@ionic/angular';
+import { AlertController, NumericValueAccessor } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer, marker, LeafletMouseEvent } from "leaflet";
 
 import * as L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet.awesome-markers";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
 import circle  from "@turf/circle";
@@ -24,7 +24,8 @@ export class MapaRutaPage implements OnInit {
   destino: any;
 
   marker_action: any;
-  circle_GEO_JSON : any = null;
+  circle_GEO_JSON: any = null;
+  latlng_actual: any = null;
 
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
@@ -46,7 +47,8 @@ export class MapaRutaPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public http: HttpClient,
-    private _location: Location
+    private _location: Location,
+    public alertController: AlertController
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params && params.destino && params.origen) {
@@ -82,14 +84,24 @@ export class MapaRutaPage implements OnInit {
       var marker = L.marker([clickEvent.latlng.lat, clickEvent.latlng.lng], {
         icon: orangeMarker,
       }).addTo(this.map);
+
+      this.latlng_actual = {
+        lat: clickEvent.latlng.lat,
+        lng: clickEvent.latlng.lng,
+      };
+
       this.marker_action = marker;
       var center = [clickEvent.latlng.lng, clickEvent.latlng.lat];
       var radius = 0.01;
-      var options = {steps: 10, units: 'kilometers' as Units, properties: {foo: 'bar'}};
+      var options = {
+        steps: 10,
+        units: "kilometers" as Units,
+        properties: { foo: "bar" },
+      };
       var circle_var = circle(center, radius, options);
-      console.log(circle_var)
+      console.log(circle_var);
       if (this.circle_GEO_JSON != null) {
-        this.map.removeLayer(this.circle_GEO_JSON)
+        this.map.removeLayer(this.circle_GEO_JSON);
       }
       this.circle_GEO_JSON = new L.GeoJSON(circle_var).addTo(this.map);
     });
@@ -152,7 +164,7 @@ export class MapaRutaPage implements OnInit {
   }
 
   public onBackAction($event) {
-    this._location.back();
+    this.router.navigate(["mapa-principal"])
   }
 
   public toHome($event) {
@@ -219,6 +231,28 @@ export class MapaRutaPage implements OnInit {
           console.log(resp);
           this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
         });
+    }
+  }
+
+  async eventualidad($event) {
+    if (this.latlng_actual == null) {
+      let alert = await this.alertController.create({
+        cssClass: "custom-class-alert",
+        header: "Error",
+        subHeader: "Ubicación actual no obtenida",
+        message: "No se puede reportar una eventualidad sin haber obtenido la ubicación actual",
+        buttons: ["OK"],
+      });
+      await alert.present();
+    } else {
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          destino: JSON.stringify(this.destino),
+          origen: JSON.stringify(this.origen),
+          actual: JSON.stringify(this.latlng_actual),
+        },
+      };
+      this.router.navigate(["reporte-eventualidades"], navigationExtras);
     }
   }
 }
