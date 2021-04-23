@@ -9,6 +9,7 @@ import { ReseniaRestaurante } from "../ReseniaRestaurante/resenia-restaurante";
 import { Restaurante } from "../Restaurante/restaurante";
 import { Tip } from "../Tip/tip";
 import { TipoAprendizaje } from "../TipoAprendizaje/tipo-aprendizaje";
+import { TipoComida } from "../TipoComida/tipo-comida";
 
 export class UsuarioGeneral {
   id: number;
@@ -22,6 +23,7 @@ export class UsuarioGeneral {
   gruposSugeridos: GrupoEstudiantil[]=[];
   restaurantesSugeridos: Restaurante[]=[];
   caracteristicas: Caracteristica[]=[];
+  comidaFav: TipoComida[]=[];
 
   carreras: Carrera[] = [];
   semestre: number;
