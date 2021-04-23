@@ -71,6 +71,7 @@ export class IngresarNotasPage implements OnInit {
 
   changeFn1(e, indice) {
     this.notas[indice].porcentaje = Number(e.target.value);
+    console.log(this.notas[indice].porcentaje)
     this.runDeterminateProgress()
   }
 
@@ -80,15 +81,17 @@ export class IngresarNotasPage implements OnInit {
   }
 
   runDeterminateProgress() {
-    this.porcentaje=0;
+    this.porcentaje = 0;
     this.realizarCiclo()
     for(let i = 0; i < this.ciclo; i++){
-      if(this.notas[i].notaObtenida!=-1){
+      console.log(i, "-> ", this.notas[i].porcentaje)
+      //if(this.notas[i].notaObtenida!=-1){
         this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
-      }
+      //}
       
     }
     this.p_bar_value = +this.porcentaje/100;
+    console.log("----->", this.p_bar_value)
   }
 
   realizarCiclo(){
@@ -101,6 +104,7 @@ export class IngresarNotasPage implements OnInit {
       this.ciclo = this.notas.length;
       this.notaEsperada = this.notasMaterias.notaEsperada;
     }
+    console.log("ciclo ->", this.ciclo)
   }
 
   calcularNota(){

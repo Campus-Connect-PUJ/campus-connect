@@ -64,16 +64,15 @@ export class ServiciosAcademicosPage implements OnInit {
   obtenerUsuario(){
     this.usuarioActual = this.logService.getUser();
     this.userService.getUsuario(this.usuarioActual.id).subscribe(
-      result => {this.usuarioActual = result
-                this.logService.storeUser(this.usuarioActual, this.logService.getToken())
-                  console.log("user", this.usuarioActual)
-
-
+      result => {
+        this.usuarioActual = result
+        this.logService.guardarElemento("perso" + this.usuarioActual.email, this.usuarioActual)
       },
       error => console.error()
     )
     this.quitarChat();
   }
+
 
 
 }

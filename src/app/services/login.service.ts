@@ -123,4 +123,15 @@ export class LoginService {
 
     return valido;
   }
+
+
+  guardarElemento(nombre: string, objeto){
+    sessionStorage.setItem(nombre, JSON.stringify(objeto))
+  }
+
+  obtenerElemento(nombre: string){ 
+    let elemento = JSON.parse(sessionStorage.getItem(nombre));
+    return elemento;
+  }
+
 }

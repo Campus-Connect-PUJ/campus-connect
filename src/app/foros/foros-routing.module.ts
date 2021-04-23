@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'foro-detalles',
     loadChildren: () => import('./foro-detalles/foro-detalles.module').then( m => m.ForoDetallesPageModule)
+  },  {
+    path: 'respuestas',
+    loadChildren: () => import('./respuestas/respuestas.module').then( m => m.RespuestasPageModule)
   }
+
 
 
 ];

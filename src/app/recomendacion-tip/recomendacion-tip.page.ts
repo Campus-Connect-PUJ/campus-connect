@@ -47,7 +47,7 @@ export class RecomendacionTipPage implements OnInit {
     this.user = this.loginService.getUser();
     this.indice = this.user.id;
     console.log(this.indice)
-    this.tipsService.obtenerRecomendacion().subscribe(
+    this.tipsService.obtenerRecomendacion(this.indice).subscribe(
       results => {
         this.tipRecomendado = results;
       },

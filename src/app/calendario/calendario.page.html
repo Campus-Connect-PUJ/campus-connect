@@ -1,7 +1,7 @@
  <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+      <ion-back-button (click)="enviarHorarios()" defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="today()">Today</ion-button>
@@ -49,7 +49,7 @@
   <!-- Card for adding a new event -->
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
-      <ion-card-title>New Event</ion-card-title>
+      <ion-card-title>Nuevo evento</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngIf="collapseCard">
       <ion-item>
@@ -99,7 +99,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Hora fin</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"[(ngModel)]="event2.eTime"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
       </ion-item>
 
 
@@ -125,8 +125,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button (click)="enviarHorariosMonitoria()">Enviar monitorias</ion-button>
-
+  <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
   <calendar
     [eventSource]="eventSource"
     [calendarMode]="calendar.mode"

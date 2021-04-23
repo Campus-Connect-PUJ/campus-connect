@@ -55,7 +55,7 @@ export class TipsPage implements OnInit {
           }
         }
         this.tips = tipsUsuario;
-        console.log("Los foros", this.tips)
+        console.log("Los tips", this.tips)
       },
       error => console.error(error)
     )

@@ -35,6 +35,7 @@ export class CalendarioPage implements OnInit {
   esMonitor: boolean = false;
   asignaturas: Asignatura[] = [];
   asignatura: Asignatura;
+  monitorias = new Array<Monitoria>();
 
   event = {
     title: '',
@@ -272,8 +273,32 @@ export class CalendarioPage implements OnInit {
 
   }
 
-  enviarHorariosMonitoria(){
-    let monitorias = new Array<Monitoria>();
+  enviarMonitoria(){
+    for(let i = 0; i<this.monitorias.length; i++ ){
+      this.moniService.crearMonitoria( this.logService.getUser().id, this.monitorias[i]).subscribe(
+        result => {
+          console.log(result)
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  enviarHorarios(){
+    for(let i = 0; i<this.monitorias.length; i++ ){
+      for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
+        //console.log("Id asignatura", this.monitorias[j].asignatura.id)
+        this.moniService.agregarHorario( this.logService.getUser().id, this.monitorias[i], j).subscribe(
+          result => console.log(result),
+          error => console.log(error)
+        );
+      }
+    }
+  }
+
+
+
+  enviarMonitorias(){
     this.eventos = JSON.parse(localStorage.getItem("eventos"));
     console.log("Lo que sale", this.eventos);
 
@@ -292,21 +317,21 @@ export class CalendarioPage implements OnInit {
 
         asignatura.nombre = this.eventos[i].title;
         asignatura.id = idAsig;
-        if(monitorias.length == 0){
+        if(this.monitorias.length == 0){
           horario.fechaInicial = this.eventos[i].startTime;
           horario.fechaFinal = this.eventos[i].endTime;
           monitoria.usuario = this.logService.getUser();
           monitoria.asignatura = asignatura;
           monitoria.horarios.push(horario);
-          monitorias.push(monitoria);
+          this.monitorias.push(monitoria);
         }
         else{
-          for(let j = 0; j<monitorias.length; j++){
-            if(monitorias[j].asignatura.id == asignatura.id){
+          for(let j = 0; j<this.monitorias.length; j++){
+            if(this.monitorias[j].asignatura.id == asignatura.id){
               //Agregar horario
               horario.fechaInicial = this.eventos[i].startTime;
               horario.fechaFinal = this.eventos[i].endTime;
-              monitorias[j].horarios.push(horario);
+              this.monitorias[j].horarios.push(horario);
             }
           }
         }
@@ -314,29 +339,12 @@ export class CalendarioPage implements OnInit {
       }
     }
 
-    console.log("Monitorias ->", monitorias)
-
-    //Guarda las monitorias sin horarios. Esto esta bien
-    for(let i = 0; i<monitorias.length; i++ ){
-      this.moniService.crearMonitoria( this.logService.getUser().id, monitorias[i]).subscribe(
-        result => {
-          console.log(result)
-        },
-        error => console.log(error)
-      );
-    
-      //Ya estan creadas las monitorias. Ahora se procede a guardar los horarios de la monitoria
+    console.log("Monitorias ->", this.monitorias)
       
-      for(let j = 0; j<monitorias[i].horarios.length; j++ ){
-        console.log("Id asignatura", monitorias[j].asignatura.id)
-        this.moniService.agregarHorario( this.logService.getUser().id, monitorias[i], j).subscribe(
-          result => console.log(result),
-          error => console.log(error)
-        );
-      }
+    this.enviarMonitoria();
 
 
-    }
+  }
 
 
     
@@ -353,7 +361,7 @@ export class CalendarioPage implements OnInit {
     */
 
 
-  }
+  
 
   cargarEventos(){
 
