@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { NetService } from 'src/app/utils/net.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class EventualidadService {
+  constructor(private net: NetService) {}
 
-constructor() { }
-
+  obtenerAsignaturas(): Observable<Eventualidad[]> {
+    const url = `${environment.baseUrl}/asignatura/all`;
+    return this.net.get<Eventualidad[]>(url);
+  }
 }
