@@ -97,33 +97,26 @@ export class MonitoresPage implements OnInit {
     console.log("Usuario", this.eventos)
 
 
+
+    for(let i=0; i<this.eventos.length-1; i++){
+      //console.log(this.eventos[i].id,"-> ", this.eventos[i].startTime, " ", this.eventos[i].endTime)
+      console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime).format('DD-MM-YYYY HH:mm'))
+    }
+
     for(let i=0; i<eventosMonitor.length; i++){
+      console.log("cantidad de horarios ", eventosMonitor[i].horarios.length)
+      let horarioInicialMonitor = moment(eventosMonitor[i].horarios[0].fi, "DD-MM-YYYY HH:mm")
+      let horarioFinalMonitor = moment(eventosMonitor[i].horarios[0].ff, "DD-MM-YYYY HH:mm")
+      console.log("a", horarioInicialMonitor, " ", horarioFinalMonitor)
       for(let j=0; j<eventosMonitor[i].horarios.length; j++){
-        let fechaInicio = moment(eventosMonitor[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm');
-        let fechaFin = moment(eventosMonitor[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm');
-     
-        console.log(fechaInicio, " ", moment(eventosMonitor[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm'), " ",  moment(this.eventos[i].startTime).format('DD-MM-YYYY HH:mm'), " ", moment(this.eventos[0].endTime).format('DD-MM-YYYY HH:mm'))
-        //console.log("-> ", fechaInicio, " ", fechaFin, " ", moment(this.eventos[0].sTime).format('DD-MM-YYYY HH:mm'),moment(this.eventos[0].endTime).format('DD-MM-YYYY HH:mm'))
-
-        //console.log("---> ", moment(this.eventos[0].startTime).isBetween(fechaInicio, fechaFin, undefined, '[]')," = ", fechaInicio, " ", fechaFin, " ", this.eventos[0].startTime )
         
-        /*
-        for(let k=0; k<this.eventos.length; k++){
-         
-          let inicioUsuario = moment(this.eventos[k].startTime);
-          let finUsuario = moment(this.eventos[k].endTime);
-          console.log("---> ", moment(inicioUsuario).isBetween(fechaInicio, fechaFin, undefined, '[]')," = ", fechaInicio, " ", fechaFin, " ", inicioUsuario )
-          if(moment(inicioUsuario).isBetween(fechaInicio, fechaFin, undefined, '[]')){
-            console.log("igual")
-          }
-
-        }
-
-        */
-        
-
-
       }
+      /*
+      for(let j=0; j<eventosMonitor[i].horarios.length; j++){
+        console.log(j);
+        console.log(moment(eventosMonitor[i].horarios[j].fi).format('DD-MM-YYYY HH:mm')," ", moment(eventosMonitor[i].horarios[j].ff).format('DD-MM-YYYY HH:mm'))
+      }
+      */
     }
 
 
