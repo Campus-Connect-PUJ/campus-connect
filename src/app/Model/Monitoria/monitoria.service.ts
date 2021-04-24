@@ -29,6 +29,8 @@ export class MonitoriaService {
       url,
       {
         "idAsignatura": mon.asignatura.id,
+        "fi": mon.horarios[indice].fi,
+        "ff": mon.horarios[indice].ff,
         "fechaInicial": mon.horarios[indice].fechaInicial,
         "fechaFinal": mon.horarios[indice].fechaFinal
       }

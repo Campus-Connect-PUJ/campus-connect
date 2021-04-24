@@ -243,8 +243,6 @@ export class CalendarioPage implements OnInit {
       eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
     }
 
-
-    
     
     console.log("antes de grabar ->", this.eventSource)
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
@@ -276,6 +274,9 @@ export class CalendarioPage implements OnInit {
           let horario = new Horario();
           horario.fechaInicial = this.eventos[j].startTime;
           horario.fechaFinal = this.eventos[j].endTime;
+
+          horario.fi = moment(this.eventos[j].startTime).format('DD-MM-YYYY HH:mm');
+          horario.ff = moment(this.eventos[j].endTime).format('DD-MM-YYYY HH:mm');
           this.monitorias[i].horarios.push(horario)
         } 
       }
