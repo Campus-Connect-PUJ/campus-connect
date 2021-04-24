@@ -102,7 +102,7 @@ export class MonitoresPage implements OnInit {
         let fechaInicio = moment(eventosMonitor[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm');
         let fechaFin = moment(eventosMonitor[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm');
         let fechaFin2 = moment(this.eventos[i].startTime).format('DD-MM-YYYY HH:mm');
-        console.log(fechaInicio, " ", fechaFin, " ", fechaFin2, " ", moment(this.eventos[i].endTime).format('DD-MM-YYYY HH:mm'))
+        console.log(fechaInicio, " ", fechaFin, " ", fechaFin2, " ", moment(this.eventos[0].endTime).format('DD-MM-YYYY HH:mm'))
         //console.log("-> ", fechaInicio, " ", fechaFin, " ", moment(this.eventos[0].sTime).format('DD-MM-YYYY HH:mm'),moment(this.eventos[0].endTime).format('DD-MM-YYYY HH:mm'))
 
         //console.log("---> ", moment(this.eventos[0].startTime).isBetween(fechaInicio, fechaFin, undefined, '[]')," = ", fechaInicio, " ", fechaFin, " ", this.eventos[0].startTime )

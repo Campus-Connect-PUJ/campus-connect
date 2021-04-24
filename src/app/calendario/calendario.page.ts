@@ -211,6 +211,7 @@ export class CalendarioPage implements OnInit {
 
       eventCopy.title = eventCopy2.title;
       eventCopy.startTime = eventCopy2.startTime;
+      eventCopy.monitoria = this.monitoria;
 
       eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
       eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
@@ -230,28 +231,7 @@ export class CalendarioPage implements OnInit {
       eventCopy.id = cantidadDeEventos;
       cantidadDeEventos++;
 
-      //console.log("lll",eventCopy)
 
-      //eventCopy = eventCopy2;
-      /*
-      eventCopy.monitoria = this.monitoria;
-      eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
-      
-      console.log("Horas ", horas)
-      console.log("Minutos ", minutos)
-      //eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
-      //eventCopy.endTime = moment(eventCopy.endTime).add(0,'minutes').toDate();
-      //console.log("Diferencia de horas "+ eventCopy.endTime)
-      console.log("Minutos", eventCopy.endTime.getMinutes())
-      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
-      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
-      eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
-      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
-      //console.log("Diferencia de minutos "+ eventCopy.endTime)
-      eventCopy.id = cantidadDeEventos;
-
-      */
-      
 
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
@@ -264,9 +244,7 @@ export class CalendarioPage implements OnInit {
     }
 
 
-    if(!moment(fechaInicioTotal).isBefore(fechaFinTotal) ){
-      //this.eventSource.splice( this.eventSource.length-1, 1)
-    }
+    
     
     console.log("antes de grabar ->", this.eventSource)
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
