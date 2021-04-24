@@ -161,7 +161,7 @@ export class CalendarioPage implements OnInit {
       cantidadDeEventos = 0;
     }
 
-
+    //Lo que se guarda
     let eventCopy: evento = new evento();
     eventCopy.title = this.event.title;
     eventCopy.startTime = new Date(this.event.startTime);
@@ -171,7 +171,7 @@ export class CalendarioPage implements OnInit {
     eventCopy.id= cantidadDeEventos
     eventCopy.monitoria= this.event.monitoria
 
-    
+    //Lo que se recibe
     let eventCopy2 = {
       title: this.event2.title,
       startTime: new Date(this.event2.startTime),
@@ -187,7 +187,7 @@ export class CalendarioPage implements OnInit {
     if(this.monitoria){
       console.log("Cambia")
       eventCopy.title = this.asignatura.nombre;
-      eventCopy2.title = this.asignatura.nombre;
+      eventCopy.monitoria = this.monitoria;
       console.log("*****")
     }
 
@@ -199,32 +199,41 @@ export class CalendarioPage implements OnInit {
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
 
-    
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
       console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
-      eventCopy = eventCopy2;
+
       eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
       let horas = Number(tiempos2[0])- Number(tiempos1[0]);
       let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-      console.log("Horas ", horas)
-      console.log("Minutos ", minutos)
-      eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
-      //eventCopy.endTime = moment(eventCopy.endTime).add(0,'minutes').toDate();
-      //console.log("Diferencia de horas "+ eventCopy.endTime)
-      console.log("Minutos", eventCopy.endTime.getMinutes())
+
+
+      //Agregar horas al inicio
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
+      //Agregar horas al final
+      eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getHours(), 'hours').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[0]),'hours').toDate();
+
+      //Agregar minutos al inicio
       eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
       eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
+      //Agregar minutos al final
       eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
       eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
       //console.log("Diferencia de minutos "+ eventCopy.endTime)
+
+      console.log(".................", eventCopy.startTime, " ", eventCopy.endTime)
       eventCopy.id = cantidadDeEventos;
+
       cantidadDeEventos++;
       fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
       eventCopy.startTime = moment(eventCopy.startTime).toDate();
       eventCopy.endTime = moment(eventCopy.endTime).toDate();
+      
       this.eventSource.push(eventCopy);
+
       localStorage.removeItem(eventCopy.title);
     }
 
@@ -234,9 +243,10 @@ export class CalendarioPage implements OnInit {
     }
     
     console.log("antes de grabar ->", this.eventSource)
-    //localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
-
-    
+    console.log(this.eventSource[0])
+    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
+    let prueba = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email))
+    console.log("--", moment(prueba[0].startTime).toDate())
     this.myCal.loadEvents();
     this.resetEvent();
 
