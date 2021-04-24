@@ -20,6 +20,8 @@ export class ReporteEventualidadesPage implements OnInit {
   selected_tipo_eventualidad: any = null;
   descripcion: any = null;
 
+  eventualidades: any = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -36,6 +38,15 @@ export class ReporteEventualidadesPage implements OnInit {
     });
     var tiposEventualidades = new tipos_eventualidades();
     this.tipos = tiposEventualidades.getTipos();
+    this.evService.obtenerEventualidades().subscribe(
+      (results) => {
+        console.log(results);
+        this.eventualidades = results;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   ngOnInit() {}
@@ -78,7 +89,6 @@ export class ReporteEventualidadesPage implements OnInit {
         });
         await alert.present();
       } else {
-        //TODO enviar datos al back
         var evEnviar = new Eventualidad()
         evEnviar.descripcion = this.descripcion
         evEnviar.latitud = this.actual.lat

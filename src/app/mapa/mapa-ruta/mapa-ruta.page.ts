@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
 import circle  from "@turf/circle";
 import { Units } from '@turf/helpers';
+import { EventualidadService } from 'src/app/Model/Eventualidad/eventualidad.service';
 
 @Component({
   selector: "app-mapa-ruta",
@@ -41,14 +42,19 @@ export class MapaRutaPage implements OnInit {
     "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
 
   private api_key_openrouteservice =
-    "5b3ce3597851110001cf6248bef69f7785b146a5a300f5cc68db403b";
+    "5b3ce3597851110001cf6248e267df95fb5a4588990b297f4ef113c8";
+
+  eventualidades: any;
+  polygons_eventualidades: any;
+  multipolygon: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public http: HttpClient,
     private _location: Location,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private evService: EventualidadService
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params && params.destino && params.origen) {
@@ -63,6 +69,38 @@ export class MapaRutaPage implements OnInit {
 
   ionViewDidEnter() {
     this.leafletMap();
+
+    this.polygons_eventualidades = new Array();
+    this.evService.obtenerEventualidades().subscribe(
+      (results) => {
+        console.log(results);
+        this.eventualidades = results;
+        console.log(this.eventualidades);
+        this.eventualidades.forEach((element) => {
+          var options = {
+            steps: 10,
+            units: "kilometers" as Units,
+            properties: { foo: "bar" },
+          };
+          var radius = 0.01;
+          var center = [element.latitud, element.longitud];
+          var circle_var = circle(center, radius, options);
+          console.log("circle", circle_var.geometry.coordinates);
+          this.polygons_eventualidades.push(circle_var.geometry.coordinates);
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    this.multipolygon = {
+      type: "MultiPolygon",
+      coordinates: this.polygons_eventualidades,
+    };
+    console.log("Multipolygon", this.multipolygon);
+
+    this.generarRuta();
   }
 
   async leafletMap() {
@@ -131,7 +169,9 @@ export class MapaRutaPage implements OnInit {
     }).setContent(message_origin);
     marker_origin.bindPopup(popup_marker).openPopup();
     this.marker_origin = marker_origin;
+  }
 
+  private generarRuta() {
     let coordinates = {
       coordinates: [
         [this.origen.lng, this.origen.lat],
@@ -145,7 +185,7 @@ export class MapaRutaPage implements OnInit {
         Accept:
           "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
         "Content-Type": "application/json",
-        Authorization: this.api_key_openrouteservice,
+        Authorization: this.api_key_openrouteservice
       }),
     };
 
@@ -164,7 +204,7 @@ export class MapaRutaPage implements OnInit {
   }
 
   public onBackAction($event) {
-    this.router.navigate(["mapa-principal"])
+    this.router.navigate(["mapa-principal"]);
   }
 
   public toHome($event) {
@@ -193,7 +233,7 @@ export class MapaRutaPage implements OnInit {
           Accept:
             "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
           "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice,
+          Authorization: this.api_key_openrouteservice
         }),
       };
 
@@ -221,7 +261,7 @@ export class MapaRutaPage implements OnInit {
           Accept:
             "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
           "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice,
+          Authorization: this.api_key_openrouteservice
         }),
       };
 
@@ -240,7 +280,8 @@ export class MapaRutaPage implements OnInit {
         cssClass: "custom-class-alert",
         header: "Error",
         subHeader: "Ubicación actual no obtenida",
-        message: "No se puede reportar una eventualidad sin haber obtenido la ubicación actual",
+        message:
+          "No se puede reportar una eventualidad sin haber obtenido la ubicación actual",
         buttons: ["OK"],
       });
       await alert.present();
