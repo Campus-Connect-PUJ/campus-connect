@@ -164,7 +164,6 @@ export class CalendarioPage implements OnInit {
 
     let eventCopy: evento = new evento();
     eventCopy.title = this.event.title;
-
     eventCopy.startTime = new Date(this.event.startTime);
     eventCopy.endTime = new Date(this.event.endTime)
     eventCopy.allDay= this.event.allDay
@@ -209,7 +208,6 @@ export class CalendarioPage implements OnInit {
       let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
       console.log("Horas ", horas)
       console.log("Minutos ", minutos)
-      
       eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
       //eventCopy.endTime = moment(eventCopy.endTime).add(0,'minutes').toDate();
       //console.log("Diferencia de horas "+ eventCopy.endTime)
@@ -236,7 +234,7 @@ export class CalendarioPage implements OnInit {
     }
     
     console.log("antes de grabar ->", this.eventSource)
-    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
+    //localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
     
     this.myCal.loadEvents();
