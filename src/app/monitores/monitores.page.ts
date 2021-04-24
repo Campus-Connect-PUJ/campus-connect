@@ -99,26 +99,30 @@ export class MonitoresPage implements OnInit {
 
 
     for(let i=0; i<this.eventos.length-1; i++){
-      //console.log(this.eventos[i].id,"-> ", this.eventos[i].startTime, " ", this.eventos[i].endTime)
-      console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime).format('DD-MM-YYYY HH:mm'))
+      console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime))
+
+      for(let j=0; j<eventosMonitor.length; j++){
+        for(let k=0; k<eventosMonitor[j].horarios.length; k++){
+          let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
+          let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
+
+          console.log("Prueba ", moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') , " ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm") ," = (", horarioInicialMonitor.format("DD-MM-YYYY HH:mm"), ",", horarioFinalMonitor.format("DD-MM-YYYY HH:mm"), ")")
+
+
+          if( !moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') && !moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)')){
+            console.log("Disponible")
+          }
+        }
+        /*
+        for(let j=0; j<eventosMonitor[i].horarios.length; j++){
+          console.log(j);
+          console.log(moment(eventosMonitor[i].horarios[j].fi).format('DD-MM-YYYY HH:mm')," ", moment(eventosMonitor[i].horarios[j].ff).format('DD-MM-YYYY HH:mm'))
+        }
+        */
+      }
     }
 
-    for(let i=0; i<eventosMonitor.length; i++){
-      console.log("cantidad de horarios ", eventosMonitor[i].horarios.length)
-      let horarioInicialMonitor = moment(eventosMonitor[i].horarios[0].fi, "DD-MM-YYYY HH:mm")
-      let horarioFinalMonitor = moment(eventosMonitor[i].horarios[0].ff, "DD-MM-YYYY HH:mm")
-      console.log("a", horarioInicialMonitor, " ", horarioFinalMonitor)
-      for(let j=0; j<eventosMonitor[i].horarios.length; j++){
-        
-      }
-      /*
-      for(let j=0; j<eventosMonitor[i].horarios.length; j++){
-        console.log(j);
-        console.log(moment(eventosMonitor[i].horarios[j].fi).format('DD-MM-YYYY HH:mm')," ", moment(eventosMonitor[i].horarios[j].ff).format('DD-MM-YYYY HH:mm'))
-      }
-      */
-    }
-
+    
 
 
     console.log("eventos posibles ", monitoriasDisponibles.length)
