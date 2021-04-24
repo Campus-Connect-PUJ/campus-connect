@@ -87,7 +87,6 @@ export class CalendarioPage implements OnInit {
   }
 
   cargarAsignaturas(){
-    
     this.asigService.obtenerAsignaturas().subscribe(
       result => this.asignaturas = result,
       error => console.log(error)
@@ -123,12 +122,8 @@ export class CalendarioPage implements OnInit {
     if(cantidadDeEventos == null){
       cantidadDeEventos = 0;
     }
-
     console.log(this.event.startTime);
-
     let eventCopy: evento = new evento();
-
-
 
     eventCopy.title = this.event.title;
     eventCopy.startTime = new Date(this.event.startTime);
@@ -137,17 +132,7 @@ export class CalendarioPage implements OnInit {
     eventCopy.desc= this.event.desc
     eventCopy.id= cantidadDeEventos
     eventCopy.monitoria= false
-    /*
-    let eventCopy = {
-      title: this.event.title,
-      startTime: new Date(this.event.startTime),
-      endTime: new Date(this.event.endTime),
-      allDay: this.event.allDay,
-      desc: this.event.desc,
-      id: cantidadDeEventos,
-      monitoria: false
-    }
-*/
+
     if(eventCopy.allDay){
       let start = eventCopy.startTime;
       let end = eventCopy.endTime;
@@ -160,7 +145,7 @@ export class CalendarioPage implements OnInit {
     let a: evento;
     this.eventSource.push(a);
     console.log(this.eventSource);
-    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
     this.myCal.loadEvents();
     this.resetEvent();
@@ -187,20 +172,6 @@ export class CalendarioPage implements OnInit {
     eventCopy.id= cantidadDeEventos
     eventCopy.monitoria= this.event.monitoria
 
-    /*
-    let eventCopy = {
-      title: this.event2.title,
-      startTime: new Date(this.event2.startTime),
-      endTime: new Date(this.event2.endTime),
-      allDay: this.event2.allDay,
-      desc: this.event2.desc,
-      id: cantidadDeEventos,
-      monitoria: this.monitoria
-    }
-    */
-
-
-  
     
     let eventCopy2 = {
       title: this.event2.title,
@@ -265,7 +236,7 @@ export class CalendarioPage implements OnInit {
     }
     
     console.log("antes de grabar ->", this.eventSource)
-    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
     
     this.myCal.loadEvents();
@@ -285,6 +256,20 @@ export class CalendarioPage implements OnInit {
   }
 
   enviarHorarios(){
+    console.log("enviar horarios")
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    console.log(this.eventos.length, " ", this.monitorias.length)
+    for(let i = 0; i < this.monitorias.length; i++){
+      for(let j = 0; j< this.eventos.length; j++){
+        if(this.eventos[j].title == this.monitorias[i].asignatura.nombre){
+          let horario = new Horario();
+          horario.fechaInicial = this.eventos[j].startTime;
+          horario.fechaFinal = this.eventos[j].endTime;
+          this.monitorias[i].horarios.push(horario)
+        } 
+      }
+    }
+    console.log(this.monitorias)
     for(let i = 0; i<this.monitorias.length; i++ ){
       for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
         //console.log("Id asignatura", this.monitorias[j].asignatura.id)
@@ -299,73 +284,53 @@ export class CalendarioPage implements OnInit {
 
 
   enviarMonitorias(){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"));
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
     console.log("Lo que sale", this.eventos);
-
+    let asignauras: Array<Asignatura>;
+    
     for(let i=0; i<this.eventos.length; i++){
       let monitoria: Monitoria = new Monitoria();
       let asignatura: Asignatura = new Asignatura();
-      let horario = new Horario();
+      let existe: boolean = false;
       if(this.eventos[i].monitoria){
         let idAsig = 0;
-
+        console.log(this.eventos[i].title)
         for(let j=0; j<this.asignaturas.length; j++){
           if(this.asignaturas[j].nombre === this.eventos[i].title){
             idAsig = this.asignaturas[j].id;
+            asignatura.id = idAsig;
+            asignatura.nombre = this.asignaturas[j].nombre;
           }
         }
-
-        asignatura.nombre = this.eventos[i].title;
-        asignatura.id = idAsig;
+        
+        monitoria.asignatura = asignatura;
+        
         if(this.monitorias.length == 0){
-          horario.fechaInicial = this.eventos[i].startTime;
-          horario.fechaFinal = this.eventos[i].endTime;
-          monitoria.usuario = this.logService.getUser();
-          monitoria.asignatura = asignatura;
-          monitoria.horarios.push(horario);
-          this.monitorias.push(monitoria);
+          this.monitorias.push(monitoria)
         }
         else{
-          for(let j = 0; j<this.monitorias.length; j++){
-            if(this.monitorias[j].asignatura.id == asignatura.id){
-              //Agregar horario
-              horario.fechaInicial = this.eventos[i].startTime;
-              horario.fechaFinal = this.eventos[i].endTime;
-              this.monitorias[j].horarios.push(horario);
+          for(let j=0; j<this.monitorias.length; j++){
+            console.log(this.monitorias[j].asignatura.id, " " ,monitoria.asignatura.id)
+            if(this.monitorias[j].asignatura.id == monitoria.asignatura.id){
+              existe = true;
+              this.monitorias[j].horarios.push();
             }
           }
+          if(!existe){
+            this.monitorias.push(monitoria)
+          }
         }
-
       }
     }
 
     console.log("Monitorias ->", this.monitorias)
       
     this.enviarMonitoria();
-
-
   }
 
 
-    
-
-    /*
-    for(let i=0; i<monitorias.length; i++) {
-
-      this.moniService.guardarMonitorias( this.logService.getUser().id, monitorias[i]).subscribe(
-        result => console.log(result),
-        error => console.log(error)
-      );
-    }
-    
-    */
-
-
-  
-
   cargarEventos(){
-
-    this.eventos = JSON.parse(localStorage.getItem("eventos"))
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email))
     console.log("Lo que sale", this.eventos);
     try {
       for(let i=0; i<this.eventos.length; i++){
@@ -397,14 +362,12 @@ export class CalendarioPage implements OnInit {
 
     console.log(this.eventSource);
     //localStorage.removeItem("eventos");
-    localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
     console.log("Lo que sale 2", this.eventSource);
     //this.myCal.loadEvents();
   }
 
   onEventSelected(aaaa){
-    console.log("->",aaaa)
-    console.log("-->", aaaa.id)
     this.presentAlert(aaaa.id)
   }
 
@@ -467,7 +430,7 @@ export class CalendarioPage implements OnInit {
             }
             this.eventSource.splice(a,1)
             console.log("Despues", indice,this.eventSource)
-            localStorage.setItem("eventos", JSON.stringify(this.eventSource))
+            localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
             this.myCal.loadEvents();
           }
         }

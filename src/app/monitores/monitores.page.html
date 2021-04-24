@@ -76,8 +76,8 @@
     </div>
 
     <div id="tarjetasMonitores">
-        <ion-card *ngFor="let monitor of monitores; let indice=index">
-          <div class="datosMonitor" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
+        <ion-card *ngFor="let monitor of monitores; let indice=index" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
+          <div class="datosMonitor">
             <ion-card-header>
               <h1>{{monitor.nombre}}</h1>
             </ion-card-header>

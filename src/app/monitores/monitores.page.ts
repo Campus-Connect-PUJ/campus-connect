@@ -84,8 +84,10 @@ export class MonitoresPage implements OnInit {
   }
 
   mirarProblemasHorarios(monitor: UsuarioGeneral){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"))
+
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
     
+    console.log("-->", this.eventos)
     let eventosMonitor = monitor.monitorDe;
     console.log("Monitor", eventosMonitor)
     console.log("Usuario", this.eventos)
