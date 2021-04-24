@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Eventualidad } from 'src/app/Model/Eventualidad/eventualidad';
+import { EventualidadService } from 'src/app/Model/Eventualidad/eventualidad.service';
 import { tipos_eventualidades } from 'src/app/services/tipos_eventualidades';
 
 @Component({
@@ -18,12 +20,11 @@ export class ReporteEventualidadesPage implements OnInit {
   selected_tipo_eventualidad: any = null;
   descripcion: any = null;
 
-  url = "localhost"
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private evService: EventualidadService
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params && params.destino && params.origen) {
@@ -52,7 +53,7 @@ export class ReporteEventualidadesPage implements OnInit {
 
   radioGroupChange(event) {
     console.log("radioGroupChange", event.detail);
-    this.selected_tipo_eventualidad = event.detail;
+    this.selected_tipo_eventualidad = event.detail.value;
   }
 
   async sendInfo(event) {
@@ -65,7 +66,7 @@ export class ReporteEventualidadesPage implements OnInit {
         buttons: ["OK"],
       });
       await alert.present();
-    }else{
+    } else {
       if (this.descripcion == null || this.descripcion == "") {
         let alert = await this.alertController.create({
           cssClass: "custom-class-alert",
@@ -78,6 +79,19 @@ export class ReporteEventualidadesPage implements OnInit {
         await alert.present();
       } else {
         //TODO enviar datos al back
+        var evEnviar = new Eventualidad()
+        evEnviar.descripcion = this.descripcion
+        evEnviar.latitud = this.actual.lat
+        evEnviar.longitud = this.actual.lng;
+        evEnviar.tipo = this.selected_tipo_eventualidad
+        this.evService.createEventualidad(evEnviar).subscribe(
+          (results) => {
+            console.log(results);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       }
     }
   }
