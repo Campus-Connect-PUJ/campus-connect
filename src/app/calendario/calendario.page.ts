@@ -201,14 +201,47 @@ export class CalendarioPage implements OnInit {
 
     
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
-      console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
-      eventCopy = eventCopy2;
-      eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
+      console.log("..............................................")
       let horas = Number(tiempos2[0])- Number(tiempos1[0]);
       let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
+      console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
+
+      eventCopy.title = eventCopy2.title;
+      eventCopy.startTime = eventCopy2.startTime;
+
+
+      
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
+
+      eventCopy.endTime = moment("2019-05-10").toDate();
+
+      
+      //eventCopy.endTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
+      //eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[0]),'hours').toDate();
+      //eventCopy.endTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
+      console.log("Quitado las horas", eventCopy.endTime)
+      
+      console.log("Sumar las horas", eventCopy.endTime, " ", Number(tiempos2[0]))
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
+      console.log("Fecha inicial", eventCopy.startTime)
+      console.log("Fecha final", eventCopy.endTime)
+
+      eventCopy.id = cantidadDeEventos;
+      cantidadDeEventos++;
+
+      //console.log("lll",eventCopy)
+
+      //eventCopy = eventCopy2;
+      /*
+      eventCopy.monitoria = this.monitoria;
+      eventCopy.startTime = moment(fechaInicioTotal).add(i,'days').toDate();
+      
       console.log("Horas ", horas)
       console.log("Minutos ", minutos)
-      eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
+      //eventCopy.endTime = moment(eventCopy.startTime).add(horas,'hours').toDate();
       //eventCopy.endTime = moment(eventCopy.endTime).add(0,'minutes').toDate();
       //console.log("Diferencia de horas "+ eventCopy.endTime)
       console.log("Minutos", eventCopy.endTime.getMinutes())
@@ -218,6 +251,11 @@ export class CalendarioPage implements OnInit {
       eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
       //console.log("Diferencia de minutos "+ eventCopy.endTime)
       eventCopy.id = cantidadDeEventos;
+
+
+
+
+      */
       cantidadDeEventos++;
       fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
@@ -226,6 +264,8 @@ export class CalendarioPage implements OnInit {
       eventCopy.endTime = moment(eventCopy.endTime).toDate();
       this.eventSource.push(eventCopy);
       localStorage.removeItem(eventCopy.title);
+
+
     }
 
 
