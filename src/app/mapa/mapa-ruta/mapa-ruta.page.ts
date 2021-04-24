@@ -172,12 +172,23 @@ export class MapaRutaPage implements OnInit {
   }
 
   private generarRuta() {
-    let coordinates = {
-      coordinates: [
-        [this.origen.lng, this.origen.lat],
-        [this.destino.lng, this.destino.lat],
-      ],
-    };
+    let coordinates = null;
+    if(this.multipolygon != null){
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+        options: { avoid_polygons: this.multipolygon },
+      };
+    }else{
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+      };
+    }
     const body = JSON.stringify(coordinates);
 
     var httpOptions = {
@@ -218,14 +229,29 @@ export class MapaRutaPage implements OnInit {
       if (this.geoJSON_layer != null) {
         this.map.removeLayer(this.geoJSON_layer);
       }
-
-      let coordinates = {
-        coordinates: [
-          [this.origen.lng, this.origen.lat],
-          [this.destino.lng, this.destino.lat],
-        ],
-        options: { avoid_features: ["steps"] },
-      };
+      let coordinates;
+      if(this.multipolygon != null){
+        coordinates = {
+          coordinates: [
+            [this.origen.lng, this.origen.lat],
+            [this.destino.lng, this.destino.lat],
+          ],
+          options: {
+            avoid_features: ["steps"],
+          },
+        };
+      }else{
+        coordinates = {
+          coordinates: [
+            [this.origen.lng, this.origen.lat],
+            [this.destino.lng, this.destino.lat],
+          ],
+          options: {
+            avoid_features: ["steps"],
+            avoid_polygons: this.multipolygon,
+          },
+        };
+      }
       const body = JSON.stringify(coordinates);
 
       var httpOptions = {
@@ -248,12 +274,28 @@ export class MapaRutaPage implements OnInit {
       if (this.geoJSON_layer != null) {
         this.map.removeLayer(this.geoJSON_layer);
       }
-      let coordinates = {
-        coordinates: [
-          [this.origen.lng, this.origen.lat],
-          [this.destino.lng, this.destino.lat],
-        ],
-      };
+      let coordinates;
+      if(this.multipolygon != null){
+        coordinates = {
+          coordinates: [
+            [this.origen.lng, this.origen.lat],
+            [this.destino.lng, this.destino.lat],
+          ],
+          options: {
+            avoid_polygons: this.multipolygon,
+          },
+        };
+      }else{
+        coordinates = {
+          coordinates: [
+            [this.origen.lng, this.origen.lat],
+            [this.destino.lng, this.destino.lat],
+          ],
+          options: {
+            avoid_polygons: this.multipolygon,
+          },
+        };
+      }
       const body = JSON.stringify(coordinates);
 
       var httpOptions = {

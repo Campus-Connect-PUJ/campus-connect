@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
-    redirectTo: "mapa-principal",
+    redirectTo: "home",
     pathMatch: "full",
   },
   {
@@ -86,70 +86,53 @@ const routes: Routes = [
       ).then((m) => m.FormularioPersoGruposPageModule),
   },
   {
-    path: "servicios-academicos",
-    loadChildren: () =>
-      import("./servicios-academicos/servicios-academicos.module").then(
-        (m) => m.ServiciosAcademicosPageModule
-      ),
+    path: 'servicios-academicos',
+    loadChildren: () => import('./servicios-academicos/servicios-academicos.module').then( m => m.ServiciosAcademicosPageModule)
   },
   {
-    path: "recomendacion-tip",
-    loadChildren: () =>
-      import("./recomendacion-tip/recomendacion-tip.module").then(
-        (m) => m.RecomendacionTipPageModule
-      ),
+    path: 'recomendacion-tip',
+    loadChildren: () => import('./recomendacion-tip/recomendacion-tip.module').then(m => m.RecomendacionTipPageModule)
   },
   {
-    path: "tips",
-    children: [
+    path: 'tips',
+    children:[
       {
         path: "",
-        loadChildren: () =>
-          import("./tips/tips.module").then((m) => m.TipsPageModule),
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       },
       {
         path: ":tipId",
-        loadChildren: () =>
-          import("./tips/tip-detalles/tip-detalles.module").then(
-            (m) => m.TipDetallesPageModule
-          ),
+        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
       },
       {
         path: "usuario/:usuarioId",
-        loadChildren: () =>
-          import("./tips/tips.module").then((m) => m.TipsPageModule),
-      },
-    ],
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      }
+    ]
   },
   {
-    path: "tabs",
-    loadChildren: () =>
-      import("./tabs/tabs.module").then((m) => m.TabsPageModule),
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
-    path: "foros",
-    children: [
+    path: 'foros',
+    children:[
       {
         path: "",
-        loadChildren: () =>
-          import("./foros/foros.module").then((m) => m.ForosPageModule),
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       },
       {
         path: ":foroId",
-        loadChildren: () =>
-          import("./foros/foro-detalles/foro-detalles.module").then(
-            (m) => m.ForoDetallesPageModule
-          ),
+        loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
       },
       {
         path: "usuario/:usuarioId",
-        loadChildren: () =>
-          import("./foros/foros.module").then((m) => m.ForosPageModule),
-      },
-    ],
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+      }
+    ]
   },
   {
-    path: "recomendar-restaurantes",
+    path: 'recomendar-restaurantes',
     children: [
       {
         path: "",
@@ -215,107 +198,64 @@ const routes: Routes = [
       ),
   },
   {
-    path: "datos-restaurante",
-    loadChildren: () =>
-      import(
-        "./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module"
-      ).then((m) => m.DatosRestaurantePageModule),
+    path: 'datos-restaurante',
+    loadChildren: () => import('./restaurantes/recomendar-restaurantes/datos-restaurante/datos-restaurante.module').then( m => m.DatosRestaurantePageModule)
   },
   {
-    path: "sugerencias-principal",
-    loadChildren: () =>
-      import("./sugerencias-principal/sugerencias-principal.module").then(
-        (m) => m.SugerenciasPrincipalPageModule
-      ),
+    path: 'sugerencias-principal',
+    loadChildren: () => import('./sugerencias-principal/sugerencias-principal.module').then( m => m.SugerenciasPrincipalPageModule)
   },
   {
-    path: "crowd-restaurante",
-    loadChildren: () =>
-      import("./restaurantes/crowd-restaurante/crowd-restaurante.module").then(
-        (m) => m.CrowdRestaurantePageModule
-      ),
+    path: 'crowd-restaurante',
+    loadChildren: () => import('./restaurantes/crowd-restaurante/crowd-restaurante.module').then( m => m.CrowdRestaurantePageModule)
   },
   {
-    path: "monitores",
-    loadChildren: () =>
-      import("./monitores/monitores.module").then((m) => m.MonitoresPageModule),
+    path: 'monitores',
+    loadChildren: () => import('./monitores/monitores.module').then( m => m.MonitoresPageModule)
   },
   {
-    path: "foro-crear",
-    loadChildren: () =>
-      import("./foros/foro-crear/foro-crear.module").then(
-        (m) => m.ForoCrearPageModule
-      ),
+    path: 'foro-crear',
+    loadChildren: () => import('./foros/foro-crear/foro-crear.module').then( m => m.ForoCrearPageModule)
   },
   {
-    path: "tip-crear",
-    loadChildren: () =>
-      import("./tips/tip-crear/tip-crear.module").then(
-        (m) => m.TipCrearPageModule
-      ),
+    path: 'tip-crear',
+    loadChildren: () => import('./tips/tip-crear/tip-crear.module').then( m => m.TipCrearPageModule)
   },
   {
-    path: "calendario",
-    loadChildren: () =>
-      import("./calendario/calendario.module").then(
-        (m) => m.CalendarioPageModule
-      ),
+    path: 'calendario',
+    loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
   },
   {
-    path: "contribuciones",
-    loadChildren: () =>
-      import("./contribuciones/contribuciones.module").then(
-        (m) => m.ContribucionesPageModule
-      ),
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
   },
   {
-    path: "agregar-tipo-aprendizaje",
-    loadChildren: () =>
-      import(
-        "./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module"
-      ).then((m) => m.AgregarTipoAprendizajePageModule),
+    path: 'agregar-tipo-aprendizaje',
+    loadChildren: () => import('./recomendacion-tip/agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   },
   {
-    path: "mapa-ruta",
-    loadChildren: () =>
-      import("./mapa/mapa-ruta/mapa-ruta.module").then(
-        (m) => m.MapaRutaPageModule
-      ),
+    path: 'mapa-ruta',
+    loadChildren: () => import('./mapa/mapa-ruta/mapa-ruta.module').then( m => m.MapaRutaPageModule)
   },
   {
-    path: "lista-sitios",
-    loadChildren: () =>
-      import("./mapa/lista-sitios/lista-sitios.module").then(
-        (m) => m.ListaSitiosPageModule
-      ),
+    path: 'lista-sitios',
+    loadChildren: () => import('./mapa/lista-sitios/lista-sitios.module').then( m => m.ListaSitiosPageModule)
   },
   {
-    path: "contribuciones",
-    loadChildren: () =>
-      import("./contribuciones/contribuciones.module").then(
-        (m) => m.ContribucionesPageModule
-      ),
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
   },
   {
-    path: "cambiar-monitor",
-    loadChildren: () =>
-      import("./cambiar-monitor/cambiar-monitor.module").then(
-        (m) => m.CambiarMonitorPageModule
-      ),
+    path: 'cambiar-monitor',
+    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   },
   {
-    path: "lista-sitios-destino",
-    loadChildren: () =>
-      import("./mapa/lista-sitios-destino/lista-sitios-destino.module").then(
-        (m) => m.ListaSitiosDestinoPageModule
-      ),
+    path: 'lista-sitios-destino',
+    loadChildren: () => import('./mapa/lista-sitios-destino/lista-sitios-destino.module').then( m => m.ListaSitiosDestinoPageModule)
   },
   {
-    path: "reporte-eventualidades",
-    loadChildren: () =>
-      import(
-        "./mapa/reporte-eventualidades/reporte-eventualidades.module"
-      ).then((m) => m.ReporteEventualidadesPageModule),
+    path: 'reporte-eventualidades',
+    loadChildren: () => import('./mapa/reporte-eventualidades/reporte-eventualidades.module').then( m => m.ReporteEventualidadesPageModule)
   },
 
   /*
@@ -332,6 +272,7 @@ const routes: Routes = [
     ]
   }
 */
+
 ];
 @NgModule({
   imports: [

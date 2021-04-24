@@ -102,6 +102,14 @@ export class ReporteEventualidadesPage implements OnInit {
             console.error(error);
           }
         );
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+            destino: JSON.stringify(this.destino),
+            origen: JSON.stringify(this.origen),
+            actual: JSON.stringify(this.actual),
+          },
+        };
+        this.router.navigate(["mapa-ruta"], navigationExtras);
       }
     }
   }

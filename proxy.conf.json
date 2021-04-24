@@ -1,6 +1,6 @@
 {
-    "/api/*":{
-        "target": "https://api.openrouteservice.org/v2/directions/foot-walking/geojson",
+    "/v2/*":{
+        "target": "https://api.openrouteservice.org",
         "secure": false,
         "loglevel": "debug"
     }
