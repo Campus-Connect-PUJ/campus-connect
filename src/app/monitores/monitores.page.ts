@@ -98,7 +98,8 @@ export class MonitoresPage implements OnInit {
 
 
 
-    for(let i=0; i<this.eventos.length-1; i++){
+    for(let i=0; i<this.eventos.length; i++){
+      let ocupado = false;
       console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime))
 
       for(let j=0; j<eventosMonitor.length; j++){
@@ -108,17 +109,14 @@ export class MonitoresPage implements OnInit {
 
           console.log("Prueba ", moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') , " ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm") ," = (", horarioInicialMonitor.format("DD-MM-YYYY HH:mm"), ",", horarioFinalMonitor.format("DD-MM-YYYY HH:mm"), ")")
 
-
           if( !moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') && !moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)')){
             console.log("Disponible")
+            ocupado = true;
           }
         }
-        /*
-        for(let j=0; j<eventosMonitor[i].horarios.length; j++){
-          console.log(j);
-          console.log(moment(eventosMonitor[i].horarios[j].fi).format('DD-MM-YYYY HH:mm')," ", moment(eventosMonitor[i].horarios[j].ff).format('DD-MM-YYYY HH:mm'))
+        if(ocupado){
+          console.log("*********************esta")
         }
-        */
       }
     }
 
