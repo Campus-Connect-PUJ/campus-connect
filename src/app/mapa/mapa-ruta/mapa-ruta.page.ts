@@ -185,7 +185,7 @@ export class MapaRutaPage implements OnInit {
         Accept:
           "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
         "Content-Type": "application/json",
-        Authorization: this.api_key_openrouteservice
+        Authorization: this.api_key_openrouteservice,
       }),
     };
 
@@ -233,7 +233,7 @@ export class MapaRutaPage implements OnInit {
           Accept:
             "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
           "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice
+          Authorization: this.api_key_openrouteservice,
         }),
       };
 
@@ -261,7 +261,7 @@ export class MapaRutaPage implements OnInit {
           Accept:
             "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
           "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice
+          Authorization: this.api_key_openrouteservice,
         }),
       };
 
