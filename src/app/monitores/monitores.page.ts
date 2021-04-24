@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.component';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { evento } from '../calendario/evento';
+import * as moment from 'moment';
+import { Monitoria } from '../Model/Monitoria/monitoria';
 
 @Component({
   selector: 'app-monitores',
@@ -84,6 +86,8 @@ export class MonitoresPage implements OnInit {
   }
 
   mirarProblemasHorarios(monitor: UsuarioGeneral){
+    let interrumpe = false;
+    let monitoriasDisponibles = new Array<Monitoria>();
 
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
     
@@ -93,10 +97,38 @@ export class MonitoresPage implements OnInit {
     console.log("Usuario", this.eventos)
 
 
+    for(let i=0; i<eventosMonitor.length; i++){
+      for(let j=0; j<eventosMonitor[i].horarios.length; j++){
+        let fechaInicio = moment(eventosMonitor[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm');
+        let fechaFin = moment(eventosMonitor[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm');
+        let fechaFin2 = moment(this.eventos[i].startTime).format('DD-MM-YYYY HH:mm');
+        console.log(fechaInicio, " ", fechaFin, " ", fechaFin2, " ", moment(this.eventos[i].endTime).format('DD-MM-YYYY HH:mm'))
+        //console.log("-> ", fechaInicio, " ", fechaFin, " ", moment(this.eventos[0].sTime).format('DD-MM-YYYY HH:mm'),moment(this.eventos[0].endTime).format('DD-MM-YYYY HH:mm'))
+
+        //console.log("---> ", moment(this.eventos[0].startTime).isBetween(fechaInicio, fechaFin, undefined, '[]')," = ", fechaInicio, " ", fechaFin, " ", this.eventos[0].startTime )
+        
+        /*
+        for(let k=0; k<this.eventos.length; k++){
+         
+          let inicioUsuario = moment(this.eventos[k].startTime);
+          let finUsuario = moment(this.eventos[k].endTime);
+          console.log("---> ", moment(inicioUsuario).isBetween(fechaInicio, fechaFin, undefined, '[]')," = ", fechaInicio, " ", fechaFin, " ", inicioUsuario )
+          if(moment(inicioUsuario).isBetween(fechaInicio, fechaFin, undefined, '[]')){
+            console.log("igual")
+          }
+
+        }
+
+        */
+        
+
+
+      }
+    }
 
 
 
-    
+    console.log("eventos posibles ", monitoriasDisponibles.length)
   }
 
 
