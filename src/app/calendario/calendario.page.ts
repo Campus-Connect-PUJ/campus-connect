@@ -377,8 +377,7 @@ export class CalendarioPage implements OnInit {
     console.log(this.eventSource);
     //localStorage.removeItem("eventos");
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
-    console.log("Lo que sale 2", this.eventSource);
-    console.log(moment(this.eventSource[0].startTime).format('DD-MM-YYYY HH:mm'));
+
     //this.myCal.loadEvents();
   }
 
