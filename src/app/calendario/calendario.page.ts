@@ -195,7 +195,6 @@ export class CalendarioPage implements OnInit {
     let fechaFinTotal = moment(eventCopy2.endTime);
     let tiempos1 = eventCopy2.sTime.split(":");
     let tiempos2 = eventCopy2.eTime.split(":");
-    let a = 0;
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
     let base = moment(eventCopy2.startTime);
@@ -243,6 +242,9 @@ export class CalendarioPage implements OnInit {
       eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
     }
 
+    if(this.eventSource.length > 0){
+      this.eventSource.pop()
+    }
     
     console.log("antes de grabar ->", this.eventSource)
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
