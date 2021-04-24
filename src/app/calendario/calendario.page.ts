@@ -206,7 +206,7 @@ export class CalendarioPage implements OnInit {
       let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
       console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
 
-      eventCopy.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
+      
       console.log("Mirar", eventCopy.startTime);
 
       eventCopy.title = eventCopy2.title;
@@ -250,26 +250,22 @@ export class CalendarioPage implements OnInit {
       //console.log("Diferencia de minutos "+ eventCopy.endTime)
       eventCopy.id = cantidadDeEventos;
 
-
-
-
       */
-      cantidadDeEventos++;
-      fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
-      console.log("Nueva fecha", fechaInicioTotal)
+      
+
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
       eventCopy.startTime = moment(eventCopy.startTime).toDate();
       eventCopy.endTime = moment(eventCopy.endTime).toDate();
       this.eventSource.push(eventCopy);
       localStorage.removeItem(eventCopy.title);
-
-
+      fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
+      eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
     }
 
 
     if(!moment(fechaInicioTotal).isBefore(fechaFinTotal) ){
-      this.eventSource.splice( this.eventSource.length-1, 1)
+      //this.eventSource.splice( this.eventSource.length-1, 1)
     }
     
     console.log("antes de grabar ->", this.eventSource)
