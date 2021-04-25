@@ -17,6 +17,8 @@ export class TipsPage implements OnInit {
   tiposDeAprendizaje: TipoAprendizaje[][] = [];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
   tiposDeAprendizajeSeleccionados = []
+  nivelesDeExigenciaSeleccionados = [];
+
   textoBuscar='';
   textoBuscar2='';
   tipos: string[] = [];
@@ -50,7 +52,7 @@ export class TipsPage implements OnInit {
         this.tips = results;
         for(let i=0; i<this.tips.length; i++){
           console.log(".>", this.tips[i])
-          if(this.tips[i].usuario.id === idUsuario){
+          if(this.tips[i].idUsuarioCreador === idUsuario){
             tipsUsuario.push(this.tips[i]);
           }
         }

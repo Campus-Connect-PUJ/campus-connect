@@ -31,7 +31,8 @@ export class TipsService {
         tip: {
           descripcion: tipEnviar.descripcion
         },
-        tiposAprendizaje: tipEnviar.tiposAprendizaje
+        tiposAprendizaje: tipEnviar.tiposAprendizaje,
+        exigencia: 3
       }
     );
   }
