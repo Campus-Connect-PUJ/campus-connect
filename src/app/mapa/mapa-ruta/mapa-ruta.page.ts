@@ -73,7 +73,7 @@ export class MapaRutaPage implements OnInit {
     this.polygons_eventualidades = new Array();
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
-        console.log(results);
+        console.log("results",results);
         this.eventualidades = results;
         console.log(this.eventualidades);
         this.eventualidades.forEach((element) => {
