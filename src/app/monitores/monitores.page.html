@@ -28,55 +28,19 @@
             </ion-card-content>
           </div>
         </ion-card>
-
-
-    <!----
-      <ion-card class="sugerencia">
-        <ion-card-header>
-          <ion-avatar>
-            <img src="https://i.pinimg.com/736x/50/2c/e6/502ce612623e76f1026986ea0d249b7d.jpg">
-          </ion-avatar>
-        </ion-card-header>
-        <ion-card-content>
-          <h1>Nombre Nombre</h1>
-          <h2>Materia</h2>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card class="sugerencia">
-        <ion-card-header>
-          <ion-avatar>
-            <img src="https://i.pinimg.com/originals/3c/cb/9c/3ccb9ca70695adf6de270c0d016c338c.jpg">
-          </ion-avatar>
-        </ion-card-header>
-        <ion-card-content>
-          <h1>Nombre Nombre</h1>
-          <h2>Materia</h2>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card class="sugerencia">
-        <ion-card-header>
-          <ion-avatar>
-            <img src="https://memegenerator.net/img/images/73024887.jpg">
-          </ion-avatar>
-        </ion-card-header>
-        <ion-card-content>
-          <h1>Nombre Nombre</h1>
-          <h2>Materia</h2>
-        </ion-card-content>
-      </ion-card>
-      ---->
     </div>
   </div>
   
+  <ion-button [routerLink]="['/monitores/horarios-monitor']"> Mostrar horarios sugeridos </ion-button>
+
+
   <div id="listaMonitores">
     <div class="titulo">
       <h2>Monitores</h2>
     </div>
 
     <div id="tarjetasMonitores">
-        <ion-card *ngFor="let monitor of monitores; let indice=index" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
+        <ion-card *ngFor="let monitor of monitores; let indice=index" [routerLink]="['/monitores/horarios-monitor', monitor.id]" >
           <div class="datosMonitor">
             <ion-card-header>
               <h1>{{monitor.nombre}}</h1>

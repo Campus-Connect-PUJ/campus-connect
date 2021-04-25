@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path: ":monitorID",
         loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
+      },
+      {
+        path: "",
+        loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
       }
     ]
   }

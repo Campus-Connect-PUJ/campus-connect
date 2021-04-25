@@ -9,6 +9,7 @@ import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { evento } from '../calendario/evento';
 import * as moment from 'moment';
 import { Monitoria } from '../Model/Monitoria/monitoria';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-monitores',
@@ -20,13 +21,14 @@ export class MonitoresPage implements OnInit {
   monitoresRecomendados:  Array<UsuarioGeneral> = [];
   usuarioActual: UsuarioGeneral;
 
-  public eventos: evento[] = [];
+  eventos: evento[] = [];
 
   constructor(private popoverCtrl:PopoverController, 
     private monService: MonitoriaService,
     public navCtrl: NavController,
     private logService: LoginService,
-    private userService: UsuarioGeneralService
+    private userService: UsuarioGeneralService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -58,8 +60,11 @@ export class MonitoresPage implements OnInit {
 
     const {data} = await popover.onDidDismiss();
     console.log(data);
+    //this.router.navigate(['/calculadora/materias']);
+
     if(data.presionado > 0){
       //this.navCtrl.setDirection("/servicios-academicos")
+      
     }
 
     this.monService.votarMonitor(268,5).subscribe(
@@ -98,11 +103,6 @@ export class MonitoresPage implements OnInit {
     let eventosMonitor = monitor.monitorDe;
     console.log("Monitor", eventosMonitor)
     console.log("Usuario", this.eventos)
-
-
-    
-      
-      //console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime))
 
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){

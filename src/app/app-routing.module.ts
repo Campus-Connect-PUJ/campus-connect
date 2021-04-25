@@ -249,20 +249,8 @@ const routes: Routes = [
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   },
-  /*
-  {
-    path: "horarios-monitor",
-    children: [
-      {
-        path: ":monitorID",
-        loadChildren: () =>
-          import(
-            './monitores/monitor-horarios/monitor-horarios.module'
-          ).then((m) => m.MonitorHorariosPageModule),
-      }
-    ]
-  }
-*/
+ 
+
 
 ];
 @NgModule({
