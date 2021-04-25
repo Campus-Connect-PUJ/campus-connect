@@ -248,7 +248,7 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
-  },
+  }
  
 
 

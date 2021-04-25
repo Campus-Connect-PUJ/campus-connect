@@ -1,3 +1,5 @@
+import { HorarioMonitoria } from './HorarioMonitoria';
+import { Asignatura } from './../../Model/Asignatura/asignatura';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MonitoriaService } from 'src/app/Model/Monitoria/monitoria.service';
@@ -15,7 +17,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class MonitorHorariosPage implements OnInit {
   idMonitor = 0;
-  horarios: Monitoria[] = [];
+  
   horasInicial: string[] = [];
   horasFinal: string[] = [];
   monitores: Array<UsuarioGeneral> = [];
@@ -25,7 +27,11 @@ export class MonitorHorariosPage implements OnInit {
   voto = 0;
   errorSi = false;
 
-  monitor: UsuarioGeneral;
+  monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
+  asignaturas: Array<Monitoria> = [];
+  horariosSugeridos: Array<HorarioMonitoria> = [];
+  horarios: Monitoria[] = [];
+
 
   constructor(
     private activatedRoute: ActivatedRoute, 
@@ -50,13 +56,11 @@ export class MonitorHorariosPage implements OnInit {
                 this.monitor = this.monitores[i];
               }
             }
-            //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
-            //this.sugerenciasMonitores(this.monitores)
-            this.mirarProblemasHorarios(this.monitor)
+            this.sugerenciasHorariosMonitorias(this.monitor)
+            this.obtenerAsignaturas(this.monitor)
           },
           error => console.log(error)
         )
-        //this.findHorarios();
       }
       else{
         console.log("Lo otro")
@@ -64,6 +68,37 @@ export class MonitorHorariosPage implements OnInit {
 
     })
   }
+
+  obtenerAsignaturas(monitor: UsuarioGeneral){
+    let ingresar = true;
+    for(let i=0; i<monitor.monitorDe.length; i++){
+      if(this.asignaturas.length == 0){
+        this.asignaturas.push(monitor.monitorDe[i])
+      }
+      else{
+        for(let j=0; j<this.asignaturas.length && ingresar; j++){
+          if(monitor.monitorDe[i].id == this.asignaturas[j].id){
+            ingresar = false;
+          }
+        }
+        if(ingresar){
+          this.asignaturas.push(monitor.monitorDe[i])
+        }
+      }
+    }
+  }
+
+ 
+
+
+
+  //Sugerencia de horarios de monitorias
+
+  //Mirar fechas sin conflicto
+
+
+
+
 
   
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
@@ -96,6 +131,7 @@ export class MonitorHorariosPage implements OnInit {
   }
 
 
+  /*
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
     this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
     for(let i=0; i<monitores.length; i++){
@@ -103,7 +139,7 @@ export class MonitorHorariosPage implements OnInit {
         for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
             //console.log(this.monitores[i].estilosAprendizaje, " ", this.usuarioActual.estilosAprendizaje)
             if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])){
-              this.mirarProblemasHorarios(monitores[i])
+              //this.mirarProblemasHorarios(monitores[i])
               this.monitoresRecomendados.push(monitores[i]);
             }
         }
@@ -111,10 +147,15 @@ export class MonitorHorariosPage implements OnInit {
     }
     console.log(this.monitoresRecomendados)
   }
+*/
 
-  mirarProblemasHorarios(monitor: UsuarioGeneral){
+
+  sugerenciasHorariosMonitorias(monitor: UsuarioGeneral){
     let monitoriasDisponibles = new Array<Monitoria>();
     let horarios = new Array<Horario>();
+    let fechaReferencia = moment();
+    fechaReferencia = moment(fechaReferencia).add(30,'days');
+
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
     let eventosMonitor = monitor.monitorDe;
   
@@ -140,12 +181,73 @@ export class MonitorHorariosPage implements OnInit {
 
         if(!ocupado){
           console.log("*********************Disponible")
-          horarios.push(eventosMonitor[j].horarios[k])
-          monitoriasDisponibles.push(eventosMonitor[j])
+          //Cancelar cuando ya sean varios eventos sugeridos
+          if( moment(horarioInicialMonitor).isSameOrBefore(fechaReferencia) && moment(horarioFinalMonitor).isSameOrBefore(fechaReferencia)){
+            this.agregarHorariosSugeridos(eventosMonitor[j], eventosMonitor[j].horarios[k]);
+          }
+
         }   
       }
     }
-    console.log("eventos posibles ", horarios)
+    
+    this.horariosSugeridos = this.ordenarSugerencias();
+    console.log("eventos posibles ", this.horariosSugeridos)
+  }
+
+  ordenarSugerencias(){
+    let sugerenciasOrdenadas = this.horariosSugeridos;
+    let sugerencias = new Array<HorarioMonitoria>();
+    console.log("sin ordenas", sugerenciasOrdenadas)
+
+    sugerenciasOrdenadas.sort(function (a, b) {
+      if(moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm")) ){
+        return 1;
+      }
+      if (!moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm"))){
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    
+    console.log("ordenas", sugerenciasOrdenadas)
+
+    if(sugerenciasOrdenadas.length>=3){
+      for(let i=0; i<3; i++){
+        sugerencias.push(sugerenciasOrdenadas[i])
+      }
+      sugerenciasOrdenadas = sugerencias;
+    }
+    
+
+    return sugerenciasOrdenadas;
+  }
+
+  agregarHorariosSugeridos(datos: Monitoria, horario: Horario) {
+    let data: HorarioMonitoria = new HorarioMonitoria();
+    let ingresar = true;
+    data.id = horario.id;
+    data.nombreAsignatura = datos.asignatura.nombre;
+    data.fi = horario.fi;
+    data.ff = horario.ff;
+
+    if(this.horariosSugeridos.length==0){
+      this.horariosSugeridos.push(data);
+    }
+    else{
+      for(let i=0; i<this.horariosSugeridos.length; i++){
+        if(this.horariosSugeridos[i].id == data.id){
+          ingresar = false;
+        }
+      }
+      if(ingresar){
+        this.horariosSugeridos.push(data);
+      }
+    }
+
+    
+
+    
   }
 
 

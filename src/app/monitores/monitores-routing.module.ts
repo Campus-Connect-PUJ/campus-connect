@@ -13,14 +13,49 @@ const routes: Routes = [
     children: [
       {
         path: ":monitorID",
-        loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
+        children: [
+          {
+            path: "",
+            loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
+          },
+          {
+            path: "monitor-asignatura",
+            children: [
+              {
+                path: ":asignaturaID",
+                loadChildren: () => import('./monitor-asignatura/monitor-asignatura.module').then( m => m.MonitorAsignaturaPageModule)
+              }
+            ] 
+          }
+        ]
       },
       {
         path: "",
         loadChildren: () => import('./monitor-horarios/monitor-horarios.module').then( m => m.MonitorHorariosPageModule)
+      },
+ 
+    ]
+  },
+
+
+  {
+    path: "monitor-asignatura",
+    children: [
+      {
+        path: ":asignaturaID",
+        loadChildren: () => import('./monitor-asignatura/monitor-asignatura.module').then( m => m.MonitorAsignaturaPageModule)
       }
     ]
+  },
+
+
+
+/*
+  {
+    path: 'monitor-asignatura',
+    loadChildren: () => import('./monitor-asignatura/monitor-asignatura.module').then( m => m.MonitorAsignaturaPageModule)
   }
+*/
 ];
 
 @NgModule({
