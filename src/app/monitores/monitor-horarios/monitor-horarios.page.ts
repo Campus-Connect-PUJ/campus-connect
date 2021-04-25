@@ -25,6 +25,8 @@ export class MonitorHorariosPage implements OnInit {
   voto = 0;
   errorSi = false;
 
+  monitor: UsuarioGeneral;
+
   constructor(
     private activatedRoute: ActivatedRoute, 
     private monService: MonitoriaService,
@@ -43,9 +45,14 @@ export class MonitorHorariosPage implements OnInit {
         this.monService.obtenerMonitores().subscribe(
           result => {
             this.monitores = result;
-            console.log("Monitores ",this.monitores)
-            this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
-            this.sugerenciasMonitores(this.monitores)
+            for(let i=0; i<this.monitores.length; i++){
+              if(this.monitores[i].id == this.idMonitor){
+                this.monitor = this.monitores[i];
+              }
+            }
+            //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
+            //this.sugerenciasMonitores(this.monitores)
+            this.mirarProblemasHorarios(this.monitor)
           },
           error => console.log(error)
         )
@@ -91,7 +98,6 @@ export class MonitorHorariosPage implements OnInit {
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
     this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
-
     for(let i=0; i<monitores.length; i++){
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
         for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
@@ -103,36 +109,25 @@ export class MonitorHorariosPage implements OnInit {
         }
       }
     }
-
     console.log(this.monitoresRecomendados)
-
   }
 
   mirarProblemasHorarios(monitor: UsuarioGeneral){
-    let interrumpe = false;
     let monitoriasDisponibles = new Array<Monitoria>();
     let horarios = new Array<Horario>();
-
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-    
-    console.log("-->", this.eventos)
     let eventosMonitor = monitor.monitorDe;
-    console.log("Monitor", eventosMonitor)
-    console.log("Usuario", this.eventos)
-
+  
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){
-          
-          let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
-          let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
-          let ocupado = false;
-
+        let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
+        let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
+        let ocupado = false;
         try {
           for(let i=0; i<this.eventos.length && !ocupado; i++){
-            console.log("Cantidad de eventos usuario ", this.eventos.length )
-            console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
+            //console.log("Cantidad de eventos usuario ", this.eventos.length )
+            //console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
             if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
-              console.log(ocupado)
               ocupado = true;
             }
             else if( moment(moment(horarioInicialMonitor)).isBetween(moment(this.eventos[i].startTime), moment(this.eventos[i].endTime), undefined, '(]') || moment(moment(horarioFinalMonitor)).isBetween(moment(this.eventos[i].startTime),  moment(this.eventos[i].endTime), undefined, '[)')){
@@ -150,8 +145,6 @@ export class MonitorHorariosPage implements OnInit {
         }   
       }
     }
-
-
     console.log("eventos posibles ", horarios)
   }
 
