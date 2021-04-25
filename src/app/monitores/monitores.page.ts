@@ -104,81 +104,40 @@ export class MonitoresPage implements OnInit {
       
       //console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime))
 
-      for(let j=0; j<eventosMonitor.length; j++){
-        for(let k=0; k<eventosMonitor[j].horarios.length; k++){
+    for(let j=0; j<eventosMonitor.length; j++){
+      for(let k=0; k<eventosMonitor[j].horarios.length; k++){
           
           let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
           let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
           let ocupado = false;
 
-          try {
-            for(let i=0; i<this.eventos.length && !ocupado; i++){
-              console.log("Cantidad de eventos usuario ", this.eventos.length )
-              console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
-              if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
-                console.log(ocupado)
-                ocupado = true;
-              }
-              else if( moment(moment(horarioInicialMonitor)).isBetween(moment(this.eventos[i].startTime), moment(this.eventos[i].endTime), undefined, '(]') || moment(moment(horarioFinalMonitor)).isBetween(moment(this.eventos[i].startTime),  moment(this.eventos[i].endTime), undefined, '[)')){
-                ocupado = true;
-              }
+        try {
+          for(let i=0; i<this.eventos.length && !ocupado; i++){
+            console.log("Cantidad de eventos usuario ", this.eventos.length )
+            console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
+            if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
+              console.log(ocupado)
+              ocupado = true;
             }
-            console.log("sale")
-            
-          } catch (error) {
-            console.log("usuario sin eventos")
-          }
-          if(!ocupado){
-            console.log("*********************Disponible")
-            horarios.push(eventosMonitor[j].horarios[k])
-            monitoriasDisponibles.push(eventosMonitor[j])
-          }
-          
-            
+            else if( moment(moment(horarioInicialMonitor)).isBetween(moment(this.eventos[i].startTime), moment(this.eventos[i].endTime), undefined, '(]') || moment(moment(horarioFinalMonitor)).isBetween(moment(this.eventos[i].startTime),  moment(this.eventos[i].endTime), undefined, '[)')){
+              ocupado = true;
+            }
+          }  
+        } catch (error) {
+          console.log("usuario sin eventos")
         }
-        
-      
-      
-    }
 
-/*
-    for(let i=0; i<this.eventos.length; i++){
-      let ocupado = false;
-      console.log(this.eventos[i].id,"-> ", moment(this.eventos[i].startTime), " ", moment(this.eventos[i].endTime))
-
-      for(let j=0; j<eventosMonitor.length; j++){
-        for(let k=0; k<eventosMonitor[j].horarios.length; k++){
-          let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
-          let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
-
-          console.log("Prueba ", moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') , " ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm") ," = (", horarioInicialMonitor.format("DD-MM-YYYY HH:mm"), ",", horarioFinalMonitor.format("DD-MM-YYYY HH:mm"), ")")
-
-          if( !moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') && !moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)')){
-            console.log("Disponible")
-            ocupado = true;
-          }
-        }
-        
-      }
-      if(!ocupado){
-        console.log("*********************esta")
-        monitoriasDisponibles.push()
+        if(!ocupado){
+          console.log("*********************Disponible")
+          horarios.push(eventosMonitor[j].horarios[k])
+          monitoriasDisponibles.push(eventosMonitor[j])
+        }   
       }
     }
 
-    
-*/
 
-    console.log("eventos posibles ", monitoriasDisponibles.length)
+    console.log("eventos posibles ", horarios)
   }
-
-
-
-
-
-
-
-
 
 
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
