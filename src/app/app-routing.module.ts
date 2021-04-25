@@ -248,8 +248,19 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },
+  {
+    path: 'respuestas-foro',
+    children: [
+      {
+        path: "usuario/:usuarioId",
+        loadChildren: () => import('./respuestas-foro/respuestas-foro.module').then(m => m.RespuestasForoPageModule)
+      }
+    ]
   }
+
  
+
 
 
 ];

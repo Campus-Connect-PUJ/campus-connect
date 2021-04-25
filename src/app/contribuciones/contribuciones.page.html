@@ -1,6 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>contribuciones</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button
+        href="/auth-home">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Contribuciones</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +32,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/foros/usuario', indice]">
+    <ion-card [routerLink]="['/respuestas-foro/usuario', indice]">
       <ion-card-header>
         <h1>Respuestas foros</h1>
       </ion-card-header>

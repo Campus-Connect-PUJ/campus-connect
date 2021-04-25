@@ -80,14 +80,13 @@ export class MonitoresPage implements OnInit {
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
         for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
             //console.log(this.monitores[i].estilosAprendizaje, " ", this.usuarioActual.estilosAprendizaje)
-            if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])){
-              this.mirarProblemasHorarios(monitores[i])
+            if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])  && monitores[i].id != this.usuarioActual.id){
+              //this.mirarProblemasHorarios(monitores[i])
               this.monitoresRecomendados.push(monitores[i]);
             }
         }
       }
     }
-
     console.log(this.monitoresRecomendados)
 
   }
