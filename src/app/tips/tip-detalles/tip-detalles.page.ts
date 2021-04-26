@@ -20,6 +20,8 @@ export class TipDetallesPage implements OnInit {
   tiposDeAprendizaje: TipoAprendizaje[] = [];
   indice: number;
   user: UsuarioGeneral;
+  votoPositivo = false;
+  votoNegativo = false;
 
   constructor(
     private tipsService: TipsService,
@@ -56,22 +58,32 @@ export class TipDetallesPage implements OnInit {
     this.user = this.loginService.getUser();
     this.indice = this.user.id;
     this.calificacionTip(voto, this.tip.id);
-    this.tip.puntaje = this.tip.puntaje + voto;
+
+    if(voto == 1 && !this.votoPositivo){
+      this.votoPositivo = true;
+      this.votoNegativo = false;
+      this.tip.puntaje = this.tip.puntaje + voto;
+    }
+    else if(voto == -1 && !this.votoNegativo){
+      this.votoNegativo = true;
+      this.votoPositivo = false;
+      this.tip.puntaje = this.tip.puntaje + voto;
+    }
 
   }
 
 
   calificacionTip(operacion: number, idTip: number){
-    let a: number;
-    a=1
+    this.user = this.loginService.getUser();
     if(operacion === 1){
-      this.tipsService.agregarTipGustado(a,this.tip.id).subscribe(
+      this.tipsService.agregarTipGustado(this.user.id, this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+
     }
     else{
-      this.tipsService.agregarTipNoGustado(a,this.tip.id).subscribe(
+      this.tipsService.agregarTipNoGustado(this.user.id, this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )

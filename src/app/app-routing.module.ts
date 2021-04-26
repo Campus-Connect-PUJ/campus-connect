@@ -257,7 +257,11 @@ const routes: Routes = [
         loadChildren: () => import('./respuestas-foro/respuestas-foro.module').then(m => m.RespuestasForoPageModule)
       }
     ]
+  },  {
+    path: 'test-aprendizaje',
+    loadChildren: () => import('./test-aprendizaje/test-aprendizaje.module').then( m => m.TestAprendizajePageModule)
   }
+
 
  
 

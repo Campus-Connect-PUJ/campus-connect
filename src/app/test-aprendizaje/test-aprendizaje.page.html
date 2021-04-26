@@ -1,0 +1,395 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>testAprendizaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-list>
+
+  <ion-radio-group [(ngModel)]="respuestas[0]">
+    <ion-list-header>
+      <h2>1. Usted cocinará algo especial para su familia. Usted haría:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Preguntar a amigos por sugerencias</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Dar una vista al recetario por ideas de las fotos</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Usar un libro de cocina donde usted sabe hay una buena receta</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Cocinar algo que usted sabe sin la necesidad de instrucciones</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[1]">
+    <ion-list-header>
+      <h2>2. Usted escogerá alimento en un restaurante o un café. Usted haría:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Escuchar al mesero o pedir que amigos recomienden opciones</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Mirar lo qué otros comen o mirar dibujos de cada platillo</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Escoger de las descripciones en el menú</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Escoger algo que tienes o has tenido antes</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[2]">
+    <ion-list-header>
+      <h2>3. Aparte del precio, qué más te influenciaría para comprar un libro de ciencia ficción</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Un amigo habla acerca de él y te lo recomienda</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Tienes historias reales, experiencias y ejemplos</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Leyendo rápidamente partes de él</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>El diseño de la pasta es atractivo</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[3]">
+    <ion-list-header>
+      <h2>4. Usted ha terminado una competencia o un examen y le gustaría tener alguna retroalimentación. Te gustaría retroalimentarte:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Usando descripciones escritas de los resultados</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Usando ejemplos de lo que usted ha hecho.</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Usando gráficos que muestran lo que usted ha logrado.</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>De alguien que habla por usted.</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[4]">
+    <ion-list-header>
+      <h2>5. Usted tiene un problema con la rodilla. Usted preferiría que el doctor:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Use un modelo de plástico y te enseñe lo que está mal</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Te de una página de internet o algo para leer</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Te describa lo qué está mal</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Te enseñe un diagrama lo que está mal</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[5]">
+    <ion-list-header>
+      <h2>6. Usted está a punto de comprar una cámara digital o teléfono o móvil. ¿Aparte del precio qué más influirá en tomar tu decisión?</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Probándolo</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Es un diseño moderno y se mira bien.</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Leer los detalles acerca de sus características.</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>El vendedor me informa acerca de sus características</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[6]">
+    <ion-list-header>
+      <h2>7. Usted no está seguro como se deletrea trascendente o tracendente. ¿Usted qué haría?</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Escribir ambas palabras en un papel y escojo una</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Pienso cómo suena cada palabra y escojo una.</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Busco la palabra en un diccionario</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Veo la palabra en mi mente y escojo según como la veo</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[7]">
+    <ion-list-header>
+      <h2>8. Me gustan páginas de Internet que tienen</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Interesantes descripciones escritas, listas y explicaciones</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Diseño interesante y características visuales.</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Cosas que con un click pueda cambiar o examinar.</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Canales donde puedo oír música, programas de radio o entrevistas</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[8]">
+    <ion-list-header>
+      <h2>9. Usted está planeando unas vacaciones para un grupo. Usted quiere alguna observación de ellos acerca del plan. Usted qué haría:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Usa un mapa o página de Internet para mostrarles los lugares.</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Describe algunos de los puntos sobresalientes</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Darles una copia del itinerario impreso</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Llamarles por teléfono o mandar mensaje por correo electrónico</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[9]">
+    <ion-list-header>
+      <h2>10. Usted está usando un libro, disco compacto o página de Internet para aprender a tomar fotos con su cámara digital nueva. Usted le gustaría tener:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Una oportunidad de hacer preguntas acerca de la cámara y sus características</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Esquemas o diagramas que muestran la cámara y la función de cada parte</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Ejemplos de buenas y malas fotos y cómo mejorarlas</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Aclarar las instrucciones escritas con listas y puntos sobre qué hacer</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-radio-group [(ngModel)]="respuestas[10]">
+    <ion-list-header>
+      <h2>11. Usted quiere aprender un programa nuevo, habilidad o juego en una computadora. Usted qué hace:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Hablar con gente que sabe acerca del programa.</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Leer las instrucciones que vienen en el programa</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Seguir los esquemas en el libro que acompaña el programa</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Use los controles o el teclado</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[11]">
+    <ion-list-header>
+      <h2>12. Estás ayudando a alguien que quiere a ir al aeropuerto, al centro del pueblo o la estación del ferrocarril. Usted hace:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Va con la persona</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Anote las direcciones en un papel (sin mapa)</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Les dice las direcciones</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Les dibuja un croquis o les da un mapa</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[12]">
+    <ion-list-header>
+      <h2>13. Recuerde un momento en su vida en que Ud. aprendió a hacer algo nuevo. Trate de evitar escoger una destreza física, como andar en bicicleta. Usted Aprendió mejor:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Viendo una demostración</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Con instrucciones escritas, en un manual o libro de texto</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Escuchando a alguien explicarlo o haciendo preguntas</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Con esquemas y diagramas o pistas visuales</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[13]">
+    <ion-list-header>
+      <h2>14. Usted prefiere un maestro o conferencista que use:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Demostraciones, modelos o sesiones prácticas</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Folletos, libros o lecturas</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Diagramas, esquemas o gráficos</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Preguntas y respuestas, pláticas y oradores invitados</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[14]">
+    <ion-list-header>
+      <h2>15. Un grupo de turistas quiere aprender acerca de parques o reservas naturales en su área. Usted:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Los acompaña a un parque o reserva natural</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Les da un libro o folleto acerca de parques o reservas naturales</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Les da una plática acerca de parques o reservas naturales</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Les muestra imágenes de Internet, fotos o libros con dibujos</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+  <ion-radio-group [(ngModel)]="respuestas[15]">
+    <ion-list-header>
+      <h2>16. Usted tiene que hacer un discurso para una conferencia u ocasión especial. Usted hace:</h2>
+    </ion-list-header>
+
+    <ion-item>
+      <h3>Escribir el discurso y aprendérselo leyéndolo varias veces</h3>
+      <ion-radio slot="end" value="R"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Reunir muchos ejemplos e historias para hacer el discurso verdadero y práctico</h3>
+      <ion-radio slot="end" value="K"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Escribir algunas palabras claves y practicar el discurso repetidas veces</h3>
+      <ion-radio slot="end" value="A"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <h3>Hacer diagramas o esquemas que te ayuden a explicar las cosas</h3>
+      <ion-radio slot="end" value="V"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+</ion-list>
+<ion-button (click)="enviar()">Enviar</ion-button>
+</ion-content>
