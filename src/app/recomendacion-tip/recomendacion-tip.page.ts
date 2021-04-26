@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { Tip } from '../Model/Tip/tip';
 import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
@@ -15,13 +17,51 @@ export class RecomendacionTipPage implements OnInit {
   user: UsuarioGeneral;
 
   constructor(
+    private router: Router,
     private tipsService: TipsService,
     private loginService: LoginService,
+    public alertaCtrl: AlertController
   ) { }
 
   ngOnInit() {
-    this.obtenerTipRecomendado();
+    this.user = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.indice = this.loginService.getUser().id;
+    try {
+      if(this.user.estilosAprendizaje.length > 0){
+        this.obtenerTipRecomendado();
+      }
+    } catch (error) {
+      this.mostrarAlerta()
+    }
+
   }
+
+
+  async mostrarAlerta() {
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia',
+      message: 'Esta apunto de borrar la materia ',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.router.navigate(['/tabs/servicios-academicos']);
+          }
+        }, {
+          text: 'Ir a formulario',
+          handler: () => {
+            this.router.navigate(['/test-aprendizaje']);
+          }
+        }
+      ]
+    })
+    await alert.present();
+  }
+
+
 
   votar(voto: number){
     console.log(voto);
@@ -44,8 +84,7 @@ export class RecomendacionTipPage implements OnInit {
   }
 
   obtenerTipRecomendado(){
-    this.user = this.loginService.getUser();
-    this.indice = this.user.id;
+    
     console.log(this.indice)
     this.tipsService.obtenerRecomendacion(this.indice).subscribe(
       results => {

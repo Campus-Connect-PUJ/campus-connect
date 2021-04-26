@@ -29,6 +29,14 @@ export class TestAprendizajePage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
+      result => {
+        this.aprendizajesExistentes = result;
+      },
+      error => console.log(error)
+    )
+
   }
 
   enviar(){
@@ -90,56 +98,51 @@ export class TestAprendizajePage implements OnInit {
 
   obtenerTipos(estilosAprendizaje: Array<estiloAprendizaje>){
     let idEstilos: Array<number> = [];
-    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.usuario = this.loginService.getUser();
 
-    this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
-      result => {
-        this.aprendizajesExistentes = result;
-        console.log(this.aprendizajesExistentes)
-        console.log(".>>>>>",estilosAprendizaje.length)
-        for(let i=0; i<estilosAprendizaje.length; i++){
-          if(estilosAprendizaje[i].cantidad > 4){
-            for(let j=0; j<this.aprendizajesExistentes.length; j++){
-              if(this.aprendizajesExistentes[j].descripcion == estilosAprendizaje[i].letra){
-                idEstilos.push(this.aprendizajesExistentes[j].id);
-                //Convergente - Kinestesico
-                if(this.aprendizajesExistentes[j].id == 2 && !idEstilos.includes(1)){
-                  idEstilos.push(1)
-                }
-                //Divergente - Aural
-                if(this.aprendizajesExistentes[j].id == 5 && !idEstilos.includes(4)){
-                  idEstilos.push(4)
-                }
-                //Asimilador - LectoEscritura
-                if(this.aprendizajesExistentes[j].id == 6 && !idEstilos.includes(7)){
-                  idEstilos.push(7)
-                }
-                //Acomodador - Visual
-                if(this.aprendizajesExistentes[j].id == 3 && !idEstilos.includes(8)){
-                  idEstilos.push(8)
-                }
-              }
+    console.log(this.aprendizajesExistentes)
+    console.log(".>>>>>",estilosAprendizaje.length)
+    for(let i=0; i<estilosAprendizaje.length; i++){
+      if(estilosAprendizaje[i].cantidad > 4){
+        for(let j=0; j<this.aprendizajesExistentes.length; j++){
+          if(this.aprendizajesExistentes[j].descripcion == estilosAprendizaje[i].letra){
+            idEstilos.push(this.aprendizajesExistentes[j].id);
+            //Convergente - Kinestesico
+            if(this.aprendizajesExistentes[j].id == 2 && !idEstilos.includes(1)){
+              idEstilos.push(1)
+            }
+            //Divergente - Aural
+            if(this.aprendizajesExistentes[j].id == 5 && !idEstilos.includes(4)){
+              idEstilos.push(4)
+            }
+            //Asimilador - LectoEscritura
+            if(this.aprendizajesExistentes[j].id == 6 && !idEstilos.includes(7)){
+              idEstilos.push(7)
+            }
+            //Acomodador - Visual
+            if(this.aprendizajesExistentes[j].id == 3 && !idEstilos.includes(8)){
+              idEstilos.push(8)
             }
           }
         }
-        console.log("Ids -> ", idEstilos)
-        this.guardarTipoAprendizaje(idEstilos);
-      },
-      error => console.log(error)
-    )
+      }
+    }
+    console.log("Ids -> ", idEstilos)
+    this.guardarTipoAprendizaje(idEstilos);
     
-      
+    
   }
 
   guardarTipoAprendizaje(idEstilos: Array<number>){
-
+    console.log(this.usuario.estilosAprendizaje)
     for(let i=0; i<idEstilos.length; i++){
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, idEstilos[i]).subscribe(
         results => {
           console.log(results)
-          for(let i=0; i<this.aprendizajesExistentes.length; i++){
-            if(idEstilos[i] == this.aprendizajesExistentes[i].id){
-              this.usuario.estilosAprendizaje.push(this.aprendizajesExistentes[i])
+          for(let j=0; j<this.aprendizajesExistentes.length; j++){
+            console.log(idEstilos[i]," - ", this.aprendizajesExistentes[j].id)
+            if(idEstilos[i] == this.aprendizajesExistentes[j].id){
+              this.usuario.estilosAprendizaje.push(this.aprendizajesExistentes[j])
               
             }
           }
@@ -147,6 +150,7 @@ export class TestAprendizajePage implements OnInit {
         error => console.error(error)
       )
     }
+    console.log(this.usuario.estilosAprendizaje)
     this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario)
   }
 
