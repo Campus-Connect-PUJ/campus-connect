@@ -23,7 +23,16 @@ const routes: Routes = [
   },
   {
     path: 'tips',
-    loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      },
+      {
+        path: ":usuarioId",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      }
+    ]
   }
 
 ];
