@@ -4,7 +4,9 @@ import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
 import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 export class actividad{
@@ -31,9 +33,12 @@ export class FormularioPersoGruposPage implements OnInit {
   caracteristicasUsuario: Caracteristica[]=[];
   creenciaUsuario: Boolean;
 
+  usuario: UsuarioGeneral;
+
   textoBuscar='';
 
   constructor(
+    private loginService: LoginService,
     private modalController:ModalController, 
     private tematicasService: TematicaService, 
     private caracteristicaService: CaracteristicaService,
@@ -42,6 +47,7 @@ export class FormularioPersoGruposPage implements OnInit {
   ngOnInit() {
     this.findTematica();
     this.findCaracteristica(); 
+    this.usuario = this.loginService.getUser();
   }
 
   closeModal(){
