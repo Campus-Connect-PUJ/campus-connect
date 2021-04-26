@@ -31,12 +31,14 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     private regimenService:RegimenAlimenticioService, 
     private tcService:TipoComidaService,
     private usuarioSer: UsuarioGeneralService,
-    public toastCtrl: ToastController) { }
+    public toastCtrl: ToastController) {
+
+    this.usuario = this.loginService.getUser();
+  }
 
   ngOnInit() {
     this.findRegimenes();
     this.findComida();
-    this.usuario = this.loginService.getUser();
   }
 
   closeModal(){
@@ -45,7 +47,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   findRegimenes() {
     this.regimenService.getRegimenAlimenticios().subscribe(
-      results => {
+      (results: RegimenAlimenticio[]) => {
         console.log(results);
         this.regimenes = results;
       },
@@ -55,7 +57,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   findComida() {
     this.tcService.getTipoComida().subscribe(
-      results => {
+      (results: TipoComida[]) => {
         console.log(results);
         this.comidas = results;
       },
@@ -63,51 +65,24 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     )
   }
 
-  onClickRegimen(event){
-    const regimen = event.target.value;
-    this.regimenService.getRegimenAlimenticioById(regimen).subscribe(
-      results => {
-        console.log(results);
-        this.regimenUsuario = results;
-      },
-      error => console.error(error)
-    )
-    console.log(this.regimenUsuario.tipo);
-  }
-  onClickRegimenNivel(event){
-    const nivel = event.target.value;
-    this.nivelExigencia=nivel;
-    console.log(this.nivelExigencia);
-  }
-  onClickComida(comida){
-    this.comidasUsuario.push(comida);
-    console.log(this.comidasUsuario);
-  }
-  onClickAmbientacion(event){
-    const ambien = event.target.value;
-    this.ambientacion = ambien;
-    console.log(this.ambientacion);
-  }
   guardar(){
     console.log("enviar info al back");
 
-    let idComida: number[]=[];
-
-    for(let i=0;i<this.comidasUsuario.length;i++){
-      idComida.push(this.comidasUsuario[i].id);
-    }
-
-    this.usuarioSer.persoRestaurantes(this.regimenUsuario.id,this.nivelExigencia,this.ambientacion,idComida).subscribe(
+    this.usuarioSer.persoRestaurantes(
+      this.regimenUsuario.id,
+      this.nivelExigencia,
+      this.ambientacion,
+      this.comidasUsuario.map(i => i.id)
+    ).subscribe(
       results => console.log(results),
       error => console.error(error)
     );
 
-    this.usuarioSer.getUsuario(this.usuario.id).subscribe(
-      result => {this.usuario = result
-                this.loginService.storeUser(this.usuario, this.loginService.getToken())
-                  console.log("user", this.usuario)
-
-
+    this.usuarioSer.getInfoUsuario().subscribe(
+      (result: UsuarioGeneral) => {
+        this.usuario = result
+        this.loginService.storeUser(this.usuario, this.loginService.getToken())
+        console.log("user", this.usuario)
       },
       error => console.error()
     );
