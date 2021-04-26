@@ -9,8 +9,9 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     const idToken = sessionStorage.getItem("token");
+    // console.log(req.url + " includes? " + `${environment.baseUrl}`);
 
-    if (idToken && req.url.includes(`${environment.baseUrl}`)){
+    if (idToken && req.url.includes(`${environment.baseUrl}`)) {
       // console.log("enviando con token: " + idToken);
       const cloned = req.clone({
         headers: req.headers.set(
