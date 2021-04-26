@@ -19,11 +19,14 @@
   <div id="materias">
     
       <ion-item-sliding *ngFor = "let tip of tips; let indice=index">
-        <ion-item [routerLink]="['/foros', foro.id]">
+        <ion-item [routerLink]="['/tips', tip.id]">
           <ion-card-header>
           <div id="TyP">
-            <h1>{{foro.titulo}}</h1>
-            <h2># {{foro.id}}</h2>
+            <h1>{{tip.descripcion}}</h1>
+
+
+            <h2># {{tip.id}}</h2>
+            <h2> {{tip.puntaje}}</h2>
             </div>
           </ion-card-header>
         </ion-item>
@@ -36,5 +39,5 @@
       </ion-item-sliding>
       
      
-  </div>
+    </div>
   </ion-content>

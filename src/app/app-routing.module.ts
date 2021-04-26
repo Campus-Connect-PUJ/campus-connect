@@ -250,14 +250,6 @@ const routes: Routes = [
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   },
   {
-    path: 'respuestas-foro',
-    children: [
-      {
-        path: "usuario/:usuarioId",
-        loadChildren: () => import('./respuestas-foro/respuestas-foro.module').then(m => m.RespuestasForoPageModule)
-      }
-    ]
-  },  {
     path: 'test-aprendizaje',
     loadChildren: () => import('./test-aprendizaje/test-aprendizaje.module').then( m => m.TestAprendizajePageModule)
   }

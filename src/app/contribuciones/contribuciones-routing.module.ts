@@ -12,10 +12,6 @@ const routes: Routes = [
     path: 'foros',
     children:[
       {
-        path: "",
-        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
-      },
-      {
         path: ":usuarioId",
         loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       }
@@ -25,15 +21,20 @@ const routes: Routes = [
     path: 'tips',
     children:[
       {
-        path: "",
-        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
-      },
-      {
         path: ":usuarioId",
         loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       }
     ]
-  }
+  },
+  {
+    path: 'respuestas-foro',
+    children: [
+      {
+        path: ":usuarioId",
+        loadChildren: () => import('./respuestas-foro/respuestas-foro.module').then(m => m.RespuestasForoPageModule)
+      }
+    ]
+  },
 
 ];
 

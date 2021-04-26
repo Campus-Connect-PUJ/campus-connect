@@ -44,6 +44,11 @@ export class ForoService {
     )
   }
 
+  borrarForo(idUsuario: number, idTipoAprendizaje: number){
+    const url = `${environment.baseUrl}/usuario/${idUsuario}/borrarTipoAprendizaje/${idTipoAprendizaje}`
+    return this.net.put(url, {})
+  }
+
   sumarVotoRespuesta(indice: number){
     const url = `${environment.baseUrl}/respuestaForo/sumar/${indice}`;
     return this.net.put(

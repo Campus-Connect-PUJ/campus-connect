@@ -1,7 +1,7 @@
-import { RespuestasForoService } from './../Model/RespuestasForo/respuestas-foro.service';
+import { RespuestasForoService } from '../../Model/RespuestasForo/respuestas-foro.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RespuestaForo } from '../Model/RespuestasForo/respuestas-foro';
+import { RespuestaForo } from '../../Model/RespuestasForo/respuestas-foro';
 
 @Component({
   selector: 'app-respuestas-foro',
