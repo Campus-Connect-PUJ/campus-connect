@@ -31,9 +31,10 @@ export class MapaRutaPage implements OnInit {
   marker_destiny: L.Marker;
   marker_origin: L.Marker;
   geoJSON_layer: L.GeoJSON = null;
+  GEO_json_ev: any;
 
   route_type = "Normal";
-  route_selected = true;
+  route_shown = false;
 
   lat_origen = 4.626680783542464;
   lng_origen = -74.06383752822877;
@@ -63,6 +64,7 @@ export class MapaRutaPage implements OnInit {
         //console.log(this.data);
       }
     });
+    this.GEO_json_ev = new Array();
   }
 
   ngOnInit() {}
@@ -73,7 +75,7 @@ export class MapaRutaPage implements OnInit {
     this.polygons_eventualidades = new Array();
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
-        console.log("results",results);
+        console.log("results", results);
         this.eventualidades = results;
         console.log(this.eventualidades);
         this.eventualidades.forEach((element) => {
@@ -83,10 +85,12 @@ export class MapaRutaPage implements OnInit {
             properties: { foo: "bar" },
           };
           var radius = 0.01;
-          var center = [element.latitud, element.longitud];
+          var center = [element.longitud, element.latitud];
           var circle_var = circle(center, radius, options);
-          console.log("circle", circle_var.geometry.coordinates);
+          //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
+          //console.log("circle", circle_var.geometry.coordinates);
           this.polygons_eventualidades.push(circle_var.geometry.coordinates);
+          this.calcularRuta();
         });
       },
       (error) => {
@@ -100,7 +104,7 @@ export class MapaRutaPage implements OnInit {
     };
     console.log("Multipolygon", this.multipolygon);
 
-    this.generarRuta();
+    this.normal();
   }
 
   async leafletMap() {
@@ -171,43 +175,6 @@ export class MapaRutaPage implements OnInit {
     this.marker_origin = marker_origin;
   }
 
-  private generarRuta() {
-    let coordinates = null;
-    if(this.multipolygon != null){
-      coordinates = {
-        coordinates: [
-          [this.origen.lng, this.origen.lat],
-          [this.destino.lng, this.destino.lat],
-        ],
-        options: { avoid_polygons: this.multipolygon },
-      };
-    }else{
-      coordinates = {
-        coordinates: [
-          [this.origen.lng, this.origen.lat],
-          [this.destino.lng, this.destino.lat],
-        ],
-      };
-    }
-    const body = JSON.stringify(coordinates);
-
-    var httpOptions = {
-      headers: new HttpHeaders({
-        Accept:
-          "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-        "Content-Type": "application/json",
-        Authorization: this.api_key_openrouteservice,
-      }),
-    };
-
-    var response = this.http
-      .post(this.url_route, body, httpOptions)
-      .subscribe((resp) => {
-        console.log(resp);
-        this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
-      });
-  }
-
   ionViewWillLeave() {
     if (this.map) {
       this.map.remove();
@@ -223,97 +190,117 @@ export class MapaRutaPage implements OnInit {
   }
 
   onChange($event) {
-    console.log(this.route_selected);
-    if (this.route_selected) {
-      this.route_type = "Evitar escalones";
-      if (this.geoJSON_layer != null) {
-        this.map.removeLayer(this.geoJSON_layer);
-      }
-      let coordinates;
-      if(this.multipolygon != null){
-        coordinates = {
-          coordinates: [
-            [this.origen.lng, this.origen.lat],
-            [this.destino.lng, this.destino.lat],
-          ],
-          options: {
-            avoid_features: ["steps"],
-          },
-        };
-      }else{
-        coordinates = {
-          coordinates: [
-            [this.origen.lng, this.origen.lat],
-            [this.destino.lng, this.destino.lat],
-          ],
-          options: {
-            avoid_features: ["steps"],
-            avoid_polygons: this.multipolygon,
-          },
-        };
-      }
-      const body = JSON.stringify(coordinates);
+    console.log(this.route_shown);
+    this.calcularRuta();
+  }
 
-      var httpOptions = {
-        headers: new HttpHeaders({
-          Accept:
-            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-          "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice,
-        }),
-      };
-
-      var response = this.http
-        .post(this.url_route, body, httpOptions)
-        .subscribe((resp) => {
-          console.log(resp);
-          this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
-        });
+  private calcularRuta() {
+    if (this.route_shown) {
+      var { httpOptions, response } = this.evitarEscalones();
+      this.route_shown = false;
     } else {
-      this.route_type = "Normal";
-      if (this.geoJSON_layer != null) {
-        this.map.removeLayer(this.geoJSON_layer);
-      }
-      let coordinates;
-      if(this.multipolygon != null){
-        coordinates = {
-          coordinates: [
-            [this.origen.lng, this.origen.lat],
-            [this.destino.lng, this.destino.lat],
-          ],
-          options: {
-            avoid_polygons: this.multipolygon,
-          },
-        };
-      }else{
-        coordinates = {
-          coordinates: [
-            [this.origen.lng, this.origen.lat],
-            [this.destino.lng, this.destino.lat],
-          ],
-          options: {
-            avoid_polygons: this.multipolygon,
-          },
-        };
-      }
-      const body = JSON.stringify(coordinates);
-
-      var httpOptions = {
-        headers: new HttpHeaders({
-          Accept:
-            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-          "Content-Type": "application/json",
-          Authorization: this.api_key_openrouteservice,
-        }),
-      };
-
-      var response = this.http
-        .post(this.url_route, body, httpOptions)
-        .subscribe((resp) => {
-          console.log(resp);
-          this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
-        });
+      var { httpOptions, response } = this.normal();
+      this.route_shown = true;
     }
+  }
+
+  private normal() {
+    this.route_type = "Normal";
+    if (this.geoJSON_layer != null) {
+      this.map.removeLayer(this.geoJSON_layer);
+    }
+    let coordinates;
+    if (this.multipolygon != null) {
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+        options: {
+          avoid_polygons: this.multipolygon,
+        },
+      };
+    } else {
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+        options: {
+          avoid_polygons: this.multipolygon,
+        },
+      };
+    }
+    const body = JSON.stringify(coordinates);
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        "Content-Type": "application/json",
+        Authorization: this.api_key_openrouteservice,
+      }),
+    };
+
+    var response = this.http
+      .post(this.url_route, body, httpOptions)
+      .subscribe((resp) => {
+        console.log(resp);
+        if(this.geoJSON_layer != null){
+          this.map.removeLayer(this.geoJSON_layer)
+        }
+        this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
+      });
+    return { httpOptions, response };
+  }
+
+  private evitarEscalones() {
+    this.route_type = "Evitar escalones";
+    if (this.geoJSON_layer != null) {
+      this.map.removeLayer(this.geoJSON_layer);
+    }
+    let coordinates;
+    if (this.multipolygon != null) {
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+        options: {
+          avoid_features: ["steps"],
+        },
+      };
+    } else {
+      coordinates = {
+        coordinates: [
+          [this.origen.lng, this.origen.lat],
+          [this.destino.lng, this.destino.lat],
+        ],
+        options: {
+          avoid_features: ["steps"],
+          avoid_polygons: this.multipolygon,
+        },
+      };
+    }
+    const body = JSON.stringify(coordinates);
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        "Content-Type": "application/json",
+        Authorization: this.api_key_openrouteservice,
+      }),
+    };
+
+    var response = this.http
+      .post(this.url_route, body, httpOptions)
+      .subscribe((resp) => {
+        console.log(resp);
+        if (this.geoJSON_layer != null) {
+          this.map.removeLayer(this.geoJSON_layer);
+        }
+        this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
+      });
+    return { httpOptions, response };
   }
 
   async eventualidad($event) {
