@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 import { RegimenAlimenticio } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio';
 import { RegimenAlimenticioService } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio.service';
 import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
@@ -30,7 +30,8 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     private modalController : ModalController, 
     private regimenService:RegimenAlimenticioService, 
     private tcService:TipoComidaService,
-    private usuarioSer: UsuarioGeneralService) { }
+    private usuarioSer: UsuarioGeneralService,
+    public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.findRegimenes();
@@ -110,7 +111,16 @@ export class FormularioPersoRestaurantesPage implements OnInit {
       },
       error => console.error()
     );
+    this.presentToast("Tus datos han sido actualizados");
+  }
 
-    this.closeModal();
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 }

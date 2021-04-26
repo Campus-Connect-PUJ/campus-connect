@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
@@ -42,7 +42,8 @@ export class FormularioPersoGruposPage implements OnInit {
     private modalController:ModalController, 
     private tematicasService: TematicaService, 
     private caracteristicaService: CaracteristicaService,
-    private usuarioSer: UsuarioGeneralService) { }
+    private usuarioSer: UsuarioGeneralService,
+    public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.findTematica();
@@ -125,9 +126,17 @@ export class FormularioPersoGruposPage implements OnInit {
       },
       error => console.error()
     );
+    this.presentToast("Tus datos han sido actualizados");
+  }
 
-    this.closeModal();
-
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 
   buscarCaracteristica(event){
