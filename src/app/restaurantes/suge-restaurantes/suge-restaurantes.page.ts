@@ -42,7 +42,9 @@ export class SugeRestaurantesPage implements OnInit {
         for(let i=0; i<this.usuario.comidaFav.length; i++){
           for (let j=0;j<this.restaurantesT.length;j++){
             if(this.restaurantesT[j].tiposComida.some(tc => tc.tipo === this.usuario.comidaFav[i].tipo)){
-              this.restaurantes.push(this.restaurantesT[j]);
+              if(!this.restaurantes.includes(this.restaurantesT[j])){
+                this.restaurantes.push(this.restaurantesT[j]);
+              }
             }
           }
         }

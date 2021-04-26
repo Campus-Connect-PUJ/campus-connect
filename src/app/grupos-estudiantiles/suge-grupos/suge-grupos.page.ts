@@ -42,7 +42,9 @@ export class SugeGruposPage implements OnInit {
         for(let i=0; i<this.usuario.caracteristicas.length; i++){
           for (let j=0;j<this.gruposT.length;j++){
             if(this.gruposT[j].caracteristicas.some(car => car.nombre === this.usuario.caracteristicas[i].nombre)){
-              this.grupos.push(this.gruposT[j]);
+              if(this.grupos.includes(this.gruposT[j])){
+                this.grupos.push(this.gruposT[j]);
+              }
             }
           }
         }
