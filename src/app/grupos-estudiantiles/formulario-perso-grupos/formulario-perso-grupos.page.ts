@@ -116,6 +116,18 @@ export class FormularioPersoGruposPage implements OnInit {
       error => console.error(error)
     );
 
+    this.usuarioSer.getUsuario(this.usuario.id).subscribe(
+      result => {this.usuario = result
+                this.loginService.storeUser(this.usuario, this.loginService.getToken())
+                  console.log("user", this.usuario)
+
+
+      },
+      error => console.error()
+    );
+
+    this.closeModal();
+
   }
 
   buscarCaracteristica(event){
