@@ -4,7 +4,9 @@ import { RegimenAlimenticio } from 'src/app/Model/RegimenAlimenticio/regimen-ali
 import { RegimenAlimenticioService } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio.service';
 import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
 import { TipoComidaService } from 'src/app/Model/TipoComida/tipo-comida.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-formulario-perso-restaurantes',
@@ -21,7 +23,10 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   nivelExigencia=0;
   ambientacion='';
 
+  usuario: UsuarioGeneral;
+
   constructor(
+    private loginService: LoginService,
     private modalController : ModalController, 
     private regimenService:RegimenAlimenticioService, 
     private tcService:TipoComidaService,
@@ -30,6 +35,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   ngOnInit() {
     this.findRegimenes();
     this.findComida();
+    this.usuario = this.loginService.getUser();
   }
 
   closeModal(){
