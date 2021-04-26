@@ -85,12 +85,15 @@ export class MapaPrincipalPage implements OnInit {
         "Para eliminar el marcador<br>" +
         "seleccionar de nuevo el marcador<br>" +
         "</div>";
-      marker.bindPopup(message).on("click", (e) => {
-        this.map.removeLayer(this.marker_action)
-        this.map.removeLayer(this.circle_GEO_JSON)
-        this.marker_action = null
-        this.circle_GEO_JSON = null
-      }).openPopup();
+      marker
+        .bindPopup(message)
+        .on("click", (e) => {
+          this.map.removeLayer(this.marker_action);
+          this.map.removeLayer(this.circle_GEO_JSON);
+          this.marker_action = null;
+          this.circle_GEO_JSON = null;
+        })
+        .openPopup();
 
       this.latlng_actual = {
         lat: clickEvent.latlng.lat,
@@ -159,7 +162,7 @@ export class MapaPrincipalPage implements OnInit {
       this.map.remove();
     }
     this.marker_selected = null;
-    this.marker_action = null
+    this.marker_action = null;
   }
 
   async toNavigation() {
@@ -176,13 +179,12 @@ export class MapaPrincipalPage implements OnInit {
     } else {
       console.log(this.marker_selected);
       var navigationExtras: NavigationExtras;
-      if(this.marker_action == null){
+      if (this.marker_action == null) {
         let alert = await this.alertController.create({
           cssClass: "custom-class-alert",
           header: "Información",
           subHeader: "Ubicación actual",
-          message:
-            "La ruta se generará desde su ubicación actual",
+          message: "La ruta se generará desde su ubicación actual",
           buttons: ["OK"],
         });
         await alert.present();
@@ -192,7 +194,7 @@ export class MapaPrincipalPage implements OnInit {
             origen: JSON.stringify(this.lugares[15]),
           },
         };
-      }else{
+      } else {
         let alert = await this.alertController.create({
           cssClass: "custom-class-alert",
           header: "Información",
@@ -207,20 +209,45 @@ export class MapaPrincipalPage implements OnInit {
           lat: this.latlng_actual.lat,
           lng: this.latlng_actual.lng,
         };
-          navigationExtras = {
-            queryParams: {
-              destino: JSON.stringify(this.marker_selected),
-              origen: JSON.stringify(element),
-            },
-          };
+        navigationExtras = {
+          queryParams: {
+            destino: JSON.stringify(this.marker_selected),
+            origen: JSON.stringify(element),
+          },
+        };
       }
-      
+
       this.router.navigate(["mapa-ruta"], navigationExtras);
     }
   }
 
   onBackAction() {
     this.router.navigate(["auth-home"]);
+  }
+
+  async eventualidad($event) {
+    if (this.latlng_actual == null) {
+      let alert = await this.alertController.create({
+        cssClass: "custom-class-alert",
+        header: "Error",
+        subHeader: "Ubicación no seleccionada",
+        message:
+          "No se puede reportar una eventualidad sin haber seleccionado la ubicación",
+        buttons: ["OK"],
+      });
+      await alert.present();
+    } else {
+      console.log("Enviado",this.latlng_actual)
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          actual: JSON.stringify(this.latlng_actual),
+        },
+      };
+      this.router.navigate(
+        ["reporte-eventualidades-principal"],
+        navigationExtras
+      );
+    }
   }
 }
 

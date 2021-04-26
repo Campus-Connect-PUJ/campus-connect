@@ -1,26 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Eventualidad } from 'src/app/Model/Eventualidad/eventualidad';
 import { EventualidadService } from 'src/app/Model/Eventualidad/eventualidad.service';
 import { tipos_eventualidades } from 'src/app/services/tipos_eventualidades';
 
 @Component({
-  selector: "app-reporte-eventualidades",
-  templateUrl: "./reporte-eventualidades.page.html",
-  styleUrls: ["./reporte-eventualidades.page.scss"],
+  selector: "app-reporte-eventualidades-principal",
+  templateUrl: "./reporte-eventualidades-principal.page.html",
+  styleUrls: ["./reporte-eventualidades-principal.page.scss"],
 })
-export class ReporteEventualidadesPage implements OnInit {
-  origen: any;
-  destino: any;
-  actual: any;
-
+export class ReporteEventualidadesPrincipalPage implements OnInit {
   tipos: any;
 
-  selected_tipo_eventualidad: any = null;
-  descripcion: any = null;
+  actual: any;
 
-  eventualidades: any = null;
+  selected_tipo_eventualidad: any;
+  descripcion: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,11 +25,9 @@ export class ReporteEventualidadesPage implements OnInit {
     private evService: EventualidadService
   ) {
     this.route.queryParams.subscribe((params) => {
-      if (params && params.destino && params.origen) {
-        this.origen = JSON.parse(params.origen);
-        this.destino = JSON.parse(params.destino);
+      if (params && params.actual) {
         this.actual = JSON.parse(params.actual);
-        //console.log(this.data);
+        console.log("Recibido",this.actual)
       }
     });
     var tiposEventualidades = new tipos_eventualidades();
@@ -43,14 +37,7 @@ export class ReporteEventualidadesPage implements OnInit {
   ngOnInit() {}
 
   onBackAction($event) {
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        destino: JSON.stringify(this.destino),
-        origen: JSON.stringify(this.origen),
-        actual: JSON.stringify(this.actual),
-      },
-    };
-    this.router.navigate(["mapa-ruta"], navigationExtras);
+    this.router.navigate(["mapa-principal"]);
   }
 
   radioGroupChange(event) {
@@ -80,11 +67,11 @@ export class ReporteEventualidadesPage implements OnInit {
         });
         await alert.present();
       } else {
-        var evEnviar = new Eventualidad()
-        evEnviar.descripcion = this.descripcion
-        evEnviar.latitud = this.actual.lat
+        var evEnviar = new Eventualidad();
+        evEnviar.descripcion = this.descripcion;
+        evEnviar.latitud = this.actual.lat;
         evEnviar.longitud = this.actual.lng;
-        evEnviar.tipo = this.selected_tipo_eventualidad
+        evEnviar.tipo = this.selected_tipo_eventualidad;
         this.evService.createEventualidad(evEnviar).subscribe(
           (results) => {
             console.log(results);
@@ -93,14 +80,7 @@ export class ReporteEventualidadesPage implements OnInit {
             console.error(error);
           }
         );
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-            destino: JSON.stringify(this.destino),
-            origen: JSON.stringify(this.origen),
-            actual: JSON.stringify(this.actual),
-          },
-        };
-        this.router.navigate(["mapa-ruta"], navigationExtras);
+        this.router.navigate(["mapa-principal"]);
       }
     }
   }

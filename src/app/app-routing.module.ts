@@ -256,7 +256,11 @@ const routes: Routes = [
   {
     path: 'reporte-eventualidades',
     loadChildren: () => import('./mapa/reporte-eventualidades/reporte-eventualidades.module').then( m => m.ReporteEventualidadesPageModule)
+  },  {
+    path: 'reporte-eventualidades-principal',
+    loadChildren: () => import('./mapa/reporte-eventualidades-principal/reporte-eventualidades-principal.module').then( m => m.ReporteEventualidadesPrincipalPageModule)
   },
+
 
   /*
   {
