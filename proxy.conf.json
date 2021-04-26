@@ -1,7 +1,0 @@
-{
-    "/v2/*":{
-        "target": "https://api.openrouteservice.org",
-        "secure": false,
-        "loglevel": "debug"
-    }
-}
