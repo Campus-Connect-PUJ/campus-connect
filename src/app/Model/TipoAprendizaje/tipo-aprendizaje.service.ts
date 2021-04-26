@@ -27,7 +27,11 @@ export class TipoAprendizajeService {
       url,
       {}
     );
+  }
 
+  borrarTipoAprendizaje(idUsuario: number, idTipoAprendizaje: number){
+    const url = `${environment.baseUrl}/usuario/${idUsuario}/borrarTipoAprendizaje/${idTipoAprendizaje}`
+    return this.net.put(url, {})
   }
 
 }

@@ -26,9 +26,14 @@ export class RecomendacionTipPage implements OnInit {
   ngOnInit() {
     this.user = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
     this.indice = this.loginService.getUser().id;
+
     try {
+      console.log(this.user.estilosAprendizaje.length)
       if(this.user.estilosAprendizaje.length > 0){
         this.obtenerTipRecomendado();
+      }
+      else{
+        this.mostrarAlerta();
       }
     } catch (error) {
       this.mostrarAlerta()

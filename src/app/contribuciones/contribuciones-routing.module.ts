@@ -7,7 +7,25 @@ const routes: Routes = [
   {
     path: '',
     component: ContribucionesPage
+  },
+  {
+    path: 'foros',
+    children:[
+      {
+        path: "",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+      },
+      {
+        path: ":usuarioId",
+        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
+      }
+    ]
+  },
+  {
+    path: 'tips',
+    loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
   }
+
 ];
 
 @NgModule({

@@ -9,7 +9,7 @@ import { RespuestaForo } from '../Model/RespuestasForo/respuestas-foro';
   styleUrls: ['./respuestas-foro.page.scss'],
 })
 export class RespuestasForoPage implements OnInit {
-  respuestasUsuario: Array<RespuestaForo>;
+  respuestasUsuario: Array<RespuestaForo> = [];
 
 
   constructor(
@@ -23,9 +23,9 @@ export class RespuestasForoPage implements OnInit {
       if(recipeId != null){
         console.log(recipeId)
         this.respService.getRespuestasForoById(+recipeId).subscribe(
-          result => {this.respuestasUsuario = result
-            console.log("respuestas", this.respuestasUsuario)
-            console.log("->", this.respuestasUsuario[0].idForoRespondido)
+          result => {
+            this.respuestasUsuario = result
+            console.log("Las respuestas", this.respuestasUsuario)
           },
           error => console.log(error)
         );

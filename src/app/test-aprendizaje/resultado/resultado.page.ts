@@ -18,17 +18,10 @@ export class ResultadoPage implements OnInit {
     private userService: UsuarioGeneralService
   ) { }
 
-  ngOnInit() {
-    this.userService.getUsuario(this.loginService.getUser().id).subscribe(
-      result => {
-        this.usuario = result
-        console.log(this.usuario)
-        this.estilosAprendizaje = this.usuario.estilosAprendizaje;
-        console.log(this.estilosAprendizaje)
-        
-      },
-      error => console.log(error)
-    )
+  ngOnInit() { 
+    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    console.log(this.usuario)
+    this.estilosAprendizaje = this.usuario.estilosAprendizaje;
     
   }
 

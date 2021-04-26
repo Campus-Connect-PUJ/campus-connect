@@ -112,8 +112,8 @@ export class TestAprendizajePage implements OnInit {
               idEstilos.push(1)
             }
             //Divergente - Aural
-            if(this.aprendizajesExistentes[j].id == 5 && !idEstilos.includes(4)){
-              idEstilos.push(4)
+            if(this.aprendizajesExistentes[j].id == 4 && !idEstilos.includes(5)){
+              idEstilos.push(5)
             }
             //Asimilador - LectoEscritura
             if(this.aprendizajesExistentes[j].id == 6 && !idEstilos.includes(7)){
@@ -134,23 +134,25 @@ export class TestAprendizajePage implements OnInit {
   }
 
   guardarTipoAprendizaje(idEstilos: Array<number>){
-    console.log(this.usuario.estilosAprendizaje)
     for(let i=0; i<idEstilos.length; i++){
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, idEstilos[i]).subscribe(
         results => {
           console.log(results)
-          for(let j=0; j<this.aprendizajesExistentes.length; j++){
-            console.log(idEstilos[i]," - ", this.aprendizajesExistentes[j].id)
-            if(idEstilos[i] == this.aprendizajesExistentes[j].id){
-              this.usuario.estilosAprendizaje.push(this.aprendizajesExistentes[j])
-              
-            }
-          }
         },
         error => console.error(error)
       )
+
+      for(let j=0; j<this.aprendizajesExistentes.length; j++){
+        if(idEstilos[i] == this.aprendizajesExistentes[j].id){
+          console.log(this.aprendizajesExistentes[j]);
+          this.usuario.estilosAprendizaje.push(this.aprendizajesExistentes[j])
+        }
+      }
     }
-    console.log(this.usuario.estilosAprendizaje)
+
+    
+
+    console.log("-> estilos ", this.usuario.estilosAprendizaje)
     this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario)
   }
 

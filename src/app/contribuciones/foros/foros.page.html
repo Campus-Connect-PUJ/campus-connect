@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding class="background" [fullscreen]="true">
+  <div id="titulo">
+    <h1>Foros creados</h1>
+    <h2>Deslizar para actualizar</h2>
+  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div id="materias">
+    
+      <ion-item-sliding *ngFor = "let foro of foros; let indice=index">
+        <ion-item [routerLink]="['/foros', foro.id]">
+          <ion-card-header>
+          <div id="TyP">
+            <h1>{{foro.titulo}}</h1>
+            <h2># {{foro.id}}</h2>
+            </div>
+          </ion-card-header>
+        </ion-item>
+
+        <ion-item-options id="end" side="end">
+          <ion-item-option color="danger" (click)="presentAlert(indice)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      
+     
+  </div>

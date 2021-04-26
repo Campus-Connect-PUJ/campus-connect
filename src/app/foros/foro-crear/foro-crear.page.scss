@@ -46,11 +46,14 @@ ion-content.background{
     height: 50%;
 }
 
-ion-card-content #descripcion{
+ion-card-content{
    height: 50%;
+   height: fit-content;
 }
 
 ion-textarea{
-    height: 50%;
-    max-height: max-content;
+    height: fit-content;
+    max-height: 100%;
 }
+
+
