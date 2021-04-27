@@ -44,18 +44,19 @@ export class RecomendacionTipPage implements OnInit {
 
   async mostrarAlerta() {
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia',
-      message: 'Esta apunto de borrar la materia ',
+      header: 'No contiene ningun tipo de aprendizaje',
+      subHeader: 'Para utilizar el servicio de sugerencia de tips debe tener estilos de aprendizajes establecidos. Estos se pueden obtener respondiendo un formulario con preguntas sencillas',
+      message: '',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Ir a pantalla principal',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: '',
           handler: () => {
             this.router.navigate(['/tabs/servicios-academicos']);
           }
-        }, {
+        }, 
+        {
           text: 'Ir a formulario',
           handler: () => {
             this.router.navigate(['/test-aprendizaje']);
