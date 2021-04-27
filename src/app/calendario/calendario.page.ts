@@ -350,7 +350,7 @@ export class CalendarioPage implements OnInit {
 
   enviarMonitoria(){
     for(let i = 0; i<this.monitorias.length; i++ ){
-      this.moniService.crearMonitoria( this.logService.getUser().id, this.monitorias[i]).subscribe(
+      this.moniService.crearMonitoria( this.monitorias[i]).subscribe(
         result => {
           console.log(result)
         },

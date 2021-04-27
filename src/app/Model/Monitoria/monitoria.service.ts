@@ -13,8 +13,8 @@ export class MonitoriaService {
   constructor(private net: NetService) { }
 
 
-  crearMonitoria(idUsuario: number, mon: Monitoria){
-    const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
+  crearMonitoria(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/agregarMonitoria`;
     return this.net.post(
       url,
       {
