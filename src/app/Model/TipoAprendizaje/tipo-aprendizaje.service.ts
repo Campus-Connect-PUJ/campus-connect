@@ -22,7 +22,7 @@ export class TipoAprendizajeService {
   }
 
   agregarTipoAprendizaje(idUsuario: number, idTipoAprendizaje: number){
-    const url = `${environment.baseUrl}/usuario/${idUsuario}/agregarTipoAprendizaje/${idTipoAprendizaje}`;
+    const url = `${environment.baseUrl}/usuario/agregarTipoAprendizaje/${idTipoAprendizaje}`;
     return this.net.post(
       url,
       {}
@@ -30,7 +30,7 @@ export class TipoAprendizajeService {
   }
 
   borrarTipoAprendizaje(idUsuario: number, idTipoAprendizaje: number){
-    const url = `${environment.baseUrl}/usuario/${idUsuario}/borrarTipoAprendizaje/${idTipoAprendizaje}`
+    const url = `${environment.baseUrl}/usuario/borrarTipoAprendizaje/${idTipoAprendizaje}`
     return this.net.put(url, {})
   }
 

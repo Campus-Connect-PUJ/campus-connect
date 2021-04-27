@@ -17,7 +17,7 @@ export class RespuestasForoService {
   }
 
   borrarRespuesta(idUsuario: number, idRespuesta: number){
-    const url = `${environment.baseUrl}/foro/${idUsuario}/borrarRespuesta/${idRespuesta}`;
+    const url = `${environment.baseUrl}/foro/borrarRespuesta/${idRespuesta}`;
     return this.net.put(url, {})
   }
 

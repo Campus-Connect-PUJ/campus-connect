@@ -23,7 +23,7 @@ export class ForoService {
   }
 
   createPost(foro: Foro) {
-    const url = `${environment.baseUrl}/foro/${foro.usuario.id}`;
+    const url = `${environment.baseUrl}/foro`;
     return this.net.post(
       url,
       {
@@ -45,7 +45,7 @@ export class ForoService {
   }
 
   borrarForo(idUsuario: number, idForo: number){
-    const url = `${environment.baseUrl}/foro/${idUsuario}/borrarForo/${idForo}`;
+    const url = `${environment.baseUrl}/foro/borrarForo/${idForo}`;
     return this.net.put(url, {})
   }
 
