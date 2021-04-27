@@ -1,7 +1,7 @@
  <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+      <ion-back-button (click)="enviarHorarios()" defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="today()">Today</ion-button>
@@ -49,7 +49,7 @@
   <!-- Card for adding a new event -->
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
-      <ion-card-title>New Event</ion-card-title>
+      <ion-card-title>Nuevo evento</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngIf="collapseCard">
       <ion-item>
@@ -76,7 +76,7 @@
 
   <ion-card>
     <ion-card-header tappable (click)="collapseCard2 = !collapseCard2">
-      <ion-card-title>Nueva materia</ion-card-title>
+      <ion-card-title>Nueva Asignatura</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngIf="collapseCard2">
       <ion-item>
@@ -99,14 +99,38 @@
       </ion-item>
       <ion-item>
         <ion-label>Hora fin</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"[(ngModel)]="event2.eTime"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
       </ion-item>
 
 
+      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+  <ion-card>
+    <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; monitoria = true">
+      <ion-card-title>Nueva monitoria</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="collapseCard3">
       <ion-item>
-        <ion-label>¿Espacio para monitoria?</ion-label>
-        <ion-checkbox [(ngModel)]="monitoria"></ion-checkbox>
+        <ion-label>Dia inicio</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
       </ion-item>
+      <ion-item>
+        <ion-label>Dia fin</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Hora Inicio</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Hora fin</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
+      </ion-item>
+
 
       <ion-item>
       <ion-label>Asignatura</ion-label>
@@ -121,12 +145,16 @@
           </ion-select>
       </ion-item>
 
-      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
+      <ion-button fill="outline" expand="block" (click)="addMonitoria()">Agregar evento</ion-button>
     </ion-card-content>
   </ion-card>
 
-  <ion-button (click)="enviarHorariosMonitoria()">Enviar monitorias</ion-button>
 
+
+
+
+
+  <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
   <calendar
     [eventSource]="eventSource"
     [calendarMode]="calendar.mode"

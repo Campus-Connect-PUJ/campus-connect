@@ -1,9 +1,14 @@
+import { HorarioMonitoria } from './HorarioMonitoria';
+import { Asignatura } from './../../Model/Asignatura/asignatura';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MonitoriaService } from 'src/app/Model/Monitoria/monitoria.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import * as moment from 'moment';
 import { Monitoria } from 'src/app/Model/Monitoria/monitoria';
+import { evento } from 'src/app/calendario/evento';
+import { Horario } from 'src/app/Model/Horario/horario';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-monitor-horarios',
@@ -12,30 +17,243 @@ import { Monitoria } from 'src/app/Model/Monitoria/monitoria';
 })
 export class MonitorHorariosPage implements OnInit {
   idMonitor = 0;
-  horarios: Monitoria[] = [];
+  
   horasInicial: string[] = [];
   horasFinal: string[] = [];
+  monitores: Array<UsuarioGeneral> = [];
+  usuarioActual: UsuarioGeneral;
+  monitoresRecomendados:  Array<UsuarioGeneral> = [];
+  eventos: evento[] = [];
   voto = 0;
   errorSi = false;
 
+  monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
+  asignaturas: Array<Monitoria> = [];
+  horariosSugeridos: Array<HorarioMonitoria> = [];
+  horarios: Monitoria[] = [];
+
+
   constructor(
     private activatedRoute: ActivatedRoute, 
-    private monService: MonitoriaService
+    private monService: MonitoriaService,
+    private logService: LoginService
   ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('monitorID')
-      this.idMonitor = Number(recipeId);
-      console.log(this.idMonitor);
-      this.findHorarios();
+      console.log(recipeId) 
+
+      if(recipeId != null){
+        console.log(recipeId)
+        this.idMonitor = +recipeId;
+
+        this.monService.obtenerMonitores().subscribe(
+          result => {
+            this.monitores = result;
+            for(let i=0; i<this.monitores.length; i++){
+              if(this.monitores[i].id == this.idMonitor){
+                this.monitor = this.monitores[i];
+              }
+            }
+            this.sugerenciasHorariosMonitorias(this.monitor)
+            this.obtenerAsignaturas(this.monitor)
+          },
+          error => console.log(error)
+        )
+      }
+      else{
+        console.log("Lo otro")
+      }
+
     })
+  }
+
+  obtenerAsignaturas(monitor: UsuarioGeneral){
+    let ingresar = true;
+    for(let i=0; i<monitor.monitorDe.length; i++){
+      if(this.asignaturas.length == 0){
+        this.asignaturas.push(monitor.monitorDe[i])
+      }
+      else{
+        for(let j=0; j<this.asignaturas.length && ingresar; j++){
+          if(monitor.monitorDe[i].id == this.asignaturas[j].id){
+            ingresar = false;
+          }
+        }
+        if(ingresar){
+          this.asignaturas.push(monitor.monitorDe[i])
+        }
+      }
+    }
+  }
+
+ 
+
+
+
+  //Sugerencia de horarios de monitorias
+
+  //Mirar fechas sin conflicto
+
+
+
+
+
+  
+  ordenarMonitores(monitores: Array<UsuarioGeneral>){
+    let monitoresOrdenados = monitores;
+    monitoresOrdenados.sort(function (a, b) {
+      if (a.puntajeTotal > b.puntajeTotal) {
+        return -1;
+      }
+      if (a.puntajeTotal < b.puntajeTotal) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    return monitoresOrdenados;
+  }
+
+  obtenerPuntajes(monitores: Array<UsuarioGeneral>){
+    let sumaTotal = 0;
+    let cantidadVotos = 0;
+    for(let i=0; i<monitores.length; i++){
+      for(let j=0; j<monitores[i].monitorDe.length; j++){
+        cantidadVotos += monitores[i].monitorDe[j].cantidadVotos;
+        sumaTotal += monitores[i].monitorDe[j].calificacion;
+      }
+      monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
+    }
+
+    return monitores;
+  }
+
+
+  /*
+  sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
+    this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
+    for(let i=0; i<monitores.length; i++){
+      for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
+        for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
+            //console.log(this.monitores[i].estilosAprendizaje, " ", this.usuarioActual.estilosAprendizaje)
+            if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])){
+              //this.mirarProblemasHorarios(monitores[i])
+              this.monitoresRecomendados.push(monitores[i]);
+            }
+        }
+      }
+    }
+    console.log(this.monitoresRecomendados)
+  }
+*/
+
+
+  sugerenciasHorariosMonitorias(monitor: UsuarioGeneral){
+    let monitoriasDisponibles = new Array<Monitoria>();
+    let horarios = new Array<Horario>();
+    let fechaReferencia = moment();
+    fechaReferencia = moment(fechaReferencia).add(30,'days');
+
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    let eventosMonitor = monitor.monitorDe;
+  
+    for(let j=0; j<eventosMonitor.length; j++){
+      for(let k=0; k<eventosMonitor[j].horarios.length; k++){
+        let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
+        let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
+        let ocupado = false;
+        try {
+          for(let i=0; i<this.eventos.length && !ocupado; i++){
+            //console.log("Cantidad de eventos usuario ", this.eventos.length )
+            //console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
+            if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
+              ocupado = true;
+            }
+            else if( moment(moment(horarioInicialMonitor)).isBetween(moment(this.eventos[i].startTime), moment(this.eventos[i].endTime), undefined, '(]') || moment(moment(horarioFinalMonitor)).isBetween(moment(this.eventos[i].startTime),  moment(this.eventos[i].endTime), undefined, '[)')){
+              ocupado = true;
+            }
+          }  
+        } catch (error) {
+          console.log("usuario sin eventos")
+        }
+
+        if(!ocupado){
+          console.log("*********************Disponible")
+          //Cancelar cuando ya sean varios eventos sugeridos
+          if( moment(horarioInicialMonitor).isSameOrBefore(fechaReferencia) && moment(horarioFinalMonitor).isSameOrBefore(fechaReferencia)){
+            this.agregarHorariosSugeridos(eventosMonitor[j], eventosMonitor[j].horarios[k]);
+          }
+
+        }   
+      }
+    }
+    
+    this.horariosSugeridos = this.ordenarSugerencias();
+    console.log("eventos posibles ", this.horariosSugeridos)
+  }
+
+  ordenarSugerencias(){
+    let sugerenciasOrdenadas = this.horariosSugeridos;
+    let sugerencias = new Array<HorarioMonitoria>();
+    console.log("sin ordenas", sugerenciasOrdenadas)
+
+    sugerenciasOrdenadas.sort(function (a, b) {
+      if(moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm")) ){
+        return 1;
+      }
+      if (!moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm"))){
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    
+    console.log("ordenas", sugerenciasOrdenadas)
+
+    if(sugerenciasOrdenadas.length>=3){
+      for(let i=0; i<3; i++){
+        sugerencias.push(sugerenciasOrdenadas[i])
+      }
+      sugerenciasOrdenadas = sugerencias;
+    }
+    
+
+    return sugerenciasOrdenadas;
+  }
+
+  agregarHorariosSugeridos(datos: Monitoria, horario: Horario) {
+    let data: HorarioMonitoria = new HorarioMonitoria();
+    let ingresar = true;
+    data.id = horario.id;
+    data.nombreAsignatura = datos.asignatura.nombre;
+    data.fi = horario.fi;
+    data.ff = horario.ff;
+
+    if(this.horariosSugeridos.length==0){
+      this.horariosSugeridos.push(data);
+    }
+    else{
+      for(let i=0; i<this.horariosSugeridos.length; i++){
+        if(this.horariosSugeridos[i].id == data.id){
+          ingresar = false;
+        }
+      }
+      if(ingresar){
+        this.horariosSugeridos.push(data);
+      }
+    }
+
+    
+
     
   }
 
-  findUsuario() {
 
-  }
+
+
+
 
   findHorarios(){
     this.monService.horariosMonitor(this.idMonitor).subscribe(
@@ -44,33 +262,17 @@ export class MonitorHorariosPage implements OnInit {
         console.log(this.horarios);
         console.log(typeof(this.horarios[0].horarios[0].fechaInicial))
         for(let i=0; i<this.horarios.length; i++){
-
           for(let j=0; j<this.horarios[i].horarios.length; j++){
             var date = moment(this.horarios[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm')
             this.horarios[i].horarios[j].fi = date;
             date = moment(this.horarios[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm')
             this.horarios[i].horarios[j].ff = date;
           }
-          
         }
-        
         console.log(date)
     },
       error => console.error(error)
     )
-    /*
-    let fechaInicio = moment();
-    let fechaFinal = moment(fechaInicio).add(14,'days')
-    let fecha = this.usuario.monitorDe;
-    console.log(fecha);
-*/
-    /*
-    while(moment(fechaInicio).isBefore(fechaFinal)){
-
-
-      fechaInicio = moment(fechaInicio).add(14,'days')
-    }
-    */
   }
 
 

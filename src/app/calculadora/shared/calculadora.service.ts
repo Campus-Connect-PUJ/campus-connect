@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Nota, NotaConPorcentaje, NotasMateria } from 'src/app/Model/Nota/nota';
+import { LoginService } from 'src/app/services/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class CalculadoraService {
   private notaActual: number = 0;
   private porcentajeActual: number = 0;
 
-  constructor() {}
+  constructor(
+    private logService: LoginService
+  ) {}
 
   getNotas(){
     return this.nota;
@@ -86,8 +89,9 @@ export class CalculadoraService {
   public guardar(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual){
     console.log(nombreMateria, notaEsperada, notas )
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
-    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-
+    
+    //this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+    this.controlNotas = this.load();
     try {
       if(this.controlNotas.length>=0){
         if(this.indice!=-1){
@@ -96,7 +100,8 @@ export class CalculadoraService {
         else{
           this.controlNotas.push(this.controlNota)
         }
-        localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
+        this.guardarMaterias(this.controlNotas)
+        //localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
       }
     } catch (error) {
       let controlNotas2: NotasMateria[] = 
@@ -113,19 +118,24 @@ export class CalculadoraService {
       controlNotas2[0].porcentajeActual = porcentajeActual;
       controlNotas2[0].notaActual = notaActual;
       this.controlNotas = controlNotas2;
+      this.guardarMaterias(this.controlNotas)
+      this.guardarMaterias(controlNotas2)
+      /*
       localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
       console.log("esto se guarda2", this.controlNotas);
       localStorage.setItem("Materias", JSON.stringify(controlNotas2))
+      */
     }
   }
 
 
   public guardarMaterias(nuevasMaterias){
-    localStorage.setItem("Materias",JSON.stringify(nuevasMaterias))
+    this.logService.guardarElemento("Materias" + this.logService.getUser().email, nuevasMaterias)
   }
 
   public load(): NotasMateria[] {
-    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+    //this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
+    this.controlNotas = this.logService.obtenerElemento("Materias" + this.logService.getUser().email)
     return this.controlNotas;
   }
   

@@ -8,10 +8,22 @@
 
 <ion-content padding class="background" [fullscreen]="true">
   <h2>Los tipos de aprendaje del usuario son:</h2>
+
   <div id="tiposDelUsuario">
-    <ion-item *ngFor="let tipos of tiposDeAprendizajeUsuario">
-      {{tipos.descripcion}}
-    </ion-item>
+    
+      <ion-item-sliding *ngFor = "let tipos of tiposDeAprendizajeUsuario; let indice = index">
+        <ion-item>
+          {{tipos.descripcion}}
+        </ion-item>
+
+        <ion-item-options id="end" side="end">
+          <ion-item-option color="danger" (click)="presentAlert(indice)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      
+     
   </div>
 
   <ion-item>

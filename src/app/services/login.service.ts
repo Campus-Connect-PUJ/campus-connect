@@ -86,6 +86,11 @@ export class LoginService {
   }
 
   logout() {
+    try {
+      sessionStorage.removeItem("perso"+this.getUser().email);
+    } catch (error) {
+      console.log("No se le borra el perfil de personalización")
+    }
     sessionStorage.removeItem(this.USER);
     sessionStorage.removeItem(this.TOKEN);
     return this.http.post(`${environment.baseUrl}/logout`, '', {
@@ -123,4 +128,15 @@ export class LoginService {
 
     return valido;
   }
+
+
+  guardarElemento(nombre: string, objeto){
+    sessionStorage.setItem(nombre, JSON.stringify(objeto))
+  }
+
+  obtenerElemento(nombre: string){ 
+    let elemento = JSON.parse(sessionStorage.getItem(nombre));
+    return elemento;
+  }
+
 }

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/monitores/horarios-monitor', monitor.id]" text=" "></ion-back-button>
+    </ion-buttons>
+    <ion-title>monitor-asignatura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="Asignaturas">
+    <ion-card class="Asignatura" *ngFor="let horario of horarios">
+      <ion-card-header>
+        <h1>{{horario.fi}}</h1>
+        <h1>{{horario.ff}}</h1>
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>

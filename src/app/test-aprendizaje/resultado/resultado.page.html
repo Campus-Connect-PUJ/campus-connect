@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>resultado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Resultados</h1>
+  <div id="estilosDeAprendizaje">
+    <ion-item *ngFor="let estilo of estilosAprendizaje">
+      {{estilo.descripcion}}
+    </ion-item>
+  </div>
+
+<ion-button [routerLink]="['/tabs/servicios-academicos']">Servicios academicos</ion-button>
+</ion-content>

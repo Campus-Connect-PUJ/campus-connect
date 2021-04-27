@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../shared/calculadora.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { NotasMateria } from 'src/app/Model/Nota/nota';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-materias',
@@ -16,8 +17,9 @@ export class MateriasPage {
   constructor(
           private calculadoraService: CalculadoraService,
           public alertaCtrl: AlertController, 
-          public toastCtrl: ToastController
-) {
+          public toastCtrl: ToastController,
+          
+  ) {
 
     this.reload();
   }

@@ -37,6 +37,15 @@
 
     <ion-card-content *ngIf="collapseCard">
     <ion-item class="ion-no-padding">
+      <ion-label>Exigencia</ion-label>
+        <ion-select [(ngModel)]="nivelesDeExigenciaSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+            <ion-select-option value=1 selected = "false">1</ion-select-option>
+            <ion-select-option value=2 selected = "false">2</ion-select-option>
+            <ion-select-option value=3 selected = "false">3</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
       <ion-label>Tematica</ion-label>
         <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
           <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.descripcion" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
@@ -45,12 +54,13 @@
 
     <div class="BuscandoCon">
       <h1>Buscando con {{tiposDeAprendizajeSeleccionados}}</h1>
+      <h1>nivel de exigencia {{nivelesDeExigenciaSeleccionados}}</h1>
     </div>
     </ion-card-content>
   </ion-card>  
 
 
-  <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar | filtroTipsAprendizaje:tiposDeAprendizajeSeleccionados ; let indice=index">
+  <div id="lista" *ngFor="let tip of tips | filtroTips:textoBuscar | filtroTipsAprendizaje:tiposDeAprendizajeSeleccionados | filtroTipsExigencia: nivelesDeExigenciaSeleccionados ; let indice=index">
     <ion-card [routerLink]="['/tips', tip.id]">
       <h2>{{tip.descripcion}}</h2>
     </ion-card>

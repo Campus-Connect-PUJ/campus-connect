@@ -12,18 +12,29 @@ export class MonitoriaService {
 
   constructor(private net: NetService) { }
 
-  guardarMonitorias(idUsuario: number, monitoria: Monitoria ){
-    const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
 
-    console.log("->",monitoria);
+  crearMonitoria(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/agregarMonitoria`;
     return this.net.post(
       url,
       {
-        "asignatura": monitoria.asignatura.id,
-        "fechaInicial": monitoria.horarios[0].fechaInicial,
-        "fechaFinal": monitoria.horarios[0].fechaFinal
+        "idAsignatura": mon.asignatura.id
       }
-    );
+    )
+  }
+
+  agregarHorario(mon: Monitoria, indice: number){
+    const url = `${environment.baseUrl}/usuario/agregarHorario`;
+    return this.net.post(
+      url,
+      {
+        "idAsignatura": mon.asignatura.id,
+        "fi": mon.horarios[indice].fi,
+        "ff": mon.horarios[indice].ff,
+        "fechaInicial": mon.horarios[indice].fechaInicial,
+        "fechaFinal": mon.horarios[indice].fechaFinal
+      }
+    )
   }
 
   obtenerMonitores(): Observable<UsuarioGeneral[]>{

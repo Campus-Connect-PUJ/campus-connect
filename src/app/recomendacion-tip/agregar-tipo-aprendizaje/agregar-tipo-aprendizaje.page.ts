@@ -4,6 +4,7 @@ import { LoginService } from "src/app/services/login.service";
 import { TipoAprendizajeService } from "src/app/Model/TipoAprendizaje/tipo-aprendizaje.service"
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agregar-tipo-aprendizaje',
@@ -18,7 +19,8 @@ export class AgregarTipoAprendizajePage implements OnInit {
 
   constructor(private loginService: LoginService,
     private tipoAprendizajeService: TipoAprendizajeService,
-    private usuarioService: UsuarioGeneralService
+    private usuarioService: UsuarioGeneralService,
+    public alertaCtrl: AlertController
     ) { }
 
   ngOnInit() {
@@ -54,14 +56,14 @@ export class AgregarTipoAprendizajePage implements OnInit {
   agregarTipo(){
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = this.loginService.getUser();
+    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
     for(let i = 0; i < this.tiposDeAprendizajeSeleccionados.length; i++){
       console.log("aa");
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeSeleccionados[i]).subscribe(
         results => {
           console.log(results);
           this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
-          this.loginService.storeUser(this.usuario, this.loginService.getToken())
+          this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
 
         },
         error => console.error(error)
@@ -79,10 +81,46 @@ export class AgregarTipoAprendizajePage implements OnInit {
       }
 
     }
-    
-
     console.log(mensaje);
+  }
 
+
+
+
+  
+  async presentAlert(indice){
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia'+ (indice+1),
+      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Borrar',
+          handler: () => {
+            console.log(this.tiposDeAprendizajeUsuario)
+            console.log("Indice ", indice)
+            this.tipoAprendizajeService.borrarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeUsuario[indice].id).subscribe(
+              result => {
+                console.log(result)
+                
+              },
+              error => console.log(error)
+            )
+            this.tiposDeAprendizajeUsuario.splice(indice,1);
+            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            
+          }
+        }
+      ]
+    })
+    await alert.present();
   }
 
 }

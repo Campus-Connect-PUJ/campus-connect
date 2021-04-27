@@ -15,7 +15,7 @@ export class ContribucionesPage implements OnInit {
 
   constructor(
     private userService: UsuarioGeneralService,
-    private logService: LoginService
+    private logService: LoginService,
   ) { 
     this.user = JSON.parse(sessionStorage.getItem("user"));
     this.indice = this.user.id;
@@ -58,8 +58,6 @@ export class ContribucionesPage implements OnInit {
     )
     */
   }
-
- 
 
   
 
