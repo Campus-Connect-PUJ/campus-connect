@@ -1,20 +1,31 @@
 <ion-content fullscreen>
-  <ion-toolbar slot="fixed" color="translucent" >  
-    <ion-item class="selector">
-      <div class="d-flex align-items-center">
-        <span>Ruta</span>
-        <ion-toggle slot="end" color="primary" [(ngModel)]="route_selected" (click)="onChange($event)"></ion-toggle>
-        <span class="ml-10">{{route_type}}</span>
-      </div>
-    </ion-item>
+  <ion-toolbar slot="fixed" color="translucent" >
+   <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item class="selector">
+            <div class="d-flex align-items-center">
+              <span>Ruta</span>
+              <ion-toggle slot="end" color="primary" [(ngModel)]="selected_route" (click)="onChange($event)"></ion-toggle>
+              <span class="ml-10">{{route_type}}</span>
+            </div>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-fab-button color="light" (click)="onBackAction($event)">
+            <ion-icon name="caret-back-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+   </ion-grid>  
   </ion-toolbar>
   <div id="map_route" style="width:100%; height:100%;"></div>
 </ion-content>
 
 <div class="button">
-  <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="onBackAction($event)">
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="eventualidad($event)">
     <ion-fab-button color="light">
-      <ion-icon name="caret-back-outline"></ion-icon>
+      <ion-icon name="flag"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </div>

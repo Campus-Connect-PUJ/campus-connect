@@ -9,7 +9,6 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     const idToken = sessionStorage.getItem("token");
-
     // console.log(req.url + " includes? " + `${environment.baseUrl}`);
 
     if (idToken && req.url.includes(`${environment.baseUrl}`)) {
