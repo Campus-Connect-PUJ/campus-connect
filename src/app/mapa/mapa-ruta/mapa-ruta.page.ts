@@ -35,6 +35,7 @@ export class MapaRutaPage implements OnInit {
 
   route_type = "Normal";
   route_shown = false;
+  selected_route: any;
 
   lat_origen = 4.626680783542464;
   lng_origen = -74.06383752822877;
@@ -72,7 +73,11 @@ export class MapaRutaPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    console.log("VIEWENTER");
+    //console.log("VIEWENTER");
+    this.route_type = "Normal";
+    this.route_shown = false;
+    this.selected_route = true;
+
     this.leafletMap();
 
     this.polygons_eventualidades = new Array();
@@ -87,7 +92,7 @@ export class MapaRutaPage implements OnInit {
       //run code
       console.log("Getting new eventualidades");
       this.getNewEventualidades();
-    }, 5000);
+    }, 30000);
   }
 
   stopTrackingLoop() {
@@ -101,7 +106,7 @@ export class MapaRutaPage implements OnInit {
         console.log("New results", results);
         var nuevas_eventualidades = results;
         console.log(nuevas_eventualidades);
-        if(nuevas_eventualidades.length != this.eventualidades.length){
+        if (nuevas_eventualidades.length != this.eventualidades.length) {
           this.polygons_eventualidades = new Array();
           this.eventualidades = results;
           this.eventualidades.forEach((element) => {
@@ -255,16 +260,19 @@ export class MapaRutaPage implements OnInit {
 
   onChange($event) {
     console.log(this.route_shown);
+    this.route_shown = !this.route_shown;
     this.calcularRuta();
   }
 
   private calcularRuta() {
     if (this.route_shown) {
       var { httpOptions, response } = this.evitarEscalones();
-      this.route_shown = false;
+      this.route_type = "Evitar escalones";
+      console.log("evitar")
     } else {
       var { httpOptions, response } = this.normal();
-      this.route_shown = true;
+      this.route_type = "Normal";
+      console.log("normal");
     }
   }
 
@@ -319,7 +327,6 @@ export class MapaRutaPage implements OnInit {
   }
 
   private evitarEscalones() {
-    this.route_type = "Evitar escalones";
     if (this.geoJSON_layer != null) {
       this.map.removeLayer(this.geoJSON_layer);
     }
