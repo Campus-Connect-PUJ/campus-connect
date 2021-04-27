@@ -74,18 +74,16 @@ export class FormularioPersoRestaurantesPage implements OnInit {
       this.ambientacion,
       this.comidasUsuario.map(i => i.id)
     ).subscribe(
-      results => console.log(results),
-      error => console.error(error)
-    );
-
-    this.usuarioSer.getInfoUsuario().subscribe(
       (result: UsuarioGeneral) => {
+        console.log(result)
         this.usuario = result
         this.loginService.storeUser(this.usuario, this.loginService.getToken())
         console.log("user", this.usuario)
+        this.closeModal();
       },
-      error => console.error()
+      error => console.error(error)
     );
+
     this.presentToast("Tus datos han sido actualizados");
   }
 

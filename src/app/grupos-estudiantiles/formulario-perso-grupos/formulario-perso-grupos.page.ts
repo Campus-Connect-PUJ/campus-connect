@@ -26,12 +26,11 @@ export class FormularioPersoGruposPage implements OnInit {
 
   tematicas: Tematica[]=[];
   caracteristicas: Caracteristica[]=[];
-  actividades: Array<actividad> = [ new actividad(" ")];
-  hobbies: Array<actividad> = [ new actividad(" ")];
+  actividades: actividad[] = [];
+  hobbies: actividad[] = [];
 
   tematicasUsuario: Tematica[]=[];
   caracteristicasUsuario: Caracteristica[]=[];
-  creenciaUsuario: Boolean;
 
   usuario: UsuarioGeneral;
 
@@ -43,12 +42,14 @@ export class FormularioPersoGruposPage implements OnInit {
     private tematicasService: TematicaService, 
     private caracteristicaService: CaracteristicaService,
     private usuarioSer: UsuarioGeneralService,
-    public toastCtrl: ToastController) { }
+    public toastCtrl: ToastController) {
+    this.usuario = this.loginService.getUser();
+
+  }
 
   ngOnInit() {
     this.findTematica();
     this.findCaracteristica(); 
-    this.usuario = this.loginService.getUser();
   }
 
   closeModal(){
@@ -85,47 +86,30 @@ export class FormularioPersoGruposPage implements OnInit {
     console.log(this.hobbies)
   }
 
-
-  onClickCaracteristica(caracteristica){
-    this.caracteristicasUsuario.push(caracteristica);
-    console.log(this.caracteristicasUsuario);
-  }
-
   guardar(){
     console.log("Enviar datos al back");
 
-    let activi: string[]=[];
-
-    for(let i=0;i<this.actividades.length;i++){
-      activi.push(this.actividades[i].nombre);
-    }
-
-    let hobby: string[]=[];
-
-    for(let i=0;i<this.actividades.length;i++){
-      hobby.push(this.hobbies[i].nombre);
-    }
-
-    let idCar: number[]=[];
-
-    for(let i=0;i<this.caracteristicasUsuario.length;i++){
-      idCar.push(this.caracteristicasUsuario[i].id);
-    }
-
-    this.usuarioSer.persoGrupos(idCar,activi,hobby).subscribe(
-      results => console.log(results),
+    this.usuarioSer.persoGrupos(
+      this.caracteristicasUsuario.map(i => i.id),
+      this.actividades.map(i => i.nombre),
+      this.hobbies.map(i => i.nombre)
+    ).subscribe(
+      (result: UsuarioGeneral) => {
+        this.usuario = result
+        this.loginService.storeUser(this.usuario, this.loginService.getToken())
+        console.log("user", this.usuario)
+      },
       error => console.error(error)
     );
 
-    this.usuarioSer.getUsuario(this.usuario.id).subscribe(
-      result => {this.usuario = result
-                this.loginService.storeUser(this.usuario, this.loginService.getToken())
-                  console.log("user", this.usuario)
-
-
-      },
-      error => console.error()
-    );
+    // this.usuarioSer.getInfoUsuario().subscribe(
+    //   (result: UsuarioGeneral) => {
+    //     this.usuario = result
+    //     this.loginService.storeUser(this.usuario, this.loginService.getToken())
+    //     console.log("user", this.usuario)
+    //   },
+    //   error => console.error()
+    // );
     this.presentToast("Tus datos han sido actualizados");
   }
 

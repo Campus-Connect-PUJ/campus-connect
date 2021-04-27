@@ -66,7 +66,7 @@ export class UsuarioGeneralService {
     );
   }
 
-  persoGrupos(carac: number[], actividades: string[], hobbies: string[]){
+  persoGrupos(carac: number[], actividades: string[], hobbies: string[]) : Observable<UsuarioGeneral> {
     const url = `${environment.baseUrl}/usuario/persoGrupos`;
     return this.net.put(
       url,
@@ -75,10 +75,10 @@ export class UsuarioGeneralService {
         "actividades":actividades,
         "hobbies":hobbies
       }
-    );
+    ) as unknown as Observable<UsuarioGeneral>;
   }
 
-  persoRestaurantes(regimenAl: number, nivelExigencia: number, ambientacion: string, comida: number[]){
+  persoRestaurantes(regimenAl: number, nivelExigencia: number, ambientacion: string, comida: number[]) : Observable<UsuarioGeneral> {
     console.log("regimen:" + regimenAl);
     const url = `${environment.baseUrl}/usuario/persoRestaurantes`;
     return this.net.put(
@@ -89,7 +89,7 @@ export class UsuarioGeneralService {
         "comidas":comida,
         "ambientacion":ambientacion
       }
-    );
+    ) as unknown as Observable<UsuarioGeneral>;
   }
 
   getUsuario(id: number): Observable<UsuarioGeneral> {
