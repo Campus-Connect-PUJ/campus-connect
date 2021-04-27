@@ -256,12 +256,19 @@ const routes: Routes = [
   {
     path: 'reporte-eventualidades',
     loadChildren: () => import('./mapa/reporte-eventualidades/reporte-eventualidades.module').then( m => m.ReporteEventualidadesPageModule)
-  },  {
+  },
+  {
     path: 'reporte-eventualidades-principal',
     loadChildren: () => import('./mapa/reporte-eventualidades-principal/reporte-eventualidades-principal.module').then( m => m.ReporteEventualidadesPrincipalPageModule)
   },
-
-
+  {
+    path: 'suge-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/suge-grupos/suge-grupos.module').then( m => m.SugeGruposPageModule)
+  },
+  {
+    path: 'suge-restaurantes',
+    loadChildren: () => import('./restaurantes/suge-restaurantes/suge-restaurantes.module').then( m => m.SugeRestaurantesPageModule)
+  },
   /*
   {
     path: "horarios-monitor",
