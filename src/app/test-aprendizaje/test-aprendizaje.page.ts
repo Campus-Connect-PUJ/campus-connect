@@ -126,6 +126,10 @@ export class TestAprendizajePage implements OnInit {
           }
         }
       }
+
+      if(i == estilosAprendizaje.length-1 && estilosAprendizaje.length == 0){
+        idEstilos.push(1);
+      } 
     }
     console.log("Ids -> ", idEstilos)
     this.guardarTipoAprendizaje(idEstilos);
