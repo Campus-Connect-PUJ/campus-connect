@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/sugerencias-principal']" >
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Nuestra Selección para ti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let grupo of grupos">
+      <ion-card-header>
+        <ion-card-title>{{grupo.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label *ngFor= "let tema of grupo.tematicas">
+          {{tema.nombre}}
+        </ion-label>
+        <ion-label>
+          {{grupo.descripcion}}
+        </ion-label>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <ion-button (click) = "infoGrupos()" [routerLink]="['/reco-grupos']">
+    <ion-icon  size="small" slot="icon-only" name="arrow-forward">Ver todos los grupos</ion-icon>
+  </ion-button>
+</ion-content>

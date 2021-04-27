@@ -14,7 +14,7 @@ export class Restaurante {
   ambientacion: string;
   ubicacion: Lugar;
   reseniaRestaurnate: ReseniaRestaurante[]=[];
-  regimenAlimenticio: RegimenAlimenticio[]=[];
+  regimenesAlimenticios: RegimenAlimenticio[]=[];
   constructor(
     public nombre: string,
     public descripcion: string,

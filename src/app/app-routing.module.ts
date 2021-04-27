@@ -3,10 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
 const routes: Routes = [
-  { 
-    path: "grupos_estudiantiles", 
-    component: GruposEstudiantilesComponent 
-  },
+  { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
   {
     path: "",
     redirectTo: "home",
@@ -251,9 +248,49 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },
+  {
+    path: 'lista-sitios-destino',
+    loadChildren: () => import('./mapa/lista-sitios-destino/lista-sitios-destino.module').then( m => m.ListaSitiosDestinoPageModule)
+  },
+  {
+    path: 'reporte-eventualidades',
+    loadChildren: () => import('./mapa/reporte-eventualidades/reporte-eventualidades.module').then( m => m.ReporteEventualidadesPageModule)
+  },
+  {
+    path: 'reporte-eventualidades-principal',
+    loadChildren: () => import('./mapa/reporte-eventualidades-principal/reporte-eventualidades-principal.module').then( m => m.ReporteEventualidadesPrincipalPageModule)
+  },
+  {
+    path: 'suge-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/suge-grupos/suge-grupos.module').then( m => m.SugeGruposPageModule)
+  },
+  {
+    path: 'suge-restaurantes',
+    loadChildren: () => import('./restaurantes/suge-restaurantes/suge-restaurantes.module').then( m => m.SugeRestaurantesPageModule)
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'cambiar-monitor',
+    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   }
-
-
+  /*
+  {
+    path: "horarios-monitor",
+    children: [
+      {
+        path: ":monitorID",
+        loadChildren: () =>
+          import(
+            './monitores/monitor-horarios/monitor-horarios.module'
+          ).then((m) => m.MonitorHorariosPageModule),
+      }
+    ]
+  }
+*/
 
 ];
 @NgModule({

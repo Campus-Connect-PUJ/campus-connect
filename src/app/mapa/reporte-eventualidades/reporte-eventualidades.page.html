@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reporte-eventualidades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="button">
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="onBackAction($event)">
+      <ion-fab-button color="light">
+        <ion-icon name="caret-back-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-label>
+    Enviar un reporte de una eventualidad.
+  </ion-label>
+  <ion-radio-group allow-empty-selection = "false" value="tipo_eventualidad" (ionChange)="radioGroupChange($event)">
+    <ion-list-header>
+      <ion-label>Tipo de eventualidad</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of tipos">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-radio slot="start" color="danger" value="{{item.id}}"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item>
+    <ion-label position="stacked">Ingresa una pequeña descripción de la eventualidad</ion-label>
+    <ion-textarea [(ngModel)]="descripcion" placeholder="Ingresa la descripción aquí..."></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="sendInfo($event)">Enviar reporte</ion-button>
+
+</ion-content>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
 import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 export class actividad{
@@ -24,20 +26,26 @@ export class FormularioPersoGruposPage implements OnInit {
 
   tematicas: Tematica[]=[];
   caracteristicas: Caracteristica[]=[];
-  actividades: Array<actividad> = [ new actividad(" ")];
-  hobbies: Array<actividad> = [ new actividad(" ")];
+  actividades: actividad[] = [];
+  hobbies: actividad[] = [];
 
   tematicasUsuario: Tematica[]=[];
   caracteristicasUsuario: Caracteristica[]=[];
-  creenciaUsuario: Boolean;
+
+  usuario: UsuarioGeneral;
 
   textoBuscar='';
 
   constructor(
+    private loginService: LoginService,
     private modalController:ModalController, 
     private tematicasService: TematicaService, 
     private caracteristicaService: CaracteristicaService,
-    private usuarioSer: UsuarioGeneralService) { }
+    private usuarioSer: UsuarioGeneralService,
+    public toastCtrl: ToastController) {
+    this.usuario = this.loginService.getUser();
+
+  }
 
   ngOnInit() {
     this.findTematica();
@@ -50,7 +58,7 @@ export class FormularioPersoGruposPage implements OnInit {
 
   findTematica() {
     this.tematicasService.getTematicas().subscribe(
-      results => {
+      (results: Tematica[]) => {
         console.log(results);
         this.tematicas = results;
       },
@@ -60,7 +68,7 @@ export class FormularioPersoGruposPage implements OnInit {
 
   findCaracteristica(){
     this.caracteristicaService.getCaracteristicas().subscribe(
-      results => {
+      (results: Caracteristica[]) => {
         console.log(results);
         this.caracteristicas = results;
       },
@@ -78,38 +86,33 @@ export class FormularioPersoGruposPage implements OnInit {
     console.log(this.hobbies)
   }
 
-
-  onClickCaracteristica(caracteristica){
-    this.caracteristicasUsuario.push(caracteristica);
-    console.log(this.caracteristicasUsuario);
-  }
-
   guardar(){
     console.log("Enviar datos al back");
 
-    let activi: string[]=[];
-
-    for(let i=0;i<this.actividades.length;i++){
-      activi.push(this.actividades[i].nombre);
-    }
-
-    let hobby: string[]=[];
-
-    for(let i=0;i<this.actividades.length;i++){
-      hobby.push(this.hobbies[i].nombre);
-    }
-
-    let idCar: number[]=[];
-
-    for(let i=0;i<this.caracteristicasUsuario.length;i++){
-      idCar.push(this.caracteristicasUsuario[i].id);
-    }
-
-    this.usuarioSer.persoGrupos(idCar,activi,hobby).subscribe(
-      results => console.log(results),
+    this.usuarioSer.persoGrupos(
+      this.caracteristicasUsuario.map(i => i.id),
+      this.actividades.map(i => i.nombre),
+      this.hobbies.map(i => i.nombre)
+    ).subscribe(
+      (result: UsuarioGeneral) => {
+        this.usuario = result
+        this.loginService.storeUser(this.usuario, this.loginService.getToken())
+        console.log("user", this.usuario)
+      },
       error => console.error(error)
     );
 
+    this.presentToast("Tus datos han sido actualizados");
+  }
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 
   buscarCaracteristica(event){
