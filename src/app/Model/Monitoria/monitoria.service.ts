@@ -12,7 +12,6 @@ export class MonitoriaService {
 
   constructor(private net: NetService) { }
 
-<<<<<<< Updated upstream
 
   crearMonitoria(idUsuario: number, mon: Monitoria){
     const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
@@ -23,10 +22,6 @@ export class MonitoriaService {
       }
     )
   }
-=======
-  guardarMonitorias(idUsuario: number, monitoria: Monitoria ){
-    const url = `${environment.baseUrl}/usuario/agregarMonitoria`;
->>>>>>> Stashed changes
 
   agregarHorario(idUsuario: number, mon: Monitoria, indice: number){
     const url = `${environment.baseUrl}/usuario/agregarHorario/${idUsuario}`;
