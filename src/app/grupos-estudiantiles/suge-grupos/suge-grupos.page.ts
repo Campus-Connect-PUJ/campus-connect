@@ -48,7 +48,7 @@ export class SugeGruposPage implements OnInit {
             if(gruposT[j].caracteristicas.some(
               (car: Caracteristica) => car.nombre === this.usuario.caracteristicas[i].nombre)
               ){
-              if(this.grupos.includes(gruposT[j])){
+              if(!this.grupos.includes(gruposT[j])){
                 this.grupos.push(gruposT[j]);
               }
             }
