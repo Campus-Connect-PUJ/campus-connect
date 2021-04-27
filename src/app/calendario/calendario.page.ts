@@ -184,6 +184,101 @@ export class CalendarioPage implements OnInit {
       monitoria: this.monitoria
     }
     
+
+    let fechaInicioTotal = moment(eventCopy2.startTime);
+    let fechaFinTotal = moment(eventCopy2.endTime);
+    let tiempos1 = eventCopy2.sTime.split(":");
+    let tiempos2 = eventCopy2.eTime.split(":");
+
+    fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
+    let base = moment(eventCopy2.startTime);
+    
+    for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
+      console.log("..............................................")
+      let horas = Number(tiempos2[0])- Number(tiempos1[0]);
+      let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
+      console.log("inicio", fechaInicioTotal, "final", fechaFinTotal);
+
+      
+      console.log("Mirar", eventCopy.startTime);
+
+      eventCopy.title = eventCopy2.title;
+      eventCopy.startTime = eventCopy2.startTime;
+      eventCopy.monitoria = false;
+
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
+      eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
+
+      eventCopy.endTime = eventCopy.startTime;
+
+      eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getHours(), 'hours').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[0]),'hours').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[1]),'minutes').toDate();
+
+      console.log("Quitado las horas", eventCopy.startTime," " ,eventCopy.endTime)
+
+      eventCopy.id = cantidadDeEventos;
+      cantidadDeEventos++;
+
+      localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
+      eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
+      eventCopy.startTime = moment(eventCopy.startTime).toDate();
+      eventCopy.endTime = moment(eventCopy.endTime).toDate();
+      this.eventSource.push(eventCopy);
+      localStorage.removeItem(eventCopy.title);
+      fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
+      eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
+    }
+
+    if(this.eventSource.length > 0){
+      this.eventSource.pop()
+    }
+    
+    console.log("antes de grabar ->", this.eventSource)
+    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
+    this.myCal.loadEvents();
+    this.resetEvent();
+  }
+
+
+
+  
+  addMonitoria(){
+    console.log("Seleccionado", this.monitoria, this.asignatura);
+   
+    let cantidadDeEventos = 0;
+    cantidadDeEventos = this.eventSource.length;
+    console.log("cantidad eventos ", cantidadDeEventos)
+    if(cantidadDeEventos == null){
+      cantidadDeEventos = 0;
+    }
+
+
+    let eventCopy: evento = new evento();
+    eventCopy.title = this.event.title;
+    eventCopy.startTime = new Date(this.event.startTime);
+    eventCopy.endTime = new Date(this.event.endTime)
+    eventCopy.allDay= this.event.allDay
+    eventCopy.desc= this.event.desc
+    eventCopy.id= cantidadDeEventos
+    eventCopy.monitoria= this.event.monitoria
+
+    
+    let eventCopy2 = {
+      title: this.event2.title,
+      startTime: new Date(this.event2.startTime),
+      endTime: new Date(this.event2.endTime),
+      allDay: this.event2.allDay,
+      sTime: this.event2.sTime,
+      eTime: this.event2.eTime,
+      desc: this.event2.desc,
+      id: cantidadDeEventos,
+      monitoria: this.monitoria
+    }
+    
     if(this.monitoria){
       console.log("Cambia")
       eventCopy.title = this.asignatura.nombre;
@@ -210,7 +305,7 @@ export class CalendarioPage implements OnInit {
 
       eventCopy.title = eventCopy2.title;
       eventCopy.startTime = eventCopy2.startTime;
-      eventCopy.monitoria = this.monitoria;
+      eventCopy.monitoria = true;
 
       eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
       eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
@@ -226,11 +321,8 @@ export class CalendarioPage implements OnInit {
 
       console.log("Quitado las horas", eventCopy.startTime," " ,eventCopy.endTime)
 
-
       eventCopy.id = cantidadDeEventos;
       cantidadDeEventos++;
-
-
 
       localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
       eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
@@ -248,12 +340,13 @@ export class CalendarioPage implements OnInit {
     
     console.log("antes de grabar ->", this.eventSource)
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
-
-    
     this.myCal.loadEvents();
     this.resetEvent();
-
+    this.monitoria = false;
   }
+
+
+
 
   enviarMonitoria(){
     for(let i = 0; i<this.monitorias.length; i++ ){
