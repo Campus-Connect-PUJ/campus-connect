@@ -49,6 +49,8 @@ export class MapaRutaPage implements OnInit {
   polygons_eventualidades: any;
   multipolygon: any;
 
+  interval: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -70,9 +72,67 @@ export class MapaRutaPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
+    console.log("VIEWENTER");
     this.leafletMap();
 
     this.polygons_eventualidades = new Array();
+    this.getEventualidades();
+
+    this.normal();
+    this.startTrackingLoop();
+  }
+
+  startTrackingLoop() {
+    this.interval = setInterval(() => {
+      //run code
+      console.log("Getting new eventualidades");
+      this.getNewEventualidades();
+    }, 5000);
+  }
+
+  stopTrackingLoop() {
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
+  private getNewEventualidades() {
+    this.evService.obtenerEventualidades().subscribe(
+      (results) => {
+        console.log("results", results);
+        var nuevas_eventualidades = results;
+        console.log(nuevas_eventualidades);
+        if(nuevas_eventualidades.length != this.eventualidades.length){
+          this.eventualidades = results;
+          this.eventualidades.forEach((element) => {
+            var options = {
+              steps: 10,
+              units: "kilometers" as Units,
+              properties: { foo: "bar" },
+            };
+            var radius = 0.01;
+            var center = [element.longitud, element.latitud];
+            var circle_var = circle(center, radius, options);
+            //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
+            //console.log("circle", circle_var.geometry.coordinates);
+            this.polygons_eventualidades.push(circle_var.geometry.coordinates);
+            console.log("Calculando nueva ruta");
+            this.calcularRuta();
+          });
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    this.multipolygon = {
+      type: "MultiPolygon",
+      coordinates: this.polygons_eventualidades,
+    };
+    console.log("Multipolygon", this.multipolygon);
+  }
+
+  private getEventualidades() {
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
         console.log("results", results);
@@ -103,8 +163,6 @@ export class MapaRutaPage implements OnInit {
       coordinates: this.polygons_eventualidades,
     };
     console.log("Multipolygon", this.multipolygon);
-
-    this.normal();
   }
 
   async leafletMap() {
@@ -176,9 +234,15 @@ export class MapaRutaPage implements OnInit {
   }
 
   ionViewWillLeave() {
+    console.log("LEAVE");
     if (this.map) {
       this.map.remove();
     }
+    this.circle_GEO_JSON = null;
+    this.latlng_actual = null;
+    this.geoJSON_layer = null;
+    this.route_shown = true;
+    this.stopTrackingLoop();
   }
 
   public onBackAction($event) {
@@ -235,7 +299,8 @@ export class MapaRutaPage implements OnInit {
 
     var httpOptions = {
       headers: new HttpHeaders({
-        Accept: "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        Accept:
+          "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
         "Content-Type": "application/json",
         Authorization: this.api_key_openrouteservice,
       }),
@@ -245,8 +310,8 @@ export class MapaRutaPage implements OnInit {
       .post(this.url_route, body, httpOptions)
       .subscribe((resp) => {
         console.log(resp);
-        if(this.geoJSON_layer != null){
-          this.map.removeLayer(this.geoJSON_layer)
+        if (this.geoJSON_layer != null) {
+          this.map.removeLayer(this.geoJSON_layer);
         }
         this.geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map);
       });
@@ -285,7 +350,8 @@ export class MapaRutaPage implements OnInit {
 
     var httpOptions = {
       headers: new HttpHeaders({
-        Accept: "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        Accept:
+          "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
         "Content-Type": "application/json",
         Authorization: this.api_key_openrouteservice,
       }),
