@@ -380,7 +380,7 @@ export class CalendarioPage implements OnInit {
     for(let i = 0; i<this.monitorias.length; i++ ){
       for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
         //console.log("Id asignatura", this.monitorias[j].asignatura.id)
-        this.moniService.agregarHorario( this.logService.getUser().id, this.monitorias[i], j).subscribe(
+        this.moniService.agregarHorario( this.monitorias[i], j).subscribe(
           result => console.log(result),
           error => console.log(error)
         );

@@ -23,8 +23,8 @@ export class MonitoriaService {
     )
   }
 
-  agregarHorario(idUsuario: number, mon: Monitoria, indice: number){
-    const url = `${environment.baseUrl}/usuario/agregarHorario/${idUsuario}`;
+  agregarHorario(mon: Monitoria, indice: number){
+    const url = `${environment.baseUrl}/usuario/agregarHorario`;
     return this.net.post(
       url,
       {
