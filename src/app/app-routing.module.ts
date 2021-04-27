@@ -276,6 +276,10 @@ const routes: Routes = [
   {
     path: 'cambiar-monitor',
     loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+  },
+  {
+    path: 'test-aprendizaje',
+    loadChildren: () => import('./test-aprendizaje/test-aprendizaje.module').then( m => m.TestAprendizajePageModule)
   }
   /*
   {
