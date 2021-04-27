@@ -37,6 +37,11 @@ export class TipsService {
     );
   }
 
+  borrarTip(idUsuario: number, idTip: number){
+    const url = `${environment.baseUrl}/tip/${idUsuario}/borrarTip/${idTip}`;
+    return this.net.put(url, {})
+  }
+
   agregarTipGustado(idUsuario: number, idTip: number){
     const url = `${environment.baseUrl}/tip/tipsGustados/${idUsuario}/${idTip}`;
 

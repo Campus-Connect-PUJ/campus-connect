@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-tips',
@@ -11,12 +13,15 @@ import { TipsService } from 'src/app/Model/Tip/tips.service';
 })
 export class TipsPage implements OnInit {
   tips: Tip[] = [];
+  usuario: UsuarioGeneral;
   textoBuscar='';
+
 
   constructor(
     private tipsService: TipsService,
-    public navCtrl: NavController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public alertaCtrl: AlertController,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -25,6 +30,7 @@ export class TipsPage implements OnInit {
       if(recipeId != null){
         console.log(recipeId)
         this.cargarTipsUsuarios(Number(recipeId));
+        this.usuario = this.loginService.getUser();
       }
     })
   }
@@ -45,6 +51,41 @@ export class TipsPage implements OnInit {
       },
       error => console.error(error)
     )
+
   }
 
+
+  
+  async presentAlert(indice){
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia'+ (indice+1),
+      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Borrar',
+          handler: () => {
+            console.log(this.tips)
+            console.log("Indice ", indice)
+            this.tipsService.borrarTip(this.usuario.id, this.tips[indice].id).subscribe(
+              result => console.log(result),
+              error => console.log(error)
+            )
+
+            this.tips.splice(indice,1);
+            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            
+          }
+        }
+      ]
+    })
+    await alert.present();
+  }
 }

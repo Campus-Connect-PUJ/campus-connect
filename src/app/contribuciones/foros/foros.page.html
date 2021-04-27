@@ -18,7 +18,7 @@
 
   <div id="materias">
     
-      <ion-item-sliding *ngFor = "let foro of foros; let indice=index">
+      <ion-item-sliding *ngFor = "let foro of forosUsuario; let indice=index">
         <ion-item [routerLink]="['/foros', foro.id]">
           <ion-card-header>
           <div id="TyP">

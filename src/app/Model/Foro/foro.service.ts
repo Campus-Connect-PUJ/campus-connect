@@ -44,8 +44,8 @@ export class ForoService {
     )
   }
 
-  borrarForo(idUsuario: number, idTipoAprendizaje: number){
-    const url = `${environment.baseUrl}/usuario/${idUsuario}/borrarTipoAprendizaje/${idTipoAprendizaje}`
+  borrarForo(idUsuario: number, idForo: number){
+    const url = `${environment.baseUrl}/foro/${idUsuario}/borrarForo/${idForo}`;
     return this.net.put(url, {})
   }
 

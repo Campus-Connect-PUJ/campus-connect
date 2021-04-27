@@ -24,13 +24,11 @@ export class ForosPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("aaa")
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('usuarioId')
-      console.log("aaa", recipeId)
       if(recipeId != null){
-        console.log(recipeId)
         this.cargarForosUsuarios(Number(recipeId));
+        this.usuario = this.loginService.getUser();
       }
     })
   }
@@ -71,19 +69,11 @@ export class ForosPage implements OnInit {
           handler: () => {
             console.log(this.forosUsuario)
             console.log("Indice ", indice)
-
-            //this.forosService.borrarForo(this.usuario.id, this.forosUsuario)
-
-/*
-            this.tipoAprendizajeService.borrarTipoAprendizaje(this.usuario.id, this.forosUsuario[indice].id).subscribe(
-              result => {
-                console.log(result)
-                
-              },
+            this.forosService.borrarForo(this.usuario.id, this.forosUsuario[indice].id).subscribe(
+              result => console.log(result),
               error => console.log(error)
             )
 
-*/
             this.forosUsuario.splice(indice,1);
             this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
             

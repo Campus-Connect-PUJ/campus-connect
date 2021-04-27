@@ -2,6 +2,9 @@ import { RespuestasForoService } from '../../Model/RespuestasForo/respuestas-for
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RespuestaForo } from '../../Model/RespuestasForo/respuestas-foro';
+import { AlertController } from '@ionic/angular';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-respuestas-foro',
@@ -10,11 +13,13 @@ import { RespuestaForo } from '../../Model/RespuestasForo/respuestas-foro';
 })
 export class RespuestasForoPage implements OnInit {
   respuestasUsuario: Array<RespuestaForo> = [];
-
+  usuario: UsuarioGeneral;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private respService: RespuestasForoService
+    private respService: RespuestasForoService,
+    public alertaCtrl: AlertController,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -26,6 +31,7 @@ export class RespuestasForoPage implements OnInit {
           result => {
             this.respuestasUsuario = result
             console.log("Las respuestas", this.respuestasUsuario)
+            this.usuario = this.loginService.getUser();
           },
           error => console.log(error)
         );
@@ -37,24 +43,37 @@ export class RespuestasForoPage implements OnInit {
     })
   }
 
-  /*
-  cargarTipsUsuarios(idUsuario: number){
-    let tipsUsuario = new Array<Tip>();
-    this.tipsService.getTips().subscribe(
-      results => {
-        this.tips = results;
-        for(let i=0; i<this.tips.length; i++){
-          console.log(".>", this.tips[i])
-          if(this.tips[i].idUsuarioCreador === idUsuario){
-            tipsUsuario.push(this.tips[i]);
+  async presentAlert(indice){
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia'+ (indice+1),
+      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Borrar',
+          handler: () => {
+            console.log(this.respuestasUsuario)
+            console.log("Indice ", indice)
+            this.respService.borrarRespuesta(this.usuario.id, this.respuestasUsuario[indice].id).subscribe(
+              result => console.log(result),
+              error => console.log(error)
+            )
+
+            this.respuestasUsuario.splice(indice,1);
+            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            
           }
         }
-        this.tips = tipsUsuario;
-        console.log("Los tips", this.tips)
-      },
-      error => console.error(error)
-    )
+      ]
+    })
+    await alert.present();
   }
-*/
 
 }
