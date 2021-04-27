@@ -98,10 +98,11 @@ export class MapaRutaPage implements OnInit {
   private getNewEventualidades() {
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
-        console.log("results", results);
+        console.log("New results", results);
         var nuevas_eventualidades = results;
         console.log(nuevas_eventualidades);
         if(nuevas_eventualidades.length != this.eventualidades.length){
+          this.polygons_eventualidades = new Array();
           this.eventualidades = results;
           this.eventualidades.forEach((element) => {
             var options = {
@@ -115,26 +116,26 @@ export class MapaRutaPage implements OnInit {
             //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
             //console.log("circle", circle_var.geometry.coordinates);
             this.polygons_eventualidades.push(circle_var.geometry.coordinates);
-            console.log("Calculando nueva ruta");
-            this.calcularRuta();
           });
+          console.log("Calculando nueva ruta");
+          this.multipolygon = {
+            type: "MultiPolygon",
+            coordinates: this.polygons_eventualidades,
+          };
+          console.log("Multipolygon", this.multipolygon);
+          this.calcularRuta();
         }
       },
       (error) => {
         console.error(error);
       }
     );
-
-    this.multipolygon = {
-      type: "MultiPolygon",
-      coordinates: this.polygons_eventualidades,
-    };
-    console.log("Multipolygon", this.multipolygon);
   }
 
   private getEventualidades() {
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
+        this.polygons_eventualidades = new Array();
         console.log("results", results);
         this.eventualidades = results;
         console.log(this.eventualidades);
@@ -150,19 +151,18 @@ export class MapaRutaPage implements OnInit {
           //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
           //console.log("circle", circle_var.geometry.coordinates);
           this.polygons_eventualidades.push(circle_var.geometry.coordinates);
-          this.calcularRuta();
         });
+        this.multipolygon = {
+          type: "MultiPolygon",
+          coordinates: this.polygons_eventualidades,
+        };
+        console.log("Multipolygon", this.multipolygon);
+        this.calcularRuta();
       },
       (error) => {
         console.error(error);
       }
     );
-
-    this.multipolygon = {
-      type: "MultiPolygon",
-      coordinates: this.polygons_eventualidades,
-    };
-    console.log("Multipolygon", this.multipolygon);
   }
 
   async leafletMap() {
