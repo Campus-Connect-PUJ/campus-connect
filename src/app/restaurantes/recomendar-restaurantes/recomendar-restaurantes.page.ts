@@ -45,7 +45,7 @@ export class RecomendarRestaurantesPage implements OnInit {
         this.restaurantes = results;
       },
       error => console.error(error)
-    )
+    );
   }
 
   buscarRestaurante(event){
@@ -61,7 +61,7 @@ export class RecomendarRestaurantesPage implements OnInit {
         this.comidas = results;
       },
       error => console.error(error)
-    )
+    );
   }
 
   infoRestaurante(){
@@ -89,6 +89,6 @@ export class RecomendarRestaurantesPage implements OnInit {
   openModal(){
     this.modalControler.create({component : FormularioPersoRestaurantesPage}).then((modalElement)=>{
       modalElement.present();
-    })
+    });
   }
 }
