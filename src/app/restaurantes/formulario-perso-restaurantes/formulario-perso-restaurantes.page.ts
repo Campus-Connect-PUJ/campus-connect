@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 import { RegimenAlimenticio } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio';
 import { RegimenAlimenticioService } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio.service';
 import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
 import { TipoComidaService } from 'src/app/Model/TipoComida/tipo-comida.service';
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-formulario-perso-restaurantes',
@@ -21,11 +23,18 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   nivelExigencia=0;
   ambientacion='';
 
+  usuario: UsuarioGeneral;
+
   constructor(
+    private loginService: LoginService,
     private modalController : ModalController, 
     private regimenService:RegimenAlimenticioService, 
     private tcService:TipoComidaService,
-    private usuarioSer: UsuarioGeneralService) { }
+    private usuarioSer: UsuarioGeneralService,
+    public toastCtrl: ToastController) {
+
+    this.usuario = this.loginService.getUser();
+  }
 
   ngOnInit() {
     this.findRegimenes();
@@ -38,7 +47,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   findRegimenes() {
     this.regimenService.getRegimenAlimenticios().subscribe(
-      results => {
+      (results: RegimenAlimenticio[]) => {
         console.log(results);
         this.regimenes = results;
       },
@@ -48,7 +57,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
 
   findComida() {
     this.tcService.getTipoComida().subscribe(
-      results => {
+      (results: TipoComida[]) => {
         console.log(results);
         this.comidas = results;
       },
@@ -56,43 +65,35 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     )
   }
 
-  onClickRegimen(event){
-    const regimen = event.target.value;
-    this.regimenService.getRegimenAlimenticioById(regimen).subscribe(
-      results => {
-        console.log(results);
-        this.regimenUsuario = results;
-      },
-      error => console.error(error)
-    )
-    console.log(this.regimenUsuario.tipo);
-  }
-  onClickRegimenNivel(event){
-    const nivel = event.target.value;
-    this.nivelExigencia=nivel;
-    console.log(this.nivelExigencia);
-  }
-  onClickComida(comida){
-    this.comidasUsuario.push(comida);
-    console.log(this.comidasUsuario);
-  }
-  onClickAmbientacion(event){
-    const ambien = event.target.value;
-    this.ambientacion = ambien;
-    console.log(this.ambientacion);
-  }
   guardar(){
     console.log("enviar info al back");
 
-    let idComida: number[]=[];
-
-    for(let i=0;i<this.comidasUsuario.length;i++){
-      idComida.push(this.comidasUsuario[i].id);
-    }
-
-    this.usuarioSer.persoRestaurantes(this.regimenUsuario.id,this.nivelExigencia,this.ambientacion,idComida).subscribe(
-      results => console.log(results),
+    this.usuarioSer.persoRestaurantes(
+      this.regimenUsuario.id,
+      this.nivelExigencia,
+      this.ambientacion,
+      this.comidasUsuario.map(i => i.id)
+    ).subscribe(
+      (result: UsuarioGeneral) => {
+        console.log(result)
+        this.usuario = result
+        this.loginService.storeUser(this.usuario, this.loginService.getToken())
+        console.log("user", this.usuario)
+        this.closeModal();
+      },
       error => console.error(error)
     );
+
+    this.presentToast("Tus datos han sido actualizados");
+  }
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 }
