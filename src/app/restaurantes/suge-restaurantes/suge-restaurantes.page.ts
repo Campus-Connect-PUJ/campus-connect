@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Restaurante } from 'src/app/Model/Restaurante/restaurante';
+import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
 import { RestauranteService } from 'src/app/Model/Restaurante/restaurante.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { LoginService } from 'src/app/services/login.service';
@@ -25,10 +26,10 @@ export class SugeRestaurantesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.algo();
+    this.verificarUsuario();
   }
 
-  algo() {
+  verificarUsuario() {
     if(this.usuario.comidaFav.length===0){
       this.openModal();
     }else{
@@ -38,12 +39,14 @@ export class SugeRestaurantesPage implements OnInit {
 
   findRestaurantes(){
     this.restauranteService.getRestaurantes().subscribe(
-      results => {
+      (results: Restaurante[]) => {
         console.log(results);
         const restaurantesT = results;
         for(let i=0; i<this.usuario.comidaFav.length; i++){
           for (let j=0;j<restaurantesT.length;j++){
-            if(restaurantesT[j].tiposComida.some(tc => tc.tipo === this.usuario.comidaFav[i].tipo)){
+            if(restaurantesT[j].tiposComida.some(
+              (tc: TipoComida) => tc.tipo === this.usuario.comidaFav[i].tipo)
+              ){
               if(!this.restaurantes.includes(restaurantesT[j])){
                 this.restaurantes.push(restaurantesT[j]);
               }
@@ -65,7 +68,7 @@ export class SugeRestaurantesPage implements OnInit {
     );
     modal.onDidDismiss().then( () => {
       this.usuario = this.loginService.getUser();
-      this.algo();
+      this.verificarUsuario();
     });
     await modal.present();
 

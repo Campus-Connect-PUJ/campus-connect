@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { GrupoEstudiantil } from 'src/app/Model/GrupoEstudiantil/grupo-estudiantil';
+import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { GrupoEstudiantilService } from 'src/app/Model/GrupoEstudiantil/grupo-estudiantil.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { LoginService } from 'src/app/services/login.service';
@@ -15,35 +16,40 @@ export class SugeGruposPage implements OnInit {
 
   grupos: GrupoEstudiantil[] = [];
   usuario: UsuarioGeneral;
-  gruposT: GrupoEstudiantil[] = [];
-  
+
   constructor(
     private loginService: LoginService,
-    private modalController :ModalController,
+    private modalController: ModalController,
     private geService: GrupoEstudiantilService
-  ) { }
+  ) {
+    this.usuario = this.loginService.getUser();
+  }
 
   ngOnInit() {
-    this.usuario = this.loginService.getUser();
-    console.log(this.usuario.caracteristicas.length);
+    this.verificarUsuario();
+  }
+
+  verificarUsuario() {
     if(this.usuario.caracteristicas.length===0){
       this.openModal();
     }else{
       this.findGrupos();
     }
-    
   }
 
   findGrupos() {
     this.geService.getGrupos().subscribe(
-      results => {
+      (results: GrupoEstudiantil[]) => {
         console.log(results);
-        this.gruposT = results;
+        const gruposT = results;
         for(let i=0; i<this.usuario.caracteristicas.length; i++){
-          for (let j=0;j<this.gruposT.length;j++){
-            if(this.gruposT[j].caracteristicas.some(car => car.nombre === this.usuario.caracteristicas[i].nombre)){
-              if(this.grupos.includes(this.gruposT[j])){
-                this.grupos.push(this.gruposT[j]);
+          for (let j=0;j<gruposT.length;j++){
+            console.log(JSON.stringify(gruposT[j]))
+            if(gruposT[j].caracteristicas.some(
+              (car: Caracteristica) => car.nombre === this.usuario.caracteristicas[i].nombre)
+              ){
+              if(this.grupos.includes(gruposT[j])){
+                this.grupos.push(gruposT[j]);
               }
             }
           }
@@ -57,9 +63,14 @@ export class SugeGruposPage implements OnInit {
 
   }
 
-  openModal(){
-    this.modalController.create({component:FormularioPersoGruposPage}).then((modalElement)=>{
-      modalElement.present();
+  async openModal(){
+    const modal = await this.modalController.create(
+      {component: FormularioPersoGruposPage}
+    );
+    modal.onDidDismiss().then( () => {
+      this.usuario = this.loginService.getUser();
+      this.verificarUsuario();
     });
+    await modal.present();
   }
 }

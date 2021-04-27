@@ -58,7 +58,7 @@ export class FormularioPersoGruposPage implements OnInit {
 
   findTematica() {
     this.tematicasService.getTematicas().subscribe(
-      results => {
+      (results: Tematica[]) => {
         console.log(results);
         this.tematicas = results;
       },
@@ -68,7 +68,7 @@ export class FormularioPersoGruposPage implements OnInit {
 
   findCaracteristica(){
     this.caracteristicaService.getCaracteristicas().subscribe(
-      results => {
+      (results: Caracteristica[]) => {
         console.log(results);
         this.caracteristicas = results;
       },
@@ -102,14 +102,6 @@ export class FormularioPersoGruposPage implements OnInit {
       error => console.error(error)
     );
 
-    // this.usuarioSer.getInfoUsuario().subscribe(
-    //   (result: UsuarioGeneral) => {
-    //     this.usuario = result
-    //     this.loginService.storeUser(this.usuario, this.loginService.getToken())
-    //     console.log("user", this.usuario)
-    //   },
-    //   error => console.error()
-    // );
     this.presentToast("Tus datos han sido actualizados");
   }
 
