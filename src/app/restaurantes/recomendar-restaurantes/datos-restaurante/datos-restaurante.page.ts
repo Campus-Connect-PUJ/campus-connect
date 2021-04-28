@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { ReseniaRestaurante } from 'src/app/Model/ReseniaRestaurante/resenia-restaurante';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
@@ -20,7 +21,12 @@ export class DatosRestaurantePage implements OnInit {
   restauranteSelect: Restaurante =new Restaurante ("","",0,0);
   usuario: UsuarioGeneral;
 
-  constructor( private activatedRoute :ActivatedRoute, private restauranteService : RestauranteService, private usuarioSer: UsuarioGeneralService, private loginService: LoginService ) { }
+  constructor( 
+    private activatedRoute :ActivatedRoute, 
+    private restauranteService : RestauranteService, 
+    private usuarioSer: UsuarioGeneralService, 
+    private loginService: LoginService,
+    public toastCtrl: ToastController ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -56,6 +62,18 @@ export class DatosRestaurantePage implements OnInit {
       results => console.log(results),
       error => console.error(error)
     );
+
+    this.presentToast("Se ha guardado la reseña");
+  }
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 
 }
