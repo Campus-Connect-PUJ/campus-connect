@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, ToastController} from '@ionic/angular';
+import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import { RegimenAlimenticio } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio';
 import { RegimenAlimenticioService } from 'src/app/Model/RegimenAlimenticio/regimen-alimenticio.service';
 import { TipoComida } from 'src/app/Model/TipoComida/tipo-comida';
@@ -31,7 +31,8 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     private regimenService:RegimenAlimenticioService, 
     private tcService:TipoComidaService,
     private usuarioSer: UsuarioGeneralService,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public alertController: AlertController) {
 
     this.usuario = this.loginService.getUser();
   }
@@ -65,10 +66,31 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     )
   }
 
-  guardar(){
+  async guardar(){
     console.log("enviar info al back");
 
-    this.usuarioSer.persoRestaurantes(
+    if(this.regimenUsuario.id==null){
+      await this.alertaElementoNoSeleccionado(
+        "Regimen Alimenticio",
+        "Para continuar debes seleccionar un regimen alimenticio."
+      );
+    }else if(this.nivelExigencia===0){
+      await this.alertaElementoNoSeleccionado(
+        "Regimen Alimenticio",
+        "Para continuar debes seleccionar un nivel de exigencia del regimen alimenticio."
+      );
+    }else if(this.ambientacion===''){
+      await this.alertaElementoNoSeleccionado(
+        "Ambientación",
+        "Para continuar debes seleccionar una ambientación."
+      );
+    }else if(this.comidasUsuario.length===0){
+      await this.alertaElementoNoSeleccionado(
+        "Comida",
+        "Para continuar debes seleccionar al menos un tipo de comida."
+      );
+    }else{
+      this.usuarioSer.persoRestaurantes(
       this.regimenUsuario.id,
       this.nivelExigencia,
       this.ambientacion,
@@ -85,6 +107,8 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     );
 
     this.presentToast("Tus datos han sido actualizados");
+    }
+    
   }
 
   async presentToast(mensaje){
@@ -95,5 +119,16 @@ export class FormularioPersoRestaurantesPage implements OnInit {
       }
     );
     toast.present();
+  }
+
+  async alertaElementoNoSeleccionado(elemento: string, mensaje: string) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 }
