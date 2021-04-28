@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { Caracteristica } from 'src/app/Model/Caracteristica/caracteristica';
 import { CaracteristicaService } from 'src/app/Model/Caracteristica/caracteristica.service';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
@@ -42,7 +42,8 @@ export class FormularioPersoGruposPage implements OnInit {
     private tematicasService: TematicaService, 
     private caracteristicaService: CaracteristicaService,
     private usuarioSer: UsuarioGeneralService,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public alertController: AlertController) {
     this.usuario = this.loginService.getUser();
 
   }
@@ -86,10 +87,27 @@ export class FormularioPersoGruposPage implements OnInit {
     console.log(this.hobbies)
   }
 
-  guardar(){
+  async guardar(){
     console.log("Enviar datos al back");
 
-    this.usuarioSer.persoGrupos(
+    if(this.caracteristicasUsuario.length===0){
+      await this.alertaElementoNoSeleccionado(
+        "Caracteristicas",
+        "Para continuar debes seleccionar al menos una caracteristica."
+      );
+
+    } else if(this.actividades.length===0){
+      await this.alertaElementoNoSeleccionado(
+        "Actividades",
+        "Para continuar debes ingresar al menos una actividad."
+      );
+    }else if(this.hobbies.length===0){
+      await this.alertaElementoNoSeleccionado(
+        "Hobbies",
+        "Para continuar debes ingresar al menos un hobbie."
+      );
+    } else{
+      this.usuarioSer.persoGrupos(
       this.caracteristicasUsuario.map(i => i.id),
       this.actividades.map(i => i.nombre),
       this.hobbies.map(i => i.nombre)
@@ -101,8 +119,9 @@ export class FormularioPersoGruposPage implements OnInit {
       },
       error => console.error(error)
     );
-
     this.presentToast("Tus datos han sido actualizados");
+    }
+
   }
 
   async presentToast(mensaje){
@@ -118,5 +137,16 @@ export class FormularioPersoGruposPage implements OnInit {
   buscarCaracteristica(event){
     const texto = event.target.value;
     this.textoBuscar= texto;
+  }
+
+  async alertaElementoNoSeleccionado(elemento: string, mensaje: string) {
+    let alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 }
