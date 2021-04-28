@@ -3,7 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
 const routes: Routes = [
-  { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
+  { 
+    path: "grupos_estudiantiles", component: GruposEstudiantilesComponent 
+  },
   {
     path: "",
     redirectTo: "home",
@@ -13,13 +15,6 @@ const routes: Routes = [
     path: "folder/:id",
     loadChildren: () =>
       import("./folder/folder.module").then((m) => m.FolderPageModule),
-  },
-  {
-    path: "calculadora",
-    loadChildren: () =>
-      import("./calculadora/calculadora.module").then(
-        (m) => m.CalculadoraPageModule
-      ),
   },
   {
     path: "calculadora",
@@ -103,10 +98,6 @@ const routes: Routes = [
       {
         path: ":tipId",
         loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
-      },
-      {
-        path: "usuario/:usuarioId",
-        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       }
     ]
   },
@@ -124,10 +115,6 @@ const routes: Routes = [
       {
         path: ":foroId",
         loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
-      },
-      {
-        path: "usuario/:usuarioId",
-        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       }
     ]
   },
@@ -281,20 +268,6 @@ const routes: Routes = [
     path: 'test-aprendizaje',
     loadChildren: () => import('./test-aprendizaje/test-aprendizaje.module').then( m => m.TestAprendizajePageModule)
   }
-  /*
-  {
-    path: "horarios-monitor",
-    children: [
-      {
-        path: ":monitorID",
-        loadChildren: () =>
-          import(
-            './monitores/monitor-horarios/monitor-horarios.module'
-          ).then((m) => m.MonitorHorariosPageModule),
-      }
-    ]
-  }
-*/
 
 ];
 @NgModule({

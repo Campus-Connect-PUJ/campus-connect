@@ -37,7 +37,7 @@ export class MateriasPage {
     const toast = await this.toastCtrl.create(
       {
         message: "Prueba",
-        duration: 4000
+        duration: 3000
       }
     );
     toast.present();
