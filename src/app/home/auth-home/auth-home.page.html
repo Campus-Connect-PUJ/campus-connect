@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary">
+    <ion-buttons class="header_btn"
+                 slot="secondary">
       <ion-button
         (click)="logout()"
         href="home">
@@ -17,7 +18,7 @@
 <ion-content>
   <div class="home">
     <div class="content">
-      <div>
+      <ion-list>
         <ion-card class="ion-text-center ion-activatable ripple-parent"
                   href="/tabs/servicios-academicos">
           <ion-card-header>
@@ -36,7 +37,7 @@
             <ion-card-title>Sugerencias</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Aquí encontrarás la información de los restaurantes dentro y alrededor de la universidad y de los grupos estudiantiles. 
+            Aquí encontrarás la información de los restaurantes dentro y alrededor de la universidad y de los grupos estudiantiles.
           </ion-card-content>
         </ion-card>
 
@@ -46,13 +47,13 @@
             <ion-card-title>Mapa</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Aquí encontrarás los servicios relacionados a la ubicación dentro la universidad 
+            Aquí encontrarás los servicios relacionados a la ubicación dentro la universidad
           </ion-card-content>
         </ion-card>
-        
-      </div>
+      </ion-list>
 
     </div>
+
   </div>
 </ion-content>
 
