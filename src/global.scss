@@ -269,7 +269,6 @@ ion-list {
     border: #fa5d5d solid 2px;
 }
 
-
 .home_logo {
     border-radius: 50%;
     height: 50%;
@@ -314,43 +313,34 @@ ion-list {
     text-decoration: underline;
 }
 
-// ion-card {
+// ion-fab-button {
+//     overflow: visible;
+//     position: relative;
+// }
+//
+// ion-fab-list {
+//     ion-label {
+//         position: relative;
+//         top: 40px;
+//         right: 100%;
+//         color: white;
+//         background-color: rgba(0, 0, 0, 0.8);
+//         line-height: 24px;
+//         padding: 4px 8px;
+//         border-radius: 4px;
+//     }
+// }
+//
+// ion-fab {
+//     ion-badge {
+//         position: relative;
+//         top: 10px;
+//         left: 140px;
+//     }
 // }
 
-ion-fab-button {
-    overflow: visible;
-    position: relative;
-}
-
-ion-fab-list {
-    ion-label {
-        position: relative;
-        top: 40px;
-        right: 100%;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.8);
-        line-height: 24px;
-        padding: 4px 8px;
-        border-radius: 4px;
-    }
-}
-
-ion-fab {
-    ion-badge {
-        position: relative;
-        top: 10px;
-        left: 140px;
-    }
-}
-
-ion-back-button{
-    color: #C7C7C7;
-}
-
-ion-toolbar {
-    // --background: transparent;
-    --ion-color-base: transparent !important;
-    --border-style: none;
+ion-header ion-icon {
+    color: black;
 }
 
 // ------------------------------------------Siempre-------------------------------------------------------------
@@ -364,6 +354,11 @@ ion-card{
     background: #FFFFFF;
     border: 1px solid rgba(199, 199, 199, 0.25);
     border-radius: 15px;
+}
+
+// para texto que, debido al texto, no es facilmente legible
+.nonTransparent {
+    background: #FFFFFF;
 }
 
 // ion-card-header{

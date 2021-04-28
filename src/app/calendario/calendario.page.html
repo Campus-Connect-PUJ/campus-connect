@@ -1,183 +1,184 @@
- <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button (click)="enviarHorarios()" defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button (click)="today()">
+        <ion-icon slot="icon-only"
+                  name="time"
+        ></ion-icon>
+      </ion-button>
+      <ion-button (click)="enviarHorarios()" href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="today()">Today</ion-button>
-    </ion-buttons>
+    <ion-title>Horarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
-  <ion-segment [(ngModel)]="calendar.mode">
-    <ion-segment-button value="month">
-      <ion-label>Month</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="week">
-      <ion-label>Week</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="day">
-      <ion-label>Day</ion-label>
-    </ion-segment-button>
-  </ion-segment>
- 
-   
-  <ion-row>
-    <!-- Move back one screen of the slides -->
-    <ion-col size="2">
-      <ion-button fill="clear" (click)="back()">
-        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
- 
-    <ion-col size="8" class="ion-text-center">
-      <h2>{{ viewTitle }}</h2>
-    </ion-col>
- 
-    <!-- Move forward one screen of the slides -->
-    <ion-col size="2">
-      <ion-button fill="clear" (click)="next()">
-        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
- 
-
-  <!-- Card for adding a new event -->
-  <ion-card>
-    <ion-card-header tappable (click)="collapseCard = !collapseCard">
-      <ion-card-title>Nuevo evento</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="collapseCard">
-      <ion-item>
-        <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>End</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>All Day?</ion-label>
-        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
-      </ion-item>
-      <ion-button fill="outline" expand="block" (click)="addEvent()">Add Event</ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header tappable (click)="collapseCard2 = !collapseCard2">
-      <ion-card-title>Nueva Asignatura</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="collapseCard2">
-      <ion-item>
-        <ion-input type="text" placeholder="Title" [(ngModel)]="event2.title"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Description" [(ngModel)]="event2.desc"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Dia inicio</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Dia fin</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hora Inicio</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hora fin</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
-      </ion-item>
+  <div class="content">
+    <ion-segment class="nonTransparent" [(ngModel)]="calendar.mode">
+      <ion-segment-button value="month">
+        <ion-label>Month</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        <ion-label>Week</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="day">
+        <ion-label>Day</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
 
-      <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
-    </ion-card-content>
-  </ion-card>
+    <ion-row class="nonTransparent">
+      <!-- Move back one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="back()">
+          <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
 
-  
+      <ion-col size="8" class="ion-text-center">
+        <h2>{{ viewTitle }}</h2>
+      </ion-col>
 
-  <ion-card>
-    <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; monitoria = true">
-      <ion-card-title>Nueva monitoria</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="collapseCard3">
-      <ion-item>
-        <ion-label>Dia inicio</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Dia fin</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hora Inicio</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hora fin</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
-      </ion-item>
+      <!-- Move forward one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="next()">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
 
-      <ion-item>
-      <ion-label>Asignatura</ion-label>
-        <ion-select
+    <!-- Card for adding a new event -->
+    <ion-card>
+      <ion-card-header tappable (click)="collapseCard = !collapseCard">
+        <ion-card-title>Nuevo evento</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard">
+        <ion-item>
+          <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Start</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>End</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>All Day?</ion-label>
+          <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+        </ion-item>
+        <ion-button fill="outline" expand="block" (click)="addEvent()">Add Event</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header tappable (click)="collapseCard2 = !collapseCard2">
+        <ion-card-title>Nueva Asignatura</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard2">
+        <ion-item>
+          <ion-input type="text" placeholder="Title" [(ngModel)]="event2.title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Description" [(ngModel)]="event2.desc"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dia inicio</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dia fin</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hora Inicio</ion-label>
+          <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hora fin</ion-label>
+          <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
+        </ion-item>
+
+
+        <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+
+
+    <ion-card>
+      <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; monitoria = true">
+        <ion-card-title>Nueva monitoria</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard3">
+        <ion-item>
+          <ion-label>Dia inicio</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dia fin</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hora Inicio</ion-label>
+          <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.sTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hora fin</ion-label>
+          <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="event2.eTime"></ion-datetime>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>Asignatura</ion-label>
+          <ion-select
             [(ngModel)]="asignatura"
           >
             <ion-select-option *ngFor="let item of asignaturas" value="{{item}}"
-                              [value]="{id: item.id, nombre: item.nombre}"
+                               [value]="{id: item.id, nombre: item.nombre}"
             >
               {{item.nombre}}
             </ion-select-option>
           </ion-select>
-      </ion-item>
+        </ion-item>
 
-      <ion-button fill="outline" expand="block" (click)="addMonitoria()">Agregar evento</ion-button>
-    </ion-card-content>
-  </ion-card>
+        <ion-button fill="outline" expand="block" (click)="addMonitoria()">Agregar evento</ion-button>
+      </ion-card-content>
+    </ion-card>
 
-
-
-
-
-
-  <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
-  <calendar
-    [eventSource]="eventSource"
-    [calendarMode]="calendar.mode"
-    [currentDate]="calendar.currentDate"
-    (onEventSelected)="onEventSelected($event)"
-    (onTitleChanged)="onViewTitleChanged($event)"
-    [monthviewDisplayEventTemplate]="foo"
-    startHour="6"
-    endHour="20"
-    step="30"
-    startingDayWeek="1"
-  >
-  </calendar>
-
-  <ng-template #foo let-view="view" let-row="row" let-col="col">
-    {{view.dates[row*7+col].label}}
-    <div class="indicator-container">
-      <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+    <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
+    <div class="nonTransparent" >
+      <calendar
+        [eventSource]="eventSource"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        [monthviewDisplayEventTemplate]="foo"
+        startHour="6"
+        endHour="20"
+        step="30"
+        startingDayWeek="1"
+      >
+      </calendar>
     </div>
-</ng-template>
 
+    <ng-template #foo let-view="view" let-row="row" let-col="col">
+      {{view.dates[row*7+col].label}}
+      <div class="indicator-container">
+        <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+      </div>
+    </ng-template>
 
-
-
- 
+  </div>
 </ion-content>
