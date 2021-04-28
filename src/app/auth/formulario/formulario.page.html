@@ -5,44 +5,45 @@
 </ion-header>
 
 <ion-content>
-  <ion-item class="">
-    Para mejorar tu experiencia en Campus Connect, necesitaremos esta información.
-  </ion-item>
+  <div class="content">
+    <div class="nonTransparent">
+      <ion-item>
+        Para mejorar tu experiencia en Campus Connect, necesitaremos esta información.
+      </ion-item>
+      <ion-item>
+        <ion-datetime id="dat" [(ngModel)]="fechaNacimiento" placeholder="Fecha nacimiento"
+                      displayFormat="DD MMM YYYY"
+                      monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                      monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"></ion-datetime>
+      </ion-item>
 
-  <ion-label>Fecha de nacimiento</ion-label>
-  <ion-item>
-    <ion-datetime id="dat" [(ngModel)]="fechaNacimiento" placeholder="Selección"
-    displayFormat="DD MMM YYYY"
-    monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
-    monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"></ion-datetime>
-  </ion-item>
+      <ion-item>
+        <ion-label>Carrera</ion-label>
+        <ion-select
+          multiple
+          [(ngModel)]="carreras_seleccionadas">
+          <ion-select-option *ngFor="let item of carreras" value="{{item}}"
+                             [value]="{id: item.id, nombre: item.nombre}">
+            {{item.nombre}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>Carrera</ion-label>
-    <ion-select
-      multiple
-      [(ngModel)]="carreras_seleccionadas"
-    >
-      <ion-select-option *ngFor="let item of carreras" value="{{item}}"
-                         [value]="{id: item.id, nombre: item.nombre}"
-      >
-        {{item.nombre}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-list *ngIf="carreras_seleccionadas.length != 0">
+        <ion-list-header>
+          Carreras seleccionadas
+        </ion-list-header>
+        <ion-item *ngFor="let item of carreras_seleccionadas">
+          {{ item.nombre }}
+        </ion-item>
+      </ion-list>
 
-  <ion-list *ngIf="carreras_seleccionadas.length != 0">
-    <ion-list-header>
-      Carreras seleccionadas
-    </ion-list-header>
-    <ion-item *ngFor="let item of carreras_seleccionadas">
-      {{ item.nombre }}
-    </ion-item>
-  </ion-list>
+    </div>
 
-  <div class="register">
-    <button class="myButton" (click)="completar_registro()">
-      Completar registro
-    </button>
+    <div class="register">
+      <button class="myButton" (click)="completar_registro()">
+        Siguiente formulario
+      </button>
+    </div>
   </div>
 </ion-content>
