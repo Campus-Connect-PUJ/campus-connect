@@ -40,7 +40,7 @@ export class TipCrearPage implements OnInit {
   }
 
   crearTip(){
-    let mensaje = "Se publico el tip";
+    const mensaje = "Se publico el tip";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
 
 
