@@ -65,8 +65,8 @@ export class MonitorAsignaturaPage implements OnInit {ç
     for(let i=0; i<monitor.monitorDe[indice].horarios.length; i++){
       let data: HorarioMonitoria = new HorarioMonitoria();
       data.id = monitor.monitorDe[indice].horarios[i].id;
-      data.fi = monitor.monitorDe[indice].horarios[i].fi;
-      data.ff = monitor.monitorDe[indice].horarios[i].ff;
+      data.fechaInicio = monitor.monitorDe[indice].horarios[i].fechaInicio;
+      data.fechaFin = monitor.monitorDe[indice].horarios[i].fechaFin;
 
       this.horarios.push(data);
     }

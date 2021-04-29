@@ -96,6 +96,10 @@ const routes: Routes = [
         loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       },
       {
+        path: "exigencia/:exig",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+      },
+      {
         path: ":tipId",
         loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
       }

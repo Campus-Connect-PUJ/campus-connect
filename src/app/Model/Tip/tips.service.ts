@@ -32,7 +32,7 @@ export class TipsService {
           descripcion: tipEnviar.descripcion
         },
         tiposAprendizaje: tipEnviar.tiposAprendizaje,
-        exigencia: 3
+        exigencia: tipEnviar.nivelExigencia
       }
     );
   }

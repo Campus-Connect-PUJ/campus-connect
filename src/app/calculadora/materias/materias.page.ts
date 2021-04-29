@@ -36,7 +36,7 @@ export class MateriasPage {
   async presentToast(){
     const toast = await this.toastCtrl.create(
       {
-        message: "Prueba",
+        message: "Se agrego asignatura",
         duration: 3000
       }
     );
@@ -49,9 +49,9 @@ export class MateriasPage {
 
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
+      header: '¿Borrar asignatura?',
       subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      message: 'Esta apunto de borrar la asignatura '+ (indice+1),
       buttons: [
         {
           text: 'Cancel',

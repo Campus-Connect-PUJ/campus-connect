@@ -370,8 +370,8 @@ export class CalendarioPage implements OnInit {
           horario.fechaInicial = this.eventos[j].startTime;
           horario.fechaFinal = this.eventos[j].endTime;
 
-          horario.fi = moment(this.eventos[j].startTime).format('DD-MM-YYYY HH:mm');
-          horario.ff = moment(this.eventos[j].endTime).format('DD-MM-YYYY HH:mm');
+          horario.fechaInicio = moment(this.eventos[j].startTime).format('DD-MM-YYYY HH:mm');
+          horario.fechaFin = moment(this.eventos[j].endTime).format('DD-MM-YYYY HH:mm');
           this.monitorias[i].horarios.push(horario)
         } 
       }

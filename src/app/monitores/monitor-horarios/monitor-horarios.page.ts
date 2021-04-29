@@ -161,8 +161,8 @@ export class MonitorHorariosPage implements OnInit {
   
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){
-        let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fi, "DD-MM-YYYY HH:mm")
-        let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].ff, "DD-MM-YYYY HH:mm")
+        let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fechaInicio, "DD-MM-YYYY HH:mm")
+        let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].fechaFin, "DD-MM-YYYY HH:mm")
         let ocupado = false;
         try {
           for(let i=0; i<this.eventos.length && !ocupado; i++){
@@ -200,10 +200,10 @@ export class MonitorHorariosPage implements OnInit {
     console.log("sin ordenas", sugerenciasOrdenadas)
 
     sugerenciasOrdenadas.sort(function (a, b) {
-      if(moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm")) ){
+      if(moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
         return 1;
       }
-      if (!moment(moment(a.fi, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fi, "DD-MM-YYYY HH:mm"))){
+      if (!moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
         return -1;
       }
       // a must be equal to b
@@ -228,8 +228,8 @@ export class MonitorHorariosPage implements OnInit {
     let ingresar = true;
     data.id = horario.id;
     data.nombreAsignatura = datos.asignatura.nombre;
-    data.fi = horario.fi;
-    data.ff = horario.ff;
+    data.fechaInicio = horario.fechaInicio;
+    data.fechaFin = horario.fechaFin;
 
     if(this.horariosSugeridos.length==0){
       this.horariosSugeridos.push(data);
@@ -264,9 +264,9 @@ export class MonitorHorariosPage implements OnInit {
         for(let i=0; i<this.horarios.length; i++){
           for(let j=0; j<this.horarios[i].horarios.length; j++){
             var date = moment(this.horarios[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm')
-            this.horarios[i].horarios[j].fi = date;
+            this.horarios[i].horarios[j].fechaInicio = date;
             date = moment(this.horarios[i].horarios[j].fechaFinal).format('DD-MM-YYYY HH:mm')
-            this.horarios[i].horarios[j].ff = date;
+            this.horarios[i].horarios[j].fechaFin = date;
           }
         }
         console.log(date)
