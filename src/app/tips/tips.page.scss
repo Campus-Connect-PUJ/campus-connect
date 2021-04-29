@@ -1,50 +1,7 @@
-ion-content.background{
-    --background:url("../../assets/fondo.png");
-}
 
-#bg {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    min-width: 100%;
-    min-height: 100%;
-}
-
-ion-content{
-    align-content: center;
-    display: flex;
-    justify-content: center;
-}
-
-ion-back-button{
-    color: #C7C7C7;
-}
-
-ion-toolbar {
-    --background: transparent;
-    --ion-color-base: transparent !important;
-    --border-style: none;
-}
-
-// ------------------------------------------Siempre-------------------------------------------------------------
-
-ion-card{
-    height: 40%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 0%;
-    width: 90%;
-    background: #FFFFFF;
-    border: 1px solid rgba(199, 199, 199, 0.25);
-    box-shadow: 0px 4px 5px 1px #C7C7C7;
-    border-radius: 15px;
-
-    h2{
-        margin: 10%;
-        text-align: center;
-    }
+ion-card h2{
+    margin: 10%;
+    text-align: center;
 }
 
 ion-card-header h2{

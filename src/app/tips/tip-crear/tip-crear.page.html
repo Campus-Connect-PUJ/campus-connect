@@ -1,32 +1,44 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="recomendacion-tip">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Crear tip</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding class="background" [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Descripción</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-item>
-    <ion-label>Tipo aprendizaje</ion-label>
-    <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
-      <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <div class="btn-crearForo">
-    <ion-card class="boton-mas" (click)=crearTip() [routerLink]="['/tabs/servicios-academicos']">
-      <h1>+</h1>
+<ion-content>
+  <div class="content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Descripción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
+      </ion-card-content>
     </ion-card>
+
+    <ion-item>
+      <ion-label>Tipo aprendizaje</ion-label>
+      <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+        <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div class="btn-crearForo">
+      <ion-button
+        href="/tips">
+        <ion-icon slot="icon-only"
+                  name="add"
+        ></ion-icon>
+      </ion-button>
+    </div>
   </div>
 </ion-content>
