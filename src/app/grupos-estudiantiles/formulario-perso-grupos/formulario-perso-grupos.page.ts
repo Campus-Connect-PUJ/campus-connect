@@ -116,6 +116,7 @@ export class FormularioPersoGruposPage implements OnInit {
         this.usuario = result
         this.loginService.storeUser(this.usuario, this.loginService.getToken())
         console.log("user", this.usuario)
+        this.closeModal();
       },
       error => console.error(error)
     );
@@ -140,7 +141,7 @@ export class FormularioPersoGruposPage implements OnInit {
   }
 
   async alertaElementoNoSeleccionado(elemento: string, mensaje: string) {
-    let alert = await this.alertController.create({
+    const alert = await this.alertController.create({
       cssClass: "custom-class-alert",
       header: "Error",
       subHeader: elemento,
