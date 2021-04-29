@@ -1,55 +1,67 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="calculadora/materias"  text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="calculadora/materias">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Asignaturas</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-<div class="instrucciones">
-  <div class="instruccion">
-    <div id="cuadroLleno">
-    </div>
-    <div id="texto">
-      <h5>Porcentaje completo</h5>
-    </div>
-  </div>
-  <div class="instruccion">
-    <div id="cuadroVacio">
-    </div>
-    <div id="texto">
-      <h5>Porcentaje sin nota</h5>
-    </div>
-  </div>
-</div>
-<div class="barraProgreso">
-  <h4>Porcentaje <span *ngIf="p_bar_value">{{p_bar_value*100 | number}}% </span></h4>
-  <ion-progress-bar [value]="p_bar_value"></ion-progress-bar>
-</div>
-<div class="Notas">
-  <ion-list>
-    <ion-item lines="none" *ngFor="let nota of notas; let indice=index">
-      <div id="input">
-        <ion-input type="number" (change)="changeFn1($event, indice)" value = {{notas[indice].porcentaje}}></ion-input>
+  <div class="content">
+    <div class="nonTransparent">
+      <div class="instrucciones">
+        <div class="instruccion">
+          <div id="cuadroLleno">
+          </div>
+          <div id="texto">
+            <h5>Porcentaje completo</h5>
+          </div>
+        </div>
+        <div class="instruccion">
+          <div id="cuadroVacio">
+          </div>
+          <div id="texto">
+            <h5>Porcentaje sin nota</h5>
+          </div>
+        </div>
       </div>
-      <div id="textoInput">
-        <h5>%</h5>
+      <div class="barraProgreso">
+        <h4>Porcentaje <span *ngIf="p_bar_value">{{p_bar_value*100 | number}}% </span></h4>
+        <ion-progress-bar [value]="p_bar_value"></ion-progress-bar>
       </div>
-      <div id="input">
-        <ion-input type="number" (change)="changeFn2($event, indice)" value = {{notas[indice].notaObtenida}}></ion-input>
+      <div class="Notas">
+        <ion-list>
+          <ion-item lines="none" *ngFor="let nota of notas; let indice=index">
+            <div id="input">
+              <ion-input type="number" (change)="changeFn1($event, indice)" value = {{notas[indice].porcentaje}}></ion-input>
+            </div>
+            <div id="textoInput">
+              <h5>%</h5>
+            </div>
+            <div id="input">
+              <ion-input type="number" (change)="changeFn2($event, indice)" value = {{notas[indice].notaObtenida}}></ion-input>
+            </div>
+            <div id="textoInput">
+              <h5>/5</h5>
+            </div>
+          </ion-item>
+        </ion-list>
       </div>
-      <div id="textoInput">
-        <h5>/5</h5>
-      </div> 
-    </ion-item>
-  </ion-list>
-  <ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
-    <h1>Siguiente</h1>
-  </ion-button>
-</div>
+    </div>
+    <ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
+      <h1>Siguiente</h1>
+    </ion-button>
 
 
+  </div>
 
 </ion-content>
 

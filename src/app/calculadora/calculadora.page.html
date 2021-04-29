@@ -1,51 +1,60 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="calculadora/materias" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="calculadora/materias">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Nueva asignatura</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title>
-      <h1>Agregar nueva asignatura</h1>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Nombre asignatura</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
-    </ion-card-content>
-  </ion-card>
+  <div class="content">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title>
+          <h1>Agregar nueva asignatura</h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Nombre asignatura</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input type="string" [(ngModel)]="nombreMateria"></ion-input>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-  <ion-card-header>
-      <ion-card-title>Cantidad de notas a ingresar</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input type="number" [(ngModel)]="cantidadNotas"></ion-input>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Cantidad de notas a ingresar</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input type="number" [(ngModel)]="cantidadNotas"></ion-input>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Nota esperada</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input type="number" [(ngModel)]="notaEsperada"></ion-input>
-    </ion-card-content>
-  </ion-card>
-  
-  <div class="BotonSiguiente">
-    <ion-button (click)=guardarVar() [routerLink]="['/calculadora/ingresar-notas']" style="text-align:center" >
-      <h1>Siguiente</h1>
-    </ion-button>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Nota esperada</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input type="number" [(ngModel)]="notaEsperada"></ion-input>
+      </ion-card-content>
+    </ion-card>
 
+    <div class="BotonSiguiente">
+      <ion-button (click)=guardarVar() [routerLink]="['/calculadora/ingresar-notas']" style="text-align:center" >
+        <h1>Siguiente</h1>
+      </ion-button>
+
+    </div>
   </div>
   
 </ion-content>

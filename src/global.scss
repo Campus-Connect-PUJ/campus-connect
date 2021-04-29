@@ -352,18 +352,12 @@ ion-card{
     background: #FFFFFF;
 }
 
-// ion-card-header{
-//   padding: 0;
-//   padding-left: 5%;
-//   padding-top: 5%;
-//   margin: 0;
-//
-//   h1{
-//     font-size: 30px;
-//     padding: 0;
-//     margin: 0;
-//   }
-// }
+ion-item-sliding{
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 0;
+}
 
 ion-card-content{
     padding: 0;
@@ -378,7 +372,6 @@ ion-card-content{
         color: black;
     }
 }
-
 
 .header_btn {
     color: black;

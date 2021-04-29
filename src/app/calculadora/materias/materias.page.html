@@ -1,32 +1,43 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Asignaturas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding class="background" [fullscreen]="true">
-  <div id="titulo">
-    <h1>Asignatura</h1>
-    <h2>Deslizar para actualizar</h2>
-  </div>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <div class="content">
+    <div class="nonTransparent">
+      <div id="titulo">
+        <h2>Deslizar para actualizar</h2>
+      </div>
+    </div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    </ion-refresher>
 
-  <div id="materias">
-    
+    <div id="materias">
+
       <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
         <ion-item [routerLink]="['/calculadora/resultado', indice]">
-          <ion-card-header>
-            {{materia.nombreMateria}}
-          </ion-card-header>
-          <ion-card-content>
-            <h2>Nota actual: {{materia.notaActual}}</h2>
-            <h2>% actual: {{materia.porcentajeActual}}%</h2>
-          </ion-card-content>
+          <div class="separacion">
+            <ion-card-header>
+              {{materia.nombreMateria}}
+            </ion-card-header>
+            <ion-card-content>
+              <h2>Nota actual: {{materia.notaActual}}</h2>
+              <h2>% actual: {{materia.porcentajeActual}}%</h2>
+            </ion-card-content>
+          </div>
         </ion-item>
 
         <ion-item-options id="start" side="start">
@@ -41,18 +52,21 @@
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-      
-     
-  </div>
 
-  <div class="agregarMateria">
-    <ion-card class="boton-mas" [routerLink]="['/calculadora'] ">
-      <h1>+</h1>
-    </ion-card>
+    </div>
+
+    <div class="agregarMateria">
+      <ion-button
+        href="/calculadora">
+        <ion-icon slot="icon-only"
+                  name="add"
+        ></ion-icon>
+      </ion-button>
+    </div>
   </div>
-  </ion-content>
+</ion-content>
 <!---
-<ion-card [routerLink]="['/tips', tip.id]">
+     <ion-card [routerLink]="['/tips', tip.id]">
 -->
 
 <!--- *ngFor = "let materia of materias; let indice=index" -->
