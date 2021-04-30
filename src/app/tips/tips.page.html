@@ -54,7 +54,7 @@
 
         <div class="BuscandoCon">
           <h1>Buscando con {{tiposDeAprendizajeSeleccionados}}</h1>
-          <h1>nivel de exigencia {{nivelesDeExigenciaSeleccionados}}</h1>
+          <h1>Nivel de exigencia {{nivelesDeExigenciaSeleccionados}}</h1>
         </div>
       </ion-card-content>
     </ion-card>
@@ -74,6 +74,14 @@
 
 
 
+ 
+
   </div>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button [routerLink]="['/tip-crear']">
+    <ion-icon name="add">Crear</ion-icon>
+  </ion-fab-button>
+</ion-fab>
 

@@ -32,9 +32,23 @@
       </ion-select>
     </ion-item>
 
+    <ion-item>
+        <ion-label>Nivel de exigencia</ion-label>
+        <ion-select [(ngModel)]="nivelDeExigenciaSeleccionados" cancelText="cancel" okText="ok">
+        <ion-select-option *ngFor="let nivel of nivelDeExigencia" [value]="nivel" selected = "false">{{nivel}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
     <div class="btn-crearForo">
-      <ion-button class="boton-mas" (click)=crearTip() href="/tips">
-        <ion-icon slot="icon-only" name="add"> </ion-icon>
+
+      <ion-button
+      (click)="crearTip()"
+        href="/tips">
+        <ion-icon slot="icon-only"
+                  name="add"
+        ></ion-icon>
+
       </ion-button>
     </div>
 

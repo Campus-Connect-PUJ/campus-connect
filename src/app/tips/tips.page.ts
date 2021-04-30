@@ -16,7 +16,7 @@ export class TipsPage implements OnInit {
   tips: Tip[] = [];
   tiposDeAprendizaje: TipoAprendizaje[][] = [];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
-  tiposDeAprendizajeSeleccionados = []
+  tiposDeAprendizajeSeleccionados = [];
   nivelesDeExigenciaSeleccionados = [];
 
   textoBuscar='';
@@ -34,17 +34,24 @@ export class TipsPage implements OnInit {
     this.obtenerTiposDeAprendizaje();
 
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
+      const recipeId = paraMap.get('exig')
+
+      console.log(recipeId);
+      
       if(recipeId != null){
         console.log(recipeId)
-        this.cargarTipsUsuarios(Number(recipeId));
+        this.cargarTips();
+        this.determinarExigencia(recipeId);
       }
       else{
         this.cargarTips();
       }
+      
     })
   }
 
+
+  /*
   cargarTipsUsuarios(idUsuario: number){
     let tipsUsuario = new Array<Tip>();
     this.tipsService.getTips().subscribe(
@@ -62,7 +69,7 @@ export class TipsPage implements OnInit {
       error => console.error(error)
     )
   }
-
+  */
   cargarTips(){
     this.tipsService.getTips().subscribe(
       results => {
@@ -113,6 +120,28 @@ export class TipsPage implements OnInit {
       this.cargarTips()
       event.target.complete();
     }, 300);
+  }
+
+  determinarExigencia(recipeId){
+    if(recipeId == 0 || recipeId == 1 ){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+    }
+    if(recipeId == 2){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+      this.nivelesDeExigenciaSeleccionados[1] = 2;
+    }
+    if(recipeId == 3){
+      this.nivelesDeExigenciaSeleccionados[0] = 2;
+    }
+    if(recipeId == 4){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+      this.nivelesDeExigenciaSeleccionados[1] = 2;
+      this.nivelesDeExigenciaSeleccionados[2] = 3;
+    }
+    if(recipeId == 5){
+      this.nivelesDeExigenciaSeleccionados[0] = 2;
+      this.nivelesDeExigenciaSeleccionados[1] = 3;
+    }
   }
 
 

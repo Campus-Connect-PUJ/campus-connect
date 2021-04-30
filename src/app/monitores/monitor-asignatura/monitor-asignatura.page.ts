@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { Monitoria } from 'src/app/Model/Monitoria/monitoria';
 import { MonitoriaService } from 'src/app/Model/Monitoria/monitoria.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
@@ -65,13 +66,33 @@ export class MonitorAsignaturaPage implements OnInit {ç
     for(let i=0; i<monitor.monitorDe[indice].horarios.length; i++){
       let data: HorarioMonitoria = new HorarioMonitoria();
       data.id = monitor.monitorDe[indice].horarios[i].id;
-      data.fi = monitor.monitorDe[indice].horarios[i].fi;
-      data.ff = monitor.monitorDe[indice].horarios[i].ff;
+      data.fechaInicio = monitor.monitorDe[indice].horarios[i].fechaInicio;
+      data.fechaFin = monitor.monitorDe[indice].horarios[i].fechaFin;
 
       this.horarios.push(data);
     }
     console.log(this.horarios)
+    this.ordenarHorarios();
+    
   }
+
+  ordenarHorarios(){
+    let horariosOrdenados = this.horarios;
+
+    horariosOrdenados.sort(function (a, b) {
+      if( moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
+        return -1;
+      }
+      if( !moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    this.horarios = horariosOrdenados;
+  }
+
+  
 
   
 

@@ -29,10 +29,24 @@ export class MonitoriaService {
       url,
       {
         "idAsignatura": mon.asignatura.id,
-        "fi": mon.horarios[indice].fi,
-        "ff": mon.horarios[indice].ff,
+        "fi": mon.horarios[indice].fechaInicio,
+        "ff": mon.horarios[indice].fechaFin,
         "fechaInicial": mon.horarios[indice].fechaInicial,
         "fechaFinal": mon.horarios[indice].fechaFinal
+      }
+    )
+  }
+
+  borrarHorario(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/borrarHorario`;
+    return this.net.put(
+      url,
+      {
+        "idAsignatura": mon.asignatura.id,
+        "fi": mon.horarios[0].fechaInicio,
+        "ff": mon.horarios[0].fechaFin,
+        "fechaInicial": mon.horarios[0].fechaInicial,
+        "fechaFinal": mon.horarios[0].fechaFinal
       }
     )
   }

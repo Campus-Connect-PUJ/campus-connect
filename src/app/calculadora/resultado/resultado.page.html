@@ -14,20 +14,29 @@
 </ion-header>
 
 <ion-content>
-  <div class="content">
-    <ion-card>
-      <ion-card-header>
-        <h1>Nota</h1>
-      </ion-card-header>
-      <ion-card-content>
-        <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
-      </ion-card-content>
-    </ion-card>
-    <div class="boton">
-      <ion-button (click)=guardarMateria() style="text-align:center" >
-        <h1>Siguiente</h1>
-      </ion-button>
-    </div>
+
+  <ion-card>
+    <ion-card-header>
+      <h1>Nota</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
+    </ion-card-content>
+  </ion-card>
+  <div class="boton">
+    <ion-button (click)=guardarMateria() style="text-align:center" >
+      <h1>Siguiente</h1>
+    </ion-button>
+  </div>
+  
+  <ion-item>
+
+  </ion-item>
+
+  <ion-button style="text-align:center" [routerLink]="['/tips/exigencia', mensaje.nota]">
+    Ver tips recomendados
+  </ion-button>
+
 
 
   </div>

@@ -10,29 +10,25 @@
   <div id="buscador">
     <ion-searchbar placeholder="Buscar monitores" (ionChange)="buscarForos($event)"></ion-searchbar>
   </div>
-
-  
-
-  <div id="listaSugerencias">
-    <div class="titulo">
-      <h2>Sugerencia de monitores</h2>
-    </div>
-    <div id="tarjetasSugerencias">
-      <ion-card class="sugerencia" *ngFor="let monitor of monitoresRecomendados; let indice=index">
-        <div class="datosMonitor" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
-          <ion-card-header>
-            <h1>{{monitor.nombre}}</h1>
-          </ion-card-header>
-          <ion-card-content>
-            <h2>{{monitor.puntajeTotal}}</h2>
-          </ion-card-content>
-        </div>
-      </ion-card>
-    </div>
+  <div class="titulo">
+    <h2>Sugerencia de monitores</h2>
+  </div>
+  <div class="scrollmenu">
+    <ion-card class="sugerencia" *ngFor="let monitor of monitoresRecomendados">
+      <div class="datosMonitor" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
+        <ion-card-header>
+          <h1>{{monitor.nombre}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>{{monitor.puntajeTotal}}</h2>
+        </ion-card-content>
+      </div>
+    </ion-card>
     <div class="SinSugerencias" *ngIf="monitoresRecomendados.length == 0">
       <h1>No existen horarios sugeridos con este monitor</h1>
     </div>
   </div>
+  
   
   <ion-button [routerLink]="['/monitores/horarios-monitor']"> Mostrar horarios sugeridos </ion-button>
 
