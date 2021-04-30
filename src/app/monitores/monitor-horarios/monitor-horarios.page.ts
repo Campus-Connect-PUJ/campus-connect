@@ -30,7 +30,10 @@ export class MonitorHorariosPage implements OnInit {
   monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
   asignaturas: Array<Monitoria> = [];
   horariosSugeridos: Array<HorarioMonitoria> = [];
+  horariosLimitados: Array<HorarioMonitoria> = [];
   horarios: Monitoria[] = [];
+  cantidadDeSugerencias: Array<Number> = [1,3,5,10,20,50,100];
+  cantidadDeSugerenciasSeleccionadas: Number = 3;
 
 
   constructor(
@@ -89,18 +92,6 @@ export class MonitorHorariosPage implements OnInit {
   }
 
  
-
-
-
-  //Sugerencia de horarios de monitorias
-
-  //Mirar fechas sin conflicto
-
-
-
-
-
-  
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
     let monitoresOrdenados = monitores;
     monitoresOrdenados.sort(function (a, b) {
@@ -110,7 +101,6 @@ export class MonitorHorariosPage implements OnInit {
       if (a.puntajeTotal < b.puntajeTotal) {
         return 1;
       }
-      // a must be equal to b
       return 0;
     });
     return monitoresOrdenados;
@@ -129,25 +119,6 @@ export class MonitorHorariosPage implements OnInit {
 
     return monitores;
   }
-
-
-  /*
-  sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
-    for(let i=0; i<monitores.length; i++){
-      for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
-        for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){
-            //console.log(this.monitores[i].estilosAprendizaje, " ", this.usuarioActual.estilosAprendizaje)
-            if(monitores[i].estilosAprendizaje[k].id == this.usuarioActual.estilosAprendizaje[j].id && !this.monitoresRecomendados.includes(monitores[i])){
-              //this.mirarProblemasHorarios(monitores[i])
-              this.monitoresRecomendados.push(monitores[i]);
-            }
-        }
-      }
-    }
-    console.log(this.monitoresRecomendados)
-  }
-*/
 
 
   sugerenciasHorariosMonitorias(monitor: UsuarioGeneral){
@@ -182,46 +153,63 @@ export class MonitorHorariosPage implements OnInit {
         if(!ocupado){
           console.log("*********************Disponible")
           //Cancelar cuando ya sean varios eventos sugeridos
-          if( moment(horarioInicialMonitor).isSameOrBefore(fechaReferencia) && moment(horarioFinalMonitor).isSameOrBefore(fechaReferencia)){
+          //if( moment(horarioInicialMonitor).isSameOrBefore(fechaReferencia) && moment(horarioFinalMonitor).isSameOrBefore(fechaReferencia)){
             this.agregarHorariosSugeridos(eventosMonitor[j], eventosMonitor[j].horarios[k]);
-          }
+         // }
 
         }   
       }
     }
     
-    this.horariosSugeridos = this.ordenarSugerencias();
+    this.ordenarSugerencias();
     console.log("eventos posibles ", this.horariosSugeridos)
   }
 
   ordenarSugerencias(){
+    console.log("entra")
     let sugerenciasOrdenadas = this.horariosSugeridos;
     let sugerencias = new Array<HorarioMonitoria>();
+    console.log("-->", this.cantidadDeSugerenciasSeleccionadas)
     console.log("sin ordenas", sugerenciasOrdenadas)
 
     sugerenciasOrdenadas.sort(function (a, b) {
-      if(moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
-        return 1;
-      }
-      if (!moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
+      if( moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
+        console.log(1)
         return -1;
+      }
+      if( !moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
+
+        return 1;
       }
       // a must be equal to b
       return 0;
     });
     
     console.log("ordenas", sugerenciasOrdenadas)
+    
+    this.horariosSugeridos = sugerenciasOrdenadas;
+    this.limitarSugerencias();
+  }
 
-    if(sugerenciasOrdenadas.length>=3){
-      for(let i=0; i<3; i++){
+
+  limitarSugerencias(){
+    this.horariosLimitados = [];
+    let sugerenciasOrdenadas = this.horariosSugeridos;
+    let sugerencias = new Array<HorarioMonitoria>();
+
+    if(sugerenciasOrdenadas.length >= this.cantidadDeSugerenciasSeleccionadas){
+      for(let i=0; i<this.cantidadDeSugerenciasSeleccionadas; i++){
         sugerencias.push(sugerenciasOrdenadas[i])
       }
       sugerenciasOrdenadas = sugerencias;
     }
-    
-
-    return sugerenciasOrdenadas;
+    this.horariosLimitados = sugerenciasOrdenadas;
   }
+
+
+
+
+
 
   agregarHorariosSugeridos(datos: Monitoria, horario: Horario) {
     let data: HorarioMonitoria = new HorarioMonitoria();

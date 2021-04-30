@@ -8,9 +8,18 @@
 </ion-header>
 
 <ion-content>
-<h1>Monitorias del recomendadas</h1>
+
   <div id="Sugerencias">
-    <ion-card class="Sugerencia" *ngFor="let sugerencia of horariosSugeridos">
+  <h1>Monitorias del recomendadas</h1>
+
+  <ion-item>
+    <ion-label>Cantidad de horarios sugeridos</ion-label>
+      <ion-select [(ngModel)]="cantidadDeSugerenciasSeleccionadas" cancelText="cancel" okText="ok" (ionChange)="limitarSugerencias()"> 
+      <ion-select-option *ngFor="let nivel of cantidadDeSugerencias" [value]="nivel">{{nivel}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+    <ion-card class="Sugerencia" *ngFor="let sugerencia of horariosLimitados">
       <ion-card-header>
         <h1>{{sugerencia.nombreAsignatura}}</h1>
       </ion-card-header>
