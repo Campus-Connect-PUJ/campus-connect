@@ -1,26 +1,34 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="calculadora/ingresar-notas" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="calculadora/ingresar-notas">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Nueva asignatura</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <h1>Nota</h1>
-    </ion-card-header>
-    <ion-card-content>
-      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
-    </ion-card-content>
-  </ion-card>
-  <div class="boton">
-    <ion-button (click)=guardarMateria() style="text-align:center" >
-      <h1>Siguiente</h1>
-    </ion-button>
-  </div>
-  
+  <div class="content">
+    <ion-card>
+      <ion-card-header>
+        <h1>Nota</h1>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
+      </ion-card-content>
+    </ion-card>
+    <div class="boton">
+      <ion-button (click)=guardarMateria() style="text-align:center" >
+        <h1>Siguiente</h1>
+      </ion-button>
+    </div>
 
+
+  </div>
 </ion-content>
