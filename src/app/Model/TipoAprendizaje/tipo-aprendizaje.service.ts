@@ -21,7 +21,7 @@ export class TipoAprendizajeService {
     return this.net.get<TipoAprendizaje>(url);
   }
 
-  agregarTipoAprendizaje(idUsuario: number, idTipoAprendizaje: number){
+  agregarTipoAprendizaje(idTipoAprendizaje: number){
     const url = `${environment.baseUrl}/usuario/agregarTipoAprendizaje/${idTipoAprendizaje}`;
     return this.net.post(
       url,

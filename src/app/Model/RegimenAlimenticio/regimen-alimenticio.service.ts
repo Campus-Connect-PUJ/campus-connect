@@ -23,10 +23,12 @@ export class RegimenAlimenticioService {
     const url = `${environment.baseUrl}/regimen_alimenticio/${id}`;
     return this.net.get<RegimenAlimenticio>(url);
   }
+
   getRestaurantesRegimenAlimenticioById(id: number): Observable<Restaurante[]> {
     const url = `${environment.baseUrl}/regimen_alimenticio/${id}/restaurantes`;
     return this.net.get<Restaurante[]>(url);
   }
+
   getUsuariosRegimenAlimenticioById(id: number): Observable<UsuarioGeneral[]> {
     const url = `${environment.baseUrl}/regimen_alimenticio/${id}/usuarios`;
     return this.net.get<UsuarioGeneral[]>(url);

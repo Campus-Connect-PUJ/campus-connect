@@ -139,7 +139,7 @@ export class TestAprendizajePage implements OnInit {
 
   guardarTipoAprendizaje(idEstilos: Array<number>){
     for(let i=0; i<idEstilos.length; i++){
-      this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, idEstilos[i]).subscribe(
+      this.tipoAprendizajeService.agregarTipoAprendizaje(idEstilos[i]).subscribe(
         results => {
           console.log(results)
         },

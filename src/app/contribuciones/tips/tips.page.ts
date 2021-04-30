@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipsService } from 'src/app/Model/Tip/tips.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
@@ -36,7 +36,7 @@ export class TipsPage implements OnInit {
   }
 
   cargarTipsUsuarios(idUsuario: number){
-    let tipsUsuario = new Array<Tip>();
+    const tipsUsuario = new Array<Tip>();
     this.tipsService.getTips().subscribe(
       results => {
         this.tips = results;
@@ -54,8 +54,6 @@ export class TipsPage implements OnInit {
 
   }
 
-
-  
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
       header: '¿Borrar materia?',
@@ -74,14 +72,12 @@ export class TipsPage implements OnInit {
           handler: () => {
             console.log(this.tips)
             console.log("Indice ", indice)
-            this.tipsService.borrarTip(this.usuario.id, this.tips[indice].id).subscribe(
+            this.tipsService.borrarTip(this.tips[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
             )
 
             this.tips.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
-            
           }
         }
       ]
