@@ -31,11 +31,12 @@ export class listaEventos{
 export class CalendarioPage implements OnInit {
 
   public eventos: evento[] = [];
-  monitoria: boolean = false;
+  esMonitoria: boolean = false;
   esMonitor: boolean = false;
   asignaturas: Asignatura[] = [];
   asignatura: Asignatura;
   monitorias = new Array<Monitoria>();
+  monitoria = new Monitoria();
 
   event = {
     title: '',
@@ -143,7 +144,7 @@ export class CalendarioPage implements OnInit {
 
     this.eventSource.push(eventCopy);
     let a: evento;
-    this.eventSource.push(a);
+    //this.eventSource.push(a);
     console.log(this.eventSource);
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
@@ -243,12 +244,9 @@ export class CalendarioPage implements OnInit {
     this.resetEvent();
   }
 
-
-
-  
   addMonitoria(){
     console.log("Seleccionado", this.monitoria, this.asignatura);
-   
+    this.esMonitoria = true;
     let cantidadDeEventos = 0;
     cantidadDeEventos = this.eventSource.length;
     console.log("cantidad eventos ", cantidadDeEventos)
@@ -279,7 +277,7 @@ export class CalendarioPage implements OnInit {
       monitoria: this.monitoria
     }
     
-    if(this.monitoria){
+    if(this.esMonitoria){
       console.log("Cambia")
       eventCopy.title = this.asignatura.nombre;
       eventCopy2.title = this.asignatura.nombre;
@@ -294,7 +292,7 @@ export class CalendarioPage implements OnInit {
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
     let base = moment(eventCopy2.startTime);
     
-    for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
+    for(let i=0; moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal) ; i=7){
       console.log("..............................................")
       let horas = Number(tiempos2[0])- Number(tiempos1[0]);
       let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
@@ -342,11 +340,8 @@ export class CalendarioPage implements OnInit {
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
     this.myCal.loadEvents();
     this.resetEvent();
-    this.monitoria = false;
+    this.esMonitoria = false;
   }
-
-
-
 
   enviarMonitoria(){
     for(let i = 0; i<this.monitorias.length; i++ ){
@@ -474,9 +469,7 @@ export class CalendarioPage implements OnInit {
     //this.myCal.loadEvents();
   }
 
-  onEventSelected(aaaa){
-    this.presentAlert(aaaa.id)
-  }
+
 
 
   changeMode(mode){
@@ -510,6 +503,9 @@ export class CalendarioPage implements OnInit {
     console.log(check)
   }
 
+  onEventSelected(aaaa){
+    this.presentAlert(aaaa.id)
+  }
   
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
@@ -528,22 +524,71 @@ export class CalendarioPage implements OnInit {
           text: 'Borrar',
           handler: () => {
             let a = 0;
-            console.log("Antes", indice,this.eventSource)
+            console.log("Antes", indice, this.eventSource)
             console.log(this.eventSource[0])
             for(let i=0; i< this.eventSource.length && a==0; i++){
               if(this.eventSource[i].id == indice ){
                 a=i;
               }
             }
+
+            this.borrarHorario(a);
             this.eventSource.splice(a,1)
             console.log("Despues", indice,this.eventSource)
             localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
+
             this.myCal.loadEvents();
           }
         }
       ]
     })
     await alert.present();
+  }
+
+
+  borrarHorario(indice: number){
+    this.monitoria = new Monitoria();
+    console.log("Antes", indice, this.eventSource)
+    console.log("Monitoria para borrar", this.eventSource[indice]);
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    console.log(this.eventos.length, " ", this.monitorias.length)
+
+
+    let horario = new Horario();
+    let asig = new Asignatura();
+    horario.fechaInicial = this.eventSource[indice].startTime;
+    horario.fechaFinal = this.eventSource[indice].endTime;
+    horario.fechaInicio = moment(this.eventSource[indice].startTime).format('DD-MM-YYYY HH:mm');
+    horario.fechaFin = moment(this.eventSource[indice].endTime).format('DD-MM-YYYY HH:mm');
+    this.monitoria.horarios.push(horario);
+
+    for(let j=0; j<this.asignaturas.length; j++){
+      if(this.asignaturas[j].nombre === this.eventSource[indice].title){
+        asig.id = this.asignaturas[j].id;
+        asig.nombre = this.asignaturas[j].nombre;
+      }
+    }
+    this.monitoria.asignatura = asig;
+
+    console.log(this.monitoria)
+    this.moniService.borrarHorario(this.monitoria).subscribe(
+      result => console.log(result),
+      error => console.log(error)
+    )
+/*
+    for(let i = 0; i<this.monitorias.length; i++ ){
+      for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
+        //console.log("Id asignatura", this.monitorias[j].asignatura.id)
+        this.moniService.agregarHorario( this.monitorias[i], j).subscribe(
+          result => console.log(result),
+          error => console.log(error)
+        );
+      }
+    }
+    */
+
+
+
   }
   
 

@@ -37,6 +37,20 @@ export class MonitoriaService {
     )
   }
 
+  borrarHorario(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/borrarHorario`;
+    return this.net.put(
+      url,
+      {
+        "idAsignatura": mon.asignatura.id,
+        "fi": mon.horarios[0].fechaInicio,
+        "ff": mon.horarios[0].fechaFin,
+        "fechaInicial": mon.horarios[0].fechaInicial,
+        "fechaFinal": mon.horarios[0].fechaFinal
+      }
+    )
+  }
+
   obtenerMonitores(): Observable<UsuarioGeneral[]>{
     const url = `${environment.baseUrl}/usuario/monitores/all`;
     return this.net.get<UsuarioGeneral[]>(url);
