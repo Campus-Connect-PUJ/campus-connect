@@ -43,8 +43,6 @@ export class LoginService {
     );
   }
 
-
-
   register(
     nombre: string,
     apellido: string,
@@ -98,8 +96,6 @@ export class LoginService {
     });
   }
 
-  
-
   isAuthorized(allowedRoles: string[]): boolean {
     // check if the list of allowed roles is empty, if empty,
     // authorize the user to access the page
@@ -127,16 +123,6 @@ export class LoginService {
     )
 
     return valido;
-  }
-
-
-  guardarElemento(nombre: string, objeto){
-    sessionStorage.setItem(nombre, JSON.stringify(objeto))
-  }
-
-  obtenerElemento(nombre: string){ 
-    let elemento = JSON.parse(sessionStorage.getItem(nombre));
-    return elemento;
   }
 
 }

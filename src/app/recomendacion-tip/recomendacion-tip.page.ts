@@ -23,7 +23,7 @@ export class RecomendacionTipPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.user = this.loginService.getUser();
 
     try {
       console.log(this.user.estilosAprendizaje.length)

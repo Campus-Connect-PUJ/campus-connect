@@ -97,7 +97,7 @@ export class TestAprendizajePage implements OnInit {
   }
 
   obtenerTipos(estilosAprendizaje: Array<estiloAprendizaje>){
-    let idEstilos: Array<number> = [];
+    const idEstilos: Array<number> = [];
     this.usuario = this.loginService.getUser();
 
     console.log(this.aprendizajesExistentes)
@@ -154,10 +154,8 @@ export class TestAprendizajePage implements OnInit {
       }
     }
 
-    
-
     console.log("-> estilos ", this.usuario.estilosAprendizaje)
-    this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario)
+    this.loginService.storeUser(this.usuario, this.loginService.getToken())
   }
 
 }

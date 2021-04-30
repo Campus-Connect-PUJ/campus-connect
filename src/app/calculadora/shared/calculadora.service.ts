@@ -130,13 +130,13 @@ export class CalculadoraService {
 
 
   public guardarMaterias(nuevasMaterias){
-    this.logService.guardarElemento("Materias" + this.logService.getUser().email, nuevasMaterias)
+    localStorage.setItem("Materias" + this.logService.getUser().email, nuevasMaterias);
   }
 
   public load(): NotasMateria[] {
     //this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-    this.controlNotas = this.logService.obtenerElemento("Materias" + this.logService.getUser().email)
-    return this.controlNotas;
+    const elemento = JSON.parse(localStorage.getItem("Materias" + this.logService.getUser().email));
+    return elemento;
   }
   
   public findNotas(id){

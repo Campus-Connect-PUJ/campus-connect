@@ -19,7 +19,7 @@ export class ResultadoPage implements OnInit {
   ) { }
 
   ngOnInit() { 
-    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.usuario = this.loginService.getUser();
     console.log(this.usuario)
     this.estilosAprendizaje = this.usuario.estilosAprendizaje;
     

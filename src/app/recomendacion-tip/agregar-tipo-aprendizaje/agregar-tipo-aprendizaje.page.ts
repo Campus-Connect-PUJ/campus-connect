@@ -63,15 +63,15 @@ export class AgregarTipoAprendizajePage implements OnInit {
   agregarTipo(){
     const mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.usuario = this.loginService.getUser();
     for(let i = 0; i < this.tiposDeAprendizajeSeleccionados.length; i++){
       console.log("aa");
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.tiposDeAprendizajeSeleccionados[i]).subscribe(
-        results => {
+        (results: UsuarioGeneral) => {
           console.log(results);
-          this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
-          this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
-
+          // this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
+          this.usuario = results;
+          this.loginService.storeUser(this.usuario, this.loginService.getToken())
         },
         error => console.error(error)
       )
@@ -91,10 +91,6 @@ export class AgregarTipoAprendizajePage implements OnInit {
     console.log(mensaje);
   }
 
-
-
-
-  
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
       header: '¿Borrar materia?',
@@ -113,16 +109,16 @@ export class AgregarTipoAprendizajePage implements OnInit {
           handler: () => {
             // console.log(this.tiposDeAprendizajeUsuario)
             // console.log("Indice ", indice)
-            this.tipoAprendizajeService.borrarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeUsuario[indice].id).subscribe(
-              result => {
+            this.tipoAprendizajeService.borrarTipoAprendizaje(this.tiposDeAprendizajeUsuario[indice].id).subscribe(
+              (result: UsuarioGeneral) => {
                 console.log(result)
-                
+                this.usuario = result;
+                this.loginService.storeUser(this.usuario, this.loginService.getToken())
               },
               error => console.log(error)
             )
             this.tiposDeAprendizajeUsuario.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
-            
+
           }
         }
       ]
