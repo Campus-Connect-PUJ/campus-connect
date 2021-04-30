@@ -44,6 +44,7 @@ export class TipCrearPage implements OnInit {
 
   crearTip(){
     let mensaje = "Se publico el tip";
+    console.log("a");
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
 
 
