@@ -117,8 +117,8 @@ export class ForoDetallesPage implements OnInit {
   }
 
   crearRespuesta(){
-    let respuestanueva: RespuestaForo = new RespuestaForo();
-    let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
+    const respuestanueva: RespuestaForo = new RespuestaForo();
+    const respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
     console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
@@ -126,6 +126,7 @@ export class ForoDetallesPage implements OnInit {
     respuestanueva.usuario = this.loginService.getUser();
     try {
       this.foro.respuestas.push(respuestanueva);
+      this.respuestaTexto = "";
     } catch (error) {
       respuestas.push(respuestanueva);
       console.log(respuestas)

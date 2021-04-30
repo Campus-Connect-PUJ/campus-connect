@@ -1,13 +1,20 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="calculadora/ingresar-notas" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="calculadora/ingresar-notas">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Nueva asignatura</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
+
   <ion-card>
     <ion-card-header>
       <h1>Nota</h1>
@@ -30,4 +37,7 @@
     Ver tips recomendados
   </ion-button>
 
+
+
+  </div>
 </ion-content>

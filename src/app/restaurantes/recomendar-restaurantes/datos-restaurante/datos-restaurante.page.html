@@ -10,24 +10,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-img src="https://www.civico.com/lugar/el-mirador-universidad-javeriana-bogota/"> </ion-img>
-    <ion-card-header>
-      <ion-card-title>{{restauranteSelect.nombre}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content> 
-      {{restauranteSelect.descripcion}}
-    </ion-card-content>
-  </ion-card>
-  
-  <ion-item>
-    <ion-icon name="star-outline"></ion-icon>
-    <ion-range min="0" max="5" step="1" snaps="true" color="secondary" (ionChange)="guardarPuntajeRestaurnate($event)"></ion-range>
-    <ion-icon name="star-outline"></ion-icon>
-    
-  </ion-item>
-  <ion-button (click) = "guardarResenia()">
+  <div class="content">
+    <ion-card>
+      <ion-img src="https://www.civico.com/lugar/el-mirador-universidad-javeriana-bogota/"> </ion-img>
+      <ion-card-header>
+        <ion-card-title>{{restauranteSelect.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{restauranteSelect.descripcion}}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-item>
+      <ion-icon name="star-outline"></ion-icon>
+      <ion-range min="0" max="5" step="1" snaps="true" color="secondary" (ionChange)="guardarPuntajeRestaurnate($event)"></ion-range>
+      <ion-icon name="star-outline"></ion-icon>
+
+    </ion-item>
+    <ion-button (click) = "guardarResenia()">
       Guardar Reseña
       <ion-icon  slot="start" name="star"></ion-icon>
     </ion-button>
+  </div>
 </ion-content>

@@ -1,86 +1,89 @@
-
-
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="foros" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="foros">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title> {{foro.titulo}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card class="Principal">
-
-    <div class="foro">
-      <ion-card-header>
-        <h1>{{foro.titulo}}</h1>
-      </ion-card-header>
-      <ion-card-content>
-        <h2>{{foro.descripcion}}</h2>
-      </ion-card-content>
-    </div>
-    <div class="informacion">
-      <div class="usuario">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <h3>{{foro.usuario.nombre}}</h3>
-      </div>
-
-      <div class="votos">
-        <div class="puntaje">
-          {{foro.puntaje}}
-        </div>
-       <div class="flechas">
-          <ion-icon name="arrow-down" (click)="calificacionForo(-1)"></ion-icon>
-          <ion-icon name="arrow-up" (click)="calificacionForo(1)"></ion-icon>
-        </div>
-      </div>
-    </div>
-  </ion-card>
-
-  <ion-item-divider>
-    <ion-label>
-      Respuestas
-    </ion-label>
-  </ion-item-divider>
-
-  <div class="Lista de respuestas">
-    <ion-card *ngFor="let respuesta of respuestas; let indice=index" class="Respuestas">
+  <div class="content">
+    <ion-card class="Principal">
       <div class="foro">
         <ion-card-content>
-          <h2>{{respuesta.texto}}</h2>
+          <h2>{{foro.descripcion}}</h2>
         </ion-card-content>
       </div>
-    <div class="informacion">
-      <div class="usuario">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <h3>{{respuesta.usuario.nombre}}</h3>
-      </div>
-      <div class="votos">
-        <div class="puntaje">
-          {{respuesta.puntaje}}
+      <div class="informacion">
+        <div class="usuario">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <h3>{{foro.usuario.nombre}}</h3>
         </div>
-        <div class="flechas">
-          <ion-icon name="arrow-down" (click)="calificacionRespuestas(-1, respuesta.id, indice)"></ion-icon>
-          <ion-icon name="arrow-up" (click)="calificacionRespuestas(1, respuesta.id, indice)"></ion-icon>
+
+        <div class="votos">
+          <div class="puntaje">
+            {{foro.puntaje}}
+          </div>
+          <div class="flechas">
+            <ion-icon name="arrow-down" (click)="calificacionForo(-1)"></ion-icon>
+            <ion-icon name="arrow-up" (click)="calificacionForo(1)"></ion-icon>
+          </div>
         </div>
       </div>
-    </div>
     </ion-card>
+
+    <ion-item-divider>
+      <ion-label>
+        Respuestas
+      </ion-label>
+    </ion-item-divider>
+
+    <div class=" respuestas">
+      <ion-card *ngFor="let respuesta of respuestas; let indice=index" class="nonTransparent Respuestas">
+        <div class="foro">
+          <ion-card-content>
+            <h2>{{respuesta.texto}}</h2>
+          </ion-card-content>
+        </div>
+        <div class="informacion">
+          <div class="usuario">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <h3>{{respuesta.usuario.nombre}}</h3>
+          </div>
+          <div class="votos">
+            <div class="puntaje">
+              {{respuesta.puntaje}}
+            </div>
+            <div class="flechas">
+              <ion-icon name="arrow-down" (click)="calificacionRespuestas(-1, respuesta.id, indice)"></ion-icon>
+              <ion-icon name="arrow-up" (click)="calificacionRespuestas(1, respuesta.id, indice)"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </ion-card>
+    </div>
+
+    <div id="contestar" class="nonTransparent">
+      Agregar respuesta
+      <ion-textarea type="string" [(ngModel)]="respuestaTexto"></ion-textarea>
+      <ion-button (click)="crearRespuesta()">Crear respuesta</ion-button>
+    </div>
+
+    <!---------
+         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+         <ion-fab-button (click)="mostrarPop( $event )">
+         <ion-icon name="albums"></ion-icon>
+         </ion-fab-button>
+         </ion-fab>
+
+       -------->
+
   </div>
-
-<div id="contestar">
-  Agregar respuesta
-  <ion-textarea type="string" [(ngModel)]="respuestaTexto"></ion-textarea>
-  <ion-button (click)="crearRespuesta()">Crear respuesta</ion-button>
-</div>
-
-<!---------
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="mostrarPop( $event )">
-    <ion-icon name="albums"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
--------->
-
 </ion-content>
