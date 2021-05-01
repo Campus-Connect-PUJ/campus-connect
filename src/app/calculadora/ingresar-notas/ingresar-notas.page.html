@@ -16,7 +16,8 @@
 
 <ion-content>
   <div class="content">
-    <div class="nonTransparent">
+    <div class="tarjeta">
+
       <div class="instrucciones">
         <div class="instruccion">
           <div id="cuadroLleno">
@@ -33,10 +34,12 @@
           </div>
         </div>
       </div>
+
       <div class="barraProgreso">
         <h4>Porcentaje <span *ngIf="p_bar_value">{{p_bar_value*100 | number}}% </span></h4>
         <ion-progress-bar [value]="p_bar_value"></ion-progress-bar>
       </div>
+
       <div class="Notas">
         <ion-list>
           <ion-item lines="none" *ngFor="let nota of notas; let indice=index">
@@ -56,10 +59,12 @@
         </ion-list>
       </div>
     </div>
-    <ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
-      <h1>Siguiente</h1>
-    </ion-button>
 
+    <div class="boton">
+      <ion-button (click)=calcularNota() [routerLink]="['/calculadora/resultado']" style="text-align:center" >
+        <h1>Siguiente</h1>
+      </ion-button>
+    </div>
 
   </div>
 
