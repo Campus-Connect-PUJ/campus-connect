@@ -107,6 +107,10 @@ export class ResultadoPage implements OnInit {
                          ]);
   }
 
+  soloGuardarMateria(){
+    this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notasMateria, this.notaActual, this.porcentajeActual)
+  }
+
   determinarMensaje(){
     console.log("-",this.notaFaltante)
     for(let i=0; i<this.mensajes.length; i++){

@@ -14,12 +14,18 @@
 
 <ion-content>
   <div class="content">
-    <div id="estilosDeAprendizaje">
-      <ion-item *ngFor="let estilo of estilosAprendizaje">
-        {{estilo.descripcion}}
-      </ion-item>
-    </div>
 
+  <h2>Los estilos de aprendizaje obtenidos son: </h2>
+
+    <div class="estilosDeAprendizaje">
+      <div class="estilo"  *ngFor="let estilo of estilosAprendizaje">
+        <h3>{{estilo.descripcion}}</h3>
+      </div>
+    </div>
   </div>
-  <ion-button [routerLink]="['/tabs/servicios-academicos']">Servicios academicos</ion-button>
-</ion-content>
+
+  <div class="botones">
+   <ion-button [routerLink]="['/tabs/servicios-academicos']">Servicios academicos</ion-button>
+  </div>
+
+ </ion-content>

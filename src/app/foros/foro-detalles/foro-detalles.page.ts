@@ -124,10 +124,12 @@ export class ForoDetallesPage implements OnInit {
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
     respuestanueva.usuario = this.loginService.getUser();
+    respuestanueva.puntaje = 0;
     try {
       this.foro.respuestas.push(respuestanueva);
       this.respuestaTexto = "";
     } catch (error) {
+      console.log("Entra")
       respuestas.push(respuestanueva);
       console.log(respuestas)
     }
@@ -140,6 +142,7 @@ export class ForoDetallesPage implements OnInit {
     
     console.log("respuestas1" , this.respuestas);
     console.log("respuestas2" , this.respuestas);
+    this.findForo(this.indice);
   }
 
   /*
