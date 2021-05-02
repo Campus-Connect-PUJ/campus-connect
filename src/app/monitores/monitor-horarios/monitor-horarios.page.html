@@ -1,8 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/monitores" text=" "></ion-back-button>
+
+      <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="/monitores">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+
     <ion-title>{{monitor.nombre}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -20,9 +28,12 @@
       </ion-item>
     </div>
 
-    <h1>Votar monitor</h1>
+    <div id="texto">
+      <h1>Votar monitor</h1>
+    </div>
     <div id="formEnviar">
-      <ion-input style="backgroundColor: gray" [(ngModel)]="voto"></ion-input>
+
+      <ion-input  [(ngModel)]="voto"></ion-input>
       <ion-button (click)="enviarVoto()">Enviar voto</ion-button>
       <div id="aparecer" *ngIf="errorSi">
         <h3>El valor debe estar entre 1 y 5</h3>
