@@ -3,7 +3,8 @@
     <ion-buttons class="header_btn"
                  slot="secondary">
       <ion-button
-        href="calculadora/materias">
+      [routerLink]="['/calculadora/ingresar-notas']"
+        >
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -20,12 +21,19 @@
       <h1>Nota</h1>
     </ion-card-header>
     <ion-card-content>
+    <div *ngIf="pasar == false">
       <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
+    </div>
+    
+    <div *ngIf="pasar == true">
+      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Ya ha obtenido la nota esperada <span>{{notaEsperada}}</span>. Felicidades</h2>
+    </div>
+
     </ion-card-content>
   </ion-card>
   <div class="botones">
-    <ion-button (click)=guardarMateria() style="text-align:center" >
-      <h1>Guardar materia</h1>
+    <ion-button (click)=guardarMateria() style="text-align:center" href="/calculadora/materias">
+      <h1>Ir a todas las materias</h1>
     </ion-button>
 
     <ion-button (click)=soloGuardarMateria() style="text-align:center" [routerLink]="['/tips/exigencia', mensaje.nota]">

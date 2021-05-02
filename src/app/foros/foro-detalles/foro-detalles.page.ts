@@ -129,7 +129,6 @@ export class ForoDetallesPage implements OnInit {
       this.foro.respuestas.push(respuestanueva);
       this.respuestaTexto = "";
     } catch (error) {
-      console.log("Entra")
       respuestas.push(respuestanueva);
       console.log(respuestas)
     }

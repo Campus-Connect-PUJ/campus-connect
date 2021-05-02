@@ -66,7 +66,8 @@ export class ServiciosAcademicosPage implements OnInit {
     this.userService.getUsuario(this.usuarioActual.id).subscribe(
       result => {
         this.usuarioActual = result
-        this.logService.guardarElemento("perso" + this.usuarioActual.email, this.usuarioActual)
+        this.logService.storeUser(this.usuarioActual, this.logService.getToken())
+        //this.logService.guardarElemento("perso" + this.usuarioActual.email, this.usuarioActual)
       },
       error => console.error()
     )

@@ -157,7 +157,8 @@ export class TestAprendizajePage implements OnInit {
     
 
     console.log("-> estilos ", this.usuario.estilosAprendizaje)
-    this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario)
+    this.loginService.storeUser(this.usuario, this.loginService.getToken())
+    //this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario)
   }
 
 }

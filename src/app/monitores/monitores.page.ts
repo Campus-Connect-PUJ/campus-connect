@@ -80,7 +80,8 @@ export class MonitoresPage implements OnInit {
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
+    this.usuarioActual = this.logService.getUser();
+    //this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
     for(let i=0; i<monitores.length; i++){
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
         for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){

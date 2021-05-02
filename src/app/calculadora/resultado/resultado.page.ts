@@ -28,6 +28,7 @@ export class ResultadoPage implements OnInit {
   private porcentajeFaltante: number;
   private notaFaltante: number;
   private mensaje: mensaje = new mensaje();
+  private pasar: boolean = false;
   private mensajes: mensaje[] = [
     {
       mensaje: "A",
@@ -96,15 +97,23 @@ export class ResultadoPage implements OnInit {
       }
       this.calculadoraService.load();
       this.determinarMensaje();
+      if(this.notaFaltante>0){
+        this.pasar = false;
+      }
+      else{
+        this.pasar = true;
+      }
       })
       
   }
 
   guardarMateria(){
     this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notasMateria, this.notaActual, this.porcentajeActual)
+    /*
     this.router.navigate(['/calculadora/materias'
                           // '/tabs/servicios-academicos'
                          ]);
+    */
   }
 
   soloGuardarMateria(){
