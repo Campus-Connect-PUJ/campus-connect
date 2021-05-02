@@ -35,7 +35,6 @@ export class MonitorHorariosPage implements OnInit {
   cantidadDeSugerencias: Array<Number> = [1,3,5,10,20,50,100];
   cantidadDeSugerenciasSeleccionadas: Number = 3;
 
-
   constructor(
     private activatedRoute: ActivatedRoute, 
     private monService: MonitoriaService,
@@ -61,6 +60,8 @@ export class MonitorHorariosPage implements OnInit {
             }
             this.sugerenciasHorariosMonitorias(this.monitor)
             this.obtenerAsignaturas(this.monitor)
+            this.obtenerPuntajes(this.monitores)
+            console.log(this.monitor)
           },
           error => console.log(error)
         )
@@ -163,6 +164,8 @@ export class MonitorHorariosPage implements OnInit {
     
     this.ordenarSugerencias();
     console.log("eventos posibles ", this.horariosSugeridos)
+    
+ 
   }
 
   ordenarSugerencias(){
