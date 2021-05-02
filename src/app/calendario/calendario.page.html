@@ -2,11 +2,6 @@
   <ion-toolbar>
     <ion-buttons class="header_btn"
                  slot="secondary">
-      <ion-button (click)="today()">
-        <ion-icon slot="icon-only"
-                  name="time"
-        ></ion-icon>
-      </ion-button>
       <ion-button (click)="enviarHorarios()" href="tabs/servicios-academicos">
         <ion-icon slot="icon-only"
                   name="arrow-back"
@@ -156,7 +151,10 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
+  <div class="boton">
+    <ion-button (click)="enviarMonitorias()">Enviar/Actualizar monitorias</ion-button>
+  </div>
+    
     <div class="nonTransparent" >
       <calendar
         [eventSource]="eventSource"

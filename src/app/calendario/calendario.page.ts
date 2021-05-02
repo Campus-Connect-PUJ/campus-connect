@@ -488,6 +488,7 @@ export class CalendarioPage implements OnInit {
   }
 
   today(){
+    console.log("Hoy")
     this.calendar.currenDate = new Date();
   }
 

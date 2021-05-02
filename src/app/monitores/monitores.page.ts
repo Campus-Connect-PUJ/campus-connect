@@ -30,7 +30,7 @@ export class MonitoresPage implements OnInit {
   monitores: Array<UsuarioGeneral> = [];
   monitoresRecomendados:  Array<UsuarioGeneral> = [];
   sugerencia: Array<horarioParaRecomendar> = [];
-
+  textoBuscar='';
   usuarioActual: UsuarioGeneral;
   eventos: evento[] = [];
 
@@ -77,6 +77,11 @@ export class MonitoresPage implements OnInit {
       result => console.log(result),
       error => console.log(error)
     )
+  }
+
+  buscarMonitores(event){
+    const texto = event.target.value;
+    this.textoBuscar = texto;
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){

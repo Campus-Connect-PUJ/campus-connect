@@ -12,6 +12,7 @@ import { FiltroFacultadGruposPipe } from './filtro-facultad-grupos.pipe';
 import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
 import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
 import { FiltroTipsExigenciaPipe } from './filtro-tips-exigencia.pipe';
+import { FiltroMonitoresPipe } from './filtro-monitores.pipe';
 
 @NgModule({
 
@@ -27,7 +28,8 @@ import { FiltroTipsExigenciaPipe } from './filtro-tips-exigencia.pipe';
     FiltroFacultadGruposPipe,
     FiltroTematicaGurposPipe,
     FiltroCaracteristicasPipe,
-    FiltroTipsExigenciaPipe
+    FiltroTipsExigenciaPipe,
+    FiltroMonitoresPipe
   ],
   exports: [
     FiltroGruposPipe,
@@ -41,7 +43,8 @@ import { FiltroTipsExigenciaPipe } from './filtro-tips-exigencia.pipe';
     FiltroFacultadGruposPipe,
     FiltroTematicaGurposPipe,
     FiltroCaracteristicasPipe,
-    FiltroTipsExigenciaPipe
+    FiltroTipsExigenciaPipe,
+    FiltroMonitoresPipe
   ]
 })
 export class PipesModule { }
