@@ -76,7 +76,7 @@ export class ForosPage implements OnInit {
 
             this.forosUsuario.splice(indice,1);
             this.loginService.storeUser(this.usuario, this.loginService.getToken())
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            //this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
             
           }
         }
