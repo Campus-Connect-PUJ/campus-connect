@@ -37,7 +37,7 @@ export class MonitoresPage implements OnInit {
   constructor(private popoverCtrl:PopoverController, 
     private monService: MonitoriaService,
     public navCtrl: NavController,
-    private logService: LoginService,
+    private loginService: LoginService,
     private userService: UsuarioGeneralService,
     private router: Router,
   ) { }
@@ -85,7 +85,7 @@ export class MonitoresPage implements OnInit {
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    this.usuarioActual = this.logService.getUser();
+    this.usuarioActual = this.loginService.getUser();
     //this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
     for(let i=0; i<monitores.length; i++){
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
@@ -102,8 +102,14 @@ export class MonitoresPage implements OnInit {
   }
 
   mirarProblemasHorarios(monitor: UsuarioGeneral){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-    let eventosMonitor = monitor.monitorDe;
+    const interrumpe = false;
+    const monitoriasDisponibles = new Array<Monitoria>();
+    const horarios = new Array<Horario>();
+
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.loginService.getUser().email));
+    
+    console.log("-->", this.eventos)
+    const eventosMonitor = monitor.monitorDe;
     let ocupadoMonitor = 0;
 
     console.log("Monitor", eventosMonitor)
@@ -112,9 +118,9 @@ export class MonitoresPage implements OnInit {
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){
           
-          let horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fechaInicio, "DD-MM-YYYY HH:mm")
-          let horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].fechaFin, "DD-MM-YYYY HH:mm")
-          let ocupado = 0;
+          const horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fechaInicio, "DD-MM-YYYY HH:mm")
+          const horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].fechaFin, "DD-MM-YYYY HH:mm")
+          const ocupado = 0;
 
         try {
           for(let i=0; i<this.eventos.length && !ocupado; i++){

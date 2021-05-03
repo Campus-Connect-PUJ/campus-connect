@@ -81,7 +81,7 @@ export class TipsPage implements OnInit {
   }
 
   organizartips(tips){
-    let tipsOrdenados = tips;
+    const tipsOrdenados = tips;
 
     tipsOrdenados.sort(function (a, b) {
       if (a.puntaje > b.puntaje) {

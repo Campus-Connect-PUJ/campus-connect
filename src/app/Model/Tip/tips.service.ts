@@ -37,24 +37,21 @@ export class TipsService {
     );
   }
 
-  borrarTip(idUsuario: number, idTip: number){
+  borrarTip(idTip: number){
     const url = `${environment.baseUrl}/tip/borrarTip/${idTip}`;
     return this.net.put(url, {})
   }
 
-  agregarTipGustado(idUsuario: number, idTip: number){
+  agregarTipGustado(idTip: number){
     const url = `${environment.baseUrl}/tip/tipsGustados/${idTip}`;
-
-    console.log("->",idUsuario, idTip);
     return this.net.put(
       url,
       {}
     );
   }
 
-  agregarTipNoGustado(idUsuario: number, idTip: number){
+  agregarTipNoGustado(idTip: number){
     const url = `${environment.baseUrl}/tip/tipsNoGustados/${idTip}`;
-    console.log("->",idUsuario, idTip);
     return this.net.put(
       url,
       {}
@@ -77,7 +74,7 @@ export class TipsService {
       )
   }
 
-  obtenerRecomendacion(idUsuario: number){
+  obtenerRecomendacion(){
     const url = `${environment.baseUrl}/reglas/usuario`;
     return this.net.get<Tip>(
       url

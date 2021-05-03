@@ -17,7 +17,6 @@ export class UsuarioGeneralService {
   constructor(private net: NetService) { }
 
   agregarInformacionUsuario(
-    idUs: number,
     fechaNacimiento: Date,
     carreras: Carrera[],
     religion: string,
@@ -27,7 +26,7 @@ export class UsuarioGeneralService {
     genero: string
   ): Observable<InformacionUsuario> {
     const date = new Date(fechaNacimiento).toISOString();
-    const url = `${environment.baseUrl}/informacion_usuario/${idUs}`;
+    const url = `${environment.baseUrl}/usuario/informacion`;
 
     const info = {
       fechaNacimiento: date,
@@ -92,7 +91,12 @@ export class UsuarioGeneralService {
     ) as unknown as Observable<UsuarioGeneral>;
   }
 
-  getUsuario(id: number): Observable<UsuarioGeneral> {
+  getUsuario(): Observable<UsuarioGeneral> {
+    const url = `${environment.baseUrl}/usuario`;
+    return this.net.get<UsuarioGeneral>(url);
+  }
+
+  getOtroUsuario(id: number): Observable<UsuarioGeneral> {
     const url = `${environment.baseUrl}/usuario/${id}`;
     return this.net.get<UsuarioGeneral>(url);
   }

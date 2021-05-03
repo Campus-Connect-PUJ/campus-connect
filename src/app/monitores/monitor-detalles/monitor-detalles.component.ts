@@ -26,7 +26,7 @@ export class MonitorDetallesComponent implements OnInit {
   }
 
   obtenerInformacionUsuario(){
-    this.usuarioService.getUsuario(this.idUsuario).subscribe(
+    this.usuarioService.getOtroUsuario(this.idUsuario).subscribe(
       result => {
         this.monitor = result;
         this.id = this.monitor.id;

@@ -62,8 +62,8 @@ export class Formulario2Page implements OnInit {
   }
 
   onBirthChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.local = selected_values;
+    const selectedValues = selectedValue.detail.value;
+    this.local = selectedValues;
   }
 
   async alertaElementoNoSeleccionado(elemento, mensaje) {
@@ -104,9 +104,8 @@ export class Formulario2Page implements OnInit {
         "Para continuar con el registro responder la pregunta del sexo."
       );
     } else {  //Datos completos
-      const user_data = this.login.getUser();
       this.ugService.agregarInformacionUsuario(
-        user_data.id, // esto tal vez se podria meter en un objeto, pero meh
+        // esto tal vez se podria meter en un objeto, pero meh
         this.fechaNacimiento,
         this.carreras,
         this.religion,
