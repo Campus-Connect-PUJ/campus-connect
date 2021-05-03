@@ -29,7 +29,7 @@
         </div>
       </ion-card>
 
-            <ion-card class="sugerencia" *ngFor="let monitor of monitoresRecomendados">
+        <ion-card class="sugerencia" *ngFor="let monitor of monitoresRecomendados">
         <div class="datosMonitor" [routerLink]="['/monitores/horarios-monitor', monitor.id]">
           <ion-card-header>
             <h1>{{monitor.nombre}}</h1>
@@ -55,7 +55,7 @@
       <h1>No existen horarios sugeridos con este monitor</h1>
     </div>
   
-    <ion-button [routerLink]="['/monitores/horarios-monitor']"> Mostrar horarios sugeridos </ion-button>
+   
   </div>
 
   <div id="listaMonitores">
