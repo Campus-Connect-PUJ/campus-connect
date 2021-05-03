@@ -20,7 +20,7 @@ export class CalculadoraService {
   private porcentajeActual: number = 0;
 
   constructor(
-    private logService: LoginService
+    private loginService: LoginService
   ) {}
 
   getNotas(){
@@ -90,7 +90,6 @@ export class CalculadoraService {
     console.log(nombreMateria, notaEsperada, notas )
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
     
-    //this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
     this.controlNotas = this.load();
     try {
       if(this.controlNotas.length>=0){
@@ -101,7 +100,6 @@ export class CalculadoraService {
           this.controlNotas.push(this.controlNota)
         }
         this.guardarMaterias(this.controlNotas)
-        //localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
       }
     } catch (error) {
       let controlNotas2: NotasMateria[] = 
@@ -120,23 +118,25 @@ export class CalculadoraService {
       this.controlNotas = controlNotas2;
       this.guardarMaterias(this.controlNotas)
       this.guardarMaterias(controlNotas2)
-      /*
-      localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
-      console.log("esto se guarda2", this.controlNotas);
-      localStorage.setItem("Materias", JSON.stringify(controlNotas2))
-      */
     }
   }
 
-
-  public guardarMaterias(nuevasMaterias){
-    this.logService.guardarElemento("Materias" + this.logService.getUser().email, nuevasMaterias)
+  public guardarMaterias(nuevasMaterias: any){
+    console.log("guardando:");
+    console.log(nuevasMaterias);
+    localStorage.setItem(
+      "Materias" + this.loginService.getUser().email,
+      JSON.stringify(nuevasMaterias)
+    );
   }
 
   public load(): NotasMateria[] {
-    //this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-    this.controlNotas = this.logService.obtenerElemento("Materias" + this.logService.getUser().email)
-    return this.controlNotas;
+
+    console.log(JSON.stringify(localStorage.getItem("Materias" + this.loginService.getUser().email)));
+    const elemento = JSON.parse(
+      localStorage.getItem("Materias" + this.loginService.getUser().email)
+    );
+    return elemento;
   }
   
   public findNotas(id){

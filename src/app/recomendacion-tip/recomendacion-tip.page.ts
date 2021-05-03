@@ -13,7 +13,6 @@ import { LoginService } from '../services/login.service';
 })
 export class RecomendacionTipPage implements OnInit {
   tipRecomendado: Tip = new Tip();
-  indice: number;
   user: UsuarioGeneral;
 
   constructor(
@@ -24,8 +23,7 @@ export class RecomendacionTipPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
-    this.indice = this.loginService.getUser().id;
+    this.user = this.loginService.getUser();
 
     try {
       console.log(this.user.estilosAprendizaje.length)
@@ -73,16 +71,15 @@ export class RecomendacionTipPage implements OnInit {
     console.log(voto);
 
     this.user = this.loginService.getUser();
-    this.indice = this.user.id;
     if(voto == 1){
-      this.tipsService.agregarTipGustado(this.indice, this.tipRecomendado.id).subscribe(
+      this.tipsService.agregarTipGustado(this.tipRecomendado.id).subscribe(
         results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
       
     }
     else{ 
-      this.tipsService.agregarTipNoGustado(this.indice, this.tipRecomendado.id).subscribe(
+      this.tipsService.agregarTipNoGustado(this.tipRecomendado.id).subscribe(
         results => {this.obtenerTipRecomendado()},
         error => console.error(error)
       )
@@ -91,8 +88,7 @@ export class RecomendacionTipPage implements OnInit {
 
   obtenerTipRecomendado(){
     
-    console.log(this.indice)
-    this.tipsService.obtenerRecomendacion(this.indice).subscribe(
+    this.tipsService.obtenerRecomendacion().subscribe(
       results => {
         this.tipRecomendado = results;
       },

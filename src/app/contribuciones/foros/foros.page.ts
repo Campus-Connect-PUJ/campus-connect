@@ -75,8 +75,6 @@ export class ForosPage implements OnInit {
             )
 
             this.forosUsuario.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
-            
           }
         }
       ]

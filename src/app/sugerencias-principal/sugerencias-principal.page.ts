@@ -15,19 +15,19 @@ export class SugerenciasPrincipalPage implements OnInit {
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioGeneralService
-  ) { }
+  ) {
+    this.usuario = this.loginService.getUser();
+  }
 
   ngOnInit() {
   }
 
   paso(){
-    this.usuario = this.loginService.getUser();
-    this.usuarioService.getUsuario(this.usuario.id).subscribe(
-      result => {this.usuario = result
-                this.loginService.storeUser(this.usuario, this.loginService.getToken())
-                  console.log("user", this.usuario)
-
-
+    this.usuarioService.getUsuario().subscribe(
+      result => {
+        this.usuario = result
+        this.loginService.storeUser(this.usuario, this.loginService.getToken())
+        console.log("user", this.usuario)
       },
       error => console.error()
     )

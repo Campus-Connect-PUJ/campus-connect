@@ -26,7 +26,7 @@ export class MonitoresPage implements OnInit {
   constructor(private popoverCtrl:PopoverController, 
     private monService: MonitoriaService,
     public navCtrl: NavController,
-    private logService: LoginService,
+    private loginService: LoginService,
     private userService: UsuarioGeneralService,
     private router: Router,
   ) { }
@@ -74,7 +74,7 @@ export class MonitoresPage implements OnInit {
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
+    this.usuarioActual = this.loginService.getUser();
 
     for(let i=0; i<monitores.length; i++){
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
@@ -96,7 +96,7 @@ export class MonitoresPage implements OnInit {
     let monitoriasDisponibles = new Array<Monitoria>();
     let horarios = new Array<Horario>();
 
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.loginService.getUser().email));
     
     console.log("-->", this.eventos)
     let eventosMonitor = monitor.monitorDe;

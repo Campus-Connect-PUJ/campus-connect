@@ -61,14 +61,11 @@ export class RespuestasForoPage implements OnInit {
           handler: () => {
             console.log(this.respuestasUsuario)
             console.log("Indice ", indice)
-            this.respService.borrarRespuesta(this.usuario.id, this.respuestasUsuario[indice].id).subscribe(
+            this.respService.borrarRespuesta(this.respuestasUsuario[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
             )
-
             this.respuestasUsuario.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
-            
           }
         }
       ]

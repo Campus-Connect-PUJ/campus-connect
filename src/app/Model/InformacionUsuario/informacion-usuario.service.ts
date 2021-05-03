@@ -16,8 +16,8 @@ export class InformacionUsuarioService {
     return this.net.get<InformacionUsuario[]>(url);
   }
 
-  getInformacionUsuarioById(id: number): Observable<InformacionUsuario> {
-    const url = `${environment.baseUrl}/informacion_usuario/${id}`;
+  getInformacionUsuarioById(): Observable<InformacionUsuario> {
+    const url = `${environment.baseUrl}/usuario/informacion`;
     return this.net.get<InformacionUsuario>(url);
   }
 

@@ -17,7 +17,7 @@ export class ServiciosAcademicosPage implements OnInit {
   usuarioActual: UsuarioGeneral;
 
   constructor(
-    private logService: LoginService,
+    private loginService: LoginService,
     private userService: UsuarioGeneralService
 
   ) {
@@ -44,7 +44,7 @@ export class ServiciosAcademicosPage implements OnInit {
 
   mostrarChat(){
     console.log("Mostrar")
-    let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     /*
     let shadow = element[0].shadowRoot;
     element[0].attachShadow({mode:"open"})
@@ -56,17 +56,17 @@ export class ServiciosAcademicosPage implements OnInit {
   }
 
   quitarChat(){
-    let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     element[0].style.display = 'none'
     element[0].style.marginBottom = '50px';
   }
 
   obtenerUsuario(){
-    this.usuarioActual = this.logService.getUser();
-    this.userService.getUsuario(this.usuarioActual.id).subscribe(
+    this.usuarioActual = this.loginService.getUser();
+    this.userService.getUsuario().subscribe(
       result => {
         this.usuarioActual = result
-        this.logService.guardarElemento("perso" + this.usuarioActual.email, this.usuarioActual)
+        this.loginService.storeUser(this.usuarioActual, this.loginService.getToken())
       },
       error => console.error()
     )
