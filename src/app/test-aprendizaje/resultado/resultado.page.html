@@ -1,16 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>resultado</ion-title>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Resultados</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1>Resultados</h1>
-  <div id="estilosDeAprendizaje">
-    <ion-item *ngFor="let estilo of estilosAprendizaje">
-      {{estilo.descripcion}}
-    </ion-item>
+  <div class="content">
+
+  <h2>Los estilos de aprendizaje obtenidos son: </h2>
+
+    <div class="estilosDeAprendizaje">
+      <div class="estilo"  *ngFor="let estilo of estilosAprendizaje">
+        <h3>{{estilo.descripcion}}</h3>
+      </div>
+    </div>
   </div>
 
-<ion-button [routerLink]="['/tabs/servicios-academicos']">Servicios academicos</ion-button>
-</ion-content>
+  <div class="botones">
+   <ion-button [routerLink]="['/tabs/servicios-academicos']">Servicios academicos</ion-button>
+  </div>
+
+ </ion-content>

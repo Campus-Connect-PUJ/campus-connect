@@ -66,6 +66,10 @@ export class RespuestasForoPage implements OnInit {
               error => console.log(error)
             )
             this.respuestasUsuario.splice(indice,1);
+
+            // esto no creo que sea necesario
+            this.loginService.storeUser(this.usuario, this.loginService.getToken())
+
           }
         }
       ]

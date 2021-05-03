@@ -122,7 +122,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   }
 
   async alertaElementoNoSeleccionado(elemento: string, mensaje: string) {
-    let alert = await this.alertController.create({
+    const alert = await this.alertController.create({
       cssClass: "custom-class-alert",
       header: "Error",
       subHeader: elemento,

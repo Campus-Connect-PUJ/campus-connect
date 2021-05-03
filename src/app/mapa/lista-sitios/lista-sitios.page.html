@@ -1,12 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="mapa-principal">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ubicacion inicial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-list>
-    <ion-list-header>
-      Sitios de la Universidad
-    </ion-list-header>
-    <ion-label>
-      Selecciona lugar de inicio de tu ruta. 
-    </ion-label>
-    <ion-item *ngFor="let item of lugares">
+    <div class="nonTransparent">
+      <ion-list-header>
+        Sitios de la Universidad
+      </ion-list-header>
+      <ion-label>
+        Selecciona lugar de inicio de tu ruta.
+      </ion-label>
+    </div>
+    <ion-item  class="nonTransparent" *ngFor="let item of lugares">
       <ion-label>
         <h2>{{item.id}}</h2>
         <h3>{{item.name}}</h3> 

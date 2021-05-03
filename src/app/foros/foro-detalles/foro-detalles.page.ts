@@ -117,15 +117,17 @@ export class ForoDetallesPage implements OnInit {
   }
 
   crearRespuesta(){
-    let respuestanueva: RespuestaForo = new RespuestaForo();
-    let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
+    const respuestanueva: RespuestaForo = new RespuestaForo();
+    const respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
     console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
     respuestanueva.usuario = this.loginService.getUser();
+    respuestanueva.puntaje = 0;
     try {
       this.foro.respuestas.push(respuestanueva);
+      this.respuestaTexto = "";
     } catch (error) {
       respuestas.push(respuestanueva);
       console.log(respuestas)
@@ -139,6 +141,7 @@ export class ForoDetallesPage implements OnInit {
     
     console.log("respuestas1" , this.respuestas);
     console.log("respuestas2" , this.respuestas);
+    this.findForo(this.indice);
   }
 
   /*

@@ -4,8 +4,8 @@ export class HorarioMonitoria {
     id: number;
     nombreAsignatura: string;
     monitor: UsuarioGeneral;
-    fi: string;
-    ff: string;
-
+    fechaInicio: string;
+    fechaFin: string;
+    lugar: string;
 
 }

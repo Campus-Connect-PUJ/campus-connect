@@ -3,20 +3,22 @@
     <ion-toggle slot="start" name="markers_onoff" [(ngModel)]="markers_onoff" checked (ionChange)="change_markers($event)"></ion-toggle>
   </ion-toolbar>
   <div id="mapId" style="width:100%; height:100%;"></div>
-  <div class="button">
+  <!-- <div class="button">
     <ion-fab horizontal="start" vertical="bottom" slot="fixed" (click)="toNextPage()">
+      <ion-button size="medium" color="light">Ubicaciones</ion-button>
       <ion-fab-button color="light">
         <ion-icon name="arrow-redo-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-  </div>
-  <div class="button">
+  </div> -->
+  <!-- <div class="button">
     <ion-fab horizontal="end" vertical="bottom" slot="fixed" (click)="toNavigation()">
+      <ion-button size="medium" color="light">Generar ruta</ion-button>
       <ion-fab-button color="light">
         <ion-icon name="play-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-  </div>
+  </div> -->
 </ion-content>
 
 <ion-fab horizontal="end" vertical="top" slot="fixed" (click)="onBackAction()">
@@ -25,13 +27,33 @@
   </ion-fab-button>
 </ion-fab>
 
-<div class="button">
+<!-- <div class="button">
   <ion-fab horizontal="center" vertical="bottom" slot="fixed" (click)="eventualidad($event)">
+    <ion-button size="medium" color="light">Reportar eventualidad</ion-button>
     <ion-fab-button color="light">
       <ion-icon name="flag"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-</div>
+</div> -->
+
+<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+  <ion-fab-button color="dark">
+    <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-button size="medium" color="light" (click)="toNextPage()">Ubicaciones</ion-button>
+    <ion-button size="medium" color="light" (click)="toNavigation()">Generar ruta</ion-button>
+    <ion-button size="medium" color="light" (click)="eventualidad($event)">Reportar <br> eventualidad</ion-button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-button color="light" class="info-button">
+    <p class="info">
+      Puedes reportar <br> una eventualidad <br> seleccionando cualquier <br> parte del mapa.
+    </p>
+  </ion-button>
+</ion-fab>
 
 
 

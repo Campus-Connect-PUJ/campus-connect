@@ -75,6 +75,10 @@ export class ForosPage implements OnInit {
             )
 
             this.forosUsuario.splice(indice,1);
+
+            // esto no creo que sea necesario
+            this.loginService.storeUser(this.usuario, this.loginService.getToken())
+
           }
         }
       ]

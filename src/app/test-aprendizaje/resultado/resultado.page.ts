@@ -22,7 +22,6 @@ export class ResultadoPage implements OnInit {
     this.usuario = this.loginService.getUser();
     console.log(this.usuario)
     this.estilosAprendizaje = this.usuario.estilosAprendizaje;
-    
   }
 
 }

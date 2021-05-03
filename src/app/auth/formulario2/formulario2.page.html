@@ -1,69 +1,74 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>formulario2</ion-title>
+    <ion-title></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-label>
-    Ya casi completas tu registro. Hacen falta estas pocas preguntas para que puedas disfrutar tu experiencia en Campus Connect.
-  </ion-label>
-  <ion-item>
-    <ion-label>¿Cuál es tu religión?</ion-label>
-    <ion-select
-      [(ngModel)]="religion" >
-      <ion-select-option *ngFor="let item of religiones" value={{item[0]}}>
-        {{item[1]}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
+  <div class="content">
 
-  <ion-item>
-    <ion-label>¿A cuál grupo étnico perteneces?</ion-label>
-    <ion-select
-      [(ngModel)]="ethnicity" >
-      <ion-select-option *ngFor="let item of grupo_etnicos" value={{item[0]}}>
-        {{item[1]}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
+    <div class="nonTransparent">
+      <ion-label>
+        Ya casi completas tu registro. Hacen falta estas pocas preguntas para que puedas disfrutar tu experiencia en Campus Connect.
+      </ion-label>
+      <ion-item>
+        <ion-label>¿Cuál es tu religión?</ion-label>
+        <ion-select
+          [(ngModel)]="religion" >
+          <ion-select-option *ngFor="let item of religiones" value={{item[0]}}>
+            {{item[1]}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <ion-radio-group
-      [(ngModel)]="local" >
-    <ion-list-header>
-      <ion-label>¿Su lugar de nacimiento es Bogotá?</ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Si</ion-label>
-      <ion-radio slot="start" color="success" value="true"></ion-radio>
-    </ion-item>
+      <ion-item>
+        <ion-label>¿A cuál grupo étnico perteneces?</ion-label>
+        <ion-select
+          [(ngModel)]="ethnicity" >
+          <ion-select-option *ngFor="let item of grupo_etnicos" value={{item[0]}}>
+            {{item[1]}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>No</ion-label>
-      <ion-radio slot="start" color="success" value="false"></ion-radio>
-    </ion-item>
-  </ion-radio-group>
+      <ion-radio-group
+        [(ngModel)]="local" >
+        <ion-list-header>
+          <ion-label>¿Su lugar de nacimiento es Bogotá?</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Si</ion-label>
+          <ion-radio slot="start" color="success" value="true"></ion-radio>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>¿Cómo se identifica según su género?</ion-label>
-    <ion-select
-      [(ngModel)]="gender" >
-      <ion-select-option *ngFor="let item of generos" value={{item}}>{{item}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio slot="start" color="success" value="false"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
 
-  <ion-item>
-    <ion-label>¿Cuál es su sexo?</ion-label>
-    <ion-select
-      [(ngModel)]="sex" >
-      <ion-select-option *ngFor="let item of sexos" value={{item}}>{{item}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-item>
+        <ion-label>¿Cómo se identifica según su género?</ion-label>
+        <ion-select
+          [(ngModel)]="gender" >
+          <ion-select-option *ngFor="let item of generos" value={{item}}>{{item}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <div class="register">
-    <button class="myButton" (click)="completar_registro()">
-      Completar registro
-    </button>
+      <ion-item>
+        <ion-label>¿Cuál es su sexo?</ion-label>
+        <ion-select
+          [(ngModel)]="sex" >
+          <ion-select-option *ngFor="let item of sexos" value={{item}}>{{item}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="register">
+      <button class="myButton" (click)="completar_registro()">
+        Completar registro
+      </button>
+    </div>
+
   </div>
-
 </ion-content>

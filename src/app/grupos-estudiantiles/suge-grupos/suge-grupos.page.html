@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-button [routerLink]="['/sugerencias-principal']" >
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="/sugerencias-principal">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Nuestra Selección para ti</ion-title>
@@ -10,26 +13,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-card *ngFor="let grupo of grupos">
-      <ion-card-header>
-        <ion-card-title>{{grupo.nombre}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-label *ngFor= "let tema of grupo.tematicas">
-          {{tema.nombre}}
-        </ion-label>
-        <ion-label>
-          {{grupo.descripcion}}
-        </ion-label>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
-  <div  *ngIf="grupos.length == 0">
-    <h1>En el momento no hay grupos sugeridos, por favor espera un momento.</h1>
+  <div class="content">
+    <ion-list>
+      <ion-card *ngFor="let grupo of grupos">
+        <ion-card-header>
+          <ion-card-title>{{grupo.nombre}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label *ngFor= "let tema of grupo.tematicas">
+            {{tema.nombre}}
+          </ion-label>
+          <ion-label>
+            {{grupo.descripcion}}
+          </ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+    <div class="nonTransparent" *ngIf="grupos.length == 0">
+      <h1>En el momento no hay grupos sugeridos, por favor espera un momento.</h1>
+    </div>
+    <ion-button (click) = "infoGrupos()" [routerLink]="['/reco-grupos']">
+      Ver más grupos
+      <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
+    </ion-button>
   </div>
-  <ion-button (click) = "infoGrupos()" [routerLink]="['/reco-grupos']">
-    Ver más grupos
-    <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
-  </ion-button>
 </ion-content>

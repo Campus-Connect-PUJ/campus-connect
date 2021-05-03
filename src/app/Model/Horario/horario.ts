@@ -5,9 +5,10 @@ export class Horario {
     monitor: UsuarioGeneral;
     fechaInicial: Date;
     fechaFinal: Date;
-
-    fi: string;
-    ff: string;
+    
+    fechaInicio: string;
+    fechaFin: string;
+    lugar: string;
     Horario(){
         
     }

@@ -1,15 +1,5 @@
-ion-back-button{
-    color: #C7C7C7;
-}
-
-ion-toolbar {
-    --background: transparent;
-    --ion-color-base: transparent !important;
-    --border-style: none;
-}
 
 ion-content h3{
-    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -41,10 +31,6 @@ ion-card-header h1{
     margin: 0 0 0 auto;
     padding-right: 2%;
     padding-top: 2%;
-}
-
-ion-card-header{
-    padding: 0;
 }
 
 .todoslostips{
@@ -125,16 +111,4 @@ ion-card-header{
 .botonesRealimentacion #like:active{
     opacity: 0.5;
     text-decoration: none;
-}
-
-
-ion-card{
-    height: 40%;
-    margin: 5%;
-    background: #FFFFFF;
-    border: 1px solid rgba(199, 199, 199, 0.25);
-    //box-sizing: border-box;
-    /* Sombra */
-    box-shadow: 0px 4px 5px 1px #C7C7C7;
-    border-radius: 15px;
 }

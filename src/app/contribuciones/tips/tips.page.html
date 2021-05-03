@@ -1,32 +1,40 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Tips creados</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content padding class="background" [fullscreen]="true">
-  <div id="titulo">
-    <h1>Tips creados</h1>
-    <h2>Deslizar para actualizar</h2>
-  </div>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <div class="content">
+    <div class="nonTransparent">
+      <h2>Deslizar para actualizar</h2>
+    </div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    </ion-refresher>
 
-  <div id="materias">
-    
+    <div id="materias">
+
       <ion-item-sliding *ngFor = "let tip of tips; let indice=index">
         <ion-item [routerLink]="['/tips', tip.id]">
           <ion-card-header>
-          <div id="TyP">
-            <h1>{{tip.descripcion}}</h1>
 
-
-            <h2># {{tip.id}}</h2>
-            <h2> {{tip.puntaje}}</h2>
+            <div class="separacion">
+              <ion-card-header>
+                {{tip.descripcion}}
+              </ion-card-header>
+              <ion-card-content>
+                <h2># {{tip.id}}</h2>
+                <h2>Puntaje: {{tip.puntaje}}</h2>
+              </ion-card-content>
             </div>
           </ion-card-header>
         </ion-item>
@@ -37,7 +45,7 @@
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-      
-     
+
     </div>
-  </ion-content>
+  </div>
+</ion-content>

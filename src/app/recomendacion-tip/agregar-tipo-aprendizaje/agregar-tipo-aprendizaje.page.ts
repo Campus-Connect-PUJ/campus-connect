@@ -118,7 +118,6 @@ export class AgregarTipoAprendizajePage implements OnInit {
               error => console.log(error)
             )
             this.tiposDeAprendizajeUsuario.splice(indice,1);
-
           }
         }
       ]

@@ -18,7 +18,10 @@ export class TipCrearPage implements OnInit {
   tipoDeAprendizaje: Array<TipoAprendizaje>= [new TipoAprendizaje()];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
   tip: Tip = new Tip();
+  nivelDeExigencia: Array<Number> = [1,2,3]
 
+
+  nivelDeExigenciaSelecionado: number;
   tiposDeAprendizajeSeleccionados = [];
   constructor(private tipsService: TipsService, 
     private tipoAprendizajeService: TipoAprendizajeService,
@@ -40,7 +43,10 @@ export class TipCrearPage implements OnInit {
   }
 
   crearTip(){
+
     let mensaje = "Se publico el tip";
+
+
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
 
 
@@ -49,6 +55,8 @@ export class TipCrearPage implements OnInit {
     this.tip.descripcion = this.descripcion;
     this.tip.usuario = this.usuario;
     this.tip.tiposAprendizaje = this.tiposDeAprendizajeSeleccionados;
+    this.tip.nivelExigencia = this.nivelDeExigenciaSelecionado;
+
 
     this.tipsService.createTip(this.tip)
       .subscribe(
