@@ -32,7 +32,8 @@ export class MonitoriaService {
         "fi": mon.horarios[indice].fechaInicio,
         "ff": mon.horarios[indice].fechaFin,
         "fechaInicial": mon.horarios[indice].fechaInicial,
-        "fechaFinal": mon.horarios[indice].fechaFinal
+        "fechaFinal": mon.horarios[indice].fechaFinal,
+        "lugar": mon.horarios[indice].lugar
       }
     )
   }

@@ -6,6 +6,6 @@ export class HorarioMonitoria {
     monitor: UsuarioGeneral;
     fechaInicio: string;
     fechaFin: string;
-
+    lugar: string;
 
 }

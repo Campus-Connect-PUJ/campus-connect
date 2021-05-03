@@ -8,6 +8,7 @@ export class Horario {
     
     fechaInicio: string;
     fechaFin: string;
+    lugar: string;
     Horario(){
         
     }
