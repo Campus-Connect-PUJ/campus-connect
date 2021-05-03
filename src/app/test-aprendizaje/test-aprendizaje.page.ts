@@ -127,7 +127,7 @@ export class TestAprendizajePage implements OnInit {
         }
       }
 
-      if(i == estilosAprendizaje.length-1 && estilosAprendizaje.length == 0){
+      if(i == estilosAprendizaje.length-1 && idEstilos.length == 0){
         idEstilos.push(1);
       } 
     }
