@@ -90,3 +90,26 @@ ion-button{
     /* identical to box height */
     margin-left: 5px;
 }
+
+.tarjeta{
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    margin: 25px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.instrucciones{
+    margin-top: 25px;
+}
+
+.Notas{
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.boton{
+    display: flex;
+    justify-content: center;
+    height: 100px  !important;
+}

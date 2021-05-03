@@ -68,7 +68,7 @@ export class MonitorAsignaturaPage implements OnInit {ç
       data.id = monitor.monitorDe[indice].horarios[i].id;
       data.fechaInicio = monitor.monitorDe[indice].horarios[i].fechaInicio;
       data.fechaFin = monitor.monitorDe[indice].horarios[i].fechaFin;
-
+      data.lugar = monitor.monitorDe[indice].horarios[i].lugar;
       this.horarios.push(data);
     }
     console.log(this.horarios)

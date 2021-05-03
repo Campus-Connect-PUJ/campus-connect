@@ -56,14 +56,16 @@ export class AgregarTipoAprendizajePage implements OnInit {
   agregarTipo(){
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
-    this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    //this.usuario = this.loginService.obtenerElemento("perso"+this.loginService.getUser().email);
+    this.usuario = this.loginService.getUser();
     for(let i = 0; i < this.tiposDeAprendizajeSeleccionados.length; i++){
       console.log("aa");
       this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeSeleccionados[i]).subscribe(
         results => {
           console.log(results);
           this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
-          this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+          this.loginService.storeUser(this.usuario, this.loginService.getToken())
+          //this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
 
         },
         error => console.error(error)
@@ -114,7 +116,8 @@ export class AgregarTipoAprendizajePage implements OnInit {
               error => console.log(error)
             )
             this.tiposDeAprendizajeUsuario.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            this.loginService.storeUser(this.usuario, this.loginService.getToken())
+            //this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
             
           }
         }

@@ -80,7 +80,8 @@ export class TipsPage implements OnInit {
             )
 
             this.tips.splice(indice,1);
-            this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
+            this.loginService.storeUser(this.usuario, this.loginService.getToken())
+            //this.loginService.guardarElemento("perso"+this.loginService.getUser().email, this.usuario);
             
           }
         }

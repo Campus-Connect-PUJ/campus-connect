@@ -2,11 +2,6 @@
   <ion-toolbar>
     <ion-buttons class="header_btn"
                  slot="secondary">
-      <ion-button (click)="today()">
-        <ion-icon slot="icon-only"
-                  name="time"
-        ></ion-icon>
-      </ion-button>
       <ion-button (click)="enviarHorarios()" href="tabs/servicios-academicos">
         <ion-icon slot="icon-only"
                   name="arrow-back"
@@ -21,13 +16,13 @@
   <div class="content">
     <ion-segment class="nonTransparent" [(ngModel)]="calendar.mode">
       <ion-segment-button value="month">
-        <ion-label>Month</ion-label>
+        <ion-label>Mes</ion-label>
       </ion-segment-button>
       <ion-segment-button value="week">
-        <ion-label>Week</ion-label>
+        <ion-label>Semana</ion-label>
       </ion-segment-button>
       <ion-segment-button value="day">
-        <ion-label>Day</ion-label>
+        <ion-label>Dia</ion-label>
       </ion-segment-button>
     </ion-segment>
 
@@ -66,18 +61,18 @@
           <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Start</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"></ion-datetime>
+          <ion-label>Inicio</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm" [(ngModel)]="event.startTime"></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label>End</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
+          <ion-label>Fin</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label>All Day?</ion-label>
+          <ion-label>Todo el dia</ion-label>
           <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
         </ion-item>
-        <ion-button fill="outline" expand="block" (click)="addEvent()">Add Event</ion-button>
+        <ion-button fill="outline" expand="block" (click)="addEvent()">Agregar evento</ion-button>
       </ion-card-content>
     </ion-card>
 
@@ -123,11 +118,11 @@
       <ion-card-content *ngIf="collapseCard3">
         <ion-item>
           <ion-label>Dia inicio</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.startTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.startTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Dia fin</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM" [(ngModel)]="event2.endTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.endTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Hora Inicio</ion-label>
@@ -152,11 +147,27 @@
           </ion-select>
         </ion-item>
 
-        <ion-button fill="outline" expand="block" (click)="addMonitoria()">Agregar evento</ion-button>
+        <ion-item>
+          <ion-label>Lugar</ion-label>
+          <ion-select
+            [(ngModel)]="lugar"
+          >
+            <ion-select-option *ngFor="let item of lugares" value="{{item.name}}"
+                               [value]="item.name"
+            >
+              {{item.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button fill="outline" expand="block" (click)="addMonitoria(); collapseCard3 = !collapseCard3" [disabled]="asignatura == null">Agregar evento</ion-button>
       </ion-card-content>
     </ion-card>
 
-    <ion-button (click)="enviarMonitorias()">Enviar monitorias</ion-button>
+  <div class="boton">
+    <ion-button (click)="enviarMonitorias()">Enviar/Actualizar monitorias</ion-button>
+  </div>
+    
     <div class="nonTransparent" >
       <calendar
         [eventSource]="eventSource"

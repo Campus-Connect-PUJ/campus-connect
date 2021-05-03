@@ -44,7 +44,8 @@
 
       <ion-button
       (click)="crearTip()"
-        href="/tips">
+      [routerLink]="['/tips']"
+        >
         <ion-icon slot="icon-only"
                   name="add"
         ></ion-icon>

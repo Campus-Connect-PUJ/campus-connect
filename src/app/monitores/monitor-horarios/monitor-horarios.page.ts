@@ -35,7 +35,6 @@ export class MonitorHorariosPage implements OnInit {
   cantidadDeSugerencias: Array<Number> = [1,3,5,10,20,50,100];
   cantidadDeSugerenciasSeleccionadas: Number = 3;
 
-
   constructor(
     private activatedRoute: ActivatedRoute, 
     private monService: MonitoriaService,
@@ -50,26 +49,32 @@ export class MonitorHorariosPage implements OnInit {
       if(recipeId != null){
         console.log(recipeId)
         this.idMonitor = +recipeId;
+        this.iniciarMonitor();
 
-        this.monService.obtenerMonitores().subscribe(
-          result => {
-            this.monitores = result;
-            for(let i=0; i<this.monitores.length; i++){
-              if(this.monitores[i].id == this.idMonitor){
-                this.monitor = this.monitores[i];
-              }
-            }
-            this.sugerenciasHorariosMonitorias(this.monitor)
-            this.obtenerAsignaturas(this.monitor)
-          },
-          error => console.log(error)
-        )
       }
       else{
         console.log("Lo otro")
       }
 
     })
+  }
+
+  iniciarMonitor(){
+    this.monService.obtenerMonitores().subscribe(
+      result => {
+        this.monitores = result;
+        for(let i=0; i<this.monitores.length; i++){
+          if(this.monitores[i].id == this.idMonitor){
+            this.monitor = this.monitores[i];
+          }
+        }
+        this.sugerenciasHorariosMonitorias(this.monitor)
+        this.obtenerAsignaturas(this.monitor)
+        this.obtenerPuntajes(this.monitores)
+        console.log(this.monitor)
+      },
+      error => console.log(error)
+    )
   }
 
   obtenerAsignaturas(monitor: UsuarioGeneral){
@@ -163,6 +168,8 @@ export class MonitorHorariosPage implements OnInit {
     
     this.ordenarSugerencias();
     console.log("eventos posibles ", this.horariosSugeridos)
+    
+ 
   }
 
   ordenarSugerencias(){
@@ -232,14 +239,7 @@ export class MonitorHorariosPage implements OnInit {
         this.horariosSugeridos.push(data);
       }
     }
-
-    
-
-    
   }
-
-
-
 
 
 
@@ -271,12 +271,17 @@ export class MonitorHorariosPage implements OnInit {
     else{
       this.errorSi = false;
       this.monService.votarMonitor(this.idMonitor,this.voto).subscribe(
-        result => console.log(result),
+        result => {
+          console.log(result)
+          this.iniciarMonitor()
+        },
         error => console.log(error)
       )
 
     }
     console.log("voto ", this.voto)
+    
+
   }
 
 }
