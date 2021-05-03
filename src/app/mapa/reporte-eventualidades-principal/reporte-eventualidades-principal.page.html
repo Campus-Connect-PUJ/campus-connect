@@ -1,6 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>reporte-eventualidades</ion-title>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="mapa-principal">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Reporte eventualidades</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,18 +20,20 @@
       </ion-fab-button>
     </ion-fab>
   </div>
-  <ion-label>
-    Enviar un reporte de una eventualidad.
-  </ion-label>
-  <ion-radio-group allow-empty-selection = "false" value="tipo_eventualidad" (ionChange)="radioGroupChange($event)">
-    <ion-list-header>
-      <ion-label>Tipo de eventualidad</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let item of tipos">
-      <ion-label>{{item.name}}</ion-label>
-      <ion-radio slot="start" color="danger" value="{{item.id}}"></ion-radio>
-    </ion-item>
-  </ion-radio-group>
+  <div class="nonTransparent">
+    <ion-label>
+      Enviar un reporte de una eventualidad.
+    </ion-label>
+    <ion-radio-group allow-empty-selection = "false" value="tipo_eventualidad" (ionChange)="radioGroupChange($event)">
+      <ion-list-header>
+        <ion-label>Tipo de eventualidad</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let item of tipos">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio slot="start" color="danger" value="{{item.id}}"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </div>
 
   <ion-item>
     <ion-label position="stacked">Ingresa una pequeña descripción de la eventualidad</ion-label>
