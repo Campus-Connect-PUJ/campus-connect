@@ -19,7 +19,6 @@ export class TipDetallesPage implements OnInit {
   tip: Tip = new Tip();
   tiposDeAprendizaje: TipoAprendizaje[] = [];
   indice: number;
-  user: UsuarioGeneral;
   votoPositivo = false;
   votoNegativo = false;
 
@@ -55,9 +54,7 @@ export class TipDetallesPage implements OnInit {
   votar(voto: number){
     console.log(voto)
 
-    this.user = this.loginService.getUser();
-    this.indice = this.user.id;
-    this.calificacionTip(voto, this.tip.id);
+    this.calificacionTip(voto);
 
     if(voto == 1 && !this.votoPositivo){
       this.votoPositivo = true;
@@ -73,17 +70,16 @@ export class TipDetallesPage implements OnInit {
   }
 
 
-  calificacionTip(operacion: number, idTip: number){
-    this.user = this.loginService.getUser();
+  calificacionTip(operacion: number){
     if(operacion === 1){
-      this.tipsService.agregarTipGustado(this.user.id, this.tip.id).subscribe(
+      this.tipsService.agregarTipGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
 
     }
     else{
-      this.tipsService.agregarTipNoGustado(this.user.id, this.tip.id).subscribe(
+      this.tipsService.agregarTipNoGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
