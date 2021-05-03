@@ -13,49 +13,46 @@
 </ion-header>
 
 <ion-content>
-  <div class="content">
-    <ion-list>
-      <ion-card
-        (click)="quitarChat()"
-        [routerLink]="['/calculadora/materias']">
-        <ion-card-header>
-          <ion-card-title>Calculadora</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Podra calcular y guardar las notas de diversas materias
-        </ion-card-content>
-      </ion-card>
-      <ion-card
-        (click)="quitarChat()"
-        [routerLink]="['/recomendacion-tip']" >
-        <ion-card-header>
-          <ion-card-title>Tips</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema
-        </ion-card-content>
-      </ion-card>
-      <ion-card
-        (click)="quitarChat()"
-        [routerLink]="['/calendario']" >
-        <ion-card-header>
-          <ion-card-title>Calendario</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          El usuario podra tener ordenado aquellas actividades que se presenten
-        </ion-card-content>
-      </ion-card>
-      <ion-card
-        (click)="obtenerUsuario()"
-        [routerLink]="['/monitores']" >
-        <ion-card-header>
-          <ion-card-title>Calificar monitores</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Podra ver los monitores disponibles, ademas de poder mirar cual podria resultar mejor segun el perfil del usuario
-        </ion-card-content>
-      </ion-card>
-    </ion-list>
-  </div>
+  <ion-list>
+    <ion-card
+      (click)="quitarChat()"
+      [routerLink]="['/calculadora/materias']">
+      <ion-card-header>
+        <ion-card-title>Calculadora</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Podra calcular y guardar las notas de diversas materias
+      </ion-card-content>
+    </ion-card>
+    <ion-card
+      (click)="quitarChat()"
+      [routerLink]="['/recomendacion-tip']" >
+      <ion-card-header>
+        <ion-card-title>Tips</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema
+      </ion-card-content>
+    </ion-card>
+    <ion-card
+      (click)="quitarChat()"
+      [routerLink]="['/calendario']" >
+      <ion-card-header>
+        <ion-card-title>Calendario</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        El usuario podra tener ordenado aquellas actividades que se presenten
+      </ion-card-content>
+    </ion-card>
+    <ion-card
+      (click)="obtenerUsuario()"
+      [routerLink]="['/monitores']" >
+      <ion-card-header>
+        <ion-card-title>Calificar monitores</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Podra ver los monitores disponibles, ademas de poder mirar cual podria resultar mejor segun el perfil del usuario
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>
-
