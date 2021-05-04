@@ -39,7 +39,6 @@ export class ContribucionesPage implements OnInit {
     else{
       idRol = 2;
     }
-    console.log("esta con el rol ", this.user);
     this.userService.cambiarRol(this.user.id, idRol).subscribe(
       results => {
         this.user = results;

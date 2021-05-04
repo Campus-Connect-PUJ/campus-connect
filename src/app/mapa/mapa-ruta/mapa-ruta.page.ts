@@ -268,11 +268,9 @@ export class MapaRutaPage implements OnInit {
     if (this.route_shown) {
       var { httpOptions, response } = this.evitarEscalones();
       this.route_type = "Evitar escalones";
-      console.log("evitar")
     } else {
       var { httpOptions, response } = this.normal();
       this.route_type = "Normal";
-      console.log("normal");
     }
   }
 
@@ -367,7 +365,6 @@ export class MapaRutaPage implements OnInit {
     var response = this.http
       .post(this.url_route, body, httpOptions)
       .subscribe((resp) => {
-        console.log(resp);
         if (this.geoJSON_layer != null) {
           this.map.removeLayer(this.geoJSON_layer);
         }

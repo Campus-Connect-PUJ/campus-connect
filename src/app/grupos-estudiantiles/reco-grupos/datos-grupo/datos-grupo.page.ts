@@ -71,7 +71,6 @@ export class DatosGrupoPage implements OnInit {
     resenia.estrellas=this.puntajeAsig;
     resenia.grupoEstudiantil=this.grupoSelect;
     resenia.usuario=this.usuario;
-    console.log(resenia);
     this.usuarioSer.createReseniaGrupo(
       resenia
     ).subscribe(

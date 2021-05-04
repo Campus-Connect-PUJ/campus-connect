@@ -79,16 +79,16 @@ export class FormularioPersoGruposPage implements OnInit {
 
   masActividad(){
     this.actividades.push(new actividad(" "));
-    console.log(this.actividades)
+
   }
 
   masHobbies(){
     this.hobbies.push(new actividad(" "));
-    console.log(this.hobbies)
+
   }
 
   async guardar(){
-    console.log("Enviar datos al back");
+
 
     if(this.caracteristicasUsuario.length===0){
       await this.alertaElementoNoSeleccionado(

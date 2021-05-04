@@ -33,7 +33,6 @@ export class ReporteEventualidadesPage implements OnInit {
         this.origen = JSON.parse(params.origen);
         this.destino = JSON.parse(params.destino);
         this.actual = JSON.parse(params.actual);
-        //console.log(this.data);
       }
     });
     var tiposEventualidades = new tipos_eventualidades();
@@ -54,7 +53,6 @@ export class ReporteEventualidadesPage implements OnInit {
   }
 
   radioGroupChange(event) {
-    console.log("radioGroupChange", event.detail);
     this.selected_tipo_eventualidad = event.detail.value;
   }
 

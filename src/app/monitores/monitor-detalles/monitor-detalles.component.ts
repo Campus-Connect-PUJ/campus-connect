@@ -30,27 +30,18 @@ export class MonitorDetallesComponent implements OnInit {
       result => {
         this.monitor = result;
         this.id = this.monitor.id;
-        console.log(this.monitor)
       },
       error => console.error(error)
     )
   }
 
   ides(){
-    console.log(this.id);
     this.popCtrl.dismiss({
       presionado: this.id
     })
   }
 
-  votar(){
-    console.log(this.calificacion)
-    /*
-    this.popCtrl.dismiss({
-      presionado: this.calificacion
-    })
-    */
-  }
+
 
 
 

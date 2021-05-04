@@ -27,7 +27,6 @@ export class ReporteEventualidadesPrincipalPage implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params && params.actual) {
         this.actual = JSON.parse(params.actual);
-        console.log("Recibido",this.actual)
       }
     });
     var tiposEventualidades = new tipos_eventualidades();
@@ -41,7 +40,6 @@ export class ReporteEventualidadesPrincipalPage implements OnInit {
   }
 
   radioGroupChange(event) {
-    console.log("radioGroupChange", event.detail);
     this.selected_tipo_eventualidad = event.detail.value;
   }
 

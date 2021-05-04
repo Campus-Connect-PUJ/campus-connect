@@ -29,7 +29,6 @@ export class TipsPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       this.id = +paraMap.get('usuarioId')
       if(this.id != null){
-        console.log(this.id)
         this.cargarTipsUsuarios(this.id);
         this.usuario = this.loginService.getUser();
       }
@@ -42,13 +41,11 @@ export class TipsPage implements OnInit {
       results => {
         this.tips = results;
         for(let i=0; i<this.tips.length; i++){
-          console.log(".>", this.tips[i])
           if(this.tips[i].idUsuarioCreador === idUsuario){
             tipsUsuario.push(this.tips[i]);
           }
         }
         this.tips = tipsUsuario;
-        console.log("Los tips", this.tips)
       },
       error => console.error(error)
     )
@@ -71,8 +68,6 @@ export class TipsPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.tips)
-            console.log("Indice ", indice)
             this.tipsService.borrarTip(this.tips[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)

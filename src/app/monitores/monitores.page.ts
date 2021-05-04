@@ -46,7 +46,6 @@ export class MonitoresPage implements OnInit {
     this.monService.obtenerMonitores().subscribe(
       result => {
         this.monitores = result;
-        console.log("Monitores ",this.monitores)
         //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
         this.obtenerPuntajes(this.monitores)
         this.sugerenciasMonitores(this.monitores)
@@ -57,7 +56,6 @@ export class MonitoresPage implements OnInit {
 
 
   async mostrarInfo(indice){
-    console.log("Indie", indice)
     const popover = await this.popoverCtrl.create({
       component: MonitorDetallesComponent,
       componentProps: {
@@ -68,7 +66,6 @@ export class MonitoresPage implements OnInit {
     }); 
     await popover.present();
     const {data} = await popover.onDidDismiss();
-    console.log(data);
     //this.router.navigate(['/calculadora/materias']);
     if(data.presionado > 0){
       //this.navCtrl.setDirection("/servicios-academicos")
@@ -97,7 +94,6 @@ export class MonitoresPage implements OnInit {
         }
       }
     }
-    console.log(this.monitoresRecomendados)
     this.ordenarMejorMonitor();
   }
 
@@ -108,12 +104,9 @@ export class MonitoresPage implements OnInit {
 
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.loginService.getUser().email));
     
-    console.log("-->", this.eventos)
     const eventosMonitor = monitor.monitorDe;
     let ocupadoMonitor = 0;
 
-    console.log("Monitor", eventosMonitor)
-    console.log("Usuario", this.eventos)
 
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){
@@ -124,10 +117,7 @@ export class MonitoresPage implements OnInit {
 
         try {
           for(let i=0; i<this.eventos.length && !ocupado; i++){
-            console.log("Cantidad de eventos usuario ", this.eventos.length )
-            console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
             if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
-              console.log(ocupado)
               ocupadoMonitor++;
             }
             else if( moment(moment(horarioInicialMonitor)).isBetween(moment(this.eventos[i].startTime), moment(this.eventos[i].endTime), undefined, '(]') || moment(moment(horarioFinalMonitor)).isBetween(moment(this.eventos[i].startTime),  moment(this.eventos[i].endTime), undefined, '[)')){
@@ -165,7 +155,7 @@ export class MonitoresPage implements OnInit {
       
       return 0;
     });
-    console.log(monitoresOrdenados);
+
   }
 
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
