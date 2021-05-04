@@ -167,8 +167,7 @@
   <div class="boton">
     <ion-button (click)="enviarMonitorias()">Enviar/Actualizar monitorias</ion-button>
   </div>
-    
-    <div class="nonTransparent" >
+      <div class="nonTransparent" >
       <calendar
         [eventSource]="eventSource"
         [calendarMode]="calendar.mode"
@@ -176,13 +175,14 @@
         (onEventSelected)="onEventSelected($event)"
         (onTitleChanged)="onViewTitleChanged($event)"
         [monthviewDisplayEventTemplate]="foo"
-        startHour="6"
-        endHour="20"
+        startHour="2"
+        endHour="22"
         step="30"
         startingDayWeek="1"
       >
       </calendar>
     </div>
+
 
     <ng-template #foo let-view="view" let-row="row" let-col="col">
       {{view.dates[row*7+col].label}}
@@ -193,3 +193,4 @@
 
   </div>
 </ion-content>
+    
