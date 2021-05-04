@@ -27,6 +27,8 @@ export class RecoGruposPage implements OnInit {
   facultadSelect='';
   tematicaSelect='';
 
+  collapseCard = true;
+
   constructor(
     private geService: GrupoEstudiantilService,
     public router: Router,

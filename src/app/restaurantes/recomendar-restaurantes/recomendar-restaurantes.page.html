@@ -47,15 +47,15 @@
           <ion-card-title>{{restaurante.nombre}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{restaurante.tipo}}
+          {{restaurante.tipoRestaurante}}
         </ion-card-content>
-        <ion-button (click) = "infoRestaurante()" [routerLink]="['/recomendar-restaurantes',restaurante.id]">
+        <ion-button [routerLink]="['/recomendar-restaurantes',restaurante.id]">
           Más información
           <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
         </ion-button>
       </ion-card>
     </ion-list>
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="doRefresh($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Loading more data...">
