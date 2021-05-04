@@ -19,17 +19,17 @@ export class mensaje{
   styleUrls: ['./resultado.page.scss'],
 })
 export class ResultadoPage implements OnInit {
-  public notaEsperada: number;
-  public porcentajeActual: number = 0;
-  public notaActual: number = 0;
-  public indice: number = 0;
-  public nombreMateria: string;
-  public notasMateria: NotaConPorcentaje[]= [];
-  public porcentajeFaltante: number;
-  public notaFaltante: number;
-  public mensaje: mensaje = new mensaje();
-  public pasar: boolean = false;
-  public mensajes: mensaje[] = [
+  notaEsperada: number;
+  porcentajeActual: number = 0;
+  notaActual: number = 0;
+  indice: number = 0;
+  nombreMateria: string;
+  notasMateria: NotaConPorcentaje[]= [];
+  porcentajeFaltante: number;
+  notaFaltante: number;
+  mensaje: mensaje = new mensaje();
+  pasar: boolean = false;
+  mensajes: mensaje[] = [
     {
       mensaje: "A",
       nota: 5,
@@ -103,16 +103,16 @@ export class ResultadoPage implements OnInit {
       else{
         this.pasar = true;
       }
-      })
-      
+    })
+
   }
 
   guardarMateria(){
     this.calculadoraService.guardar(this.nombreMateria, this.notaEsperada, this.notasMateria, this.notaActual, this.porcentajeActual)
     /*
-    this.router.navigate(['/calculadora/materias'
-                          // '/tabs/servicios-academicos'
-                         ]);
+      this.router.navigate(['/calculadora/materias'
+      // '/tabs/servicios-academicos'
+      ]);
     */
   }
 
