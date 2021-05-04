@@ -75,7 +75,7 @@ export class CalendarioPage implements OnInit {
 
   calendar = {
     mode: 'month',
-    currenDate: new Date()
+    currentDate: new Date()
   }
   viewTitle = ' ';
 
@@ -129,6 +129,8 @@ export class CalendarioPage implements OnInit {
       monitoria: false,
       lugar: ' '
     };
+    this.esMonitoria = false;
+
   }
 
   addEvent(){
@@ -283,7 +285,7 @@ export class CalendarioPage implements OnInit {
       eTime: this.event2.eTime,
       desc: this.event2.desc,
       id: cantidadDeEventos,
-      monitoria: this.monitoria,
+      monitoria: this.esMonitoria ,
       lugar: this.lugar
     }
     
@@ -430,6 +432,7 @@ export class CalendarioPage implements OnInit {
 
 
   enviarMonitorias(){
+    this.esMonitoria = true;
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
 
     let asignauras: Array<Asignatura>;
@@ -526,7 +529,7 @@ export class CalendarioPage implements OnInit {
   }
 
   today(){
-    this.calendar.currenDate = new Date();
+    this.calendar.currentDate = new Date();
   }
 
   onViewTitleChanged(title){
