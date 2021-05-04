@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  // TODO: poner la url
-  baseUrl: 'http://localhost:8080',
+  baseUrl: 'https://campusconnectjava.herokuapp.com',
 };
