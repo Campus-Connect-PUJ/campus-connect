@@ -8,11 +8,6 @@
       <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
     </div>
 
-    <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
-      <p *ngIf="errorMessage==null; else elseBlock" ></p>
-      <ng-template #elseBlock><p  [innerHTML] = "errorMessage"></p></ng-template>
-    </div>
-
     <div class="form_registro_login">
       <form>
         <ion-item>
