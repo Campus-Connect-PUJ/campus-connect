@@ -16,6 +16,8 @@ export class ForosPage implements OnInit {
   usuario: UsuarioGeneral;
   textoBuscar='';
 
+  id: number;
+
   constructor(
     private forosService: ForoService,
     private activatedRoute: ActivatedRoute,
@@ -25,9 +27,9 @@ export class ForosPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        this.cargarForosUsuarios(Number(recipeId));
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        this.cargarForosUsuarios(this.id);
         this.usuario = this.loginService.getUser();
       }
     })
@@ -84,6 +86,17 @@ export class ForosPage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarForosUsuarios(this.id)
   }
 
 }

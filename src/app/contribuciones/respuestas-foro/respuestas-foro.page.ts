@@ -15,6 +15,8 @@ export class RespuestasForoPage implements OnInit {
   respuestasUsuario: Array<RespuestaForo> = [];
   usuario: UsuarioGeneral;
 
+  id: number;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private respService: RespuestasForoService,
@@ -24,23 +26,26 @@ export class RespuestasForoPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        console.log(recipeId)
-        this.respService.getRespuestasForoById(+recipeId).subscribe(
-          result => {
-            this.respuestasUsuario = result
-            console.log("Las respuestas", this.respuestasUsuario)
-            this.usuario = this.loginService.getUser();
-          },
-          error => console.log(error)
-        );
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        this.cargarRespuestasForosUsuarios(this.id);
         //this.cargarTipsUsuarios(Number(recipeId));
       }
       else{
         //this.cargarTips();
       }
     })
+  }
+
+  cargarRespuestasForosUsuarios(id: number){
+    this.respService.getRespuestasForoById(id).subscribe(
+      result => {
+        this.respuestasUsuario = result
+        console.log("Las respuestas", this.respuestasUsuario)
+        this.usuario = this.loginService.getUser();
+      },
+      error => console.log(error)
+    );
   }
 
   async presentAlert(indice){
@@ -77,4 +82,14 @@ export class RespuestasForoPage implements OnInit {
     await alert.present();
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarRespuestasForosUsuarios(this.id)
+  }
 }

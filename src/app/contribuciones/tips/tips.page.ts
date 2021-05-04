@@ -16,6 +16,7 @@ export class TipsPage implements OnInit {
   usuario: UsuarioGeneral;
   textoBuscar='';
 
+  id: number;
 
   constructor(
     private tipsService: TipsService,
@@ -26,10 +27,10 @@ export class TipsPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        console.log(recipeId)
-        this.cargarTipsUsuarios(Number(recipeId));
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        console.log(this.id)
+        this.cargarTipsUsuarios(this.id);
         this.usuario = this.loginService.getUser();
       }
     })
@@ -86,5 +87,16 @@ export class TipsPage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarTipsUsuarios(this.id)
   }
 }
