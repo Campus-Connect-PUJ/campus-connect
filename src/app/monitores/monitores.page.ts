@@ -4,7 +4,6 @@ import { LoginService } from 'src/app/services/login.service';
 import { UsuarioGeneralService } from './../Model/UsuarioGeneral/usuario-general.service';
 import { NavController, PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { MonitorDetallesComponent } from './monitor-detalles/monitor-detalles.component';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { evento } from '../calendario/evento';
 import * as moment from 'moment';
@@ -55,26 +54,7 @@ export class MonitoresPage implements OnInit {
   }
 
 
-  async mostrarInfo(indice){
-    const popover = await this.popoverCtrl.create({
-      component: MonitorDetallesComponent,
-      componentProps: {
-        idUsuario: indice
-      },
-      cssClass: 'popover',
-      translucent: true
-    }); 
-    await popover.present();
-    const {data} = await popover.onDidDismiss();
-    //this.router.navigate(['/calculadora/materias']);
-    if(data.presionado > 0){
-      //this.navCtrl.setDirection("/servicios-academicos")
-    }
-    this.monService.votarMonitor(268,5).subscribe(
-      result => console.log(result),
-      error => console.log(error)
-    )
-  }
+
 
   buscarMonitores(event){
     const texto = event.target.value;

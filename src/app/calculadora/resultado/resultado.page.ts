@@ -19,17 +19,17 @@ export class mensaje{
   styleUrls: ['./resultado.page.scss'],
 })
 export class ResultadoPage implements OnInit {
-  private notaEsperada: number;
-  private porcentajeActual: number = 0;
-  private notaActual: number = 0;
-  private indice: number = 0;
-  private nombreMateria: string;
-  private notasMateria: NotaConPorcentaje[]= [];
-  private porcentajeFaltante: number;
-  private notaFaltante: number;
-  private mensaje: mensaje = new mensaje();
-  private pasar: boolean = false;
-  private mensajes: mensaje[] = [
+  public notaEsperada: number;
+  public porcentajeActual: number = 0;
+  public notaActual: number = 0;
+  public indice: number = 0;
+  public nombreMateria: string;
+  public notasMateria: NotaConPorcentaje[]= [];
+  public porcentajeFaltante: number;
+  public notaFaltante: number;
+  public mensaje: mensaje = new mensaje();
+  public pasar: boolean = false;
+  public mensajes: mensaje[] = [
     {
       mensaje: "A",
       nota: 5,
