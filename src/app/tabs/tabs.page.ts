@@ -15,14 +15,9 @@ export class TabsPage implements OnInit {
   ngOnInit() {
   }
 
-  cambiarUsuario(){
-
-
-    
-  }
 
   MostrarChat(){
-    console.log("Mostrar")
+
     
   }
   

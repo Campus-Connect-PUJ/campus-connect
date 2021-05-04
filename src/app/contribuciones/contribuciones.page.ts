@@ -43,20 +43,10 @@ export class ContribucionesPage implements OnInit {
     this.userService.cambiarRol(this.user.id, idRol).subscribe(
       results => {
         this.user = results;
-        console.log("Si sirvio ", this.user)
       },
       error => console.error(error)
     );
-    /*
-    this.userService.getUsuario(this.user.id).subscribe(
-      results => {
-        this.user = results;
-        sessionStorage.setItem('user', JSON.stringify(this.user));
-        console.log("Si sirvio ", this.user)
-      },
-      error => console.error(error)
-    )
-    */
+
   }
 
   quitarChat(){

@@ -46,7 +46,6 @@ export class ForosPage implements OnInit {
           }
         }
         this.forosUsuario = forosUsuario;
-        console.log("Los foros", this.forosUsuario)
       },
       error => console.error(error)
     )
@@ -69,8 +68,7 @@ export class ForosPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.forosUsuario)
-            console.log("Indice ", indice)
+
             this.forosService.borrarForo(this.forosUsuario[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)

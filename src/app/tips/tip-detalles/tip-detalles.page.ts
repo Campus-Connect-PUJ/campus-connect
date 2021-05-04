@@ -37,7 +37,6 @@ export class TipDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
-      console.log(this.indice)
     })
     this.findTip(this.indice);
   }
@@ -54,7 +53,6 @@ export class TipDetallesPage implements OnInit {
   }
 
   votar(voto: number){
-    console.log(voto)
     this.user = this.loginService.getUser();
     this.calificacionTip(voto);
     
@@ -75,7 +73,6 @@ export class TipDetallesPage implements OnInit {
 
   calificacionTip(operacion: number){
     let mensaje = " ";
-    console.log(this.existeTip(this.user.tipsGustados, this.tip))
     if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
       this.tipsService.agregarTipGustado(this.tip.id).subscribe(
         results => {
@@ -132,7 +129,7 @@ export class TipDetallesPage implements OnInit {
         indice = i;
       }
     }
-    console.log("indice ", indice)
+
     return indice;
   }
 

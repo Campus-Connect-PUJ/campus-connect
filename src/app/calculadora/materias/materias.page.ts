@@ -25,12 +25,10 @@ export class MateriasPage {
   }
 
   ngOnInit() {
-    console.log("Entra en iniciador")
     this.reload();
   }
 
   ngOnDestroy() {
-    console.log("destruyendo");
   }
 
   async presentToast(){
@@ -58,7 +56,7 @@ export class MateriasPage {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           }
         }, {
           text: 'Borrar',

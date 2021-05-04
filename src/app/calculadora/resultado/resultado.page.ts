@@ -121,14 +121,12 @@ export class ResultadoPage implements OnInit {
   }
 
   determinarMensaje(){
-    console.log("-",this.notaFaltante)
     for(let i=0; i<this.mensajes.length; i++){
       if(this.mensajes[i].nota >= this.notaFaltante){
         this.mensaje.mensaje = this.mensajes[i].mensaje;
         this.mensaje.nota = this.mensajes[i].nota;
       }
     }
-    console.log(this.mensaje)
 
   }
   

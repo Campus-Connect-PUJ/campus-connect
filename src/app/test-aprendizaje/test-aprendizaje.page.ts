@@ -40,7 +40,6 @@ export class TestAprendizajePage implements OnInit {
   }
 
   enviar(){
-    console.log(this.respuestas);
     let estilosAprendizaje: Array<estiloAprendizaje> = [];
     let V: number = 0;
     let A: number = 0;
@@ -91,7 +90,6 @@ export class TestAprendizajePage implements OnInit {
       return 0;
     });
 
-    console.log(estilosAprendizaje);
     this.obtenerTipos(estilosAprendizaje);
     
   }
@@ -100,8 +98,6 @@ export class TestAprendizajePage implements OnInit {
     const idEstilos: Array<number> = [];
     this.usuario = this.loginService.getUser();
 
-    console.log(this.aprendizajesExistentes)
-    console.log(".>>>>>",estilosAprendizaje.length)
     for(let i=0; i<estilosAprendizaje.length; i++){
       if(estilosAprendizaje[i].cantidad > 4){
         for(let j=0; j<this.aprendizajesExistentes.length; j++){
@@ -148,13 +144,11 @@ export class TestAprendizajePage implements OnInit {
 
       for(let j=0; j<this.aprendizajesExistentes.length; j++){
         if(idEstilos[i] == this.aprendizajesExistentes[j].id){
-          console.log(this.aprendizajesExistentes[j]);
           this.usuario.estilosAprendizaje.push(this.aprendizajesExistentes[j])
         }
       }
     }
 
-    console.log("-> estilos ", this.usuario.estilosAprendizaje)
     this.loginService.storeUser(this.usuario, this.loginService.getToken())
   }
 

@@ -41,7 +41,6 @@ export class RespuestasForoPage implements OnInit {
     this.respService.getRespuestasForoById(id).subscribe(
       result => {
         this.respuestasUsuario = result
-        console.log("Las respuestas", this.respuestasUsuario)
         this.usuario = this.loginService.getUser();
       },
       error => console.log(error)
@@ -64,8 +63,6 @@ export class RespuestasForoPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.respuestasUsuario)
-            console.log("Indice ", indice)
             this.respService.borrarRespuesta(this.respuestasUsuario[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
