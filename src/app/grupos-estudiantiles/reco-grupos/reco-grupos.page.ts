@@ -98,4 +98,13 @@ export class RecoGruposPage implements OnInit {
     const texto = event.target.value;
     this.facultadSelect= texto;
   }
+
+  loadData($event){
+    setTimeout(() => {
+      this.findGrupos()
+    }, 300);
+    
+  }
+
+
 }
