@@ -161,21 +161,19 @@ export class MonitorHorariosPage implements OnInit {
     }
     
     this.ordenarSugerencias();
-    console.log("eventos posibles ", this.horariosSugeridos)
+
     
  
   }
 
   ordenarSugerencias(){
-    console.log("entra")
+
     let sugerenciasOrdenadas = this.horariosSugeridos;
     let sugerencias = new Array<HorarioMonitoria>();
-    console.log("-->", this.cantidadDeSugerenciasSeleccionadas)
-    console.log("sin ordenas", sugerenciasOrdenadas)
+
 
     sugerenciasOrdenadas.sort(function (a, b) {
       if( moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
-        console.log(1)
         return -1;
       }
       if( !moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
@@ -186,7 +184,6 @@ export class MonitorHorariosPage implements OnInit {
       return 0;
     });
     
-    console.log("ordenas", sugerenciasOrdenadas)
     
     this.horariosSugeridos = sugerenciasOrdenadas;
     this.limitarSugerencias();
@@ -241,8 +238,7 @@ export class MonitorHorariosPage implements OnInit {
     this.monService.horariosMonitor(this.idMonitor).subscribe(
       result => {
         this.horarios = result;
-        console.log(this.horarios);
-        console.log(typeof(this.horarios[0].horarios[0].fechaInicial))
+
         for(let i=0; i<this.horarios.length; i++){
           for(let j=0; j<this.horarios[i].horarios.length; j++){
             var date = moment(this.horarios[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm')
