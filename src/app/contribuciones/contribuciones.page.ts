@@ -59,6 +59,12 @@ export class ContribucionesPage implements OnInit {
     */
   }
 
+  quitarChat(){
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    element[0].style.display = 'none'
+    element[0].style.marginBottom = '50px';
+  }
+
   
 
 }

@@ -25,9 +25,11 @@ export class TabsPage implements OnInit {
     console.log("Mostrar")
     
   }
-
-  cargar(){
-    //window.location.reload("tabs/contribuciones");
+  
+  quitarChat(){
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    element[0].style.display = 'none'
+    element[0].style.marginBottom = '50px';
   }
 
 }

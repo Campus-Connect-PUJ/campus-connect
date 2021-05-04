@@ -25,20 +25,21 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-item>
+  <div class="infoAdicional">
+    <ion-item lines="none">
       <ion-label>Tipo aprendizaje</ion-label>
       <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
         <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item lines="none">
         <ion-label>Nivel de exigencia</ion-label>
         <ion-select [(ngModel)]="nivelDeExigenciaSeleccionados" cancelText="cancel" okText="ok">
         <ion-select-option *ngFor="let nivel of nivelDeExigencia" [value]="nivel" selected = "false">{{nivel}}</ion-select-option>
       </ion-select>
     </ion-item>
-
+  </div>
 
     <div class="btn-crearForo">
 
