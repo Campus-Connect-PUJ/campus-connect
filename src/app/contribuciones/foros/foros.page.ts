@@ -53,9 +53,9 @@ export class ForosPage implements OnInit {
    
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar foro?',
+      subHeader: 'Foro '+ (indice+1),
+      message: 'Esta apunto de borrar el foro '+ (indice+1) + ' con sus respectivas respuestas',
       buttons: [
         {
           text: 'Cancel',

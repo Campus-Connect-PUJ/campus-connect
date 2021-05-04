@@ -23,7 +23,7 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-
+  <div id="respuestas">
     <ion-item-sliding *ngFor = "let respuesta of respuestasUsuario; let indice=index">
       <ion-item [routerLink]="['/foros', respuesta.idForoRespondido]">
         <ion-card-content>
@@ -38,5 +38,6 @@
       </ion-item-options>
 
     </ion-item-sliding>
+  </div>
   </div>
 </ion-content>

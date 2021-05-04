@@ -496,10 +496,8 @@ export class CalendarioPage implements OnInit {
 
   cargarEventos(){
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email))
-    console.log("Lo que sale", this.eventos);
     try {
       for(let i=0; i<this.eventos.length; i++){
-        console.log("Monit -> ", this.eventos[i].monitoria, this.eventos[i].id)
         let eventCopy: evento = new evento();
 
         eventCopy.title = this.eventos[i].title;
@@ -525,7 +523,7 @@ export class CalendarioPage implements OnInit {
       console.log("nada")
     }
 
-    console.log(this.eventSource);
+    //console.log(this.eventSource);
     //localStorage.removeItem("eventos");
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
