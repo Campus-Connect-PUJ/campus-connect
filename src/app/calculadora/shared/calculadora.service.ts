@@ -132,10 +132,11 @@ export class CalculadoraService {
 
   public load(): NotasMateria[] {
 
-    console.log(JSON.stringify(localStorage.getItem("Materias" + this.loginService.getUser().email)));
+    console.log(localStorage.getItem("Materias" + this.loginService.getUser().email));
     const elemento = JSON.parse(
       localStorage.getItem("Materias" + this.loginService.getUser().email)
     );
+    console.log(elemento)
     return elemento;
   }
   
@@ -145,6 +146,8 @@ export class CalculadoraService {
   }
 
   public buscarNotas(indice: number){
+    this.controlNotas = this.load()
+    console.log(this.controlNotas)
     return this.controlNotas[indice];
   }
 

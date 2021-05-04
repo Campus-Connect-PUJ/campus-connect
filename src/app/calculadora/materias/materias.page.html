@@ -17,8 +17,9 @@
 <ion-content padding class="background" [fullscreen]="true">
   <div class="content">
     <div class="nonTransparent">
-      <div id="titulo">
-        <h2>Deslizar para actualizar</h2>
+      <div id="texto">
+          <h2>En esta sección podra ingresar y tener control de las asignaturas que este cursando</h2>
+          <h2>Deslizar para actualizar</h2>
       </div>
     </div>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -26,7 +27,6 @@
     </ion-refresher>
 
     <div id="materias">
-
       <ion-item-sliding *ngFor = "let materia of materias; let indice=index">
         <ion-item [routerLink]="['/calculadora/resultado', indice]">
           <div class="separacion">
