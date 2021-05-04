@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
@@ -27,7 +27,8 @@ export class TipDetallesPage implements OnInit {
     private tipsService: TipsService,
     private activatedRoute: ActivatedRoute,
     public navCtrl: NavController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    public toastCtrl: ToastController,
   ) { 
 
   }
@@ -73,6 +74,7 @@ export class TipDetallesPage implements OnInit {
 
 
   calificacionTip(operacion: number){
+    let mensaje = " ";
     console.log(this.existeTip(this.user.tipsGustados, this.tip))
     if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
       this.tipsService.agregarTipGustado(this.tip.id).subscribe(
@@ -98,7 +100,29 @@ export class TipDetallesPage implements OnInit {
         this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
       }
     }
+    else{
+      if(operacion == 1 && this.existeTip(this.user.tipsGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips gustados"
+      }
+      else if(operacion == -1 && this.existeTip(this.user.tipsNoGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips no gustados"
+      }
+      this.presentToast(mensaje);
+    }
+
     this.loginService.storeUser(this.user, this.loginService.getToken())
+  
+  }
+
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 2000
+      }
+    );
+    toast.present();
   }
 
   buscarIndice(tips: Tip[], tip: Tip){
