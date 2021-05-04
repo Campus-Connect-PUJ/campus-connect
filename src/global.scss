@@ -420,3 +420,32 @@ ion-card-content{
     margin: 0%;
     padding: 0%;
 }
+
+.cuadroTextoDescripcion{
+    margin: 5%;
+    border: 1px solid rgba(199, 199, 199, 0.25);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    h2{
+        margin: 0;
+        font-size: 16px;
+        padding: 3%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    #texto{
+        border-radius: 15px; 
+        margin: 5%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.SinElementos h1{
+    border: 2px dashed #B2B2B2;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 5%;
+    text-align: center;
+}

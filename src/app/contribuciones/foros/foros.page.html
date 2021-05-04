@@ -15,7 +15,7 @@
 
 <ion-content padding class="background" [fullscreen]="true">
   <div class="content">
-    <div class="nonTransparent">
+    <div class="cuadroTextoDescripcion">
       <div id="texto">
           <h2>En esta sección podra ver y eliminar los foros creados por el usuario</h2>
           <h2>Deslizar para actualizar</h2>
@@ -44,6 +44,15 @@
         </ion-item-options>
       </ion-item-sliding>
       
+      
     </div>
+  <div class="cuadroTextoDescripcion">
+    <div class="SinElementos" *ngIf="forosUsuario.length == 0">
+      <div id="texto">
+        <h1>No existen foros</h1>
+      </div>
+    </div>
+  </div>
+  
   </div>
 </ion-content>
