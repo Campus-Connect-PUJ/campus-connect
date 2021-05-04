@@ -1,3 +1,25 @@
 #respuestas{
     margin: 5%;
 }
+
+.nonTransparent{
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 0;
+    margin: 5%;
+    border: 1px solid rgba(199, 199, 199, 0.25);
+    border-radius: 15px;
+    h2{
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+#texto{
+    border-radius: 15px; 
+    margin: 5%;
+    align-items: center;
+    justify-content: center;
+}

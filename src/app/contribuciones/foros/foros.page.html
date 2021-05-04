@@ -3,7 +3,7 @@
     <ion-buttons class="header_btn"
                  slot="secondary">
       <ion-button
-        href="tabs/servicios-academicos">
+        href="tabs/contribuciones">
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -16,8 +16,10 @@
 <ion-content padding class="background" [fullscreen]="true">
   <div class="content">
     <div class="nonTransparent">
-      <h2>En esta sección podra ingresar y tener control de las asignaturas que este cursando</h2>
-      <h2>Deslizar para actualizar</h2>
+      <div id="texto">
+          <h2>En esta sección podra ver y eliminar los foros creados por el usuario</h2>
+          <h2>Deslizar para actualizar</h2>
+      </div>
     </div>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>

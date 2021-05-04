@@ -24,7 +24,7 @@ export class ContribucionesPage implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem("user"));
     this.indice = this.user.id;
-    this.ngOnDestroy();
+    this.mostrarChat();
   }
 
   ngOnDestroy() {
@@ -65,6 +65,17 @@ export class ContribucionesPage implements OnInit {
     element[0].style.marginBottom = '50px';
   }
 
+  mostrarChat(){
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    /*
+    let shadow = element[0].shadowRoot;
+    element[0].attachShadow({mode:"open"})
+    shadow = element[0].shadowRoot;
+    console.log("->", shadow);
+    */
+    element[0].style.display = 'flex';
+    
+  }
   
 
 }
