@@ -21,29 +21,23 @@ export class ServiciosAcademicosPage implements OnInit {
     private userService: UsuarioGeneralService
 
   ) {
-    console.log("aaa1")
     //this.mostrarChat();
     
   }
 
   ngOnInit() {
-    console.log("aaa2")
     this.mostrarChat();
     //let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     //element[0].style.display = 'inline';
     //element[0].style.marginBottom = '50px';
   }
 
-  ngOnDestroy() {
-    console.log("bbb")
-  }
 
   updateColor(color) {
     document.documentElement.style.setProperty(`--color`, color);
   }
 
   mostrarChat(){
-    console.log("Mostrar")
     const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     /*
     let shadow = element[0].shadowRoot;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
@@ -21,12 +21,14 @@ export class TipDetallesPage implements OnInit {
   indice: number;
   votoPositivo = false;
   votoNegativo = false;
+  user: UsuarioGeneral;
 
   constructor(
     private tipsService: TipsService,
     private activatedRoute: ActivatedRoute,
     public navCtrl: NavController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    public toastCtrl: ToastController,
   ) { 
 
   }
@@ -35,7 +37,6 @@ export class TipDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
-      console.log(this.indice)
     })
     this.findTip(this.indice);
   }
@@ -44,7 +45,7 @@ export class TipDetallesPage implements OnInit {
     this.tipsService.getTipById(numeroTip).subscribe(
       results => {
         this.tip = results;
-        //this.tiposDeAprendizaje = results.tipoAprendizaje;
+        this.tiposDeAprendizaje = this.tip.tiposAprendizaje;
       },
       error => console.error(error)
     )
@@ -52,38 +53,84 @@ export class TipDetallesPage implements OnInit {
   }
 
   votar(voto: number){
-    console.log(voto)
-
+    this.user = this.loginService.getUser();
     this.calificacionTip(voto);
+    
 
-    if(voto == 1 && !this.votoPositivo){
-      this.votoPositivo = true;
-      this.votoNegativo = false;
-      this.tip.puntaje = this.tip.puntaje + voto;
-    }
-    else if(voto == -1 && !this.votoNegativo){
-      this.votoNegativo = true;
-      this.votoPositivo = false;
-      this.tip.puntaje = this.tip.puntaje + voto;
+  }
+
+  existeTip(tips: Tip[], tip: Tip){
+    let existe = false;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        existe = true;
+      }
     }
 
+    return existe;
   }
 
 
   calificacionTip(operacion: number){
-    if(operacion === 1){
+    let mensaje = " ";
+    if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
       this.tipsService.agregarTipGustado(this.tip.id).subscribe(
-        results => console.log(results),
+        results => {
+          console.log(results)
+        },
         error => console.error(error)
       )
-
+      this.user.tipsGustados.push(this.tip);
+      this.tip.puntaje = this.tip.puntaje + operacion;
+      if(this.existeTip(this.user.tipsNoGustados, this.tip)){
+        this.user.tipsNoGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+      }
     }
-    else{
+    else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
       this.tipsService.agregarTipNoGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+      this.user.tipsNoGustados.push(this.tip);
+      this.tip.puntaje = this.tip.puntaje + operacion;
+      if(this.existeTip(this.user.tipsGustados, this.tip)){
+        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+      }
     }
+    else{
+      if(operacion == 1 && this.existeTip(this.user.tipsGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips gustados"
+      }
+      else if(operacion == -1 && this.existeTip(this.user.tipsNoGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips no gustados"
+      }
+      this.presentToast(mensaje);
+    }
+
+    this.loginService.storeUser(this.user, this.loginService.getToken())
+  
+  }
+
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 2000
+      }
+    );
+    toast.present();
+  }
+
+  buscarIndice(tips: Tip[], tip: Tip){
+    let indice = 0;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        indice = i;
+      }
+    }
+
+    return indice;
   }
 
 }

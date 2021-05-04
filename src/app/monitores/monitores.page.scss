@@ -117,9 +117,7 @@ div.scrollmenu .sugerencia {
     }
 }
   
-.content{
-    padding-top: 15%;
-}
+
 
 .tarjetaSugerencias{
     background-color: rgba(255, 255, 255, 0.85);
@@ -140,11 +138,21 @@ div.scrollmenu .sugerencia {
         margin: 5%;
     }
 
-    .SinSugerencias h1{
-        border: 2px dashed #B2B2B2;
-        border-radius: 10px;
+
+}
+
+#texto{
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 0;
+    margin: 5%;
+    border: 1px solid rgba(199, 199, 199, 0.25);
+    border-radius: 15px;
+    h1{
         font-size: 20px;
-        margin: 5%;
-        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 }
+

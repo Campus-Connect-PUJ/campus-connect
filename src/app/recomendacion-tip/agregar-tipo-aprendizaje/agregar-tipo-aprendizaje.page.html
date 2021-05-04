@@ -15,7 +15,14 @@
 
 <ion-content>
   <div class="content">
+  <div class="cuadroTextoDescripcion">
+    <div id="texto">
+        <h2>En esta sección podra ver y eliminar los tips creados por el usuario</h2>
+        <h2>Deslizar para actualizar</h2>
+    </div>
+  </div>
 
+  <div class="demas">
     <div id="tiposDelUsuario">
 
       <ion-item-sliding *ngFor = "let tipos of tiposDeAprendizajeUsuario; let indice = index">
@@ -31,9 +38,10 @@
       </ion-item-sliding>
 
     </div>
-
+  </div>
+  <div class="demas">
     <ion-item class="ion_item_margin">
-      <ion-label>Tipo aprendizaje</ion-label>
+      <ion-label>Agregar tipo aprendizaje</ion-label>
       <ion-select
         [(ngModel)]="tiposDeAprendizajeSeleccionados"
         multiple="true"
@@ -47,6 +55,7 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+  </div>
 
     <div class="btn-crearForo">
       <ion-button (click)="agregarTipo()" href="/tabs/servicios-academicos">

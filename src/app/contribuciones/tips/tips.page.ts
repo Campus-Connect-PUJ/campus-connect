@@ -16,6 +16,7 @@ export class TipsPage implements OnInit {
   usuario: UsuarioGeneral;
   textoBuscar='';
 
+  id: number;
 
   constructor(
     private tipsService: TipsService,
@@ -26,10 +27,9 @@ export class TipsPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        console.log(recipeId)
-        this.cargarTipsUsuarios(Number(recipeId));
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        this.cargarTipsUsuarios(this.id);
         this.usuario = this.loginService.getUser();
       }
     })
@@ -41,13 +41,11 @@ export class TipsPage implements OnInit {
       results => {
         this.tips = results;
         for(let i=0; i<this.tips.length; i++){
-          console.log(".>", this.tips[i])
           if(this.tips[i].idUsuarioCreador === idUsuario){
             tipsUsuario.push(this.tips[i]);
           }
         }
         this.tips = tipsUsuario;
-        console.log("Los tips", this.tips)
       },
       error => console.error(error)
     )
@@ -56,9 +54,9 @@ export class TipsPage implements OnInit {
 
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar tip?',
+      subHeader: 'Tip '+ (indice+1),
+      message: 'Esta apunto de borrar el tip '+ (indice+1),
       buttons: [
         {
           text: 'Cancel',
@@ -70,8 +68,6 @@ export class TipsPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.tips)
-            console.log("Indice ", indice)
             this.tipsService.borrarTip(this.tips[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
@@ -86,5 +82,16 @@ export class TipsPage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarTipsUsuarios(this.id)
   }
 }

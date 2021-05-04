@@ -1,11 +1,11 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="servicios-academicos">
-      <ion-icon name="person"></ion-icon>
+      <ion-icon name="school"></ion-icon>
       <ion-label>servicios-academicos</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="contribuciones" (click)="cargar()">
-      <ion-icon name="settings"></ion-icon>
+    <ion-tab-button tab="contribuciones">
+      <ion-icon name="person"></ion-icon>
       <ion-label>Contribuciones</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
@@ -16,18 +16,15 @@
     <ion-icon name="albums"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="top">
-    <div id="botonFlotante" [routerLink]="['/foros']">
+    <div id="botonFlotante" (click)="quitarChat()" [routerLink]="['/foros']">
       <h1>Buscar foro</h1>
       <ion-fab-button><ion-icon name="search"></ion-icon></ion-fab-button>
     </div>
-    <div id="botonFlotante" [routerLink]="['/foros/foro-crear']">
+    <div id="botonFlotante" (click)="quitarChat()" [routerLink]="['/foros/foro-crear']">
       <h1>Crear foro</h1>
       <ion-fab-button> <ion-icon name="add-circle"></ion-icon></ion-fab-button>
     </div>
-    <div id="botonFlotante" (click)="cambiarUsuario()">
-      <h1>Preguntar CAE</h1>
-      <ion-fab-button>  <ion-icon name="person"></ion-icon></ion-fab-button>
-    </div>
+
 
 
   </ion-fab-list>

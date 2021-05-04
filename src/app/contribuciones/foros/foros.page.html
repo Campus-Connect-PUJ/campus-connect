@@ -3,7 +3,7 @@
     <ion-buttons class="header_btn"
                  slot="secondary">
       <ion-button
-        href="tabs/servicios-academicos">
+        href="tabs/contribuciones">
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -15,8 +15,11 @@
 
 <ion-content padding class="background" [fullscreen]="true">
   <div class="content">
-    <div class="nonTransparent">
-      <h2>Deslizar para actualizar</h2>
+    <div class="cuadroTextoDescripcion">
+      <div id="texto">
+          <h2>En esta sección podra ver y eliminar los foros creados por el usuario</h2>
+          <h2>Deslizar para actualizar</h2>
+      </div>
     </div>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
@@ -41,6 +44,15 @@
         </ion-item-options>
       </ion-item-sliding>
       
+      
     </div>
+  <div class="cuadroTextoDescripcion">
+    <div class="SinElementos" *ngIf="forosUsuario.length == 0">
+      <div id="texto">
+        <h1>No existen foros</h1>
+      </div>
+    </div>
+  </div>
+  
   </div>
 </ion-content>

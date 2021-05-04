@@ -1,7 +1,13 @@
 <ion-header>
   <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+      <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -30,7 +36,7 @@
       </ion-card>
 
     </div>
-    <div class="SinSugerencias" *ngIf="monitoresRecomendados.length == 0">
+    <div class="SinElementos" *ngIf="monitoresRecomendados.length == 0">
       <h1>No existen horarios sugeridos con este monitor</h1>
     </div>
   
@@ -53,6 +59,11 @@
             </ion-card-content>
           </div>
         </ion-card>
+    </div>
+    <div class="SinElementos" *ngIf="monitores.length == 0">
+      <div id="texto">
+        <h1>No existen monitores</h1>
+      </div>
     </div>
   </div>
   

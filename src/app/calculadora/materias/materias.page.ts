@@ -25,12 +25,10 @@ export class MateriasPage {
   }
 
   ngOnInit() {
-    console.log("Entra en iniciador")
     this.reload();
   }
 
   ngOnDestroy() {
-    console.log("destruyendo");
   }
 
   async presentToast(){
@@ -50,7 +48,7 @@ export class MateriasPage {
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
       header: '¿Borrar asignatura?',
-      subHeader: 'Materia'+ (indice+1),
+      subHeader: 'Materia '+ (indice+1),
       message: 'Esta apunto de borrar la asignatura '+ (indice+1),
       buttons: [
         {
@@ -58,7 +56,7 @@ export class MateriasPage {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           }
         }, {
           text: 'Borrar',

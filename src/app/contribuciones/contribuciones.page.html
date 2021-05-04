@@ -15,36 +15,36 @@
 
 <ion-content>
   <div class="content">
-    <ion-card [routerLink]="['/contribuciones/tips', indice]" >
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/tips', indice]" >
       <ion-card-header>
         <ion-card-title>Tips</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema.
+        Podra acceder a los tips creados
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/contribuciones/foros', indice]">
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/foros', indice]">
       <ion-card-header>
         <ion-card-title>Foros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema.
+        Podra acceder a los foros creados
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/contribuciones/respuestas-foro', indice]">
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/respuestas-foro', indice]">
       <ion-card-header>
         <ion-card-title>Respuestas foros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema.
+        Podra acceder a las respuestas creadas
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/agregar-tipo-aprendizaje']">
+    <ion-card (click)="quitarChat()" [routerLink]="['/agregar-tipo-aprendizaje']">
       <ion-card-header>
-        <ion-card-title>Editar tipos Aprendizaje</ion-card-title>
+        <ion-card-title>Editar tipos aprendizaje</ion-card-title>
       </ion-card-header>
     </ion-card>
   </div>

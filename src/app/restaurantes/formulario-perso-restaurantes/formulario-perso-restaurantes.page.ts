@@ -67,8 +67,6 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   }
 
   async guardar(){
-    console.log("enviar info al back");
-
     if(this.regimenUsuario.id==null){
       await this.alertaElementoNoSeleccionado(
         "Regimen Alimenticio",

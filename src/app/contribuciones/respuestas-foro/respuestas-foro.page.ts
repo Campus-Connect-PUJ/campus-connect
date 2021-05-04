@@ -15,6 +15,8 @@ export class RespuestasForoPage implements OnInit {
   respuestasUsuario: Array<RespuestaForo> = [];
   usuario: UsuarioGeneral;
 
+  id: number;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private respService: RespuestasForoService,
@@ -24,17 +26,9 @@ export class RespuestasForoPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        console.log(recipeId)
-        this.respService.getRespuestasForoById(+recipeId).subscribe(
-          result => {
-            this.respuestasUsuario = result
-            console.log("Las respuestas", this.respuestasUsuario)
-            this.usuario = this.loginService.getUser();
-          },
-          error => console.log(error)
-        );
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        this.cargarRespuestasForosUsuarios(this.id);
         //this.cargarTipsUsuarios(Number(recipeId));
       }
       else{
@@ -43,11 +37,21 @@ export class RespuestasForoPage implements OnInit {
     })
   }
 
+  cargarRespuestasForosUsuarios(id: number){
+    this.respService.getRespuestasForoById(id).subscribe(
+      result => {
+        this.respuestasUsuario = result
+        this.usuario = this.loginService.getUser();
+      },
+      error => console.log(error)
+    );
+  }
+
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar respuesta foro?',
+      subHeader: 'Respuesta foro '+ (indice+1),
+      message: 'Esta apunto de borrar la respuesta '+ (indice+1),
       buttons: [
         {
           text: 'Cancel',
@@ -59,8 +63,6 @@ export class RespuestasForoPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.respuestasUsuario)
-            console.log("Indice ", indice)
             this.respService.borrarRespuesta(this.respuestasUsuario[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
@@ -77,4 +79,14 @@ export class RespuestasForoPage implements OnInit {
     await alert.present();
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarRespuestasForosUsuarios(this.id)
+  }
 }

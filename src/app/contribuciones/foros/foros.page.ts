@@ -16,6 +16,8 @@ export class ForosPage implements OnInit {
   usuario: UsuarioGeneral;
   textoBuscar='';
 
+  id: number;
+
   constructor(
     private forosService: ForoService,
     private activatedRoute: ActivatedRoute,
@@ -25,9 +27,9 @@ export class ForosPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
-      if(recipeId != null){
-        this.cargarForosUsuarios(Number(recipeId));
+      this.id = +paraMap.get('usuarioId')
+      if(this.id != null){
+        this.cargarForosUsuarios(this.id);
         this.usuario = this.loginService.getUser();
       }
     })
@@ -44,7 +46,6 @@ export class ForosPage implements OnInit {
           }
         }
         this.forosUsuario = forosUsuario;
-        console.log("Los foros", this.forosUsuario)
       },
       error => console.error(error)
     )
@@ -53,9 +54,9 @@ export class ForosPage implements OnInit {
    
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar foro?',
+      subHeader: 'Foro '+ (indice+1),
+      message: 'Esta apunto de borrar el foro '+ (indice+1) + ' con sus respectivas respuestas',
       buttons: [
         {
           text: 'Cancel',
@@ -67,8 +68,7 @@ export class ForosPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
-            console.log(this.forosUsuario)
-            console.log("Indice ", indice)
+
             this.forosService.borrarForo(this.forosUsuario[indice].id).subscribe(
               result => console.log(result),
               error => console.log(error)
@@ -84,6 +84,17 @@ export class ForosPage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.cargarForosUsuarios(this.id)
   }
 
 }

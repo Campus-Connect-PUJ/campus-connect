@@ -31,7 +31,6 @@ export class ForoDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('foroId')
       this.indice = Number(recipeId);
-      console.log("indice", this.indice)
       this.findForo(this.indice);
     })
   }
@@ -44,8 +43,6 @@ export class ForoDetallesPage implements OnInit {
 
         this.respuestas = this.organizarRespuestas(this.respuestas);
 
-        console.log(this.foro)
-        console.log(this.foro.respuestas, " ", this.respuestas.length)
       },
       error => console.error(error)
     )
@@ -72,7 +69,6 @@ export class ForoDetallesPage implements OnInit {
   }
 
   calificacion(operacion: number){
-    console.log(operacion, this.color)
     this.color = !this.color;
   }
 
@@ -120,7 +116,7 @@ export class ForoDetallesPage implements OnInit {
     const respuestanueva: RespuestaForo = new RespuestaForo();
     const respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
-    console.log("Respuesta", this.respuestaTexto)
+
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
     respuestanueva.usuario = this.loginService.getUser();
@@ -130,17 +126,15 @@ export class ForoDetallesPage implements OnInit {
       this.respuestaTexto = "";
     } catch (error) {
       respuestas.push(respuestanueva);
-      console.log(respuestas)
+
     }
 
-    console.log("->", respuestanueva, " - ",this.foro.id);
     this.forosService.agregarRespuesta(respuestanueva, this.foro.id).subscribe(
       results => console.log("Se agrego respuesta"),
       error => console.error(error)
     )
     
-    console.log("respuestas1" , this.respuestas);
-    console.log("respuestas2" , this.respuestas);
+
     this.findForo(this.indice);
   }
 

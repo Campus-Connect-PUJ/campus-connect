@@ -64,7 +64,7 @@ export class CalculadoraService {
   }
 
   addNotas(cantidad: number, notaEsperada: number, nombreMateria: string){
-    console.log(cantidad, notaEsperada);
+
     this.nota.push({
       cantidad, 
       notaEsperada
@@ -87,7 +87,6 @@ export class CalculadoraService {
 
 
   public guardar(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual){
-    console.log(nombreMateria, notaEsperada, notas )
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
     
     this.controlNotas = this.load();
@@ -122,8 +121,7 @@ export class CalculadoraService {
   }
 
   public guardarMaterias(nuevasMaterias: any){
-    console.log("guardando:");
-    console.log(nuevasMaterias);
+
     localStorage.setItem(
       "Materias" + this.loginService.getUser().email,
       JSON.stringify(nuevasMaterias)
@@ -132,10 +130,10 @@ export class CalculadoraService {
 
   public load(): NotasMateria[] {
 
-    console.log(JSON.stringify(localStorage.getItem("Materias" + this.loginService.getUser().email)));
-    const elemento = JSON.parse(
+  const elemento = JSON.parse(
       localStorage.getItem("Materias" + this.loginService.getUser().email)
     );
+
     return elemento;
   }
   
@@ -145,6 +143,7 @@ export class CalculadoraService {
   }
 
   public buscarNotas(indice: number){
+    this.controlNotas = this.load()
     return this.controlNotas[indice];
   }
 

@@ -71,7 +71,7 @@ export class MonitorAsignaturaPage implements OnInit {ç
       data.lugar = monitor.monitorDe[indice].horarios[i].lugar;
       this.horarios.push(data);
     }
-    console.log(this.horarios)
+
     this.ordenarHorarios();
     
   }

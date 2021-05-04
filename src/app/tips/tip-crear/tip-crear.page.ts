@@ -37,7 +37,6 @@ export class TipCrearPage implements OnInit {
     this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
       results => {
         this.aprendizajesExistentes = results;
-        console.log(this.aprendizajesExistentes)
       }, error =>console.error(error)
     )
   }

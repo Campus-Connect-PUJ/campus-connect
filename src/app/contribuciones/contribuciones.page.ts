@@ -24,7 +24,7 @@ export class ContribucionesPage implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem("user"));
     this.indice = this.user.id;
-    this.ngOnDestroy();
+    this.mostrarChat();
   }
 
   ngOnDestroy() {
@@ -39,26 +39,32 @@ export class ContribucionesPage implements OnInit {
     else{
       idRol = 2;
     }
-    console.log("esta con el rol ", this.user);
     this.userService.cambiarRol(this.user.id, idRol).subscribe(
       results => {
         this.user = results;
-        console.log("Si sirvio ", this.user)
       },
       error => console.error(error)
     );
-    /*
-    this.userService.getUsuario(this.user.id).subscribe(
-      results => {
-        this.user = results;
-        sessionStorage.setItem('user', JSON.stringify(this.user));
-        console.log("Si sirvio ", this.user)
-      },
-      error => console.error(error)
-    )
-    */
+
   }
 
+  quitarChat(){
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    element[0].style.display = 'none'
+    element[0].style.marginBottom = '50px';
+  }
+
+  mostrarChat(){
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    /*
+    let shadow = element[0].shadowRoot;
+    element[0].attachShadow({mode:"open"})
+    shadow = element[0].shadowRoot;
+    console.log("->", shadow);
+    */
+    element[0].style.display = 'flex';
+    
+  }
   
 
 }

@@ -22,24 +22,7 @@ export class CalculadoraPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
-      console.log("El indice", this.indice)
-      if(recipeId != null){
-        /*
-        this.notasMaterias = this.calculadoraService.buscarNotas(Number(recipeId));
-        this.nombreMateria = this.notasMaterias.nombreMateria;
-        this.notas = this.notasMaterias.notas;
-        this.notaEsperada = this.notasMaterias.notaEsperada;
-        */
-      }
-      else{
-        /*
-        this.indice = -1;
-        this.cantidadDeNotas = Number(this.calculadoraService.getcantidadDeNotas());
-        this.notaEsperada = Number(this.calculadoraService.getnotaEsperada());
-        this.nombreMateria = this.calculadoraService.getnombreMateria();
-        this.definirCantidadDeNotas();
-        */
-      }
+
     })
   }
 

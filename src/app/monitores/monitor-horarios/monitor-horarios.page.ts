@@ -44,10 +44,8 @@ export class MonitorHorariosPage implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('monitorID')
-      console.log(recipeId) 
 
       if(recipeId != null){
-        console.log(recipeId)
         this.idMonitor = +recipeId;
         this.iniciarMonitor();
 
@@ -71,7 +69,6 @@ export class MonitorHorariosPage implements OnInit {
         this.sugerenciasHorariosMonitorias(this.monitor)
         this.obtenerAsignaturas(this.monitor)
         this.obtenerPuntajes(this.monitores)
-        console.log(this.monitor)
       },
       error => console.log(error)
     )
@@ -142,8 +139,6 @@ export class MonitorHorariosPage implements OnInit {
         let ocupado = false;
         try {
           for(let i=0; i<this.eventos.length && !ocupado; i++){
-            //console.log("Cantidad de eventos usuario ", this.eventos.length )
-            //console.log(moment(horarioInicialMonitor).format("DD-MM-YYYY HH:mm"), " ", moment(horarioFinalMonitor).format("DD-MM-YYYY HH:mm"), " ==== ", moment(this.eventos[i].startTime).format("DD-MM-YYYY HH:mm"), " ", moment(this.eventos[i].endTime).format("DD-MM-YYYY HH:mm"))
             if( moment(moment(this.eventos[i].startTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '(]') || moment(moment(this.eventos[i].endTime)).isBetween(horarioInicialMonitor, horarioFinalMonitor, undefined, '[)') ){
               ocupado = true;
             }
@@ -156,7 +151,6 @@ export class MonitorHorariosPage implements OnInit {
         }
 
         if(!ocupado){
-          console.log("*********************Disponible")
           //Cancelar cuando ya sean varios eventos sugeridos
           //if( moment(horarioInicialMonitor).isSameOrBefore(fechaReferencia) && moment(horarioFinalMonitor).isSameOrBefore(fechaReferencia)){
             this.agregarHorariosSugeridos(eventosMonitor[j], eventosMonitor[j].horarios[k]);
@@ -167,21 +161,19 @@ export class MonitorHorariosPage implements OnInit {
     }
     
     this.ordenarSugerencias();
-    console.log("eventos posibles ", this.horariosSugeridos)
+
     
  
   }
 
   ordenarSugerencias(){
-    console.log("entra")
+
     let sugerenciasOrdenadas = this.horariosSugeridos;
     let sugerencias = new Array<HorarioMonitoria>();
-    console.log("-->", this.cantidadDeSugerenciasSeleccionadas)
-    console.log("sin ordenas", sugerenciasOrdenadas)
+
 
     sugerenciasOrdenadas.sort(function (a, b) {
       if( moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
-        console.log(1)
         return -1;
       }
       if( !moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
@@ -192,7 +184,6 @@ export class MonitorHorariosPage implements OnInit {
       return 0;
     });
     
-    console.log("ordenas", sugerenciasOrdenadas)
     
     this.horariosSugeridos = sugerenciasOrdenadas;
     this.limitarSugerencias();
@@ -247,8 +238,7 @@ export class MonitorHorariosPage implements OnInit {
     this.monService.horariosMonitor(this.idMonitor).subscribe(
       result => {
         this.horarios = result;
-        console.log(this.horarios);
-        console.log(typeof(this.horarios[0].horarios[0].fechaInicial))
+
         for(let i=0; i<this.horarios.length; i++){
           for(let j=0; j<this.horarios[i].horarios.length; j++){
             var date = moment(this.horarios[i].horarios[j].fechaInicial).format('DD-MM-YYYY HH:mm')
