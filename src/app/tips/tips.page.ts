@@ -17,7 +17,8 @@ export class TipsPage implements OnInit {
   tiposDeAprendizaje: TipoAprendizaje[][] = [];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
   tiposDeAprendizajeSeleccionados = [];
-  nivelesDeExigenciaSeleccionados = [];
+  nivelesDeExigenciaSeleccionados: Array<Number> = [];
+  collapseCard: Boolean;
 
   textoBuscar='';
   textoBuscar2='';

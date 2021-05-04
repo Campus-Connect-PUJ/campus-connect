@@ -41,6 +41,10 @@ export class CalendarioPage implements OnInit {
   public lugares;
   lugar: string; 
 
+  public collapseCard: boolean;
+  public collapseCard2: boolean;
+  public collapseCard3: boolean;
+
   event = {
     title: '',
     desc: ' ',
