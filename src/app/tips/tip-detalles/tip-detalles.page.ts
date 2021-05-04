@@ -21,6 +21,7 @@ export class TipDetallesPage implements OnInit {
   indice: number;
   votoPositivo = false;
   votoNegativo = false;
+  user: UsuarioGeneral;
 
   constructor(
     private tipsService: TipsService,
@@ -53,37 +54,62 @@ export class TipDetallesPage implements OnInit {
 
   votar(voto: number){
     console.log(voto)
-
+    this.user = this.loginService.getUser();
     this.calificacionTip(voto);
+    
 
-    if(voto == 1 && !this.votoPositivo){
-      this.votoPositivo = true;
-      this.votoNegativo = false;
-      this.tip.puntaje = this.tip.puntaje + voto;
-    }
-    else if(voto == -1 && !this.votoNegativo){
-      this.votoNegativo = true;
-      this.votoPositivo = false;
-      this.tip.puntaje = this.tip.puntaje + voto;
+  }
+
+  existeTip(tips: Tip[], tip: Tip){
+    let existe = false;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        existe = true;
+      }
     }
 
+    return existe;
   }
 
 
   calificacionTip(operacion: number){
-    if(operacion === 1){
+    console.log(this.existeTip(this.user.tipsGustados, this.tip))
+    if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
       this.tipsService.agregarTipGustado(this.tip.id).subscribe(
-        results => console.log(results),
+        results => {
+          console.log(results)
+        },
         error => console.error(error)
       )
-
+      this.user.tipsGustados.push(this.tip);
+      this.tip.puntaje = this.tip.puntaje + operacion;
+      if(this.existeTip(this.user.tipsNoGustados, this.tip)){
+        this.user.tipsNoGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+      }
     }
-    else{
+    else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
       this.tipsService.agregarTipNoGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+      this.user.tipsNoGustados.push(this.tip);
+      this.tip.puntaje = this.tip.puntaje + operacion;
+      if(this.existeTip(this.user.tipsGustados, this.tip)){
+        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+      }
     }
+    this.loginService.storeUser(this.user, this.loginService.getToken())
+  }
+
+  buscarIndice(tips: Tip[], tip: Tip){
+    let indice = 0;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        indice = i;
+      }
+    }
+    console.log("indice ", indice)
+    return indice;
   }
 
 }

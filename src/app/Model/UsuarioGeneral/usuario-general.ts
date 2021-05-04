@@ -37,6 +37,8 @@ export class UsuarioGeneral {
   roles: string[] = [];
   monitorDe: Monitoria[] = [];
   puntajeTotal: number;
+  tipsGustados: Tip[] = [];
+  tipsNoGustados: Tip[] = [];
 
   constructor(
     public nombre: string,
