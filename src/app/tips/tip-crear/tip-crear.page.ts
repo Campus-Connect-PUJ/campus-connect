@@ -21,8 +21,8 @@ export class TipCrearPage implements OnInit {
   nivelDeExigencia: Array<Number> = [1,2,3]
 
 
-  nivelDeExigenciaSelecionado: number;
-  tiposDeAprendizajeSeleccionados = [];
+  nivelDeExigenciaSeleccionado: number;
+  tiposDeAprendizajeSeleccionados: Array<TipoAprendizaje> = [];
   constructor(private tipsService: TipsService, 
     private tipoAprendizajeService: TipoAprendizajeService,
     public toastCtrl: ToastController,
@@ -54,7 +54,8 @@ export class TipCrearPage implements OnInit {
     this.tip.descripcion = this.descripcion;
     this.tip.usuario = this.usuario;
     this.tip.tiposAprendizaje = this.tiposDeAprendizajeSeleccionados;
-    this.tip.nivelExigencia = this.nivelDeExigenciaSelecionado;
+    this.tip.nivelExigencia = this.nivelDeExigenciaSeleccionado;
+    
 
 
     this.tipsService.createTip(this.tip)

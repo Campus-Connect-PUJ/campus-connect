@@ -23,6 +23,8 @@ export class RecomendarRestaurantesPage implements OnInit {
   tiempoBuscar=0;
   precioBuscar=0;
 
+  collapseCard = true;
+
   itemSelected: TipoComida;
 
   constructor(
@@ -64,11 +66,6 @@ export class RecomendarRestaurantesPage implements OnInit {
     );
   }
 
-  infoRestaurante(){
-    
-    
-  }
-
   buscarRestauranteComida(event){
     const comida = event.target.value;
     this.comidaBuscar = comida;
@@ -91,4 +88,16 @@ export class RecomendarRestaurantesPage implements OnInit {
       modalElement.present();
     });
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.findRestaurantes();
+  }
+
 }

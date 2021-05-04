@@ -35,7 +35,7 @@
 
     <ion-item lines="none">
         <ion-label>Nivel de exigencia</ion-label>
-        <ion-select [(ngModel)]="nivelDeExigenciaSeleccionados" cancelText="cancel" okText="ok">
+        <ion-select [(ngModel)]="nivelDeExigenciaSeleccionado" cancelText="cancel" okText="ok">
         <ion-select-option *ngFor="let nivel of nivelDeExigencia" [value]="nivel" selected = "false">{{nivel}}</ion-select-option>
       </ion-select>
     </ion-item>

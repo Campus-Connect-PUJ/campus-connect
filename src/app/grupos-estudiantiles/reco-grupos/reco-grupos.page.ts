@@ -27,6 +27,8 @@ export class RecoGruposPage implements OnInit {
   facultadSelect='';
   tematicaSelect='';
 
+  collapseCard = true;
+
   constructor(
     private geService: GrupoEstudiantilService,
     public router: Router,
@@ -96,4 +98,13 @@ export class RecoGruposPage implements OnInit {
     const texto = event.target.value;
     this.facultadSelect= texto;
   }
+
+  loadData($event){
+    setTimeout(() => {
+      this.findGrupos()
+    }, 300);
+    
+  }
+
+
 }

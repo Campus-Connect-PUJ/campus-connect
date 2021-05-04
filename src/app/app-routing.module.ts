@@ -237,10 +237,6 @@ const routes: Routes = [
     loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
   },
   {
-    path: 'cambiar-monitor',
-    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
-  },
-  {
     path: 'lista-sitios-destino',
     loadChildren: () => import('./mapa/lista-sitios-destino/lista-sitios-destino.module').then( m => m.ListaSitiosDestinoPageModule)
   },
@@ -263,10 +259,6 @@ const routes: Routes = [
   {
     path: 'contribuciones',
     loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
-  },
-  {
-    path: 'cambiar-monitor',
-    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
   },
   {
     path: 'test-aprendizaje',
