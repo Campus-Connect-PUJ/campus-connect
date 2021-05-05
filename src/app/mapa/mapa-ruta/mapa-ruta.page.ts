@@ -40,6 +40,8 @@ export class MapaRutaPage implements OnInit {
   lat_origen = 4.626680783542464;
   lng_origen = -74.06383752822877;
 
+  markers_eventualidades = [];
+
   private url_route =
     "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
 
@@ -101,6 +103,9 @@ export class MapaRutaPage implements OnInit {
   }
 
   private getNewEventualidades() {
+    var redMarker = L.AwesomeMarkers.icon({
+      markerColor: "red",
+    });
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
         console.log("New results", results);
@@ -108,6 +113,11 @@ export class MapaRutaPage implements OnInit {
         console.log(nuevas_eventualidades);
         if (nuevas_eventualidades.length != this.eventualidades.length) {
           this.polygons_eventualidades = new Array();
+
+          this.markers_eventualidades.forEach(element => {
+            this.map.removeLayer(element);
+          });
+
           this.eventualidades = results;
           this.eventualidades.forEach((element) => {
             var options = {
@@ -121,6 +131,14 @@ export class MapaRutaPage implements OnInit {
             //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
             //console.log("circle", circle_var.geometry.coordinates);
             this.polygons_eventualidades.push(circle_var.geometry.coordinates);
+
+            var marker = L.marker([center[1], center[0]], {
+              icon: redMarker,
+            }).addTo(this.map);
+            var message =
+              "<b>" + element.tipo + "</b><br>" + element.descripcion;
+            marker.bindPopup(message);
+            this.markers_eventualidades.push(marker);
           });
           console.log("Calculando nueva ruta");
           this.multipolygon = {
@@ -138,9 +156,17 @@ export class MapaRutaPage implements OnInit {
   }
 
   private getEventualidades() {
+    var redMarker = L.AwesomeMarkers.icon({
+      markerColor: "red",
+    });
     this.evService.obtenerEventualidades().subscribe(
       (results) => {
         this.polygons_eventualidades = new Array();
+
+        this.markers_eventualidades.forEach((element) => {
+          this.map.removeLayer(element);
+        });
+
         console.log("results", results);
         this.eventualidades = results;
         console.log(this.eventualidades);
@@ -156,6 +182,14 @@ export class MapaRutaPage implements OnInit {
           //this.GEO_json_ev.push(new L.GeoJSON(circle_var).addTo(this.map));
           //console.log("circle", circle_var.geometry.coordinates);
           this.polygons_eventualidades.push(circle_var.geometry.coordinates);
+
+          var marker = L.marker([center[1], center[0]], {
+            icon: redMarker,
+          }).addTo(this.map);
+          var message = "<b>" + element.tipo + "</b><br>" + element.descripcion;
+          marker.bindPopup(message);
+          this.markers_eventualidades.push(marker);
+
         });
         this.multipolygon = {
           type: "MultiPolygon",
