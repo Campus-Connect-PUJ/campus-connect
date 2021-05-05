@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import circle  from "@turf/circle";
 import { Units } from '@turf/helpers';
 import { EventualidadService } from 'src/app/Model/Eventualidad/eventualidad.service';
+import { tipos_eventualidades } from "src/app/services/tipos_eventualidades";
 
 @Component({
   selector: "app-mapa-ruta",
@@ -54,6 +55,8 @@ export class MapaRutaPage implements OnInit {
 
   interval: any;
 
+  tipos: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -70,6 +73,8 @@ export class MapaRutaPage implements OnInit {
       }
     });
     this.GEO_json_ev = new Array();
+    var tiposEventualidades = new tipos_eventualidades();
+    this.tipos = tiposEventualidades.getTipos();
   }
 
   ngOnInit() {}
@@ -114,7 +119,7 @@ export class MapaRutaPage implements OnInit {
         if (nuevas_eventualidades.length != this.eventualidades.length) {
           this.polygons_eventualidades = new Array();
 
-          this.markers_eventualidades.forEach(element => {
+          this.markers_eventualidades.forEach((element) => {
             this.map.removeLayer(element);
           });
 
@@ -135,8 +140,13 @@ export class MapaRutaPage implements OnInit {
             var marker = L.marker([center[1], center[0]], {
               icon: redMarker,
             }).addTo(this.map);
-            var message =
-              "<b>" + element.tipo + "</b><br>" + element.descripcion;
+            var tipo_text;
+            this.tipos.forEach((tipo) => {
+              if (element.id == tipo.id) {
+                tipo_text = tipo.name;
+              }
+            });
+            var message = "<b>" + tipo_text + "</b><br>" + element.descripcion;
             marker.bindPopup(message);
             this.markers_eventualidades.push(marker);
           });
@@ -186,10 +196,15 @@ export class MapaRutaPage implements OnInit {
           var marker = L.marker([center[1], center[0]], {
             icon: redMarker,
           }).addTo(this.map);
-          var message = "<b>" + element.tipo + "</b><br>" + element.descripcion;
+          var tipo_text;
+          this.tipos.forEach((tipo) => {
+            if (element.tipo == tipo.id) {
+              tipo_text = tipo.name;
+            }
+          });
+          var message = "<b>" + tipo_text + "</b><br>" + element.descripcion;
           marker.bindPopup(message);
           this.markers_eventualidades.push(marker);
-
         });
         this.multipolygon = {
           type: "MultiPolygon",
