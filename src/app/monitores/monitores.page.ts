@@ -53,9 +53,6 @@ export class MonitoresPage implements OnInit {
     )
   }
 
-
-
-
   buscarMonitores(event){
     const texto = event.target.value;
     this.textoBuscar = texto;
@@ -64,6 +61,10 @@ export class MonitoresPage implements OnInit {
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
     this.usuarioActual = this.loginService.getUser();
     //this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
+    if(!this.usuarioActual.estilosAprendizaje) {
+      this.usuarioActual.estilosAprendizaje = [];
+    }
+
     for(let i=0; i<monitores.length; i++){
       for(let j=0; j< this.usuarioActual.estilosAprendizaje.length; j++){
         for(let k=0; k<this.monitores[i].estilosAprendizaje.length; k++){

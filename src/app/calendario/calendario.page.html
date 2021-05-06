@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons class="header_btn"
                  slot="secondary">
-      <ion-button (click)="enviarHorarios()" href="tabs/servicios-academicos">
+      <ion-button href="tabs/servicios-academicos">
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -14,18 +14,6 @@
 
 <ion-content>
   <div class="content">
-    <ion-segment class="nonTransparent" [(ngModel)]="calendar.mode">
-      <ion-segment-button value="month">
-        <ion-label>Mes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="week">
-        <ion-label>Semana</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="day">
-        <ion-label>Dia</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-
 
     <ion-row class="nonTransparent">
       <!-- Move back one screen of the slides -->
@@ -164,10 +152,8 @@
       </ion-card-content>
     </ion-card>
 
-  <div class="boton">
-    <ion-button (click)="enviarMonitorias()">Enviar/Actualizar monitorias</ion-button>
-  </div>
-      <div class="nonTransparent" >
+
+    <div class="nonTransparent" >
       <calendar
         [eventSource]="eventSource"
         [calendarMode]="calendar.mode"

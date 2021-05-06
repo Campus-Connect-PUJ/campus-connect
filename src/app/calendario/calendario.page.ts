@@ -5,11 +5,9 @@ import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { LoginService } from '../services/login.service';
 import { AsignaturaService } from '../Model/Asignatura/asignatura.service';
-import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 import { Monitoria } from '../Model/Monitoria/monitoria';
 import { Horario } from '../Model/Horario/horario';
 import { Asignatura } from '../Model/Asignatura/asignatura';
-import { title } from 'process';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { Lugares_universidad } from '../services/lugares_universidad';
 
@@ -380,12 +378,12 @@ export class CalendarioPage implements OnInit {
 
     }
 
-    
-
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
     this.myCal.loadEvents();
     this.resetEvent();
     this.esMonitoria = false;
+
+    this.enviarMonitorias();
   }
 
   enviarMonitoria(){
@@ -393,6 +391,7 @@ export class CalendarioPage implements OnInit {
       this.moniService.crearMonitoria( this.monitorias[i]).subscribe(
         result => {
           console.log(result)
+          this.enviarHorarios();
         },
         error => console.log(error)
       );

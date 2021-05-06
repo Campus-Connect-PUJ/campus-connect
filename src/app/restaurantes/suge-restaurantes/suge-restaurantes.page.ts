@@ -40,7 +40,7 @@ export class SugeRestaurantesPage implements OnInit {
   findRestaurantes(){
     this.restauranteService.getRestaurantes().subscribe(
       (results: Restaurante[]) => {
-        console.log(results);
+        // console.log(results);
         const restaurantesT = results;
         for(let i=0; i<this.usuario.comidaFav.length; i++){
           for (let j=0;j<restaurantesT.length;j++){
