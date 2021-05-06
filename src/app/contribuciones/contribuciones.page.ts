@@ -17,14 +17,19 @@ export class ContribucionesPage implements OnInit {
     private userService: UsuarioGeneralService,
     private logService: LoginService,
   ) { 
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    this.indice = this.user.id;
+    
+    //this.user = JSON.parse(sessionStorage.getItem("user"));
+    //this.indice = this.user.id;
   }
 
   ngOnInit() {
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    this.indice = this.user.id;
-    this.mostrarChat();
+    try {
+      this.user = JSON.parse(sessionStorage.getItem("user"));
+      this.indice = this.user.id;
+      this.mostrarChat();
+    } catch (error) {
+      
+    }
   }
 
   ngOnDestroy() {

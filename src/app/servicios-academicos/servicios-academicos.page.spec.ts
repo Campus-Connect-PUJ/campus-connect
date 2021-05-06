@@ -1,5 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ServiciosAcademicosPage } from './servicios-academicos.page';
 
@@ -7,15 +10,21 @@ describe('ServiciosAcademicosPage', () => {
   let component: ServiciosAcademicosPage;
   let fixture: ComponentFixture<ServiciosAcademicosPage>;
 
-  beforeEach(async(() => {
+  let httpMock: HttpTestingController;
+  let httpClient: HttpClient;
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ServiciosAcademicosPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServiciosAcademicosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
+    httpMock = TestBed.get(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient)
   }));
 
   it('should create', () => {

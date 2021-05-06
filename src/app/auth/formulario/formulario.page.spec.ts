@@ -1,21 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { FormularioPage } from './formulario.page';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
+
 
 describe('FormularioPage', () => {
   let component: FormularioPage;
   let fixture: ComponentFixture<FormularioPage>;
 
-  beforeEach(async(() => {
+  let httpMock: HttpTestingController;
+  let httpClient: HttpClient;
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormularioPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormularioPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    httpMock = TestBed.get(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient)
   }));
 
   it('should create', () => {

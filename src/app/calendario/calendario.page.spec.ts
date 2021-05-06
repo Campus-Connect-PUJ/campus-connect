@@ -22,6 +22,7 @@ describe('CalendarioPage', () => {
     fixture = TestBed.createComponent(CalendarioPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
     httpMock = TestBed.get(HttpTestingController);
     httpClient = TestBed.inject(HttpClient)
   }));
