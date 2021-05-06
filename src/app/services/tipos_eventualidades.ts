@@ -2,15 +2,15 @@ export class tipos_eventualidades {
   public tipos = [
     {
       id: 1,
-      name: "Cierre",
+      name: "Prohibido el paso",
     },
     {
       id: 2,
-      name: "Peligro",
+      name: "Paso peligroso",
     },
     {
       id: 3,
-      name: "Tráfico",
+      name: "Mucho tráfico",
     },
   ];
   getTipos() {
