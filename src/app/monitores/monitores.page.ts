@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { evento } from '../calendario/evento';
 import * as moment from 'moment';
-import { Monitoria } from '../Model/Monitoria/monitoria';
 import { Router } from '@angular/router';
 
 export class horarioParaRecomendar{
-  monitor: UsuarioGeneral;
-  ocupado: Number;
-  total: Number;
-  constructor(){
+  total: number|undefined;
+  constructor(
+    public monitor: UsuarioGeneral,
+    public ocupado: number
+  ){
 
   }
 }
@@ -28,12 +28,13 @@ export class horarioParaRecomendar{
 export class MonitoresPage implements OnInit {
   monitores: Array<UsuarioGeneral> = [];
   monitoresRecomendados:  Array<UsuarioGeneral> = [];
-  sugerencia: Array<horarioParaRecomendar> = [];
+  sugerencia: horarioParaRecomendar[] = [];
   textoBuscar='';
   usuarioActual: UsuarioGeneral;
   eventos: evento[] = [];
 
-  constructor(private popoverCtrl:PopoverController, 
+  constructor(
+    private popoverCtrl:PopoverController,
     private monService: MonitoriaService,
     public navCtrl: NavController,
     private loginService: LoginService,
@@ -79,8 +80,6 @@ export class MonitoresPage implements OnInit {
   }
 
   mirarProblemasHorarios(monitor: UsuarioGeneral){
-    const interrumpe = false;
-    const monitoriasDisponibles = new Array<Monitoria>();
     const horarios = new Array<Horario>();
 
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.loginService.getUser().email));
@@ -92,8 +91,8 @@ export class MonitoresPage implements OnInit {
     for(let j=0; j<eventosMonitor.length; j++){
       for(let k=0; k<eventosMonitor[j].horarios.length; k++){
           
-          const horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fechaInicio, "DD-MM-YYYY HH:mm")
-          const horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].fechaFin, "DD-MM-YYYY HH:mm")
+          const horarioInicialMonitor = moment(eventosMonitor[j].horarios[k].fechaInicial, "DD-MM-YYYY HH:mm")
+          const horarioFinalMonitor = moment(eventosMonitor[j].horarios[k].fechaFinal, "DD-MM-YYYY HH:mm")
           const ocupado = 0;
 
         try {
@@ -111,15 +110,13 @@ export class MonitoresPage implements OnInit {
       }
     }
 
-    let a = new horarioParaRecomendar();
-    a.monitor = monitor;
-    a.ocupado = ocupadoMonitor;
-
-    this.sugerencia.push(a);
+    this.sugerencia.push(
+      new horarioParaRecomendar(monitor, ocupadoMonitor)
+    );
   }
 
   ordenarMejorMonitor(){
-    let monitoresOrdenados = this.sugerencia;
+    const monitoresOrdenados = this.sugerencia;
     monitoresOrdenados.sort(function(a,b){
       if(a.monitor.puntajeTotal > b.monitor.puntajeTotal && a.ocupado < b.ocupado){
         return -2;
@@ -140,7 +137,7 @@ export class MonitoresPage implements OnInit {
   }
 
   ordenarMonitores(monitores: Array<UsuarioGeneral>){
-    let monitoresOrdenados = monitores;
+    const monitoresOrdenados = monitores;
     monitoresOrdenados.sort(function (a, b) {
       if (a.puntajeTotal > b.puntajeTotal) {
         return -1;
@@ -162,7 +159,7 @@ export class MonitoresPage implements OnInit {
         cantidadVotos += monitores[i].monitorDe[j].cantidadVotos;
         sumaTotal += monitores[i].monitorDe[j].calificacion;
       }
-      monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
+      monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2);
     }
     return monitores;
   }

@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Monitoria } from 'src/app/Model/Monitoria/monitoria';
 import { MonitoriaService } from 'src/app/Model/Monitoria/monitoria.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
-import { HorarioMonitoria } from '../monitor-horarios/HorarioMonitoria';
+import { Horario } from "../../Model/Horario/horario";
 
 @Component({
   selector: 'app-monitor-asignatura',
@@ -19,8 +19,8 @@ export class MonitorAsignaturaPage implements OnInit {ç
   monitores: Array<UsuarioGeneral> = [];
   monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
 
-  horariosSugeridos: Array<HorarioMonitoria> = [];
-  horarios: Array<HorarioMonitoria> = [];
+  horariosSugeridos: Horario[] = [];
+  horarios: Horario[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute, 
@@ -64,10 +64,10 @@ export class MonitorAsignaturaPage implements OnInit {ç
     }
 
     for(let i=0; i<monitor.monitorDe[indice].horarios.length; i++){
-      let data: HorarioMonitoria = new HorarioMonitoria();
+      let data: Horario = new Horario();
       data.id = monitor.monitorDe[indice].horarios[i].id;
-      data.fechaInicio = monitor.monitorDe[indice].horarios[i].fechaInicio;
-      data.fechaFin = monitor.monitorDe[indice].horarios[i].fechaFin;
+      data.fechaInicial = monitor.monitorDe[indice].horarios[i].fechaInicial;
+      data.fechaFinal = monitor.monitorDe[indice].horarios[i].fechaFinal;
       data.lugar = monitor.monitorDe[indice].horarios[i].lugar;
       this.horarios.push(data);
     }
@@ -80,10 +80,10 @@ export class MonitorAsignaturaPage implements OnInit {ç
     let horariosOrdenados = this.horarios;
 
     horariosOrdenados.sort(function (a, b) {
-      if( moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm")) ){
+      if( moment(a.fechaInicial).isBefore(b.fechaInicial) ){
         return -1;
       }
-      if( !moment(moment(a.fechaInicio, "DD-MM-YYYY HH:mm")).isBefore(moment(b.fechaInicio, "DD-MM-YYYY HH:mm"))){
+      if( !moment(a.fechaInicial).isBefore(b.fechaInicial)){
         return 1;
       }
       // a must be equal to b

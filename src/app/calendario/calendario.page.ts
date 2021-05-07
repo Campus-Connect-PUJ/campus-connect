@@ -404,8 +404,6 @@ export class CalendarioPage implements OnInit {
           horario.fechaInicial = this.eventos[j].startTime;
           horario.fechaFinal = this.eventos[j].endTime;
 
-          horario.fechaInicio = moment(this.eventos[j].startTime).format('DD-MM-YYYY HH:mm');
-          horario.fechaFin = moment(this.eventos[j].endTime).format('DD-MM-YYYY HH:mm');
           horario.lugar = this.eventos[j].lugar;
           this.monitorias[i].horarios.push(horario)
         } 
@@ -639,8 +637,6 @@ export class CalendarioPage implements OnInit {
     let asig = new Asignatura();
     horario.fechaInicial = this.eventSource[indice].startTime;
     horario.fechaFinal = this.eventSource[indice].endTime;
-    horario.fechaInicio = moment(this.eventSource[indice].startTime).format('DD-MM-YYYY HH:mm');
-    horario.fechaFin = moment(this.eventSource[indice].endTime).format('DD-MM-YYYY HH:mm');
     this.monitoria.horarios.push(horario);
 
     for(let j=0; j<this.asignaturas.length; j++){
