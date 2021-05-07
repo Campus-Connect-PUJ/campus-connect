@@ -208,14 +208,8 @@ export class CalendarioPage implements OnInit {
     let tiempos2 = eventCopy2.eTime.split(":");
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
-    let base = moment(eventCopy2.startTime);
     
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
-
-      let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-      let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
-
 
       eventCopy.title = eventCopy2.title;
       eventCopy.startTime = eventCopy2.startTime;
@@ -279,7 +273,7 @@ export class CalendarioPage implements OnInit {
       lugar: this.lugar
     }
 
-    if(eventCopy2.sTime > eventCopy2.eTime && eventCopy2.lugar == " "){
+    if(eventCopy2.sTime > eventCopy2.eTime || eventCopy2.lugar == " "){
       this.desactivado = true;
       console.log(this.desactivado)
       return;
@@ -377,7 +371,8 @@ export class CalendarioPage implements OnInit {
     this.resetEvent();
     this.esMonitoria = false;
 
-    this.enviarMonitorias();
+    //this.enviarMonitorias();
+    this.nuevaMonitoria();
   }
 
   enviarMonitoria(){
@@ -454,37 +449,51 @@ export class CalendarioPage implements OnInit {
         }
       }
     }      
-    this.enviarMonitoria();
+    //this.enviarMonitoria();
+    this.nuevaMonitoria()
   }
 
   nuevaMonitoria(){
     this.esMonitoria = true;
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    this.eventosNuevos = JSON.parse(localStorage.getItem("nuevosEventos"));
+    console.log(this.eventosNuevos)
     this.usuario = this.logService.getUser();
-    let monitoria: Monitoria;
 
-      let existe = false;
-      let asignatura: Asignatura;
-      asignatura.id = this.eventosNuevos[0].id;
-      for(let i=0; i<this.usuario.monitorDe.length; i++){
-        if(this.usuario.monitorDe[i].asignatura.id == asignatura.id){
-          existe = true;
-          monitoria = this.usuario.monitorDe[i];
-        }
-      }
+    let monitoria: Monitoria = new Monitoria();
+    let asignatura: Asignatura = new Asignatura();
+    let existe = false;
+    
+    
+    asignatura.nombre = this.eventosNuevos[0].title;
 
-      if(existe){
-        //Agregar horario
-        this.enviarHorariosNuevo(monitoria);
+    for(let i=0; i<this.asignaturas.length; i++){
+      if(asignatura.nombre == this.asignaturas[i].nombre){
+        asignatura = this.asignaturas[i];
       }
-      else{
-        //crear desde 0
-        let monitoriaNueva: Monitoria;
-        monitoriaNueva.asignatura = asignatura;
-        this.moniService.crearMonitoria(monitoriaNueva).subscribe(
-            result => {
-              console.log(result)
-              this.enviarHorariosNuevo(monitoriaNueva);
+    }
+
+    for(let i=0; i<this.usuario.monitorDe.length; i++){
+      if(this.usuario.monitorDe[i].asignatura.nombre == asignatura.nombre){
+        existe = true;
+        monitoria = this.usuario.monitorDe[i];
+      }
+    }
+
+    if(existe){
+      //Agregar horario
+      console.log("Se agregan horarios")
+      this.enviarHorariosNuevo(monitoria);
+    }
+    else{
+      //crear desde 0
+      console.log("Se crea monitoria")
+      let monitoriaNueva: Monitoria = new Monitoria();
+      monitoriaNueva.asignatura = asignatura;
+      this.moniService.crearMonitoria(monitoriaNueva).subscribe(
+          result => {
+            console.log(result)
+            console.log("se creo la monitoria")
+            this.enviarHorariosNuevo(monitoriaNueva);
             },
             error => console.log(error)
           );
@@ -494,19 +503,25 @@ export class CalendarioPage implements OnInit {
 
 
   enviarHorariosNuevo(monitoria: Monitoria){
+    let monitoriaNueva: Monitoria = new Monitoria();
+    monitoriaNueva.asignatura = monitoria.asignatura;
+    
     for(let i=0; i<this.eventosNuevos.length; i++){
       let horario = new Horario();
       horario.fechaInicial = this.eventosNuevos[i].startTime;
       horario.fechaFinal = this.eventosNuevos[i].endTime;
       horario.lugar = this.eventosNuevos[i].lugar;
-      monitoria.horarios.push(horario);
+      monitoriaNueva.horarios.push(horario);
     }
 
+    console.log("los horarios son", this.eventosNuevos.length, " ", monitoria)
     for(let i=0; i<this.eventosNuevos.length; i++){
-      this.moniService.agregarHorario(monitoria, i).subscribe(
+      
+      this.moniService.agregarHorario(monitoriaNueva, i).subscribe(
         result => console.log(result),
         error => console.log(error)      
       )
+      
     }
     localStorage.removeItem("nuevosEventos");
   }
@@ -525,7 +540,7 @@ export class CalendarioPage implements OnInit {
         eventCopy.desc= this.event.desc
         eventCopy.id= this.eventos[i].id,
         eventCopy.monitoria= this.eventos[i].monitoria
-        
+        eventCopy.lugar = this.eventos[i].lugar
         if(eventCopy.allDay){
           let start = eventCopy.startTime;
           let end = eventCopy.endTime;

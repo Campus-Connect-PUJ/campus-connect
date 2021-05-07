@@ -90,6 +90,7 @@ export class MonitorAsignaturaPage implements OnInit {ç
       return 0;
     });
     this.horarios = horariosOrdenados;
+    console.log(this.horarios)
   }
 
   convertir(fecha: Date): String{

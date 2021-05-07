@@ -25,6 +25,7 @@ export class MonitoriaService {
 
   agregarHorario(mon: Monitoria, indice: number){
     const url = `${environment.baseUrl}/usuario/agregarHorario`;
+    console.log(mon.asignatura.id, " ", mon.horarios[indice])
     return this.net.post(
       url,
       {
