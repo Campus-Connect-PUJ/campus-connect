@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { Monitoria } from 'src/app/Model/Monitoria/monitoria';
 import { MonitoriaService } from 'src/app/Model/Monitoria/monitoria.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { Horario } from "../../Model/Horario/horario";
@@ -13,7 +12,6 @@ import { Horario } from "../../Model/Horario/horario";
 })
 export class MonitorAsignaturaPage implements OnInit {
 
-  recipeId2: string;
   idMonitor = 0;
   monitores: Array<UsuarioGeneral> = [];
   monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
@@ -29,11 +27,11 @@ export class MonitorAsignaturaPage implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('monitorID')
-      this.recipeId2 = paraMap.get('asignaturaID')
+      const recipeId2 = paraMap.get('asignaturaID')
       if(recipeId != null){
         this.idMonitor = +recipeId;
         this.monService.obtenerMonitores().subscribe(
-          result => {
+          (result: UsuarioGeneral[]) => {
             this.monitores = result;
             for(let i=0; i<this.monitores.length; i++){
               if(this.monitores[i].id == this.idMonitor){
@@ -49,15 +47,13 @@ export class MonitorAsignaturaPage implements OnInit {
       else{
         console.log("Lo otro")
       }
-
     })
   }
-
 
   obtenerHorarios(monitor: UsuarioGeneral){
     let indice = 0;
     for(let i=0; i<monitor.monitorDe.length; i++){
-      if(monitor.monitorDe[i].asignatura.id == +this.recipeId2){
+      if(monitor.monitorDe[i].asignatura.id == +this.idMonitor){
         indice = i;
       }
     }
@@ -72,7 +68,6 @@ export class MonitorAsignaturaPage implements OnInit {
     }
 
     this.ordenarHorarios();
-    
   }
 
   ordenarHorarios(){
