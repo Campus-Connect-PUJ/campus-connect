@@ -163,9 +163,6 @@ export class MonitorHorariosPage implements OnInit {
     }
     
     this.ordenarSugerencias();
-
-    
- 
   }
 
   ordenarSugerencias(){
@@ -201,12 +198,6 @@ export class MonitorHorariosPage implements OnInit {
       sugerenciasOrdenadas = sugerencias;
     }
     this.horariosLimitados = sugerenciasOrdenadas;
-  }
-
-  convertir(fecha: Date): String{
-    let resultado: String;
-    resultado = moment(fecha).format("DD-MMM-YYYY HH:mm");
-    return resultado; 
   }
 
   agregarHorariosSugeridos(datos: Monitoria, horario: Horario) {
