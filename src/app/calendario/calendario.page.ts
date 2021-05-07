@@ -1,3 +1,4 @@
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { evento } from './evento';
@@ -28,6 +29,7 @@ export class listaEventos{
   styleUrls: ['./calendario.page.scss'],
 })
 export class CalendarioPage implements OnInit {
+  public usuario: UsuarioGeneral;
 
   public eventos: evento[] = [];
   esMonitoria: boolean = false;
@@ -37,11 +39,14 @@ export class CalendarioPage implements OnInit {
   monitorias = new Array<Monitoria>();
   monitoria = new Monitoria();
   public lugares;
-  lugar: string; 
+  lugar: string = " "; 
 
   public collapseCard: boolean;
   public collapseCard2: boolean;
   public collapseCard3: boolean;
+
+  public desactivado: boolean;
+  public cantidadEventosNuevos: number;
 
   event = {
     title: '',
@@ -70,6 +75,8 @@ export class CalendarioPage implements OnInit {
   //eventSource = evento[];
 
   eventSource: Array<evento> = [];
+  eventosNuevos: Array<evento> = [];
+  muchosEventos: listaEventos[] = [];
 
   calendar = {
     mode: 'month',
@@ -88,7 +95,7 @@ export class CalendarioPage implements OnInit {
     this.lugares = lugaresUniversidad.getLugares();
   }
 
-  muchosEventos: listaEventos[] = [];
+  
 
   ngOnInit() {
     this.cargarAsignaturas();
@@ -155,10 +162,7 @@ export class CalendarioPage implements OnInit {
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
-
     this.eventSource.push(eventCopy);
-    let a: evento;
-    //this.eventSource.push(a);
 
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
@@ -168,7 +172,6 @@ export class CalendarioPage implements OnInit {
 
   addEventMateria(){
 
-   
     let cantidadDeEventos = 0;
     cantidadDeEventos = this.eventSource.length;
 
@@ -257,23 +260,13 @@ export class CalendarioPage implements OnInit {
   addMonitoria(){
     this.esMonitoria = true;
     let cantidadDeEventos = 0;
-    cantidadDeEventos = this.eventSource.length;
+    let eventCopy: evento = new evento();
 
+
+    cantidadDeEventos = this.eventSource.length;
     if(cantidadDeEventos == null){
       cantidadDeEventos = 0;
     }
-
-
-    let eventCopy: evento = new evento();
-    eventCopy.title = this.event.title;
-    eventCopy.startTime = new Date(this.event.startTime);
-    eventCopy.endTime = new Date(this.event.endTime)
-    eventCopy.allDay= this.event.allDay
-    eventCopy.desc= this.event.desc
-    eventCopy.id= cantidadDeEventos
-    eventCopy.monitoria= this.event.monitoria
-    eventCopy.lugar = this.lugar;
-    
     let eventCopy2 = {
       title: this.event2.title,
       startTime: new Date(this.event2.startTime),
@@ -285,6 +278,15 @@ export class CalendarioPage implements OnInit {
       id: cantidadDeEventos,
       monitoria: this.esMonitoria ,
       lugar: this.lugar
+    }
+
+    if(eventCopy2.sTime > eventCopy2.eTime && eventCopy2.lugar == " "){
+      this.desactivado = true;
+      console.log(this.desactivado)
+      return;
+    }
+    else{
+      this.desactivado = false;
     }
     
     if(this.esMonitoria){
@@ -299,20 +301,15 @@ export class CalendarioPage implements OnInit {
     let tiempos2 = eventCopy2.eTime.split(":");
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
-    let base = moment(eventCopy2.startTime);
     let hora1 = moment(eventCopy2.sTime, "h:mm");
     let hora2 = moment(eventCopy2.eTime, "h:mm");
 
     if(moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal)){
       for(let i=0; moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal) ; i=7){
-        
-        let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-        let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
-  
         eventCopy.title = eventCopy2.title;
         eventCopy.startTime = eventCopy2.startTime;
         eventCopy.monitoria = true;
+        eventCopy.lugar = eventCopy2.lugar;
   
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
@@ -329,7 +326,7 @@ export class CalendarioPage implements OnInit {
  
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-  
+        this.cantidadEventosNuevos++;
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
@@ -346,20 +343,17 @@ export class CalendarioPage implements OnInit {
       }
     }
     else if(moment(hora1).isSameOrBefore(hora2)){
-        let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-        let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
         eventCopy.title = eventCopy2.title;
         eventCopy.startTime = eventCopy2.startTime;
         eventCopy.monitoria = true;
-  
+        eventCopy.lugar = eventCopy2.lugar;
+
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
-  
+
         eventCopy.endTime = eventCopy.startTime;
-  
         eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getHours(), 'hours').toDate();
         eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[0]),'hours').toDate();
         eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
@@ -368,16 +362,18 @@ export class CalendarioPage implements OnInit {
 
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-  
+        this.cantidadEventosNuevos++;
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
         eventCopy.endTime = moment(eventCopy.endTime).toDate();
         this.eventSource.push(eventCopy);
+        this.eventosNuevos.push(eventCopy);
         localStorage.removeItem(eventCopy.title);
 
     }
 
+    localStorage.setItem("nuevosEventos", JSON.stringify(this.eventosNuevos));
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
     this.myCal.loadEvents();
     this.resetEvent();
@@ -399,7 +395,6 @@ export class CalendarioPage implements OnInit {
   }
 
   enviarHorarios(){
-
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
 
     for(let i = 0; i < this.monitorias.length; i++){
@@ -428,13 +423,9 @@ export class CalendarioPage implements OnInit {
     }
   }
 
-
-
   enviarMonitorias(){
     this.esMonitoria = true;
     this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-
-    let asignauras: Array<Asignatura>;
     
     for(let i=0; i<this.eventos.length; i++){
       let monitoria: Monitoria = new Monitoria();
@@ -442,7 +433,6 @@ export class CalendarioPage implements OnInit {
       let existe: boolean = false;
       if(this.eventos[i].monitoria){
         let idAsig = 0;
-   
         for(let j=0; j<this.asignaturas.length; j++){
           if(this.asignaturas[j].nombre === this.eventos[i].title){
             idAsig = this.asignaturas[j].id;
@@ -452,7 +442,6 @@ export class CalendarioPage implements OnInit {
         }
         
         monitoria.asignatura = asignatura;
-        
         if(this.monitorias.length == 0){
           this.monitorias.push(monitoria)
         }
@@ -470,6 +459,67 @@ export class CalendarioPage implements OnInit {
       }
     }      
     this.enviarMonitoria();
+  }
+
+  nuevaMonitoria(){
+    this.esMonitoria = true;
+    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    this.usuario = this.logService.getUser();
+    let monitoria: Monitoria;
+
+    if(!this.usuario.monitorDe){
+
+    }
+    else{
+      let existe = false;
+      let asignatura: Asignatura;
+      asignatura.id = this.eventosNuevos[0].id;
+      for(let i=0; i<this.usuario.monitorDe.length; i++){
+        if(this.usuario.monitorDe[i].asignatura.id == asignatura.id){
+          existe = true;
+          monitoria = this.usuario.monitorDe[i];
+        }
+      }
+
+      if(existe){
+        //Agregar horario
+        this.enviarHorariosNuevo(monitoria);
+      }
+      else{
+        //crear desde 0
+        let monitoriaNueva: Monitoria;
+        monitoriaNueva.asignatura = asignatura;
+        this.moniService.crearMonitoria(monitoriaNueva).subscribe(
+            result => {
+              console.log(result)
+              this.enviarHorariosNuevo(monitoriaNueva);
+            },
+            error => console.log(error)
+          );
+        
+      }
+
+    }
+    this.logService.storeUser(this.usuario, this.logService.getToken());
+  }
+
+
+  enviarHorariosNuevo(monitoria: Monitoria){
+    for(let i=0; i<this.eventosNuevos.length; i++){
+      let horario = new Horario();
+      horario.fechaInicial = this.eventosNuevos[i].startTime;
+      horario.fechaFinal = this.eventosNuevos[i].endTime;
+      horario.lugar = this.eventosNuevos[i].lugar;
+      monitoria.horarios.push(horario);
+    }
+
+    for(let i=0; i<this.eventosNuevos.length; i++){
+      this.moniService.agregarHorario(monitoria, i).subscribe(
+        result => console.log(result),
+        error => console.log(error)      
+      )
+    }
+    localStorage.removeItem("nuevosEventos");
   }
 
 
@@ -508,8 +558,6 @@ export class CalendarioPage implements OnInit {
 
     //this.myCal.loadEvents();
   }
-
-
 
 
   changeMode(mode){
@@ -607,11 +655,6 @@ export class CalendarioPage implements OnInit {
       result => console.log(result),
       error => console.log(error)
     )
-
-
-
-
   }
   
-
 }

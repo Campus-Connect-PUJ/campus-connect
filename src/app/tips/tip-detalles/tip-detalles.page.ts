@@ -83,8 +83,6 @@ export class TipDetallesPage implements OnInit {
       }
       this.user.tipsGustados.push(this.tip);
       this.tip.puntaje = this.tip.puntaje + operacion;
-
-      // TODO: arreglar
     }
     else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
       console.log(-1)

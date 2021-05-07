@@ -100,17 +100,17 @@
 
 
     <ion-card>
-      <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; esMonitoria = true">
+      <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; esMonitoria = true; desactivado = false">
         <ion-card-title>Nueva monitoria</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard3">
         <ion-item>
           <ion-label>Dia inicio</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.startTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="event2.startTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Dia fin</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.endTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="event2.endTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Hora Inicio</ion-label>
@@ -149,8 +149,20 @@
         </ion-item>
 
         <ion-button fill="outline" expand="block" (click)="addMonitoria(); collapseCard3 = !collapseCard3" [disabled]="asignatura == null">Agregar evento</ion-button>
+
+
       </ion-card-content>
     </ion-card>
+
+    <ion-card>
+    <div class="SinElementos" *ngIf="desactivado">
+      <div class="nonTransparent">
+        <h1>Los datos estan incorrectos. Por favor, ingreselos de nuevo</h1> 
+      </div>
+    </div>
+
+    </ion-card>
+
 
 
     <div class="nonTransparent" >
