@@ -91,14 +91,4 @@ export class MonitorAsignaturaPage implements OnInit {ç
     });
     this.horarios = horariosOrdenados;
   }
-
-  convertir(fecha: Date): String{
-    let resultado: String;
-    resultado = moment(fecha).format("DD-MMM-YYYY HH:mm");
-    return resultado; 
-  }
-  
-
-  
-
 }
