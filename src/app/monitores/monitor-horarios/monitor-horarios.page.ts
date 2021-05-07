@@ -129,6 +129,10 @@ export class MonitorHorariosPage implements OnInit {
         console.log(JSON.stringify(eventosMonitor[j].horarios[k]));
         const horarioInicialMonitor = eventosMonitor[j].horarios[k].fechaInicial;
         const horarioFinalMonitor = eventosMonitor[j].horarios[k].fechaFinal;
+        
+        console.log(eventosMonitor[j].horarios[k].fechaInicial, " ", eventosMonitor[j].horarios[k].fechaFinal)
+        console.log("->>", moment(eventosMonitor[j].horarios[k].fechaInicial).format("DD-MMM-YYYY HH:mm"))
+
         let ocupado = false;
         try {
           for(let i=0; i<eventos.length && !ocupado; i++){
@@ -199,6 +203,12 @@ export class MonitorHorariosPage implements OnInit {
     this.horariosLimitados = sugerenciasOrdenadas;
   }
 
+  convertir(fecha: Date): String{
+    let resultado: String;
+    resultado = moment(fecha).format("DD-MMM-YYYY HH:mm");
+    return resultado; 
+  }
+
   agregarHorariosSugeridos(datos: Monitoria, horario: Horario) {
     const data: Horario = new Horario();
     let ingresar = true;
@@ -206,7 +216,7 @@ export class MonitorHorariosPage implements OnInit {
     data.nombreAsignatura = datos.asignatura.nombre;
     data.fechaInicial = horario.fechaInicial;
     data.fechaFinal = horario.fechaFinal;
-
+    console.log(data.fechaInicial.toLocaleString())
     if(this.horariosSugeridos.length==0){
       this.horariosSugeridos.push(data);
     }
@@ -231,10 +241,11 @@ export class MonitorHorariosPage implements OnInit {
 
         for(let i=0; i<horarios.length; i++){
           for(let j=0; j<horarios[i].horarios.length; j++){
-            horarios[i].horarios[j].fechaInicial =
+            horarios[i].horarios[j].fechaInicial = 
                 horarios[i].horarios[j].fechaInicial;
             horarios[i].horarios[j].fechaFinal =
                 horarios[i].horarios[j].fechaFinal;
+
           }
         }
     },

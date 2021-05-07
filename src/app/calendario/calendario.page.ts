@@ -46,7 +46,6 @@ export class CalendarioPage implements OnInit {
   public collapseCard3: boolean;
 
   public desactivado: boolean;
-  public cantidadEventosNuevos: number;
 
   event = {
     title: '',
@@ -326,12 +325,12 @@ export class CalendarioPage implements OnInit {
  
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-        this.cantidadEventosNuevos++;
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
         eventCopy.endTime = moment(eventCopy.endTime).toDate();
         this.eventSource.push(eventCopy);
+        this.eventosNuevos.push(eventCopy);
         localStorage.removeItem(eventCopy.title);
         fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
         eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
@@ -362,7 +361,6 @@ export class CalendarioPage implements OnInit {
 
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-        this.cantidadEventosNuevos++;
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
@@ -465,10 +463,6 @@ export class CalendarioPage implements OnInit {
     this.usuario = this.logService.getUser();
     let monitoria: Monitoria;
 
-    if(!this.usuario.monitorDe){
-
-    }
-    else{
       let existe = false;
       let asignatura: Asignatura;
       asignatura.id = this.eventosNuevos[0].id;
@@ -494,10 +488,7 @@ export class CalendarioPage implements OnInit {
             },
             error => console.log(error)
           );
-        
       }
-
-    }
     this.logService.storeUser(this.usuario, this.logService.getToken());
   }
 
@@ -542,8 +533,6 @@ export class CalendarioPage implements OnInit {
           eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
           eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
         }
-        
-    
         this.eventSource.push(eventCopy);
       }
     } catch (error) {

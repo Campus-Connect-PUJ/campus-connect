@@ -7,8 +7,8 @@ export class Horario {
     fechaFinal: Date;
 
     nombreAsignatura: string;
-
     lugar: string;
+
     Horario(){
         
     }
