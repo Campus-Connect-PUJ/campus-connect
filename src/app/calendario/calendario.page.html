@@ -15,26 +15,6 @@
 <ion-content>
   <div class="content">
 
-    <ion-row class="nonTransparent">
-      <!-- Move back one screen of the slides -->
-      <ion-col size="2">
-        <ion-button fill="clear" (click)="back()">
-          <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-
-      <ion-col size="8" class="ion-text-center">
-        <h2>{{ viewTitle }}</h2>
-      </ion-col>
-
-      <!-- Move forward one screen of the slides -->
-      <ion-col size="2">
-        <ion-button fill="clear" (click)="next()">
-          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-
 
     <!-- Card for adding a new event -->
     <ion-card>
@@ -162,6 +142,26 @@
     </div>
 
     </ion-card>
+
+    <ion-row class="nonTransparent">
+      <!-- Move back one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="back()">
+          <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="8" class="ion-text-center">
+        <h2>{{ viewTitle }}</h2>
+      </ion-col>
+
+      <!-- Move forward one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="next()">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
 
 
