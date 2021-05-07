@@ -11,9 +11,8 @@ import { Horario } from "../../Model/Horario/horario";
   templateUrl: './monitor-asignatura.page.html',
   styleUrls: ['./monitor-asignatura.page.scss'],
 })
-export class MonitorAsignaturaPage implements OnInit {ç
+export class MonitorAsignaturaPage implements OnInit {
 
-  recipeId: string;
   recipeId2: string;
   idMonitor = 0;
   monitores: Array<UsuarioGeneral> = [];
@@ -29,10 +28,10 @@ export class MonitorAsignaturaPage implements OnInit {ç
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      this.recipeId = paraMap.get('monitorID')
+      const recipeId = paraMap.get('monitorID')
       this.recipeId2 = paraMap.get('asignaturaID')
-      if(this.recipeId != null){
-        this.idMonitor = +this.recipeId;
+      if(recipeId != null){
+        this.idMonitor = +recipeId;
         this.monService.obtenerMonitores().subscribe(
           result => {
             this.monitores = result;
@@ -77,7 +76,7 @@ export class MonitorAsignaturaPage implements OnInit {ç
   }
 
   ordenarHorarios(){
-    let horariosOrdenados = this.horarios;
+    const horariosOrdenados = this.horarios;
 
     horariosOrdenados.sort(function (a, b) {
       if( moment(a.fechaInicial).isBefore(b.fechaInicial) ){
