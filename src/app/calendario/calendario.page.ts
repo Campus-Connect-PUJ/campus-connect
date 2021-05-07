@@ -375,83 +375,7 @@ export class CalendarioPage implements OnInit {
     this.nuevaMonitoria();
   }
 
-  enviarMonitoria(){
-    for(let i = 0; i<this.monitorias.length; i++ ){
-      this.moniService.crearMonitoria( this.monitorias[i]).subscribe(
-        result => {
-          console.log(result)
-          this.enviarHorarios();
-        },
-        error => console.log(error)
-      );
-    }
-  }
-
-  enviarHorarios(){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-
-    for(let i = 0; i < this.monitorias.length; i++){
-      for(let j = 0; j< this.eventos.length; j++){
-        if(this.eventos[j].title == this.monitorias[i].asignatura.nombre){
-          let horario = new Horario();
-          horario.fechaInicial = this.eventos[j].startTime;
-          horario.fechaFinal = this.eventos[j].endTime;
-
-          horario.lugar = this.eventos[j].lugar;
-          this.monitorias[i].horarios.push(horario)
-        } 
-      }
-    }
-
-    for(let i = 0; i<this.monitorias.length; i++ ){
-      for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
-        //console.log("Id asignatura", this.monitorias[j].asignatura.id)
-        this.moniService.agregarHorario( this.monitorias[i], j).subscribe(
-          result => console.log(result),
-          error => console.log(error)
-        );
-      }
-    }
-  }
-
-  enviarMonitorias(){
-    this.esMonitoria = true;
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-    
-    for(let i=0; i<this.eventos.length; i++){
-      let monitoria: Monitoria = new Monitoria();
-      let asignatura: Asignatura = new Asignatura();
-      let existe: boolean = false;
-      if(this.eventos[i].monitoria){
-        let idAsig = 0;
-        for(let j=0; j<this.asignaturas.length; j++){
-          if(this.asignaturas[j].nombre === this.eventos[i].title){
-            idAsig = this.asignaturas[j].id;
-            asignatura.id = idAsig;
-            asignatura.nombre = this.asignaturas[j].nombre;
-          }
-        }
-        
-        monitoria.asignatura = asignatura;
-        if(this.monitorias.length == 0){
-          this.monitorias.push(monitoria)
-        }
-        else{
-          for(let j=0; j<this.monitorias.length; j++){
-            if(this.monitorias[j].asignatura.id == monitoria.asignatura.id){
-              existe = true;
-              this.monitorias[j].horarios.push();
-            }
-          }
-          if(!existe){
-            this.monitorias.push(monitoria)
-          }
-        }
-      }
-    }      
-    //this.enviarMonitoria();
-    this.nuevaMonitoria()
-  }
+  //Funciona ------
 
   nuevaMonitoria(){
     this.esMonitoria = true;
@@ -500,7 +424,6 @@ export class CalendarioPage implements OnInit {
       }
     this.logService.storeUser(this.usuario, this.logService.getToken());
   }
-
 
   enviarHorariosNuevo(monitoria: Monitoria){
     let monitoriaNueva: Monitoria = new Monitoria();
