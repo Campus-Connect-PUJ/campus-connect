@@ -47,7 +47,7 @@ export class MonitoresPage implements OnInit {
       result => {
         this.monitores = result;
         //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
-        this.monitores = this.arreglarFechas(this.monitores);
+        //this.monitores = this.arreglarFechas(this.monitores);
         this.obtenerPuntajes(this.monitores)
         this.sugerenciasMonitores(this.monitores)
       },
