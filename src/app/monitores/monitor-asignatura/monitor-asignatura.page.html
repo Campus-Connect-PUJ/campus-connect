@@ -11,8 +11,8 @@
   <div id="Asignaturas">
     <ion-card class="Asignatura" *ngFor="let horario of horarios">
       <ion-card-header>
-        <h1>{{horario.fmtFInicial()}}</h1>
-        <h1>{{horario.fmtFFinal()}}</h1>
+        <h2>Inicio: {{convertir(horario.fechaInicial)}}</h2>
+        <h2>Fin: {{convertir(horario.fechaFinal)}}</h2>
         <h1>{{horario.lugar}}</h1>
       </ion-card-header>
     </ion-card>

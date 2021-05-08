@@ -47,12 +47,32 @@ export class MonitoresPage implements OnInit {
       result => {
         this.monitores = result;
         //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
+        this.monitores = this.arreglarFechas(this.monitores);
         this.obtenerPuntajes(this.monitores)
         this.sugerenciasMonitores(this.monitores)
       },
       error => console.log(error)
     )
   }
+
+
+  arreglarFechas(monitores: Array<UsuarioGeneral>){
+    console.log("entra");
+    for(let i=0; i<monitores.length; i++){
+      for(let j=0; j<monitores[i].monitorDe.length; j++){
+        for(let k=0; k<monitores[i].monitorDe[j].horarios.length; k++){
+          console.log("-", monitores[i].monitorDe[j].horarios[k].fechaInicial)
+          monitores[i].monitorDe[j].horarios[k].fechaInicial = moment(monitores[i].monitorDe[j].horarios[k].fechaInicial).subtract(Number(5),'hours').toDate();
+          monitores[i].monitorDe[j].horarios[k].fechaFinal = moment(monitores[i].monitorDe[j].horarios[k].fechaFinal).subtract(Number(5),'hours').toDate();
+          console.log(monitores[i].monitorDe[j].horarios[k].fechaInicial)
+        }
+      }
+    }
+
+    return monitores;
+  }
+
+
 
   buscarMonitores(event){
     const texto = event.target.value;

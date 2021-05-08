@@ -57,6 +57,7 @@ export class MonitorHorariosPage implements OnInit {
     this.usuarioService.getOtroUsuario(this.idMonitor).subscribe(
       (result: UsuarioGeneral) => {
         this.monitor = result;
+        this.arreglarFechas(this.monitor)
         this.sugerenciasHorariosMonitorias(this.monitor.monitorDe);
         this.obtenerAsignaturas(this.monitor);
         this.obtenerPuntajes(this.monitores);
@@ -207,6 +208,7 @@ export class MonitorHorariosPage implements OnInit {
     data.nombreAsignatura = datos.asignatura.nombre;
     data.fechaInicial = horario.fechaInicial;
     data.fechaFinal = horario.fechaFinal;
+    data.lugar = horario.lugar;
     console.log(data.fechaInicial.toLocaleString())
     if(this.horariosSugeridos.length==0){
       this.horariosSugeridos.push(data);
@@ -260,8 +262,25 @@ export class MonitorHorariosPage implements OnInit {
 
     }
     console.log("voto ", this.voto)
-    
+  }
 
+  convertir(fecha: Date): string{
+    const resultado: string = moment(fecha).format("DD-MMM-YYYY HH:mm");
+    return resultado;
+  }
+
+  arreglarFechas(monitor: UsuarioGeneral){
+    console.log("entra");
+
+      for(let j=0; j<monitor.monitorDe.length; j++){
+        for(let k=0; k<monitor.monitorDe[j].horarios.length; k++){
+          console.log("-", monitor.monitorDe[j].horarios[k].fechaInicial)
+          monitor.monitorDe[j].horarios[k].fechaInicial = moment(monitor.monitorDe[j].horarios[k].fechaInicial).subtract(Number(5),'hours').toDate();
+          monitor.monitorDe[j].horarios[k].fechaFinal = moment(monitor.monitorDe[j].horarios[k].fechaFinal).subtract(Number(5),'hours').toDate();
+          console.log(monitor.monitorDe[j].horarios[k].fechaInicial)
+        }
+      }
+    
   }
 
 }

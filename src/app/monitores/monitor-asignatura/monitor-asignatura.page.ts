@@ -38,7 +38,9 @@ export class MonitorAsignaturaPage implements OnInit {
                 this.monitor = this.monitores[i];
               }
             }
+            this.arreglarFechas(this.monitor)
             this.obtenerHorarios(this.monitor);
+            
             //this.sugerenciasHorariosMonitorias(this.monitor)
           },
           error => console.log(error)
@@ -86,4 +88,25 @@ export class MonitorAsignaturaPage implements OnInit {
     this.horarios = horariosOrdenados;
     console.log(this.horarios)
   }
+
+  convertir(fecha: Date): string{
+    const resultado: string = moment(fecha).format("DD-MMM-YYYY HH:mm");
+    return resultado;
+  }
+
+  
+  arreglarFechas(monitor: UsuarioGeneral){
+    console.log("entra");
+
+      for(let j=0; j<monitor.monitorDe.length; j++){
+        for(let k=0; k<monitor.monitorDe[j].horarios.length; k++){
+          console.log("-", monitor.monitorDe[j].horarios[k].fechaInicial)
+          monitor.monitorDe[j].horarios[k].fechaInicial = moment(monitor.monitorDe[j].horarios[k].fechaInicial).subtract(Number(5),'hours').toDate();
+          monitor.monitorDe[j].horarios[k].fechaFinal = moment(monitor.monitorDe[j].horarios[k].fechaFinal).subtract(Number(5),'hours').toDate();
+          console.log(monitor.monitorDe[j].horarios[k].fechaInicial)
+        }
+      }
+    
+  }
+
 }

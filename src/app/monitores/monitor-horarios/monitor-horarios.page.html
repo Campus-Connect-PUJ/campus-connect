@@ -58,8 +58,9 @@
         <h1>{{sugerencia.nombreAsignatura}}</h1>
       </ion-card-header>
       <ion-card-content>
-        <h2>Inicio: {{sugerencia.fmtFInicial()}}</h2>
-        <h2>Fin:{{sugerencia.fmtFInicial()}}</h2>
+        <h2>Inicio: {{convertir(sugerencia.fechaInicial)}}</h2>
+        <h2>Fin: {{convertir(sugerencia.fechaFinal)}}</h2>
+        <h2>Lugar: {{sugerencia.lugar}}</h2>
       </ion-card-content>
     </ion-card>
     </div>
