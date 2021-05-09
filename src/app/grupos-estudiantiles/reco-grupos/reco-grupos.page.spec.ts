@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import { RouterTestingModule } from "@angular/router/testing";
 
 import { RecoGruposPage } from './reco-grupos.page';
 
@@ -17,7 +17,8 @@ describe('RecoGruposPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RecoGruposPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RecoGruposPage);

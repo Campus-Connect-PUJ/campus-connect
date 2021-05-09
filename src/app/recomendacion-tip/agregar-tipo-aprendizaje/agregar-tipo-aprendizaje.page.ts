@@ -32,17 +32,21 @@ export class AgregarTipoAprendizajePage implements OnInit {
   }
 
   obtenerTiposDeAprendizajeUsuario(){
-
-    if (!this.usuario.estilosAprendizaje){
-      this.usuarioService.getUsuario().subscribe(
-        results => {
-          this.usuario = results;
-          this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
-        }, error => console.error(error)
-      )
-    } else {
-      this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
+    try {
+      if (!this.usuario.estilosAprendizaje){
+        this.usuarioService.getUsuario().subscribe(
+          results => {
+            this.usuario = results;
+            this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
+          }, error => console.error(error)
+        )
+      } else {
+        this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
+      }
+    } catch (error) {
+      console.error(error)
     }
+
 
   }
 

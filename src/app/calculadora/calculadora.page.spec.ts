@@ -5,6 +5,7 @@ import { CalculadoraPage } from './calculadora.page';
 
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('CalculadoraPage', () => {
   let component: CalculadoraPage;
@@ -15,7 +16,8 @@ describe('CalculadoraPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CalculadoraPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculadoraPage);

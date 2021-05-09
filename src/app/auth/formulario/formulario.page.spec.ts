@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormularioPage } from './formulario.page';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { RouterTestingModule } from "@angular/router/testing";
 
 
 describe('FormularioPage', () => {
@@ -15,7 +16,8 @@ describe('FormularioPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormularioPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormularioPage);

@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import { RouterTestingModule } from "@angular/router/testing";
 import { RecomendarRestaurantesPage } from './recomendar-restaurantes.page';
 
 describe('RecomendarRestaurantesPage', () => {
@@ -16,7 +16,8 @@ describe('RecomendarRestaurantesPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RecomendarRestaurantesPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RecomendarRestaurantesPage);
