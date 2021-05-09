@@ -24,7 +24,7 @@ export class actividad{
 
 export class FormularioPersoGruposPage implements OnInit {
 
-  //caracteristicasUsuario: Caracteristica[] = [];
+  caracteristicasDeUsuario: Caracteristica[] = [];
   tematicas: Tematica[]=[];
   caracteristicas: Caracteristica[]=[];
   actividades: actividad[] = [];
@@ -48,7 +48,7 @@ export class FormularioPersoGruposPage implements OnInit {
     
     try {
       this.usuario = this.loginService.getUser();
-      this.caracteristicasUsuario = this.usuario.caracteristicas;
+      this.caracteristicasDeUsuario = this.usuario.caracteristicas;
     } catch (error) {
       console.log(error)
     }
