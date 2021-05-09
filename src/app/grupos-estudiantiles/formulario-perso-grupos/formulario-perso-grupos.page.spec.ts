@@ -7,6 +7,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 
 import { FormularioPersoGruposPage } from './formulario-perso-grupos.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 describe('FormularioPersoGruposPage', () => {
   let component: FormularioPersoGruposPage;
@@ -18,7 +19,7 @@ describe('FormularioPersoGruposPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormularioPersoGruposPage ],
-      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes([]), HttpClientTestingModule]
+      imports: [PipesModule, IonicModule.forRoot(), RouterTestingModule.withRoutes([]), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormularioPersoGruposPage);

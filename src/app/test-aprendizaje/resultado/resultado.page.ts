@@ -19,9 +19,14 @@ export class ResultadoPage implements OnInit {
   ) { }
 
   ngOnInit() { 
-    this.usuario = this.loginService.getUser();
-    console.log(this.usuario)
-    this.estilosAprendizaje = this.usuario.estilosAprendizaje;
+    try {
+      this.usuario = this.loginService.getUser();
+      console.log(this.usuario)
+      this.estilosAprendizaje = this.usuario.estilosAprendizaje;
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
 }

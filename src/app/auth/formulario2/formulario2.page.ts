@@ -53,12 +53,18 @@ export class Formulario2Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    const postData = navigation.extras.state;
-    const datos = postData.postData;
+    try {
+      const navigation = this.router.getCurrentNavigation();
+      const postData = navigation.extras.state;
+      const datos = postData.postData;
+  
+      this.fechaNacimiento = datos.fechaNacimiento;
+      this.carreras = datos.carreras;
+    } catch (error) {
+      console.error(error)
+    }
 
-    this.fechaNacimiento = datos.fechaNacimiento;
-    this.carreras = datos.carreras;
+
   }
 
   onBirthChange(selectedValue: any) {

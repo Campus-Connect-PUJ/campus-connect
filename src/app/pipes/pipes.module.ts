@@ -47,4 +47,13 @@ import { FiltroMonitoresPipe } from './filtro-monitores.pipe';
     FiltroMonitoresPipe
   ]
 })
-export class PipesModule { }
+export class PipesModule {
+
+  static forRoot() {
+    return {
+        ngModule: PipesModule,
+        providers: [],
+    };
+ }
+
+ }

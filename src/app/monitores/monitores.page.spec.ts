@@ -6,6 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { MonitoresPage } from './monitores.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 describe('MonitoresPage', () => {
   let component: MonitoresPage;
@@ -17,7 +18,7 @@ describe('MonitoresPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MonitoresPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule.withRoutes([])]
+      imports: [PipesModule, IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MonitoresPage);

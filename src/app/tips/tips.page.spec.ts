@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from "@angular/router/testing";
 import { TipsPage } from './tips.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 describe('TipsPage', () => {
   let component: TipsPage;
@@ -16,7 +17,7 @@ describe('TipsPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TipsPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule.withRoutes([])]
+      imports: [PipesModule, IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TipsPage);

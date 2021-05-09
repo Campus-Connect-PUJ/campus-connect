@@ -6,6 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { RecoGruposPage } from './reco-grupos.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 describe('RecoGruposPage', () => {
   let component: RecoGruposPage;
@@ -17,7 +18,7 @@ describe('RecoGruposPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RecoGruposPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule,
+      imports: [PipesModule, IonicModule.forRoot(), HttpClientTestingModule,
         RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
@@ -28,6 +29,7 @@ describe('RecoGruposPage', () => {
     httpMock = TestBed.get(HttpTestingController);
     httpClient = TestBed.inject(HttpClient)
   }));
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

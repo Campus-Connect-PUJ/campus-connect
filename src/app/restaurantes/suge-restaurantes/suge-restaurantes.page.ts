@@ -30,10 +30,14 @@ export class SugeRestaurantesPage implements OnInit {
   }
 
   verificarUsuario() {
-    if(this.usuario.comidaFav.length===0){
-      this.openModal();
-    }else{
-      this.findRestaurantes();
+    try {
+      if(this.usuario.comidaFav.length===0){
+        this.openModal();
+      }else{
+        this.findRestaurantes();
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 

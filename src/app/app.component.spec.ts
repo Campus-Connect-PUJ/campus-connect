@@ -44,18 +44,5 @@ describe('AppComponent', () => {
     expect(splashScreenSpy.hide).toHaveBeenCalled();
   });
 
-  it('should have menu labels', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-label');
-  });
-
-  it('should have urls', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-item');
-  });
 
 });

@@ -15,6 +15,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class FormularioPersoRestaurantesPage implements OnInit {
 
+  comidaFav: TipoComida[]=[];
   regimenes : RegimenAlimenticio[]=[];
   comidas: TipoComida[]=[];
 
@@ -23,7 +24,7 @@ export class FormularioPersoRestaurantesPage implements OnInit {
   nivelExigencia=0;
   ambientacion='';
 
-  usuario: UsuarioGeneral;
+  usuario: UsuarioGeneral = new UsuarioGeneral(" "," ", " ");;
 
   constructor(
     private loginService: LoginService,
@@ -33,11 +34,18 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     private usuarioSer: UsuarioGeneralService,
     public toastCtrl: ToastController,
     public alertController: AlertController) {
-
-    this.usuario = this.loginService.getUser();
+    
+    try {
+      this.usuario = this.loginService.getUser();
+      this.comidaFav = this.usuario.comidaFav;
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   ngOnInit() {
+
     this.findRegimenes();
     this.findComida();
   }
@@ -129,4 +137,5 @@ export class FormularioPersoRestaurantesPage implements OnInit {
     });
     await alert.present();
   }
+  
 }
