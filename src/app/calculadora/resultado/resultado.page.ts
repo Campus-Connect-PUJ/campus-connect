@@ -75,7 +75,7 @@ export class ResultadoPage implements OnInit {
       this.indice = Number(recipeId);
 
       if(recipeId != null){
-        this.notasMostrar = this.calculadoraService.findNotas(this.indice);
+        this.notasMostrar = this.calculadoraService.buscarNotas(this.indice);
         this.porcentajeFaltante = 100-this.notasMostrar.porcentajeActual;
         this.notaFaltante = this.notasMostrar.notaEsperada - this.notasMostrar.notaActual;
         this.notaEsperada = this.notasMostrar.notaEsperada;
