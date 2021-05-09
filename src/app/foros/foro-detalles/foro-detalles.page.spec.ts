@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import { RouterTestingModule } from "@angular/router/testing";
 
 import { ForoDetallesPage } from './foro-detalles.page';
 
@@ -17,7 +17,7 @@ describe('ForoDetallesPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ForoDetallesPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ForoDetallesPage);

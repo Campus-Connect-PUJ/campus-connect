@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from "@angular/router/testing";
 import { MapaRutaPage } from './mapa-ruta.page';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('MapaRutaPage', () => {
   let component: MapaRutaPage;
@@ -10,7 +12,7 @@ describe('MapaRutaPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MapaRutaPage ],
-      imports: [IonicModule.forRoot(), 
+      imports: [IonicModule.forRoot(), HttpClientTestingModule, 
         RouterTestingModule.withRoutes([])]
     }).compileComponents();
 

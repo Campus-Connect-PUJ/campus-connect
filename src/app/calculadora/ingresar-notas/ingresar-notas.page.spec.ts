@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { IngresarNotasPage } from './ingresar-notas.page';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-
+import { RouterTestingModule } from "@angular/router/testing";
 describe('IngresarNotasPage', () => {
   let component: IngresarNotasPage;
   let fixture: ComponentFixture<IngresarNotasPage>;
@@ -15,7 +15,8 @@ describe('IngresarNotasPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ IngresarNotasPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule,   
+        RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(IngresarNotasPage);

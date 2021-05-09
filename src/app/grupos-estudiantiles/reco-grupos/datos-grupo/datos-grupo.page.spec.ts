@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import { RouterTestingModule } from "@angular/router/testing";
 import { DatosGrupoPage } from './datos-grupo.page';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('DatosGrupoPage', () => {
   let component: DatosGrupoPage;
@@ -10,7 +12,7 @@ describe('DatosGrupoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DatosGrupoPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), , HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DatosGrupoPage);

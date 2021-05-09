@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import { RouterTestingModule } from "@angular/router/testing";
 import { FormularioPersoRestaurantesPage } from './formulario-perso-restaurantes.page';
 
 describe('FormularioPersoRestaurantesPage', () => {
@@ -16,7 +16,7 @@ describe('FormularioPersoRestaurantesPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormularioPersoRestaurantesPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes([]), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormularioPersoRestaurantesPage);

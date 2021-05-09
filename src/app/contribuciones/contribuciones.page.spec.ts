@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-
+import { RouterTestingModule } from "@angular/router/testing";
 import { ContribucionesPage } from './contribuciones.page';
 
 describe('ContribucionesPage', () => {
@@ -16,7 +16,7 @@ describe('ContribucionesPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ContribucionesPage ],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule]
+      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes([]), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContribucionesPage);
