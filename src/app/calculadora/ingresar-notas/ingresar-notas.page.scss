@@ -50,8 +50,10 @@
     margin-top: 10%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    //align-items: center;
+    //justify-content: center;
+    padding-left: 22.5%;
+    padding-right: 22.5%;
 }
 
 #textoInput{
@@ -92,7 +94,7 @@ ion-button{
 }
 
 .tarjeta{
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.85);
     margin: 25px;
     -moz-border-radius: 10px;
@@ -105,11 +107,38 @@ ion-button{
 
 .Notas{
     margin-bottom: 25px;
-    justify-content: center;
+    //justify-content: center;
 }
 
 .boton{
     display: flex;
     justify-content: center;
-    height: 100px  !important;
+}
+
+
+
+.columna1{
+    display: flex;
+    flex-direction: row;
+}
+
+.columnaTitulos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h5{
+        font-size: 15px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+.columnas{
+    display: flex;
+    flex-direction: row;
+    --width: 60% !important;
+    min-width: 80%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    justify-content: space-between;
 }
