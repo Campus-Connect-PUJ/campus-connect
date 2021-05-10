@@ -60,7 +60,8 @@ export class MonitorHorariosPage implements OnInit {
         this.arreglarFechas(this.monitor)
         this.sugerenciasHorariosMonitorias(this.monitor.monitorDe);
         this.obtenerAsignaturas(this.monitor);
-        this.obtenerPuntajes(this.monitores);
+
+        this.obtenerPuntajes(this.monitor);
       },
       error => console.log(error)
     )
@@ -100,18 +101,22 @@ export class MonitorHorariosPage implements OnInit {
     return monitoresOrdenados;
   }
 
-  obtenerPuntajes(monitores: Array<UsuarioGeneral>){
+  obtenerPuntajes(monitor: UsuarioGeneral){
     let sumaTotal = 0;
     let cantidadVotos = 0;
-    for(let i=0; i<monitores.length; i++){
-      for(let j=0; j<monitores[i].monitorDe.length; j++){
-        cantidadVotos += monitores[i].monitorDe[j].cantidadVotos;
-        sumaTotal += monitores[i].monitorDe[j].calificacion;
-      }
-      monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
-    }
+    console.log(monitor)
 
-    return monitores;
+      
+      for(let j=0; j<monitor.monitorDe.length; j++){
+        
+        cantidadVotos += monitor.monitorDe[j].cantidadVotos;
+        sumaTotal += monitor.monitorDe[j].calificacion;
+      }
+      monitor.puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
+    
+    
+
+    return monitor;
   }
 
 
