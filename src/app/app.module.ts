@@ -26,8 +26,7 @@ import { FiltroForosPipe } from './pipes/filtro-foros.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    GruposEstudiantilesComponent, 
-    FiltroForosPipe
+    GruposEstudiantilesComponent
   ],
   entryComponents: [
     //RecoGruposPage,
