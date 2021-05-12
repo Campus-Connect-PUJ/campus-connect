@@ -8,7 +8,11 @@ export class RespuestaForo {
     usuario: UsuarioGeneral;
     puntaje: number;
     idForoRespondido: number;
+    usuariosGustaron: UsuarioGeneral[];
+    usuariosNoGustaron: UsuarioGeneral[];
     constructor(){
       this.reportado = false;
+      this.usuariosGustaron = Array<UsuarioGeneral>();
+      this.usuariosNoGustaron = Array<UsuarioGeneral>();
     }
   }
