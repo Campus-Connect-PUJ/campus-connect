@@ -104,18 +104,15 @@ export class MonitorHorariosPage implements OnInit {
   obtenerPuntajes(monitor: UsuarioGeneral){
     let sumaTotal = 0;
     let cantidadVotos = 0;
-    console.log(monitor)
+    console.log(monitor);
 
-      
-      for(let j=0; j<monitor.monitorDe.length; j++){
-        
-        cantidadVotos += monitor.monitorDe[j].cantidadVotos;
-        sumaTotal += monitor.monitorDe[j].calificacion;
-      }
-      monitor.puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2); ;
-    
-    
-
+    for (let j = 0; j < monitor.monitorDe.length; j++) {
+      cantidadVotos += monitor.monitorDe[j].cantidadVotos;
+      sumaTotal += monitor.monitorDe[j].calificacion;
+      console.log(">>> ", cantidadVotos, " ", sumaTotal)
+    }
+    monitor.puntajeTotal = +(sumaTotal / cantidadVotos).toFixed(2);
+    console.log("el puntaje ", monitor.puntajeTotal)
     return monitor;
   }
 

@@ -15,6 +15,10 @@ export class MonitorAsignaturaPage implements OnInit {
   idMonitor = 0;
   monitores: Array<UsuarioGeneral> = [];
   monitor: UsuarioGeneral = new UsuarioGeneral(" ", " ", " ");
+  voto = 0;
+  errorSi = false;
+  idMonitoria = 0;
+  puntajeAsignatura = 0;
 
   horariosSugeridos: Horario[] = [];
   horarios: Horario[] = [];
@@ -38,6 +42,7 @@ export class MonitorAsignaturaPage implements OnInit {
                 this.monitor = this.monitores[i];
               }
             }
+            this.idMonitoria = +recipeId2;
             this.arreglarFechas(this.monitor)
             this.obtenerHorarios(this.monitor);
             
@@ -52,14 +57,35 @@ export class MonitorAsignaturaPage implements OnInit {
     })
   }
 
+  enviarVoto(){
+    if(this.voto > 5 || this.voto <= 0){
+      this.errorSi = true;
+    }
+    else{
+      this.errorSi = false;
+      console.log("A la monitoria ", this.idMonitoria, " el voto ", this.voto)
+      this.monService.votarMonitor(this.idMonitoria, this.voto).subscribe(
+        result => {
+          console.log(result)
+          //this.iniciarMonitor()
+        },
+        error => console.log(error)
+      )
+
+    }
+    console.log("voto ", this.voto)
+  }
+
   obtenerHorarios(monitor: UsuarioGeneral){
     let indice = 0;
+    console.log(this.idMonitoria)
     for(let i=0; i<monitor.monitorDe.length; i++){
-      if(monitor.monitorDe[i].asignatura.id == +this.idMonitor){
+      if(monitor.monitorDe[i].asignatura.id == +this.idMonitoria){
         indice = i;
       }
     }
-
+    this.idMonitoria = monitor.monitorDe[indice].id;
+    this.obtenerPuntajes(monitor, indice);
     for(let i=0; i<monitor.monitorDe[indice].horarios.length; i++){
       let data: Horario = new Horario();
       data.id = monitor.monitorDe[indice].horarios[i].id;
@@ -68,7 +94,7 @@ export class MonitorAsignaturaPage implements OnInit {
       data.lugar = monitor.monitorDe[indice].horarios[i].lugar;
       this.horarios.push(data);
     }
-
+    
     this.ordenarHorarios();
   }
 
@@ -100,13 +126,24 @@ export class MonitorAsignaturaPage implements OnInit {
 
       for(let j=0; j<monitor.monitorDe.length; j++){
         for(let k=0; k<monitor.monitorDe[j].horarios.length; k++){
-          console.log("-", monitor.monitorDe[j].horarios[k].fechaInicial)
           monitor.monitorDe[j].horarios[k].fechaInicial = moment(monitor.monitorDe[j].horarios[k].fechaInicial).subtract(Number(5),'hours').toDate();
           monitor.monitorDe[j].horarios[k].fechaFinal = moment(monitor.monitorDe[j].horarios[k].fechaFinal).subtract(Number(5),'hours').toDate();
-          console.log(monitor.monitorDe[j].horarios[k].fechaInicial)
         }
       }
     
+  }
+
+  obtenerPuntajes(monitor: UsuarioGeneral, id: number){
+    let sumaTotal = 0;
+    let cantidadVotos = 0;
+
+    console.log(monitor)
+    cantidadVotos += monitor.monitorDe[id].cantidadVotos;
+    sumaTotal += monitor.monitorDe[id].calificacion;
+    console.log("cantidad votos ", cantidadVotos, " ", sumaTotal)
+    this.puntajeAsignatura = +(sumaTotal / cantidadVotos).toFixed(2);
+    console.log("el puntaje ", this.puntajeAsignatura)
+    return monitor;
   }
 
 }

@@ -8,6 +8,19 @@
 </ion-header>
 
 <ion-content>
+      <div id="texto">
+      <h1>Votar monitor</h1>
+    </div>
+    <div id="formEnviar">
+      <ion-input [(ngModel)]="voto"></ion-input>
+      <ion-button (click)="enviarVoto()">Enviar voto</ion-button>
+      <div id="aparecer" *ngIf="errorSi">
+        <h3>El valor debe estar entre 1 y 5</h3>
+    </div>
+
+		<h1>Puntaje asignatura {{puntajeAsignatura}}</h1>
+  </div>
+
   <div id="Asignaturas">
     <ion-card class="Asignatura" *ngFor="let horario of horarios">
       <ion-card-header>

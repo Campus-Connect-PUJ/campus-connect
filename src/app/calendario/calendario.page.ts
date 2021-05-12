@@ -429,6 +429,7 @@ export class CalendarioPage implements OnInit {
     let monitoriaNueva: Monitoria = new Monitoria();
     monitoriaNueva.asignatura = monitoria.asignatura;
     
+    console.log(this.eventosNuevos)
     for(let i=0; i<this.eventosNuevos.length; i++){
       let horario = new Horario();
       horario.fechaInicial = this.eventosNuevos[i].startTime;
@@ -446,6 +447,7 @@ export class CalendarioPage implements OnInit {
       )
       
     }
+    this.eventosNuevos = [];
     localStorage.removeItem("nuevosEventos");
   }
 

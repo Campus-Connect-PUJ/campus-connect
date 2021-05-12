@@ -180,6 +180,8 @@ export class MonitoresPage implements OnInit {
         sumaTotal += monitores[i].monitorDe[j].calificacion;
       }
       monitores[i].puntajeTotal = +(sumaTotal/cantidadVotos).toFixed(2);
+      cantidadVotos = 0;
+      sumaTotal = 0;
     }
     return monitores;
   }

@@ -1,13 +1,8 @@
 <ion-header>
   <ion-toolbar>
-
-      <ion-buttons class="header_btn"
-                 slot="secondary">
-      <ion-button
-        href="/monitores">
-        <ion-icon slot="icon-only"
-                  name="arrow-back"
-        ></ion-icon>
+    <ion-buttons class="header_btn" slot="secondary">
+      <ion-button href="/monitores">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -16,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="datosMonitor"> 
+  <div class="datosMonitor">
     <h1>{{monitor.nombre}} {{monitor.apellido}}</h1>
     <h2>{{monitor.email}}</h2>
     <h2>Semestre: {{monitor.semestre}}</h2>
@@ -28,41 +23,40 @@
       </ion-item>
     </div>
 
-    <div id="texto">
-      <h1>Votar monitor</h1>
-    </div>
-    <div id="formEnviar">
 
-      <ion-input  [(ngModel)]="voto"></ion-input>
-      <ion-button (click)="enviarVoto()">Enviar voto</ion-button>
-      <div id="aparecer" *ngIf="errorSi">
-        <h3>El valor debe estar entre 1 y 5</h3>
-      </div>
-    </div>
   </div>
 
-
   <div id="Sugerencias">
-    
-
     <div class="existeSugerencia" *ngIf="horariosSugeridos.length > 0">
-    <h1>Monitorias del recomendadas</h1>
-    <ion-item no-lines class="seleccionarSugerencias">
-      <h2>Cantidad sugerencias</h2>
-        <ion-select no-lines interface="popover" [(ngModel)]="cantidadDeSugerenciasSeleccionadas" cancelText="cancel" okText="ok" (ionChange)="limitarSugerencias()"> 
-        <ion-select-option no-lines *ngFor="let nivel of cantidadDeSugerencias" [value]="nivel">{{nivel}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-card class="Sugerencia" *ngFor="let sugerencia of horariosLimitados">
-      <ion-card-header>
-        <h1>{{sugerencia.nombreAsignatura}}</h1>
-      </ion-card-header>
-      <ion-card-content>
-        <h2>Inicio: {{convertir(sugerencia.fechaInicial)}}</h2>
-        <h2>Fin: {{convertir(sugerencia.fechaFinal)}}</h2>
-        <h2>Lugar: {{sugerencia.lugar}}</h2>
-      </ion-card-content>
-    </ion-card>
+      <h1>Monitorias del recomendadas</h1>
+      <ion-item no-lines class="seleccionarSugerencias">
+        <h2>Cantidad sugerencias</h2>
+        <ion-select
+          no-lines
+          interface="popover"
+          [(ngModel)]="cantidadDeSugerenciasSeleccionadas"
+          cancelText="cancel"
+          okText="ok"
+          (ionChange)="limitarSugerencias()"
+        >
+          <ion-select-option
+            no-lines
+            *ngFor="let nivel of cantidadDeSugerencias"
+            [value]="nivel"
+            >{{nivel}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-card class="Sugerencia" *ngFor="let sugerencia of horariosLimitados">
+        <ion-card-header>
+          <h1>{{sugerencia.nombreAsignatura}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Inicio: {{convertir(sugerencia.fechaInicial)}}</h2>
+          <h2>Fin: {{convertir(sugerencia.fechaFinal)}}</h2>
+          <h2>Lugar: {{sugerencia.lugar}}</h2>
+        </ion-card-content>
+      </ion-card>
     </div>
 
     <ion-card class="SinSugerencias" *ngIf="horariosSugeridos.length == 0">
@@ -70,16 +64,16 @@
     </ion-card>
   </div>
 
-
-
-<h1>Todas las monitorias</h1>
+  <h1>Todas las monitorias</h1>
   <div id="Asignaturas">
-    <ion-card class="Asignatura" *ngFor="let asignatura of asignaturas" [routerLink]="['/monitores/horarios-monitor/', monitor.id, 'monitor-asignatura', asignatura.asignatura.id]">
+    <ion-card
+      class="Asignatura"
+      *ngFor="let asignatura of asignaturas"
+      [routerLink]="['/monitores/horarios-monitor/', monitor.id, 'monitor-asignatura', asignatura.asignatura.id]"
+    >
       <ion-card-header>
         <h1>{{asignatura.asignatura.nombre}}</h1>
       </ion-card-header>
     </ion-card>
   </div>
-
-
 </ion-content>
