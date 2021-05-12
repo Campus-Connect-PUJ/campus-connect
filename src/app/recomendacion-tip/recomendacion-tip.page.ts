@@ -73,14 +73,22 @@ export class RecomendacionTipPage implements OnInit {
     this.user = this.loginService.getUser();
     if(voto == 1){
       this.tipsService.agregarTipGustado(this.tipRecomendado.id).subscribe(
-        results => {this.obtenerTipRecomendado()},
+        results => {
+          this.obtenerTipRecomendado()
+          this.user.tipsGustados.push(this.tipRecomendado)
+          this.loginService.storeUser(this.user, this.loginService.getToken())
+        },
         error => console.error(error)
       )
       
     }
     else{ 
       this.tipsService.agregarTipNoGustado(this.tipRecomendado.id).subscribe(
-        results => {this.obtenerTipRecomendado()},
+        results => {
+          this.obtenerTipRecomendado()
+          this.user.tipsNoGustados.push(this.tipRecomendado)
+          this.loginService.storeUser(this.user, this.loginService.getToken())
+        },
         error => console.error(error)
       )
     }

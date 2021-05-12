@@ -80,10 +80,14 @@ export class TipDetallesPage implements OnInit {
         },
         error => console.error(error)
       )
-      this.user.tipsGustados.push(this.tip);
-      this.tip.puntaje = this.tip.puntaje + operacion;
+
       if(this.existeTip(this.user.tipsNoGustados, this.tip)){
         this.user.tipsNoGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+        this.tip.puntaje = this.tip.puntaje+1;
+      }
+      else{
+        this.user.tipsGustados.push(this.tip);
+        this.tip.puntaje = this.tip.puntaje+1;
       }
     }
     else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
@@ -91,10 +95,14 @@ export class TipDetallesPage implements OnInit {
         results => console.log(results),
         error => console.error(error)
       )
-      this.user.tipsNoGustados.push(this.tip);
-      this.tip.puntaje = this.tip.puntaje + operacion;
+
       if(this.existeTip(this.user.tipsGustados, this.tip)){
-        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsGustados, this.tip), 1)
+        this.tip.puntaje = this.tip.puntaje - 1;
+      }
+      else{
+        this.user.tipsNoGustados.push(this.tip);
+        this.tip.puntaje = this.tip.puntaje - 1;
       }
     }
     else{
