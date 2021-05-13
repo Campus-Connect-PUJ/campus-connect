@@ -476,3 +476,14 @@ ion-card-content{
     padding-bottom: 5%;
     justify-content: space-between;
 }
+
+.texto{
+    border-radius: 15px; 
+    margin: 5%;
+    align-items: center;
+    justify-content: center;
+    h2{
+        font-size: 15px;
+        text-align: justify;
+    }
+}

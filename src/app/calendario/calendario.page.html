@@ -22,11 +22,14 @@
         <ion-card-title>Nuevo evento</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard">
+        <div id="texto">
+          <h2><span style="font-size: 15px; display:block; text-align: justify;">
+            Agregar un solo evento con una duración especifica
+          </span></h2>
+          <br/>
+        </div>
         <ion-item>
-          <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
+          <ion-input type="text" placeholder="Titulo" [(ngModel)]="event.title"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Inicio</ion-label>
@@ -40,7 +43,7 @@
           <ion-label>Todo el dia</ion-label>
           <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
         </ion-item>
-        <ion-button fill="outline" expand="block" (click)="addEvent()">Agregar evento</ion-button>
+        <ion-button fill="outline" expand="block" (click)="addEvent(); collapseCard = !collapseCard" [disabled]="event.title == ''">Agregar evento</ion-button>
       </ion-card-content>
     </ion-card>
 
@@ -49,11 +52,14 @@
         <ion-card-title>Nueva Asignatura</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard2">
+        <div id="texto">
+          <h2><span style="font-size: 15px; display:block; text-align: justify;">
+            Agregar una evento de manera semanal desde y hasta las fechas seleccionadas a la misma hora
+          </span></h2>
+          <br/>
+        </div>
         <ion-item>
-          <ion-input type="text" placeholder="Title" [(ngModel)]="event2.title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="Description" [(ngModel)]="event2.desc"></ion-input>
+          <ion-input type="text" placeholder="Titulo" [(ngModel)]="event2.title"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Dia inicio</ion-label>
@@ -73,7 +79,7 @@
         </ion-item>
 
 
-        <ion-button fill="outline" expand="block" (click)="addEventMateria()" [disabled]="event2.title == ''">Agregar evento</ion-button>
+        <ion-button fill="outline" expand="block" (click)="addEventMateria(); collapseCard2 = !collapseCard2" [disabled]="event2.title == ''">Agregar evento</ion-button>
       </ion-card-content>
     </ion-card>
 
@@ -84,6 +90,12 @@
         <ion-card-title>Nueva monitoria</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard3">
+        <div id="texto">
+          <h2><span style="font-size: 13px; display:block; text-align: justify;">
+            Agregar una monitoria de manera semanal desde y hasta las fechas seleccionadas a la misma hora. Los demas usuarios podran ver esta información
+          </span></h2>
+          <br/>
+        </div>
         <ion-item>
           <ion-label>Dia inicio</ion-label>
           <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="event2.startTime"></ion-datetime>

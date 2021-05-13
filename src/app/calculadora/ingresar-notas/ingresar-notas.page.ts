@@ -63,7 +63,7 @@ export class IngresarNotasPage implements OnInit {
   definirCantidadDeNotas(){
     for (let i = 0; i < this.cantidadDeNotas && this.cantidadDeNotas != this.notas.length; i++) {
       this.notas.push({
-        notaObtenida: -1,
+        notaObtenida: 0,
         porcentaje: 0
       })      
     }
@@ -109,7 +109,7 @@ export class IngresarNotasPage implements OnInit {
     this.realizarCiclo();
     
     for(let i=0; i<this.ciclo; i++){
-      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1 && this.notas[i].porcentaje != 0){
+      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != 0 && this.notas[i].porcentaje != 0){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
         this.notaActual = parseFloat(this.notaActual.toFixed(3))
         this.porcentajeActual = this.notas[i].porcentaje + this.porcentajeActual;

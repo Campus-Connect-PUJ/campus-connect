@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./materias.page.scss'],
 })
 export class MateriasPage {
-  materias: NotasMateria[];
+  materias: NotasMateria[] = [];
 
   constructor(
           private calculadoraService: CalculadoraService,
