@@ -99,7 +99,7 @@ export class TestAprendizajePage implements OnInit {
     this.usuario = this.loginService.getUser();
 
     for(let i=0; i<estilosAprendizaje.length; i++){
-      if(estilosAprendizaje[i].cantidad > 4){
+      if(estilosAprendizaje[i].cantidad >= estilosAprendizaje[1].cantidad){
         for(let j=0; j<this.aprendizajesExistentes.length; j++){
           if(this.aprendizajesExistentes[j].descripcion == estilosAprendizaje[i].letra){
             idEstilos.push(this.aprendizajesExistentes[j].id);
@@ -122,10 +122,6 @@ export class TestAprendizajePage implements OnInit {
           }
         }
       }
-
-      if(i == estilosAprendizaje.length-1 && idEstilos.length == 0){
-        idEstilos.push(1);
-      } 
     }
     console.log("Ids -> ", idEstilos)
     this.guardarTipoAprendizaje(idEstilos);

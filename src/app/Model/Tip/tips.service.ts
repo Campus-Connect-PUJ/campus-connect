@@ -23,7 +23,7 @@ export class TipsService {
 
   createTip(tipEnviar: Tip) {
     const url = `${environment.baseUrl}/tip`;
-    
+    console.log(tipEnviar)
     return this.net.post(
       url,
       {

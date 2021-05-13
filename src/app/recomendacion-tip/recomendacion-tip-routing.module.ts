@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'agregar-tipo-aprendizaje',
     loadChildren: () => import('./agregar-tipo-aprendizaje/agregar-tipo-aprendizaje.module').then( m => m.AgregarTipoAprendizajePageModule)
   },
+  {
+    path: 'estilos',
+    loadChildren: () => import('./estilos/estilos.module').then( m => m.EstilosPageModule)
+  },
 
 
 
