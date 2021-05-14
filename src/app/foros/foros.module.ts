@@ -9,6 +9,7 @@ import { ForosPageRoutingModule } from './foros-routing.module';
 import { ForosPage } from './foros.page';
 import { OpcionesComponent } from '../opciones/opciones.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { FiltroForosPipe } from '../pipes/filtro-foros.pipe';
 
 @NgModule({
   imports: [
@@ -16,8 +17,9 @@ import { PipesModule } from '../pipes/pipes.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ForosPageRoutingModule
+    ForosPageRoutingModule,
+    FiltroForosPipe
   ],
-  declarations: [ForosPage, OpcionesComponent]
+  declarations: [ForosPage, OpcionesComponent, FiltroForosPipe]
 })
 export class ForosPageModule {}

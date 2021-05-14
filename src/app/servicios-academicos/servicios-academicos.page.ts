@@ -39,12 +39,14 @@ export class ServiciosAcademicosPage implements OnInit {
 
   mostrarChat(){
     const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    
     /*
     let shadow = element[0].shadowRoot;
     element[0].attachShadow({mode:"open"})
     shadow = element[0].shadowRoot;
     console.log("->", shadow);
     */
+
     element[0].style.display = 'flex';
     
   }

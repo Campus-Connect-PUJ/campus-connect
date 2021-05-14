@@ -30,11 +30,16 @@ export class SugeGruposPage implements OnInit {
   }
 
   verificarUsuario() {
-    if(this.usuario.caracteristicas.length===0){
-      this.openModal();
-    }else{
-      this.findGrupos();
+    try {
+      if(this.usuario.caracteristicas.length===0){
+        this.openModal();
+      }else{
+        this.findGrupos();
+      }
+    } catch (error) {
+      console.error(error);
     }
+
   }
 
   findGrupos() {

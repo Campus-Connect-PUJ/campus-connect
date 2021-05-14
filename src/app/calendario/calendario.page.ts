@@ -452,8 +452,9 @@ export class CalendarioPage implements OnInit {
 
 
   cargarEventos(){
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email))
+   
     try {
+      this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email))
       for(let i=0; i<this.eventos.length; i++){
         let eventCopy: evento = new evento();
 
@@ -474,13 +475,14 @@ export class CalendarioPage implements OnInit {
         }
         this.eventSource.push(eventCopy);
       }
+      localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
+
     } catch (error) {
       console.log("nada")
     }
 
     //console.log(this.eventSource);
     //localStorage.removeItem("eventos");
-    localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
     //this.myCal.loadEvents();
   }

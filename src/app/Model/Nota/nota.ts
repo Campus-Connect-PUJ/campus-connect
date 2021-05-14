@@ -3,9 +3,12 @@ export interface Nota{
     notaEsperada: number;
 }
 
-export interface NotaConPorcentaje{
+export class NotaConPorcentaje{
     notaObtenida: number;
     porcentaje: number;
+    constructor(){
+        
+    }
 }
 
 export class NotasMateria{

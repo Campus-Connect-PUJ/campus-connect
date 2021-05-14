@@ -129,12 +129,17 @@ export class CalculadoraService {
   }
 
   public load(): NotasMateria[] {
-
-  const elemento = JSON.parse(
+  try {
+    const elemento = JSON.parse(
       localStorage.getItem("Materias" + this.loginService.getUser().email)
     );
-
     return elemento;
+  } catch (error) {
+    
+  }
+
+
+    
   }
   
   public findNotas(id){

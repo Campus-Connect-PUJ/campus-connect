@@ -24,6 +24,7 @@ export class actividad{
 
 export class FormularioPersoGruposPage implements OnInit {
 
+  caracteristicasDeUsuario: Caracteristica[] = [];
   tematicas: Tematica[]=[];
   caracteristicas: Caracteristica[]=[];
   actividades: actividad[] = [];
@@ -32,7 +33,7 @@ export class FormularioPersoGruposPage implements OnInit {
   tematicasUsuario: Tematica[]=[];
   caracteristicasUsuario: Caracteristica[]=[];
 
-  usuario: UsuarioGeneral;
+  usuario: UsuarioGeneral = new UsuarioGeneral(" "," ", " ");
 
   textoBuscar='';
 
@@ -44,8 +45,14 @@ export class FormularioPersoGruposPage implements OnInit {
     private usuarioSer: UsuarioGeneralService,
     public toastCtrl: ToastController,
     public alertController: AlertController) {
-    this.usuario = this.loginService.getUser();
-
+    
+    try {
+      this.usuario = this.loginService.getUser();
+      this.caracteristicasDeUsuario = this.usuario.caracteristicas;
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   ngOnInit() {

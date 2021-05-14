@@ -1,21 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from "@angular/router/testing";
 import { SugerenciasPrincipalPage } from './sugerencias-principal.page';
 
 describe('SugerenciasPrincipalPage', () => {
   let component: SugerenciasPrincipalPage;
   let fixture: ComponentFixture<SugerenciasPrincipalPage>;
 
-  beforeEach(async(() => {
+  let httpMock: HttpTestingController;
+  let httpClient: HttpClient;
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SugerenciasPrincipalPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes([]), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SugerenciasPrincipalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
+    httpMock = TestBed.get(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient)
   }));
 
   it('should create', () => {

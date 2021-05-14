@@ -1,7 +1,9 @@
-import { Nota, NotasMateria } from './nota';
+import { Nota, NotasMateria, NotaConPorcentaje } from './nota';
 
 describe('Nota', () => {
   it('should create an instance', () => {
-    expect(new Nota()).toBeTruthy();
+    const notaConPorcentaje = Array<NotaConPorcentaje>();
+    const nota = new NotasMateria("nombre", 0, notaConPorcentaje , 5, 100);
+    expect(nota).toBeTruthy();
   });
 });
