@@ -51,7 +51,7 @@ export class ForoCrearPage implements OnInit {
     else if(this.titulo.length>=50){
       await this.alertaElementoNoSeleccionado(
         "Titulo",
-        "Titulo demasiado extenso"
+        "Titulo demasiado extenso (max 50)"
       );
     }
     else{
@@ -76,19 +76,13 @@ export class ForoCrearPage implements OnInit {
           error => console.error(error)
         )
     }
-
-
-
-
-
-    
   }
 
   async presentToast(mensaje){
     const toast = await this.toastCtrl.create(
       {
         message: mensaje,
-        duration: 3000
+        duration: 1500
       }
     );
     toast.present();

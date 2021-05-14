@@ -45,9 +45,8 @@ export class ForosPage implements OnInit {
 
   organizarForos(foros){
     let forosOrdenados = foros;
-
     forosOrdenados.sort(function (a, b) {
-      if (a.puntaje > b.puntaje) {
+      if (a.usuariosgus > b.puntaje) {
         return -1;
       }
       if (a.puntaje < b.puntaje) {

@@ -17,7 +17,7 @@
     <div class="cuadroTextoDescripcion">
       <div id="texto">
           <h2>En esta sección podra ver y eliminar los tips creados por el usuario</h2>
-          <h2>Deslizar para actualizar</h2>
+          <h2>Deslizar hacia la izquierda para eliminar</h2>
       </div>
     </div>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -28,18 +28,13 @@
 
       <ion-item-sliding *ngFor = "let tip of tips; let indice=index">
         <ion-item [routerLink]="['/tips', tip.id]">
-          <ion-card-header>
 
-            <div class="separacion">
-              <ion-card-header>
-                {{tip.descripcion}}
-              </ion-card-header>
-              <ion-card-content>
-                <h2># {{tip.id}}</h2>
-                <h2>Puntaje: {{tip.puntaje}}</h2>
-              </ion-card-content>
+            <div class="contribucionesTexto">
+                <h1>{{tip.descripcion}}</h1>
+                <h3># {{tip.id}}</h3>
+                <h3>Puntaje: {{tip.puntaje}}</h3>
             </div>
-          </ion-card-header>
+
         </ion-item>
 
         <ion-item-options id="end" side="end">

@@ -42,6 +42,7 @@ export class RespuestasForoPage implements OnInit {
       result => {
         this.respuestasUsuario = result
         this.usuario = this.loginService.getUser();
+        console.log(this.respuestasUsuario)
       },
       error => console.log(error)
     );

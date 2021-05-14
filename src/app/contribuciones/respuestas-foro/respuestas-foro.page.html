@@ -18,8 +18,8 @@
   <div class="content">
     <div class="cuadroTextoDescripcion">
     <div id="texto">
-          <h2>En esta sección podra ver y eliminar las respuestas de foros creadas por el usuario</h2>
-          <h2>Deslizar para actualizar</h2>
+        <h2>En esta sección podra ver y eliminar las respuestas de foros creadas por el usuario</h2>
+        <h2>Deslizar hacia la izquierda para eliminar</h2>
       </div>
     </div>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -29,9 +29,13 @@
   <div id="respuestas">
     <ion-item-sliding *ngFor = "let respuesta of respuestasUsuario; let indice=index">
       <ion-item [routerLink]="['/foros', respuesta.idForoRespondido]">
-        <ion-card-content>
-          <h2>{{respuesta.texto}}</h2>
-        </ion-card-content>
+        <div class="contribucionesTexto">
+              <h1>{{respuesta.texto}}</h1>
+              <h3># {{respuesta.id}}</h3>
+              <h3>Puntaje: {{respuesta.puntaje}}</h3>
+        </div>
+          
+
       </ion-item>
 
       <ion-item-options id="end" side="end">
