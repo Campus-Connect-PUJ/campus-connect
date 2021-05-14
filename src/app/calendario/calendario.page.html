@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons class="header_btn"
                  slot="secondary">
-      <ion-button (click)="enviarHorarios()" href="tabs/servicios-academicos">
+      <ion-button href="tabs/servicios-academicos">
         <ion-icon slot="icon-only"
                   name="arrow-back"
         ></ion-icon>
@@ -14,38 +14,6 @@
 
 <ion-content>
   <div class="content">
-    <ion-segment class="nonTransparent" [(ngModel)]="calendar.mode">
-      <ion-segment-button value="month">
-        <ion-label>Mes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="week">
-        <ion-label>Semana</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="day">
-        <ion-label>Dia</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-
-
-    <ion-row class="nonTransparent">
-      <!-- Move back one screen of the slides -->
-      <ion-col size="2">
-        <ion-button fill="clear" (click)="back()">
-          <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-
-      <ion-col size="8" class="ion-text-center">
-        <h2>{{ viewTitle }}</h2>
-      </ion-col>
-
-      <!-- Move forward one screen of the slides -->
-      <ion-col size="2">
-        <ion-button fill="clear" (click)="next()">
-          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
 
 
     <!-- Card for adding a new event -->
@@ -112,17 +80,17 @@
 
 
     <ion-card>
-      <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; esMonitoria = true">
+      <ion-card-header tappable (click)="collapseCard3 = !collapseCard3; esMonitoria = true; desactivado = false">
         <ion-card-title>Nueva monitoria</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard3">
         <ion-item>
           <ion-label>Dia inicio</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.startTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="event2.startTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Dia fin</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" max="2035-12-31" [(ngModel)]="event2.endTime"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="event2.endTime"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Hora Inicio</ion-label>
@@ -161,13 +129,43 @@
         </ion-item>
 
         <ion-button fill="outline" expand="block" (click)="addMonitoria(); collapseCard3 = !collapseCard3" [disabled]="asignatura == null">Agregar evento</ion-button>
+
+
       </ion-card-content>
     </ion-card>
 
-  <div class="boton">
-    <ion-button (click)="enviarMonitorias()">Enviar/Actualizar monitorias</ion-button>
-  </div>
-      <div class="nonTransparent" >
+    <ion-card>
+    <div class="SinElementos" *ngIf="desactivado">
+      <div class="nonTransparent">
+        <h1>Los datos estan incorrectos. Por favor, ingreselos de nuevo</h1> 
+      </div>
+    </div>
+
+    </ion-card>
+
+    <ion-row class="nonTransparent">
+      <!-- Move back one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="back()">
+          <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="8" class="ion-text-center">
+        <h2>{{ viewTitle }}</h2>
+      </ion-col>
+
+      <!-- Move forward one screen of the slides -->
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="next()">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+
+    <div class="nonTransparent" >
       <calendar
         [eventSource]="eventSource"
         [calendarMode]="calendar.mode"

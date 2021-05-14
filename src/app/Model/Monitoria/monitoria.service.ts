@@ -25,12 +25,13 @@ export class MonitoriaService {
 
   agregarHorario(mon: Monitoria, indice: number){
     const url = `${environment.baseUrl}/usuario/agregarHorario`;
+    console.log(mon.asignatura.id, " ", mon.horarios[indice])
     return this.net.post(
       url,
       {
         "idAsignatura": mon.asignatura.id,
-        "fi": mon.horarios[indice].fechaInicio,
-        "ff": mon.horarios[indice].fechaFin,
+        //"fi": mon.horarios[indice].fechaInicio,
+        //"ff": mon.horarios[indice].fechaFin,
         "fechaInicial": mon.horarios[indice].fechaInicial,
         "fechaFinal": mon.horarios[indice].fechaFinal,
         "lugar": mon.horarios[indice].lugar
@@ -44,8 +45,6 @@ export class MonitoriaService {
       url,
       {
         "idAsignatura": mon.asignatura.id,
-        "fi": mon.horarios[0].fechaInicio,
-        "ff": mon.horarios[0].fechaFin,
         "fechaInicial": mon.horarios[0].fechaInicial,
         "fechaFinal": mon.horarios[0].fechaFinal
       }

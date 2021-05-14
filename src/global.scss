@@ -449,3 +449,30 @@ ion-card-content{
     margin: 5%;
     text-align: center;
 }
+
+
+.columna1{
+    display: flex;
+    flex-direction: row;
+}
+
+.columnaTitulos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h5{
+        font-size: 15px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+.columnas{
+    display: flex;
+    flex-direction: row;
+    --width: 60% !important;
+    min-width: 80%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    justify-content: space-between;
+}

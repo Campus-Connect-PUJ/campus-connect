@@ -1,3 +1,4 @@
+import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { evento } from './evento';
@@ -5,11 +6,9 @@ import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { LoginService } from '../services/login.service';
 import { AsignaturaService } from '../Model/Asignatura/asignatura.service';
-import { UsuarioGeneral } from '../Model/UsuarioGeneral/usuario-general';
 import { Monitoria } from '../Model/Monitoria/monitoria';
 import { Horario } from '../Model/Horario/horario';
 import { Asignatura } from '../Model/Asignatura/asignatura';
-import { title } from 'process';
 import { MonitoriaService } from '../Model/Monitoria/monitoria.service';
 import { Lugares_universidad } from '../services/lugares_universidad';
 
@@ -30,6 +29,7 @@ export class listaEventos{
   styleUrls: ['./calendario.page.scss'],
 })
 export class CalendarioPage implements OnInit {
+  public usuario: UsuarioGeneral;
 
   public eventos: evento[] = [];
   esMonitoria: boolean = false;
@@ -39,11 +39,13 @@ export class CalendarioPage implements OnInit {
   monitorias = new Array<Monitoria>();
   monitoria = new Monitoria();
   public lugares;
-  lugar: string; 
+  lugar: string = " "; 
 
   public collapseCard: boolean;
   public collapseCard2: boolean;
   public collapseCard3: boolean;
+
+  public desactivado: boolean;
 
   event = {
     title: '',
@@ -72,6 +74,8 @@ export class CalendarioPage implements OnInit {
   //eventSource = evento[];
 
   eventSource: Array<evento> = [];
+  eventosNuevos: Array<evento> = [];
+  muchosEventos: listaEventos[] = [];
 
   calendar = {
     mode: 'month',
@@ -90,7 +94,7 @@ export class CalendarioPage implements OnInit {
     this.lugares = lugaresUniversidad.getLugares();
   }
 
-  muchosEventos: listaEventos[] = [];
+  
 
   ngOnInit() {
     this.cargarAsignaturas();
@@ -157,10 +161,7 @@ export class CalendarioPage implements OnInit {
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
-
     this.eventSource.push(eventCopy);
-    let a: evento;
-    //this.eventSource.push(a);
 
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
 
@@ -170,7 +171,6 @@ export class CalendarioPage implements OnInit {
 
   addEventMateria(){
 
-   
     let cantidadDeEventos = 0;
     cantidadDeEventos = this.eventSource.length;
 
@@ -208,14 +208,8 @@ export class CalendarioPage implements OnInit {
     let tiempos2 = eventCopy2.eTime.split(":");
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
-    let base = moment(eventCopy2.startTime);
     
     for(let i=0; moment(fechaInicioTotal).isBefore(fechaFinTotal); i=7){
-
-      let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-      let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
-
 
       eventCopy.title = eventCopy2.title;
       eventCopy.startTime = eventCopy2.startTime;
@@ -259,23 +253,13 @@ export class CalendarioPage implements OnInit {
   addMonitoria(){
     this.esMonitoria = true;
     let cantidadDeEventos = 0;
-    cantidadDeEventos = this.eventSource.length;
+    let eventCopy: evento = new evento();
 
+
+    cantidadDeEventos = this.eventSource.length;
     if(cantidadDeEventos == null){
       cantidadDeEventos = 0;
     }
-
-
-    let eventCopy: evento = new evento();
-    eventCopy.title = this.event.title;
-    eventCopy.startTime = new Date(this.event.startTime);
-    eventCopy.endTime = new Date(this.event.endTime)
-    eventCopy.allDay= this.event.allDay
-    eventCopy.desc= this.event.desc
-    eventCopy.id= cantidadDeEventos
-    eventCopy.monitoria= this.event.monitoria
-    eventCopy.lugar = this.lugar;
-    
     let eventCopy2 = {
       title: this.event2.title,
       startTime: new Date(this.event2.startTime),
@@ -287,6 +271,15 @@ export class CalendarioPage implements OnInit {
       id: cantidadDeEventos,
       monitoria: this.esMonitoria ,
       lugar: this.lugar
+    }
+
+    if(eventCopy2.sTime > eventCopy2.eTime || eventCopy2.lugar == " "){
+      this.desactivado = true;
+      console.log(this.desactivado)
+      return;
+    }
+    else{
+      this.desactivado = false;
     }
     
     if(this.esMonitoria){
@@ -301,20 +294,15 @@ export class CalendarioPage implements OnInit {
     let tiempos2 = eventCopy2.eTime.split(":");
 
     fechaInicioTotal = moment(fechaInicioTotal).hour(Number(tiempos1[0]))
-    let base = moment(eventCopy2.startTime);
     let hora1 = moment(eventCopy2.sTime, "h:mm");
     let hora2 = moment(eventCopy2.eTime, "h:mm");
 
     if(moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal)){
       for(let i=0; moment(fechaInicioTotal).isSameOrBefore(fechaFinTotal) ; i=7){
-        
-        let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-        let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
-  
         eventCopy.title = eventCopy2.title;
         eventCopy.startTime = eventCopy2.startTime;
         eventCopy.monitoria = true;
+        eventCopy.lugar = eventCopy2.lugar;
   
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
@@ -331,12 +319,12 @@ export class CalendarioPage implements OnInit {
  
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-  
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
         eventCopy.endTime = moment(eventCopy.endTime).toDate();
         this.eventSource.push(eventCopy);
+        this.eventosNuevos.push(eventCopy);
         localStorage.removeItem(eventCopy.title);
         fechaInicioTotal = moment(fechaInicioTotal).add(i,'days');
         eventCopy2.startTime = moment(eventCopy2.startTime).add(i,'days').toDate();
@@ -348,20 +336,17 @@ export class CalendarioPage implements OnInit {
       }
     }
     else if(moment(hora1).isSameOrBefore(hora2)){
-        let horas = Number(tiempos2[0])- Number(tiempos1[0]);
-        let minutos = Number(tiempos2[1])- Number(tiempos1[1]);
-
         eventCopy.title = eventCopy2.title;
         eventCopy.startTime = eventCopy2.startTime;
         eventCopy.monitoria = true;
-  
+        eventCopy.lugar = eventCopy2.lugar;
+
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getHours(), 'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[0]),'hours').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).subtract(eventCopy.startTime.getMinutes(), 'minutes').toDate();
         eventCopy.startTime = moment(eventCopy.startTime).add(Number(tiempos1[1]),'minutes').toDate();
-  
+
         eventCopy.endTime = eventCopy.startTime;
-  
         eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getHours(), 'hours').toDate();
         eventCopy.endTime = moment(eventCopy.endTime).add(Number(tiempos2[0]),'hours').toDate();
         eventCopy.endTime = moment(eventCopy.endTime).subtract(eventCopy.endTime.getMinutes(), 'minutes').toDate();
@@ -370,107 +355,99 @@ export class CalendarioPage implements OnInit {
 
         eventCopy.id = cantidadDeEventos;
         cantidadDeEventos++;
-  
         localStorage.setItem(eventCopy.title, JSON.stringify(eventCopy))
         eventCopy = JSON.parse(localStorage.getItem(eventCopy.title));
         eventCopy.startTime = moment(eventCopy.startTime).toDate();
         eventCopy.endTime = moment(eventCopy.endTime).toDate();
         this.eventSource.push(eventCopy);
+        this.eventosNuevos.push(eventCopy);
         localStorage.removeItem(eventCopy.title);
 
     }
 
-    
-
+    localStorage.setItem("nuevosEventos", JSON.stringify(this.eventosNuevos));
     localStorage.setItem("eventos"+this.logService.getUser().email, JSON.stringify(this.eventSource))
     this.myCal.loadEvents();
     this.resetEvent();
     this.esMonitoria = false;
-  }
 
-  enviarMonitoria(){
-    for(let i = 0; i<this.monitorias.length; i++ ){
-      this.moniService.crearMonitoria( this.monitorias[i]).subscribe(
-        result => {
-          console.log(result)
-        },
-        error => console.log(error)
-      );
-    }
-  }
-
-  enviarHorarios(){
-
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
-
-    for(let i = 0; i < this.monitorias.length; i++){
-      for(let j = 0; j< this.eventos.length; j++){
-        if(this.eventos[j].title == this.monitorias[i].asignatura.nombre){
-          let horario = new Horario();
-          horario.fechaInicial = this.eventos[j].startTime;
-          horario.fechaFinal = this.eventos[j].endTime;
-
-          horario.fechaInicio = moment(this.eventos[j].startTime).format('DD-MM-YYYY HH:mm');
-          horario.fechaFin = moment(this.eventos[j].endTime).format('DD-MM-YYYY HH:mm');
-          horario.lugar = this.eventos[j].lugar;
-          this.monitorias[i].horarios.push(horario)
-        } 
-      }
-    }
-
-    for(let i = 0; i<this.monitorias.length; i++ ){
-      for(let j = 0; j<this.monitorias[i].horarios.length; j++ ){
-        //console.log("Id asignatura", this.monitorias[j].asignatura.id)
-        this.moniService.agregarHorario( this.monitorias[i], j).subscribe(
-          result => console.log(result),
-          error => console.log(error)
-        );
-      }
-    }
+    //this.enviarMonitorias();
+    this.nuevaMonitoria();
   }
 
 
-
-  enviarMonitorias(){
+  nuevaMonitoria(){
     this.esMonitoria = true;
-    this.eventos = JSON.parse(localStorage.getItem("eventos"+this.logService.getUser().email));
+    this.eventosNuevos = JSON.parse(localStorage.getItem("nuevosEventos"));
+    console.log(this.eventosNuevos)
+    this.usuario = this.logService.getUser();
 
-    let asignauras: Array<Asignatura>;
+    let monitoria: Monitoria = new Monitoria();
+    let asignatura: Asignatura = new Asignatura();
+    let existe = false;
     
-    for(let i=0; i<this.eventos.length; i++){
-      let monitoria: Monitoria = new Monitoria();
-      let asignatura: Asignatura = new Asignatura();
-      let existe: boolean = false;
-      if(this.eventos[i].monitoria){
-        let idAsig = 0;
-   
-        for(let j=0; j<this.asignaturas.length; j++){
-          if(this.asignaturas[j].nombre === this.eventos[i].title){
-            idAsig = this.asignaturas[j].id;
-            asignatura.id = idAsig;
-            asignatura.nombre = this.asignaturas[j].nombre;
-          }
-        }
-        
-        monitoria.asignatura = asignatura;
-        
-        if(this.monitorias.length == 0){
-          this.monitorias.push(monitoria)
-        }
-        else{
-          for(let j=0; j<this.monitorias.length; j++){
-            if(this.monitorias[j].asignatura.id == monitoria.asignatura.id){
-              existe = true;
-              this.monitorias[j].horarios.push();
-            }
-          }
-          if(!existe){
-            this.monitorias.push(monitoria)
-          }
-        }
+    
+    asignatura.nombre = this.eventosNuevos[0].title;
+
+    for(let i=0; i<this.asignaturas.length; i++){
+      if(asignatura.nombre == this.asignaturas[i].nombre){
+        asignatura = this.asignaturas[i];
       }
-    }      
-    this.enviarMonitoria();
+    }
+
+    for(let i=0; i<this.usuario.monitorDe.length; i++){
+      if(this.usuario.monitorDe[i].asignatura.nombre == asignatura.nombre){
+        existe = true;
+        monitoria = this.usuario.monitorDe[i];
+      }
+    }
+
+    if(existe){
+      //Agregar horario
+      console.log("Se agregan horarios")
+      this.enviarHorariosNuevo(monitoria);
+    }
+    else{
+      //crear desde 0
+      console.log("Se crea monitoria")
+      let monitoriaNueva: Monitoria = new Monitoria();
+      monitoriaNueva.asignatura = asignatura;
+      this.moniService.crearMonitoria(monitoriaNueva).subscribe(
+          result => {
+            console.log(result)
+            console.log("se creo la monitoria")
+            this.enviarHorariosNuevo(monitoriaNueva);
+            },
+            error => console.log(error)
+          );
+      }
+    this.logService.storeUser(this.usuario, this.logService.getToken());
+  }
+
+  enviarHorariosNuevo(monitoria: Monitoria){
+    let monitoriaNueva: Monitoria = new Monitoria();
+    monitoriaNueva.asignatura = monitoria.asignatura;
+    
+    console.log(this.eventosNuevos)
+    for(let i=0; i<this.eventosNuevos.length; i++){
+      let horario = new Horario();
+      horario.fechaInicial = this.eventosNuevos[i].startTime;
+      horario.fechaFinal = this.eventosNuevos[i].endTime;
+      horario.lugar = this.eventosNuevos[i].lugar;
+      monitoriaNueva.horarios.push(horario);
+    }
+
+    console.log("los horarios son", this.eventosNuevos.length, " ", monitoria)
+    for(let i=0; i<this.eventosNuevos.length; i++){
+      
+      this.moniService.agregarHorario(monitoriaNueva, i).subscribe(
+        result => console.log(result),
+        error => console.log(error)      
+      )
+      
+    }
+    this.eventosNuevos = [];
+    localStorage.removeItem("nuevosEventos");
   }
 
 
@@ -487,7 +464,7 @@ export class CalendarioPage implements OnInit {
         eventCopy.desc= this.event.desc
         eventCopy.id= this.eventos[i].id,
         eventCopy.monitoria= this.eventos[i].monitoria
-        
+        eventCopy.lugar = this.eventos[i].lugar
         if(eventCopy.allDay){
           let start = eventCopy.startTime;
           let end = eventCopy.endTime;
@@ -495,8 +472,6 @@ export class CalendarioPage implements OnInit {
           eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
           eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
         }
-        
-    
         this.eventSource.push(eventCopy);
       }
     } catch (error) {
@@ -509,8 +484,6 @@ export class CalendarioPage implements OnInit {
 
     //this.myCal.loadEvents();
   }
-
-
 
 
   changeMode(mode){
@@ -592,8 +565,6 @@ export class CalendarioPage implements OnInit {
     let asig = new Asignatura();
     horario.fechaInicial = this.eventSource[indice].startTime;
     horario.fechaFinal = this.eventSource[indice].endTime;
-    horario.fechaInicio = moment(this.eventSource[indice].startTime).format('DD-MM-YYYY HH:mm');
-    horario.fechaFin = moment(this.eventSource[indice].endTime).format('DD-MM-YYYY HH:mm');
     this.monitoria.horarios.push(horario);
 
     for(let j=0; j<this.asignaturas.length; j++){
@@ -608,11 +579,6 @@ export class CalendarioPage implements OnInit {
       result => console.log(result),
       error => console.log(error)
     )
-
-
-
-
   }
   
-
 }

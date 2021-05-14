@@ -37,8 +37,8 @@ export class TipDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
+      this.findTip(this.indice);
     })
-    this.findTip(this.indice);
   }
 
   findTip(numeroTip: number){
@@ -49,14 +49,11 @@ export class TipDetallesPage implements OnInit {
       },
       error => console.error(error)
     )
-    
   }
 
   votar(voto: number){
     this.user = this.loginService.getUser();
     this.calificacionTip(voto);
-    
-
   }
 
   existeTip(tips: Tip[], tip: Tip){
@@ -74,28 +71,31 @@ export class TipDetallesPage implements OnInit {
   calificacionTip(operacion: number){
     let mensaje = " ";
     if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
+      console.log(1)
       this.tipsService.agregarTipGustado(this.tip.id).subscribe(
         results => {
           console.log(results)
         },
         error => console.error(error)
       )
-      this.user.tipsGustados.push(this.tip);
-      this.tip.puntaje = this.tip.puntaje + operacion;
       if(this.existeTip(this.user.tipsNoGustados, this.tip)){
         this.user.tipsNoGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
       }
+      this.user.tipsGustados.push(this.tip);
+      this.tip.puntaje = this.tip.puntaje + operacion;
     }
     else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
+      console.log(-1)
       this.tipsService.agregarTipNoGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+      if(this.existeTip(this.user.tipsGustados, this.tip)){
+        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsGustados, this.tip), 1)
+      }
       this.user.tipsNoGustados.push(this.tip);
       this.tip.puntaje = this.tip.puntaje + operacion;
-      if(this.existeTip(this.user.tipsGustados, this.tip)){
-        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
-      }
+
     }
     else{
       if(operacion == 1 && this.existeTip(this.user.tipsGustados, this.tip)){
