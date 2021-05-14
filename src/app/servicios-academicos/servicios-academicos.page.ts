@@ -47,7 +47,7 @@ export class ServiciosAcademicosPage implements OnInit {
     console.log("->", shadow);
     */
 
-    //element[0].style.display = 'flex';
+    element[0].style.display = 'flex';
     
   }
 
