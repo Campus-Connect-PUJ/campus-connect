@@ -55,13 +55,7 @@ export class TipCrearPage implements OnInit {
         "Para continuar debe escribir el tip"
       );
     }
-    /*
-    else if(this.tiposDeAprendizajeSeleccionados.length === 0){
-      await this.alertaElementoNoSeleccionado(
-        "Tipo de aprendizaje",
-        "Para continuar debes seleccionar al menos un tipo de aprendizaje"
-      );
-      }*/
+
     else if(this.nivelDeExigenciaSeleccionado === 0){
       await this.alertaElementoNoSeleccionado(
         "nivel de exigencia",
