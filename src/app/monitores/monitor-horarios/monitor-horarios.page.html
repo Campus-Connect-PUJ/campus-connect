@@ -15,10 +15,10 @@
     <h1>{{monitor.nombre}} {{monitor.apellido}}</h1>
     <h2>{{monitor.email}}</h2>
     <h2>Semestre: {{monitor.semestre}}</h2>
-    <h2>Nota: {{monitor.puntajeTotal}}</h2>
+    <h2>Puntaje: {{monitor.puntajeTotal}}</h2>
 
     <div class="estilosAprendizaje">
-      <ion-item *ngFor="let estilo of monitor.estilosAprendizaje">
+      <ion-item lines="none" *ngFor="let estilo of monitor.estilosAprendizaje">
         <h2>{{estilo.descripcion}}</h2>
       </ion-item>
     </div>

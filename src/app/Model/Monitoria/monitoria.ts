@@ -10,6 +10,7 @@ export class Monitoria {
     calificacion: number;
     cantidadVotos: number;
     
+
     Monitoria(){
         
     }

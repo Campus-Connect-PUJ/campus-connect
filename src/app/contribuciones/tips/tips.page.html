@@ -27,7 +27,7 @@
     <div id="materias">
 
       <ion-item-sliding *ngFor = "let tip of tips; let indice=index">
-        <ion-item [routerLink]="['/tips', tip.id]">
+        <ion-item lines="none" [routerLink]="['/tips', tip.id]">
 
             <div class="contribucionesTexto">
                 <h1>{{tip.descripcion}}</h1>
@@ -46,8 +46,8 @@
 
     </div>
 
-    <div class="cuadroTextoDescripcion">
-    <div class="SinElementos" *ngIf="tips.length == 0">
+    <div class="cuadroTextoDescripcion" *ngIf="tips.length == 0">
+    <div class="SinElementos" >
       <div id="texto">
         <h1>No existen tips creados</h1>
       </div>

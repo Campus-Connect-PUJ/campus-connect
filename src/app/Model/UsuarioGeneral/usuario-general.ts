@@ -39,6 +39,7 @@ export class UsuarioGeneral {
   puntajeTotal: number;
   tipsGustados: Tip[] = [];
   tipsNoGustados: Tip[] = [];
+  monitoresVotaron: Monitoria[] = [];
 
   constructor(
     public nombre: string,
@@ -46,6 +47,6 @@ export class UsuarioGeneral {
     public email: string,
   ) { 
     this.comidaFav = new Array<TipoComida>();
-
+    this.monitoresVotaron = new Array<Monitoria>();
   }
 }

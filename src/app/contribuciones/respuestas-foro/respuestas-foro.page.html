@@ -28,7 +28,7 @@
 
   <div id="respuestas">
     <ion-item-sliding *ngFor = "let respuesta of respuestasUsuario; let indice=index">
-      <ion-item [routerLink]="['/foros', respuesta.idForoRespondido]">
+      <ion-item lines="none" [routerLink]="['/foros', respuesta.idForoRespondido]">
         <div class="contribucionesTexto">
               <h1>{{respuesta.texto}}</h1>
               <h3># {{respuesta.id}}</h3>
@@ -47,8 +47,8 @@
     </ion-item-sliding>
   </div>
 
-    <div class="cuadroTextoDescripcion">
-    <div class="SinElementos" *ngIf="respuestasUsuario.length == 0">
+    <div class="cuadroTextoDescripcion" *ngIf="respuestasUsuario.length == 0">
+    <div class="SinElementos">
       <div id="texto">
         <h1>No existen respuestas a foros</h1>
       </div>
