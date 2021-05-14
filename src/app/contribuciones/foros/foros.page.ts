@@ -46,6 +46,7 @@ export class ForosPage implements OnInit {
           }
         }
         this.forosUsuario = forosUsuario;
+        console.log(this.forosUsuario)
       },
       error => console.error(error)
     )

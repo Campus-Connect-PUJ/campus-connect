@@ -22,11 +22,15 @@
     </ion-card-header>
     <ion-card-content>
     <div *ngIf="pasar == false">
-      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
+      <h2>Con <span style="font-weight: bolder">{{porcentajeActual}}%</span>, la nota actual es de <span style="font-weight: bolder">{{notaActual}}</span></h2>
+      <br/>
+      <h2>Para obtener la nota final igual a <span style="font-weight: bolder">{{notaEsperada}}</span>, debe de obtener <span style="font-weight: bolder">{{notaFaltante}}</span> en el <span style="font-weight: bolder">{{porcentajeFaltante}}%</span> restante</h2>
     </div>
     
     <div *ngIf="pasar == true">
-      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Ya ha obtenido la nota esperada <span>{{notaEsperada}}</span>. Felicidades</h2>
+      <h2>Con <span style="font-weight: bolder">{{porcentajeActual}}%</span>, la nota actual es de <span style="font-weight: bolder">{{notaActual}}</span>. Ya ha obtenido la nota esperada (<span style="font-weight: bolder">{{notaEsperada}}</span>)</h2>
+      <br/>
+      <h2><span style="font-size: 20px; font-weight: bolder; display:block; text-align:center;">Felicidades</span></h2>
     </div>
 
     </ion-card-content>

@@ -23,17 +23,19 @@
         <ion-input type="string" [(ngModel)]="titulo"></ion-input>
       </ion-card-content>
     </ion-card>
+
+
     <ion-card id="descripcion">
       <ion-card-header>
         <ion-card-title>Descripción</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-textarea elastic type="string" [(ngModel)]="descripcion"></ion-textarea>
-      </ion-card-content>
+        <ion-textarea rows=12 type="string" [(ngModel)]="descripcion"></ion-textarea>
+      </ion-card-content>ss
     </ion-card>
 
     <div class="btn-crearForo">
-      <ion-button (click)=crearForo() [routerLink]="['/tabs/servicios-academicos']">
+      <ion-button (click)=crearForo()>
         <ion-icon slot="icon-only" name="add" ></ion-icon>
       </ion-button>
     </div>

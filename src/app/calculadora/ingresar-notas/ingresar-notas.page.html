@@ -16,6 +16,12 @@
 
 <ion-content>
   <div class="content">
+    <div class="cuadroTextoDescripcion">
+      <div class="texto">
+        <h2>Por favor ingrese las notas que haya obtenido en la columna izquierda con su respectivo porcentaje a la derecha</h2>
+        <h2>Para aquellas notas que no tenga calificación dejar los campos en 0</h2>
+      </div>
+    </div>
     <div class="tarjeta">
 
       <div class="instrucciones">
@@ -55,7 +61,7 @@
 
             <div class="columna1">
               <div id="input">
-                <ion-input type="number" (change)="changeFn2($event, indice)" value = {{notas[indice].notaObtenida}}></ion-input>
+                <ion-input autofocus="true" type="number" (change)="changeFn2($event, indice)" value = {{notas[indice].notaObtenida}}></ion-input>
               </div>
               <div id="textoInput">
                 <h5>/5</h5>
