@@ -35,8 +35,8 @@
         </ion-item>
         <ion-item>
           <ion-label>Facultad</ion-label>
-          <ion-select (ionChange)="buscarGrupoFacultad($event)">
-            <ion-select-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad.nombre}}</ion-select-option>
+          <ion-select class="custom-options" placeholder="Select One" (ionChange)="buscarGrupoFacultad($event)">
+            <ion-select-option *ngFor="let facultad of facultades" [value]="facultad.nombre">{{facultad.nombre}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-card-content>

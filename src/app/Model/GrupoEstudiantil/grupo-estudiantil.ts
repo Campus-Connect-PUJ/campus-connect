@@ -8,6 +8,7 @@ export class GrupoEstudiantil {
   id: number;
   tematicas: Tematica[] = [];
   calificacion: number;
+  contacto: string;
   caracteristicas: Caracteristica[] = [];
   requisitos: Requisito[] = [];
   facultades: Facultad[] = [];
