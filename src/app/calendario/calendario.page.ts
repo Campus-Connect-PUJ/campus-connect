@@ -375,7 +375,6 @@ export class CalendarioPage implements OnInit {
     this.nuevaMonitoria();
   }
 
-  //Funciona ------
 
   nuevaMonitoria(){
     this.esMonitoria = true;
