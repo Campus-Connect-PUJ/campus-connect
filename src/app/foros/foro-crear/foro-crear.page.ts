@@ -41,11 +41,17 @@ export class ForoCrearPage implements OnInit {
         "Para continuar debe escribir el titulo"
       );
     }
-
     else if(this.descripcion == null){
       await this.alertaElementoNoSeleccionado(
         "Descipción",
         "Para continuar debes escribir la descripción"
+      );
+    }
+
+    else if(this.titulo.length>=50){
+      await this.alertaElementoNoSeleccionado(
+        "Titulo",
+        "Titulo demasiado extenso"
       );
     }
     else{
