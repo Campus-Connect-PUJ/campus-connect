@@ -41,6 +41,7 @@ export class RecoGruposPage implements OnInit {
   ngOnInit() {
     this.findGrupos();
     this.findTematica();
+    this.findFacultad();
   }
 
   findGrupos() {
@@ -97,6 +98,8 @@ export class RecoGruposPage implements OnInit {
   buscarGrupoFacultad(event){
     const texto = event.target.value;
     this.facultadSelect= texto;
+
+    console.log(this.facultadSelect);
   }
 
   loadData($event){
