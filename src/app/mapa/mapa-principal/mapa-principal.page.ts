@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
@@ -11,13 +11,18 @@ import * as L from "leaflet";
 import "leaflet-routing-machine";
 import { Lugares_universidad } from 'src/app/services/lugares_universidad';
 import { Units } from '@turf/helpers';
+import { IonFab } from '@ionic/angular';
 
 @Component({
   selector: "app-mapa-principal",
   templateUrl: "./mapa-principal.page.html",
   styleUrls: ["./mapa-principal.page.scss"],
 })
+
+
 export class MapaPrincipalPage implements OnInit {
+  @ViewChild('fab')fab : IonFab;
+
   map: Map;
 
   public markers_onoff = true;
@@ -56,6 +61,7 @@ export class MapaPrincipalPage implements OnInit {
 
   ionViewDidEnter() {
     this.leafletMap();
+    this.fab.activated = true;
   }
 
   ngOnInit() {}

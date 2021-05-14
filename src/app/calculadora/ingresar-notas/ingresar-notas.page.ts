@@ -115,9 +115,10 @@ export class IngresarNotasPage implements OnInit {
         this.porcentajeActual = this.notas[i].porcentaje + this.porcentajeActual;
       }
       else{
-        this.porcentajeFaltante = this.porcentajeFaltante - this.notas[i].porcentaje;
+        this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
+    this.porcentajeFaltante = 100 - this.porcentajeActual; 
     this.notaFaltante = this.notaEsperada - this.notaActual;
     this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3))
     this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, Math.abs(this.porcentajeFaltante), this.notaEsperada, this.notas, this.indice, this.notaActual, this.porcentajeActual)

@@ -40,11 +40,11 @@ export class SugeGruposPage implements OnInit {
   findGrupos() {
     this.geService.getGrupos().subscribe(
       (results: GrupoEstudiantil[]) => {
-        console.log(results);
+        // console.log(results);
         const gruposT = results;
         for(let i=0; i<this.usuario.caracteristicas.length; i++){
           for (let j=0;j<gruposT.length;j++){
-            console.log(JSON.stringify(gruposT[j]))
+            // console.log(JSON.stringify(gruposT[j]))
             if(gruposT[j].caracteristicas.some(
               (car: Caracteristica) => car.nombre === this.usuario.caracteristicas[i].nombre)
               ){

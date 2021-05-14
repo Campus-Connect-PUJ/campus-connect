@@ -34,7 +34,7 @@ export class MateriasPage {
   async presentToast(){
     const toast = await this.toastCtrl.create(
       {
-        message: "Se agrego asignatura",
+        message: "Se elimino la asignatura",
         duration: 3000
       }
     );
