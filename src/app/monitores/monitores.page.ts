@@ -45,9 +45,11 @@ export class MonitoresPage implements OnInit {
   ngOnInit() {
     this.monService.obtenerMonitores().subscribe(
       result => {
+        this.usuarioActual = this.loginService.getUser();
         this.monitores = result;
         //this.monitores = this.ordenarMonitores(this.obtenerPuntajes(this.monitores))
         //this.monitores = this.arreglarFechas(this.monitores);
+        this.quitarPropio();
         this.obtenerPuntajes(this.monitores)
         this.sugerenciasMonitores(this.monitores)
       },
@@ -55,6 +57,13 @@ export class MonitoresPage implements OnInit {
     )
   }
 
+  quitarPropio(){
+    for(let i=0; i<this.monitores.length; i++){
+      if(this.monitores[i].email == this.usuarioActual.email){
+        this.monitores.splice(i,1)
+      }
+    }
+  }
 
   arreglarFechas(monitores: Array<UsuarioGeneral>){
     console.log("entra");
@@ -80,7 +89,7 @@ export class MonitoresPage implements OnInit {
   }
 
   sugerenciasMonitores(monitores: Array<UsuarioGeneral>){
-    this.usuarioActual = this.loginService.getUser();
+    
     //this.usuarioActual = this.logService.obtenerElemento("perso"+this.logService.getUser().email);
     if(!this.usuarioActual.estilosAprendizaje) {
       this.usuarioActual.estilosAprendizaje = [];
