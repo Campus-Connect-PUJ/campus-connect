@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { InformacionUsuario } from 'src/app/Model/InformacionUsuario/informacion-usuario';
 
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -120,8 +121,12 @@ export class Formulario2Page implements OnInit {
         this.sex,
         this.gender
       ).subscribe(
-        results => {
-          console.log("ingreso exitoso: ", results)
+        (results: InformacionUsuario) => {
+
+          const usr = this.login.getUser();
+          usr.informacion = results;
+          this.login.storeUser(usr, this.login.getToken());
+          console.log("ingreso exitoso: ", results);
           this.router.navigate(["auth-home"]);
         },
         error => {
