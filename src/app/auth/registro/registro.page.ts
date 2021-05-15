@@ -1,4 +1,3 @@
-import { UsuarioGeneralService } from './../../Model/UsuarioGeneral/usuario-general.service';
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AlertController, NavController } from "@ionic/angular";

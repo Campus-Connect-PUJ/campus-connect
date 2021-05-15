@@ -28,8 +28,6 @@ export class UsuarioGeneral {
   carreras: Carrera[] = [];
   semestre: number;
 
-  fechaNacimiento: Date;
-
   enabled: boolean = true;
   accountNonExpired: boolean = true;
   accountNonLocked: boolean = true;
