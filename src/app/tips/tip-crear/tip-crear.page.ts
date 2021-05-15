@@ -23,7 +23,7 @@ export class TipCrearPage implements OnInit {
   nivelDeExigencia: Array<Number> = [1,2,3]
 
 
-  nivelDeExigenciaSeleccionado: number;
+  nivelDeExigenciaSeleccionado: number = 0;
   tiposDeAprendizajeSeleccionados: Array<TipoAprendizaje> = [];
   constructor(private tipsService: TipsService, 
     private tipoAprendizajeService: TipoAprendizajeService,
@@ -69,6 +69,7 @@ export class TipCrearPage implements OnInit {
       this.tip.tiposAprendizaje = this.tiposDeAprendizajeSeleccionados;
       this.tip.nivelExigencia = this.nivelDeExigenciaSeleccionado;
 
+      console.log(this.nivelDeExigenciaSeleccionado)
       if(this.tiposDeAprendizajeSeleccionados.length === 0){
         this.tiposDeAprendizajeUsuario();
       }

@@ -333,6 +333,7 @@ export class CalendarioPage implements OnInit {
   
       if(this.eventSource.length > 0){
         this.eventSource.pop()
+        this.eventosNuevos.pop();
       }
     }
     else if(moment(hora1).isSameOrBefore(hora2)){
