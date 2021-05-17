@@ -19,11 +19,10 @@ export class AuthHomePage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   logout() {
-
     this.login.logout();
-
   }
 }
