@@ -19,7 +19,7 @@ export class UsuarioGeneral {
   reseniaRestaurante: ReseniaRestaurante[] = [];
   regimenAlimenticio: RegimenAlimenticio;
   nivelRegimenAlimenticio: number;
-  informacion: InformacionUsuario;
+  informacionUsuario: InformacionUsuario;
   gruposSugeridos: GrupoEstudiantil[]=[];
   restaurantesSugeridos: Restaurante[]=[];
   caracteristicas: Caracteristica[]=[];

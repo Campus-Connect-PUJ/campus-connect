@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Carrera } from 'src/app/Model/Carrera/carrera';
+import { InformacionUsuario } from 'src/app/Model/InformacionUsuario/informacion-usuario';
 
 @Component({
   selector: "app-formulario2",
@@ -120,8 +121,12 @@ export class Formulario2Page implements OnInit {
         this.sex,
         this.gender
       ).subscribe(
-        results => {
-          console.log("ingreso exitoso: ", results)
+        (results: InformacionUsuario) => {
+
+          const usr = this.login.getUser();
+          usr.informacionUsuario = results;
+          this.login.storeUser(usr, this.login.getToken());
+          console.log("ingreso exitoso: ", results);
           this.router.navigate(["auth-home"]);
         },
         error => {
