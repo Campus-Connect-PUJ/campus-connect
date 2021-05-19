@@ -1,3 +1,19 @@
-ion-back-button{
-    color: #C7C7C7;
+
+.boton{
+    justify-content: center;
+    display: flex;
+    align-content: center;
+}
+
+.indicator-container{
+    padding-left: 0.5rem;
+    padding-bottom: 0.4rem;
+}
+
+.event-indicator{
+    background: var(--ion-color-success);
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    display: table-cell;
 }

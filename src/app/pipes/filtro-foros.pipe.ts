@@ -11,7 +11,7 @@ export class FiltroForosPipe implements PipeTransform {
       return posts;
     }
     texto = texto.toLowerCase();
-    
+
     return posts.filter(post =>{
 
       return post.descripcion.toLowerCase().includes(texto) || post.titulo.toLowerCase().includes(texto) || post.usuario.nombre.toLowerCase().includes(texto);

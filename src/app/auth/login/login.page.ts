@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   }
 
   async alertaElementoNoSeleccionado(elemento, mensaje) {
-    let alert = await this.alertController.create({
+    const alert = await this.alertController.create({
       cssClass: "custom-class-alert",
       header: "Error",
       subHeader: elemento,

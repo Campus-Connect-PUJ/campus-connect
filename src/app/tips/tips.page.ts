@@ -16,7 +16,10 @@ export class TipsPage implements OnInit {
   tips: Tip[] = [];
   tiposDeAprendizaje: TipoAprendizaje[][] = [];
   aprendizajesExistentes: Array<TipoAprendizaje> = [];
-  tiposDeAprendizajeSeleccionados = []
+  tiposDeAprendizajeSeleccionados = [];
+  nivelesDeExigenciaSeleccionados: Array<Number> = [];
+  collapseCard: Boolean;
+
   textoBuscar='';
   textoBuscar2='';
   tipos: string[] = [];
@@ -32,34 +35,20 @@ export class TipsPage implements OnInit {
     this.obtenerTiposDeAprendizaje();
 
     this.activatedRoute.paramMap.subscribe(paraMap => {
-      const recipeId = paraMap.get('usuarioId')
+      const recipeId = paraMap.get('exig')
+
+      
       if(recipeId != null){
-        console.log(recipeId)
-        this.cargarTipsUsuarios(Number(recipeId));
+        this.cargarTips();
+        this.determinarExigencia(recipeId);
       }
       else{
         this.cargarTips();
       }
+      
     })
   }
 
-  cargarTipsUsuarios(idUsuario: number){
-    let tipsUsuario = new Array<Tip>();
-    this.tipsService.getTips().subscribe(
-      results => {
-        this.tips = results;
-        for(let i=0; i<this.tips.length; i++){
-          console.log(".>", this.tips[i])
-          if(this.tips[i].usuario.id === idUsuario){
-            tipsUsuario.push(this.tips[i]);
-          }
-        }
-        this.tips = tipsUsuario;
-        console.log("Los foros", this.tips)
-      },
-      error => console.error(error)
-    )
-  }
 
   cargarTips(){
     this.tipsService.getTips().subscribe(
@@ -72,7 +61,7 @@ export class TipsPage implements OnInit {
   }
 
   organizartips(tips){
-    let tipsOrdenados = tips;
+    const tipsOrdenados = tips;
 
     tipsOrdenados.sort(function (a, b) {
       if (a.puntaje > b.puntaje) {
@@ -111,6 +100,28 @@ export class TipsPage implements OnInit {
       this.cargarTips()
       event.target.complete();
     }, 300);
+  }
+
+  determinarExigencia(recipeId){
+    if(recipeId == 0 || recipeId == 1 ){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+    }
+    if(recipeId == 2){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+      this.nivelesDeExigenciaSeleccionados[1] = 2;
+    }
+    if(recipeId == 3){
+      this.nivelesDeExigenciaSeleccionados[0] = 2;
+    }
+    if(recipeId == 4){
+      this.nivelesDeExigenciaSeleccionados[0] = 1;
+      this.nivelesDeExigenciaSeleccionados[1] = 2;
+      this.nivelesDeExigenciaSeleccionados[2] = 3;
+    }
+    if(recipeId == 5){
+      this.nivelesDeExigenciaSeleccionados[0] = 2;
+      this.nivelesDeExigenciaSeleccionados[1] = 3;
+    }
   }
 
 

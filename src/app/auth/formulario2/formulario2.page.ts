@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Carrera } from 'src/app/Model/Carrera/carrera';
+import { InformacionUsuario } from 'src/app/Model/InformacionUsuario/informacion-usuario';
 
 @Component({
   selector: "app-formulario2",
@@ -53,17 +54,23 @@ export class Formulario2Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    const postData = navigation.extras.state;
-    const datos = postData.postData;
+    try {
+      const navigation = this.router.getCurrentNavigation();
+      const postData = navigation.extras.state;
+      const datos = postData.postData;
+  
+      this.fechaNacimiento = datos.fechaNacimiento;
+      this.carreras = datos.carreras;
+    } catch (error) {
+      console.error(error)
+    }
 
-    this.fechaNacimiento = datos.fechaNacimiento;
-    this.carreras = datos.carreras;
+
   }
 
   onBirthChange(selectedValue: any) {
-    let selected_values = selectedValue.detail.value;
-    this.local = selected_values;
+    const selectedValues = selectedValue.detail.value;
+    this.local = selectedValues;
   }
 
   async alertaElementoNoSeleccionado(elemento, mensaje) {
@@ -104,9 +111,8 @@ export class Formulario2Page implements OnInit {
         "Para continuar con el registro responder la pregunta del sexo."
       );
     } else {  //Datos completos
-      const user_data = this.login.getUser();
       this.ugService.agregarInformacionUsuario(
-        user_data.id, // esto tal vez se podria meter en un objeto, pero meh
+        // esto tal vez se podria meter en un objeto, pero meh
         this.fechaNacimiento,
         this.carreras,
         this.religion,
@@ -115,8 +121,12 @@ export class Formulario2Page implements OnInit {
         this.sex,
         this.gender
       ).subscribe(
-        results => {
-          console.log("ingreso exitoso: ", results)
+        (results: InformacionUsuario) => {
+
+          const usr = this.login.getUser();
+          usr.informacionUsuario = results;
+          this.login.storeUser(usr, this.login.getToken());
+          console.log("ingreso exitoso: ", results);
           this.router.navigate(["auth-home"]);
         },
         error => {

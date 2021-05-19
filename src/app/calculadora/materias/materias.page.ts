@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { CalculadoraService } from'../shared/calculadora.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { NotasMateria } from 'src/app/Model/Nota/nota';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-materias',
@@ -11,31 +12,30 @@ import { NotasMateria } from 'src/app/Model/Nota/nota';
   styleUrls: ['./materias.page.scss'],
 })
 export class MateriasPage {
-  materias: NotasMateria[];
+  materias: NotasMateria[] = [];
 
   constructor(
           private calculadoraService: CalculadoraService,
           public alertaCtrl: AlertController, 
-          public toastCtrl: ToastController
-) {
+          public toastCtrl: ToastController,
+          
+  ) {
 
     this.reload();
   }
 
   ngOnInit() {
-    console.log("Entra en iniciador")
     this.reload();
   }
 
   ngOnDestroy() {
-    console.log("destruyendo");
   }
 
   async presentToast(){
     const toast = await this.toastCtrl.create(
       {
-        message: "Prueba",
-        duration: 4000
+        message: "Se elimino la asignatura",
+        duration: 3000
       }
     );
     toast.present();
@@ -47,16 +47,16 @@ export class MateriasPage {
 
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar asignatura?',
+      subHeader: 'Materia '+ (indice+1),
+      message: 'Esta apunto de borrar la asignatura '+ (indice+1),
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           }
         }, {
           text: 'Borrar',

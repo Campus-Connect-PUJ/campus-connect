@@ -3,12 +3,10 @@ import { GrupoEstudiantil } from '../../Model/GrupoEstudiantil/grupo-estudiantil
 import { GrupoEstudiantilService } from '../../Model/GrupoEstudiantil/grupo-estudiantil.service';
 import { Router } from '@angular/router';
 
-import { DatosGrupoPage } from './datos-grupo/datos-grupo.page';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 
 import { FormularioPersoGruposPage } from '../formulario-perso-grupos/formulario-perso-grupos.page';
-import { GruposEstudiantilesComponent } from 'src/app/components/grupos-estudiantiles/grupos-estudiantiles.component';
 import { Tematica } from 'src/app/Model/Tematica/tematica';
 import { TematicaService } from 'src/app/Model/Tematica/tematica.service';
 import { Facultad } from 'src/app/Model/Facultad/facultad';
@@ -29,6 +27,8 @@ export class RecoGruposPage implements OnInit {
   facultadSelect='';
   tematicaSelect='';
 
+  collapseCard = true;
+
   constructor(
     private geService: GrupoEstudiantilService,
     public router: Router,
@@ -41,6 +41,7 @@ export class RecoGruposPage implements OnInit {
   ngOnInit() {
     this.findGrupos();
     this.findTematica();
+    this.findFacultad();
   }
 
   findGrupos() {
@@ -97,5 +98,16 @@ export class RecoGruposPage implements OnInit {
   buscarGrupoFacultad(event){
     const texto = event.target.value;
     this.facultadSelect= texto;
+
+    console.log(this.facultadSelect);
   }
+
+  loadData($event){
+    setTimeout(() => {
+      this.findGrupos()
+    }, 300);
+    
+  }
+
+
 }

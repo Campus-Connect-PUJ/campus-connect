@@ -4,91 +4,84 @@
 <!-- -->
 <ion-content class="auth-page">
   <div class="home">
-    <div class="content">
-      <!-- Logo -->
-      <div class="logo">
-        <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
-      </div>
+    <!-- Logo -->
+    <div class="logo">
+      <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
+    </div>
 
-      <div class="error_message" #error_message
-           [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
-        <p *ngIf="mensajeError==null; else elseBlock" ></p>
-        <ng-template #elseBlock><p  [innerHTML] = "mensajeError"></p></ng-template>
-      </div>
+    <div class="error_message" #error_message
+         [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
+      <p *ngIf="mensajeError==null; else elseBlock" ></p>
+      <ng-template #elseBlock><p  [innerHTML] = "mensajeError"></p></ng-template>
+    </div>
 
-      <!-- Login form -->
-      <form class="form_registro">
-        <ion-item>
-          <ion-icon name="person"></ion-icon>
-          <div class="space">a</div>
-          <ion-input
-            name="nombre"
-            [(ngModel)]="nombre"
-            type="text"
-            required placeholder="Ingresa tu nombre">
-          </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="person"></ion-icon>
-          <div class="space">a</div>
-          <ion-input
-            name="apellido"
-            type="text"
-            [(ngModel)]="apellido"
-            required placeholder="Ingresa tu apellido">
-          </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="mail"></ion-icon>
-          <div class="space">a</div>
-          <ion-input
-            name="email"
-            type="email"
-            [(ngModel)]="email"
-            required placeholder="Ingresa tu correo">
-          </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="key"></ion-icon>
-          <div class="space">a</div>
-          <ion-input
-            name="password"
-            type="password"
-            [(ngModel)]="password"
-            required placeholder="Ingresa tu contraseña"></ion-input>
-        </ion-item>
-      </form>
-
-
+    <!-- Login form -->
+    <form class="form_registro_login">
       <ion-item>
-        <ion-label>Semestre</ion-label>
-        <ion-select
-          [(ngModel)]="semestre">
-          <ion-select-option *ngFor="let item of semestres" >
-            {{item}}
-          </ion-select-option>
-        </ion-select>
+        <ion-icon name="person"></ion-icon>
+        <ion-input
+          name="nombre"
+          [(ngModel)]="nombre"
+          type="text"
+          required placeholder="Ingresa tu nombre">
+        </ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-icon name="person"></ion-icon>
+        <ion-input
+          name="apellido"
+          type="text"
+          [(ngModel)]="apellido"
+          required placeholder="Ingresa tu apellido">
+        </ion-input>
+      </ion-item>
 
-      <div class="register">
-        <button class="myButton" (click)="onRegister()">
-          Registrarse
-        </button>
-      </div>
+      <ion-item>
+        <ion-icon name="mail"></ion-icon>
+        <ion-input
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required placeholder="Ingresa tu correo">
+        </ion-input>
+      </ion-item>
 
-      <!-- Other links -->
-      <div class="center_text login" (click)="login()">
-        <div>¿Ya tienes una cuenta?</div>
-        <div class="login_aqui">
-          <strong>Ingresa por aquí.</strong>
-        </div> 
-      </div>
+      <ion-item>
+        <ion-icon name="key"></ion-icon>
+        <ion-input
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          required placeholder="Ingresa tu contraseña"></ion-input>
+      </ion-item>
+    </form>
 
+
+    <ion-item>
+      <ion-label>Semestre</ion-label>
+      <ion-select
+        [(ngModel)]="semestre">
+        <ion-select-option *ngFor="let item of semestres" >
+          {{item}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <div class="enter_btn">
+      <button class="myButton" (click)="onRegister()">
+        Registrarse
+      </button>
     </div>
+
+    <!-- Other links -->
+    <div class="center_text_login_registro" (click)="login()">
+      <div>¿Ya tienes una cuenta?</div>
+      <div class="presiona_aqui">
+        <strong>Ingresa por aquí.</strong>
+      </div>
+    </div>
+
   </div>
 </ion-content>
-

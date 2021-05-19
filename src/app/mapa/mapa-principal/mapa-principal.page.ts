@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { Map, tileLayer, marker, LeafletMouseEvent } from "leaflet";
+import circle from "@turf/circle";
 
 import * as L from "leaflet";
 import "leaflet-routing-machine";
 import { Lugares_universidad } from 'src/app/services/lugares_universidad';
+import { Units } from '@turf/helpers';
+import { IonFab } from '@ionic/angular';
 
 @Component({
   selector: "app-mapa-principal",
   templateUrl: "./mapa-principal.page.html",
   styleUrls: ["./mapa-principal.page.scss"],
 })
+
+
 export class MapaPrincipalPage implements OnInit {
+  @ViewChild('fab')fab : IonFab;
+
   map: Map;
 
   public markers_onoff = true;
@@ -38,18 +45,23 @@ export class MapaPrincipalPage implements OnInit {
   private api_key_openrouteservice =
     "5b3ce3597851110001cf6248bef69f7785b146a5a300f5cc68db403b";
 
+  marker_action: any = null;
+  latlng_actual: any;
+  circle_GEO_JSON: any;
+
   constructor(
     public platform: Platform,
     public router: Router,
     public http: HttpClient,
-    public alertController: AlertController,
+    public alertController: AlertController
   ) {
     var lugaresUniversidad = new Lugares_universidad();
-    this.lugares = lugaresUniversidad.getLugares()
+    this.lugares = lugaresUniversidad.getLugares();
   }
 
   ionViewDidEnter() {
     this.leafletMap();
+    this.fab.activated = true;
   }
 
   ngOnInit() {}
@@ -61,26 +73,55 @@ export class MapaPrincipalPage implements OnInit {
     );
     this.map.removeControl(this.map.zoomControl);
     // this.map.addControl(L.control.zoom({ position: "bottomright" }));
-    this.map.on("click", <LeafletMouseEvent>(clickEvent) => {
-      console.log(clickEvent.latlng);
+    var orangeMarker = L.AwesomeMarkers.icon({
+      markerColor: "orange",
     });
 
-    // let coordinates = {
-    //   coordinates: [
-    //     [this.lng_origen, this.lat_origen],
-    //     [this.lng_destino, this.lat_destino],
-    //   ],
-    // };
-    // const body = JSON.stringify(coordinates);
+    this.map.on("click", <LeafletMouseEvent>(clickEvent) => {
+      console.log(clickEvent.latlng);
+      if (this.marker_action != null) {
+        this.map.removeLayer(this.marker_action);
+      }
+      var marker = L.marker([clickEvent.latlng.lat, clickEvent.latlng.lng], {
+        icon: orangeMarker,
+      }).addTo(this.map);
 
-    // var httpOptions = {
-    //   headers: new HttpHeaders({
-    //     Accept:
-    //       "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-    //     "Content-Type": "application/json",
-    //     Authorization: this.api_key_openrouteservice,
-    //   }),
-    // };
+      var message =
+        "<div>" +
+        "Para eliminar el marcador<br>" +
+        "seleccionar de nuevo el marcador<br>" +
+        "</div>";
+      marker
+        .bindPopup(message)
+        .on("click", (e) => {
+          this.map.removeLayer(this.marker_action);
+          this.map.removeLayer(this.circle_GEO_JSON);
+          this.marker_action = null;
+          this.circle_GEO_JSON = null;
+        })
+        .openPopup();
+
+      this.latlng_actual = {
+        lat: clickEvent.latlng.lat,
+        lng: clickEvent.latlng.lng,
+      };
+
+      this.marker_action = marker;
+      var center = [clickEvent.latlng.lng, clickEvent.latlng.lat];
+      var radius = 0.01;
+      var options = {
+        steps: 10,
+        units: "kilometers" as Units,
+        properties: { foo: "bar" },
+      };
+      var circle_var = circle(center, radius, options);
+      console.log(circle_var);
+      if (this.circle_GEO_JSON != null) {
+        this.map.removeLayer(this.circle_GEO_JSON);
+      }
+      this.circle_GEO_JSON = new L.GeoJSON(circle_var).addTo(this.map);
+    });
+
     this.lugares.forEach((element) => {
       var marker = L.marker([element.lat, element.lng]).addTo(this.map);
       var message = "<b>" + element.id + "</b><br>" + element.name + "<br>";
@@ -90,13 +131,6 @@ export class MapaPrincipalPage implements OnInit {
       });
       this.markers.push(marker);
     });
-
-    // var response = this.http
-    //   .post(this.url_route, body, httpOptions)
-    //   .subscribe((resp) => {
-    //     console.log(resp);
-    //     var geoJSON_layer = new L.GeoJSON(<any>resp).addTo(this.map)
-    //   })
   }
 
   change_markers($event) {
@@ -134,6 +168,7 @@ export class MapaPrincipalPage implements OnInit {
       this.map.remove();
     }
     this.marker_selected = null;
+    this.marker_action = null;
   }
 
   async toNavigation() {
@@ -149,12 +184,76 @@ export class MapaPrincipalPage implements OnInit {
       await alert.present();
     } else {
       console.log(this.marker_selected);
-      let navigationExtras: NavigationExtras = {
-        queryParams: {
-          special: JSON.stringify(this.marker_selected),
-        },
-      };
+      var navigationExtras: NavigationExtras;
+      if (this.marker_action == null) {
+        let alert = await this.alertController.create({
+          cssClass: "custom-class-alert",
+          header: "Información",
+          subHeader: "Ubicación actual",
+          message: "La ruta se generará desde su ubicación actual",
+          buttons: ["OK"],
+        });
+        await alert.present();
+        navigationExtras = {
+          queryParams: {
+            destino: JSON.stringify(this.marker_selected),
+            origen: JSON.stringify(this.lugares[15]),
+          },
+        };
+      } else {
+        let alert = await this.alertController.create({
+          cssClass: "custom-class-alert",
+          header: "Información",
+          subHeader: "Ubicación seleccionada",
+          message: "La ruta se generará desde la ubicación seleccionada",
+          buttons: ["OK"],
+        });
+        await alert.present();
+        var element = {
+          id: 0,
+          name: "Ubicación seleccionada",
+          lat: this.latlng_actual.lat,
+          lng: this.latlng_actual.lng,
+        };
+        navigationExtras = {
+          queryParams: {
+            destino: JSON.stringify(this.marker_selected),
+            origen: JSON.stringify(element),
+          },
+        };
+      }
+
       this.router.navigate(["mapa-ruta"], navigationExtras);
     }
   }
+
+  onBackAction() {
+    this.router.navigate(["auth-home"]);
+  }
+
+  async eventualidad($event) {
+    if (this.latlng_actual == null) {
+      let alert = await this.alertController.create({
+        cssClass: "custom-class-alert",
+        header: "Error",
+        subHeader: "Ubicación no seleccionada",
+        message:
+          "No se puede reportar una eventualidad sin haber seleccionado la ubicación",
+        buttons: ["OK"],
+      });
+      await alert.present();
+    } else {
+      console.log("Enviado",this.latlng_actual)
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          actual: JSON.stringify(this.latlng_actual),
+        },
+      };
+      this.router.navigate(
+        ["reporte-eventualidades-principal"],
+        navigationExtras
+      );
+    }
+  }
 }
+

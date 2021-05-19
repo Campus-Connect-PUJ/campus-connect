@@ -9,6 +9,7 @@ import { LoginService } from "src/app/services/login.service";
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service';
 import { ReseniaGrupo } from 'src/app/Model/ReseniaGrupo/reseniaGrupo';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-datos-grupo',
@@ -23,8 +24,13 @@ export class DatosGrupoPage implements OnInit {
   usuario: UsuarioGeneral;
   resenia: ReseniaGrupo = new ReseniaGrupo();
 
-  constructor( private activatedRoute :ActivatedRoute, private grupoEstudiantilService : GrupoEstudiantilService, private tematicasService : TematicaService, private loginService: LoginService,
-    private usuarioSer: UsuarioGeneralService ) { }
+  constructor( 
+    private activatedRoute :ActivatedRoute, 
+    private grupoEstudiantilService : GrupoEstudiantilService, 
+    private tematicasService : TematicaService, 
+    private loginService: LoginService,
+    private usuarioSer: UsuarioGeneralService,
+    public toastCtrl: ToastController ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -65,7 +71,6 @@ export class DatosGrupoPage implements OnInit {
     resenia.estrellas=this.puntajeAsig;
     resenia.grupoEstudiantil=this.grupoSelect;
     resenia.usuario=this.usuario;
-    console.log(resenia);
     this.usuarioSer.createReseniaGrupo(
       resenia
     ).subscribe(
@@ -73,5 +78,17 @@ export class DatosGrupoPage implements OnInit {
       error => console.error(error)
     );
     
+    this.presentToast("Se ha guardado la reseña");
+
+  }
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 4000
+      }
+    );
+    toast.present();
   }
 }

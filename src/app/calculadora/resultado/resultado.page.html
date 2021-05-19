@@ -1,26 +1,54 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="calculadora/ingresar-notas" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+      [routerLink]="['/calculadora/ingresar-notas']"
+        >
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Resultado</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
+
   <ion-card>
     <ion-card-header>
       <h1>Nota</h1>
     </ion-card-header>
     <ion-card-content>
-      <h2>Con <span>{{porcentajeActual}}%</span>, la nota actual es de <span>{{notaActual}}</span>. Para obtener la nota final igual a <span>{{notaEsperada}}</span>, la nota <span>{{porcentajeFaltante}}%</span> restante debe ser de <span>{{notaFaltante}}</span></h2>
+    <div *ngIf="pasar == false">
+      <h2>Con <span style="font-weight: bolder">{{porcentajeActual}}%</span>, la nota actual es de <span style="font-weight: bolder">{{notaActual}}</span></h2>
+      <br/>
+      <h2>Para obtener la nota final igual a <span style="font-weight: bolder">{{notaEsperada}}</span>, debe de obtener <span style="font-weight: bolder">{{notaFaltante}}</span> en el <span style="font-weight: bolder">{{porcentajeFaltante}}%</span> restante</h2>
+    </div>
+    
+    <div *ngIf="pasar == true">
+      <h2>Con <span style="font-weight: bolder">{{porcentajeActual}}%</span>, la nota actual es de <span style="font-weight: bolder">{{notaActual}}</span>. Ya ha obtenido la nota esperada (<span style="font-weight: bolder">{{notaEsperada}}</span>)</h2>
+      <br/>
+      <h2><span style="font-size: 20px; font-weight: bolder; display:block; text-align:center;">Felicidades</span></h2>
+    </div>
+
     </ion-card-content>
   </ion-card>
-  <div class="boton">
-    <ion-button (click)=guardarMateria() style="text-align:center" >
-      <h1>Siguiente</h1>
+  <div class="botones">
+    <ion-button (click)=guardarMateria() style="text-align:center" href="/calculadora/materias">
+      <h1>Ir a todas las materias</h1>
+    </ion-button>
+
+    <ion-button (click)=soloGuardarMateria() style="text-align:center" [routerLink]="['/tips/exigencia', mensaje.nota]">
+      <h2>Ver tips recomendados</h2>
     </ion-button>
   </div>
   
+
+  
+
+
+
 
 </ion-content>

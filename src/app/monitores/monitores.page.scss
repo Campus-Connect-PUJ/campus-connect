@@ -93,3 +93,66 @@ ion-card{
     }
 }
 
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+  
+div.scrollmenu .sugerencia {
+    display: inline-block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    width: 40% !important;
+    margin: 2.5%;
+
+    h1{
+        font-size: 20px;
+        overflow: auto;
+        white-space: normal;
+    }
+
+    h2{
+        font-size: 15px;
+    }
+}
+  
+
+
+.tarjetaSugerencias{
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    margin: 5%;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+
+    .titulo h1{
+        font-size: 25px;
+    }
+
+    .sugerencia h1{
+        font-size: 15px;
+    }
+
+    .scrollmenu{
+        margin: 5%;
+    }
+
+
+}
+
+#texto{
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 0;
+    margin: 5%;
+    border: 1px solid rgba(199, 199, 199, 0.25);
+    border-radius: 15px;
+    h1{
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

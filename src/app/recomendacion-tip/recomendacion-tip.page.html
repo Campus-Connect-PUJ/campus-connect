@@ -1,49 +1,52 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100;400&display=swap');
-  </style>
-
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="tabs/servicios-academicos">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Recomendación tip</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h3>En esta sección encontrara tips de estudio que te podran resultar utiles. 
-      Esta sugerencia se realiza con respecto a el estilo de aprendizaje ingresado por el usuario, como también de los tips que le haya gustado anteriormente.</h3>
-  <ion-card>
-    <ion-card-header>
-      <div class="recargar" href="folder">
-        <a href="/folder/inbox"><img src="assets/recargar.png" alt=""></a>
-      </div>
-      <h1>¡Tip!</h1>
-    </ion-card-header>
-    <ion-card-content>
-      <h2>{{tipRecomendado.descripcion}}</h2>
-      <h2>{{tipRecomendado.id}}</h2>
-    </ion-card-content>
-  </ion-card>
+  <div class="content">
+    <div class="cuadroTextoDescripcion">
+      <h2>En esta sección encontrara tips de estudio que te podran resultar utiles.</h2>
+      <h2>Esta sugerencia se realiza con respecto a el estilo de aprendizaje ingresado por el usuario, como también de los tips que le haya gustado anteriormente.</h2>
+    </div>
+    <ion-card>
+      <ion-card-header>
+        <h1>¡Tip!</h1>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{tipRecomendado.descripcion}}</h2>
+        <h2>Puntaje: {{tipRecomendado.puntaje}}</h2>
+      </ion-card-content>
+    </ion-card>
 
-  <div class="botones">
-    <div class="botonesRealimentacion">
-      <ion-button (click)="votar(-1)" color=#FDFDFD id="unlike">
-        <img src="assets/unlike.png" alt="">
-      </ion-button>
-      <ion-button (click)="votar(1)" color=#FDFDFD id="like">
-        <img src="assets/like.png" alt="">
-      </ion-button>
-    </div>
-    <div class="todoslostips">
-      <ion-button [routerLink] = "['/tips']">
-        <h2>Ver todos los tips</h2>
-      </ion-button>
-    </div>
-    <div class="crearTip" [routerLink]="['/tip-crear']">
-      <ion-button>
-        <h2>Crear tip</h2>
-      </ion-button>
+    <div class="botones">
+      <div class="botonesRealimentacion">
+        <ion-button (click)="votar(-1)" color=#FDFDFD id="unlike">
+          <img src="assets/unlike.png" alt="">
+        </ion-button>
+        <ion-button (click)="votar(1)" color=#FDFDFD id="like">
+          <img src="assets/like.png" alt="">
+        </ion-button>
+      </div>
+      <div class="todoslostips">
+        <ion-button [routerLink] = "['/tips']">
+          <h2>Ver todos los tips</h2>
+        </ion-button>
+      </div>
+      <div class="crearTip" [routerLink]="['/tip-crear']">
+        <ion-button>
+          <h2>Crear tip</h2>
+        </ion-button>
+      </div>
     </div>
   </div>
 </ion-content>

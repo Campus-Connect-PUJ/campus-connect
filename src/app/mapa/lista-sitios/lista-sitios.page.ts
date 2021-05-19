@@ -24,6 +24,6 @@ export class ListaSitiosPage implements OnInit {
         special: JSON.stringify(item),
       },
     };
-    this.router.navigate(["mapa-ruta"], navigationExtras);
+    this.router.navigate(["lista-sitios-destino"], navigationExtras);
   }
 }

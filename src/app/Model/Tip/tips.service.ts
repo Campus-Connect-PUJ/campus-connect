@@ -23,7 +23,7 @@ export class TipsService {
 
   createTip(tipEnviar: Tip) {
     const url = `${environment.baseUrl}/tip`;
-    console.log("->",tipEnviar.usuario.id, tipEnviar, tipEnviar.tiposAprendizaje)
+    console.log(tipEnviar)
     return this.net.post(
       url,
       {
@@ -31,24 +31,27 @@ export class TipsService {
         tip: {
           descripcion: tipEnviar.descripcion
         },
-        tiposAprendizaje: tipEnviar.tiposAprendizaje
+        tiposAprendizaje: tipEnviar.tiposAprendizaje,
+        exigencia: tipEnviar.nivelExigencia
       }
     );
   }
 
-  agregarTipGustado(idUsuario: number, idTip: number){
-    const url = `${environment.baseUrl}/tip/tipsGustados/${idUsuario}/${idTip}`;
+  borrarTip(idTip: number){
+    const url = `${environment.baseUrl}/tip/borrarTip/${idTip}`;
+    return this.net.put(url, {})
+  }
 
-    console.log("->",idUsuario, idTip);
+  agregarTipGustado(idTip: number){
+    const url = `${environment.baseUrl}/tip/tipsGustados/${idTip}`;
     return this.net.put(
       url,
       {}
     );
   }
 
-  agregarTipNoGustado(idUsuario: number, idTip: number){
-    const url = `${environment.baseUrl}/tip/tipsNoGustados/${idUsuario}/${idTip}`;
-    console.log("->",idUsuario, idTip);
+  agregarTipNoGustado(idTip: number){
+    const url = `${environment.baseUrl}/tip/tipsNoGustados/${idTip}`;
     return this.net.put(
       url,
       {}

@@ -4,6 +4,7 @@ import { LoginService } from "src/app/services/login.service";
 import { TipoAprendizajeService } from "src/app/Model/TipoAprendizaje/tipo-aprendizaje.service"
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
 import { UsuarioGeneralService } from 'src/app/Model/UsuarioGeneral/usuario-general.service'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agregar-tipo-aprendizaje',
@@ -16,10 +17,14 @@ export class AgregarTipoAprendizajePage implements OnInit {
   tiposDeAprendizajeSeleccionados = [];
   tiposDeAprendizajeUsuario = [];
 
-  constructor(private loginService: LoginService,
+  constructor(
+    private loginService: LoginService,
     private tipoAprendizajeService: TipoAprendizajeService,
-    private usuarioService: UsuarioGeneralService
-    ) { }
+    private usuarioService: UsuarioGeneralService,
+    public alertaCtrl: AlertController
+  ) {
+    this.usuario = this.loginService.getUser();
+  }
 
   ngOnInit() {
     this.obtenerTiposDeAprendizajeUsuario();
@@ -27,42 +32,42 @@ export class AgregarTipoAprendizajePage implements OnInit {
   }
 
   obtenerTiposDeAprendizajeUsuario(){
-    this.usuario = this.loginService.getUser();
-    this.usuarioService.getUsuario(this.usuario.id).subscribe(
-      results => {
-        this.usuario = results;
+    try {
+      if (!this.usuario.estilosAprendizaje){
+        this.usuarioService.getUsuario().subscribe(
+          results => {
+            this.usuario = results;
+            this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
+          }, error => console.error(error)
+        )
+      } else {
         this.tiposDeAprendizajeUsuario = this.usuario.estilosAprendizaje;
-        console.log("Los del usuario", this.tiposDeAprendizajeUsuario)
-      }, error => console.error(error)
-    )
-    //this.usuarioService.
+      }
+    } catch (error) {
+      console.error(error)
+    }
 
-    //this.tiposDeAprendizajeSeleccionados = this.usuario.estilosAprendizaje;
-    //console.log("user", this.usuario);
+
   }
 
   obtenerTiposDeAprendizaje(){
     this.tipoAprendizajeService.getTiposAprendizaje().subscribe(
       results => {
         this.aprendizajesExistentes = results;
-        console.log(this.aprendizajesExistentes)
       }, error =>console.error(error)
     )
   }
 
   
   agregarTipo(){
-    let mensaje = "Se publico el foro";
+    const mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
     this.usuario = this.loginService.getUser();
     for(let i = 0; i < this.tiposDeAprendizajeSeleccionados.length; i++){
-      console.log("aa");
-      this.tipoAprendizajeService.agregarTipoAprendizaje(this.usuario.id, this.tiposDeAprendizajeSeleccionados[i]).subscribe(
-        results => {
-          console.log(results);
-          this.usuario.estilosAprendizaje.push(this.tiposDeAprendizajeSeleccionados[i])
+      this.tipoAprendizajeService.agregarTipoAprendizaje(this.tiposDeAprendizajeSeleccionados[i]).subscribe(
+        (results: UsuarioGeneral) => {
+          this.usuario = results;
           this.loginService.storeUser(this.usuario, this.loginService.getToken())
-
         },
         error => console.error(error)
       )
@@ -79,10 +84,38 @@ export class AgregarTipoAprendizajePage implements OnInit {
       }
 
     }
-    
 
-    console.log(mensaje);
+  }
 
+  async presentAlert(indice){
+    const alert = await this.alertaCtrl.create({
+      header: '¿Borrar materia?',
+      subHeader: 'Materia'+ (indice+1),
+      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Borrar',
+          handler: () => {
+            this.tipoAprendizajeService.borrarTipoAprendizaje(this.tiposDeAprendizajeUsuario[indice].id).subscribe(
+              (result: UsuarioGeneral) => {
+                this.usuario = result;
+                this.loginService.storeUser(this.usuario, this.loginService.getToken())
+              },
+              error => console.log(error)
+            )
+            this.tiposDeAprendizajeUsuario.splice(indice,1);
+          }
+        }
+      ]
+    })
+    await alert.present();
   }
 
 }

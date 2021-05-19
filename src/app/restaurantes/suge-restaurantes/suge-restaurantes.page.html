@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="/sugerencias-principal">
+        <ion-icon
+          slot="icon-only"
+          name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Nuestra Selección para ti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="content">
+    <ion-list>
+      <ion-card *ngFor="let restaurante of restaurantes">
+        <ion-card-header>
+          <ion-card-title>{{restaurante.nombre}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>
+            {{restaurante.tipo}}
+          </ion-label>
+          <ion-label>
+            {{restaurante.descripcion}}
+          </ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+    <div class="nonTransparent" *ngIf="restaurantes.length == 0">
+      <h1>En el momento no hay restaurantes sugeridos, por favor espera un momento.</h1>
+    </div>
+    <ion-button (click) = "infoRestaurantes()" [routerLink]="['/recomendar-restaurantes']">
+      Ver más restaurantes
+      <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>

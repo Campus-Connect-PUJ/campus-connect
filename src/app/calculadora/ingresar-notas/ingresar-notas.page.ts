@@ -63,7 +63,7 @@ export class IngresarNotasPage implements OnInit {
   definirCantidadDeNotas(){
     for (let i = 0; i < this.cantidadDeNotas && this.cantidadDeNotas != this.notas.length; i++) {
       this.notas.push({
-        notaObtenida: -1,
+        notaObtenida: 0,
         porcentaje: 0
       })      
     }
@@ -80,12 +80,12 @@ export class IngresarNotasPage implements OnInit {
   }
 
   runDeterminateProgress() {
-    this.porcentaje=0;
+    this.porcentaje = 0;
     this.realizarCiclo()
     for(let i = 0; i < this.ciclo; i++){
-      if(this.notas[i].notaObtenida!=-1){
+      //if(this.notas[i].notaObtenida!=-1){
         this.porcentaje = this.notas[i].porcentaje + this.porcentaje;
-      }
+      //}
       
     }
     this.p_bar_value = +this.porcentaje/100;
@@ -109,15 +109,17 @@ export class IngresarNotasPage implements OnInit {
     this.realizarCiclo();
     
     for(let i=0; i<this.ciclo; i++){
-      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != -1 && this.notas[i].porcentaje != 0){
+      if(this.notas[i].notaObtenida != NaN && this.notas[i].notaObtenida != 0 && this.notas[i].porcentaje != 0){
         this.notaActual = this.notaActual + (this.notas[i].notaObtenida * (this.notas[i].porcentaje/100));
         this.notaActual = parseFloat(this.notaActual.toFixed(3))
         this.porcentajeActual = this.notas[i].porcentaje + this.porcentajeActual;
       }
       else{
-        this.porcentajeFaltante = this.porcentajeFaltante - this.notas[i].porcentaje;
+        this.porcentajeFaltante = this.porcentajeFaltante + this.notas[i].porcentaje;
       }
     }
+    this.porcentajeFaltante = 100 - this.porcentajeActual; 
+    this.notaFaltante = this.notaEsperada - this.notaActual;
     this.notaFaltante = parseFloat(this.notaFaltante.toFixed(3))
     this.calculadoraService.calculoRealizado(this.nombreMateria ,this.notaFaltante, Math.abs(this.porcentajeFaltante), this.notaEsperada, this.notas, this.indice, this.notaActual, this.porcentajeActual)
   }

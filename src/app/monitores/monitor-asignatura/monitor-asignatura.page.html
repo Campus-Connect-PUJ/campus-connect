@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        [routerLink]="['/monitores/horarios-monitor', monitor.id]"
+        text=" "
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>monitor-asignatura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cuadroTextoDescripcion">
+    <div class="texto">
+			<h1>Votar monitor</h1>
+      <div class="formEnviar">
+        <ion-input [(ngModel)]="voto"></ion-input>
+        <ion-button (click)="enviarVoto()">Enviar voto</ion-button>
+        <div id="aparecer" *ngIf="errorSi">
+          <h3>El valor debe estar entre 1 y 5</h3>
+        </div>
+        <h2>Puntaje asignatura {{puntajeAsignatura}}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div id="Asignaturas">
+    <ion-card class="Asignatura" *ngFor="let horario of horarios">
+      <ion-card-header>
+        <h2>Inicio: {{convertir(horario.fechaInicial)}}</h2>
+        <h2>Fin: {{convertir(horario.fechaFinal)}}</h2>
+        <h1>{{horario.lugar}}</h1>
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>

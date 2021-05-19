@@ -1,32 +1,73 @@
 <ion-header>
-  <ion-toolbar translucent>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/servicios-academicos" text=" "></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="recomendacion-tip">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Crear tip</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding class="background" [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Descripción</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
-    </ion-card-content>
-  </ion-card>
+<ion-content>
+  <div class="content">
 
-  <ion-item>
-    <ion-label>Tipo aprendizaje</ion-label>
-    <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
-      <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <div class="cuadroTextoDescripcion">
+      <div class="texto">
+          <h2>Escriba el tip que quiera aportar al sistema</h2>
+          <h2>Si deja los tipos de aprendizaje vacios, seran completados con sus tipos de aprendizaje obtenidos anteriormente</h2>
+          <h2><a (click)="openModal()">Mas detalles de los tipos de aprendizaje</a></h2>
+      </div>
+    </div>
 
-  <div class="btn-crearForo">
-    <ion-card class="boton-mas" (click)=crearTip() [routerLink]="['/tabs/servicios-academicos']">
-      <h1>+</h1>
+
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Descripción tip</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input type="string" [(ngModel)]="descripcion"></ion-input>
+      </ion-card-content>
     </ion-card>
+
+
+    
+
+  <div class="infoAdicional">
+    <ion-item lines="none">
+      <ion-label>Tipo aprendizaje</ion-label>
+      
+      <ion-select [(ngModel)]="tiposDeAprendizajeSeleccionados" multiple="true" cancelText="cancel" okText="ok">
+        <ion-select-option *ngFor="let aprendizaje of aprendizajesExistentes; let indice = index" [value]="aprendizaje.id" selected = "false">{{aprendizaje.descripcion}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+        <ion-label>Nivel de exigencia</ion-label>
+        <ion-select [(ngModel)]="nivelDeExigenciaSeleccionado" cancelText="cancel" okText="ok">
+        <ion-select-option *ngFor="let nivel of nivelDeExigencia" [value]="nivel" selected = "false">{{nivel}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+    <div class="btn-crearForo">
+
+      <ion-button
+        (click)="crearTip()"
+        >
+        <ion-icon slot="icon-only"
+                  name="add"
+        ></ion-icon>
+
+      </ion-button>
+    </div>
+
+
   </div>
 </ion-content>

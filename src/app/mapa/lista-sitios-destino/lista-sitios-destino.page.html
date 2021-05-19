@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button href="lista-sitios">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ubicacion destino</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div class="nonTransparent">
+      <ion-list-header>
+        Sitios de la Universidad
+      </ion-list-header>
+      <ion-label>
+        Selecciona lugar de fin de tu ruta.
+      </ion-label>
+    </div>
+    <ion-item class="nonTransparent" *ngFor="let item of lugares">
+      <ion-label>
+        <h2>{{item.id}}</h2>
+        <h3>{{item.name}}</h3> 
+      </ion-label>
+      <ion-button size="small" color="light" (click) ="next_page(item)">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

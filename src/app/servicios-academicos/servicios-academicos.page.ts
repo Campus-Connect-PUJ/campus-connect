@@ -17,63 +17,58 @@ export class ServiciosAcademicosPage implements OnInit {
   usuarioActual: UsuarioGeneral;
 
   constructor(
-    private logService: LoginService,
+    private loginService: LoginService,
     private userService: UsuarioGeneralService
 
   ) {
-    console.log("aaa1")
     //this.mostrarChat();
     
   }
 
   ngOnInit() {
-    console.log("aaa2")
     this.mostrarChat();
     //let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     //element[0].style.display = 'inline';
     //element[0].style.marginBottom = '50px';
   }
 
-  ngOnDestroy() {
-    console.log("bbb")
-  }
 
   updateColor(color) {
     document.documentElement.style.setProperty(`--color`, color);
   }
 
   mostrarChat(){
-    console.log("Mostrar")
-    let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    
     /*
     let shadow = element[0].shadowRoot;
     element[0].attachShadow({mode:"open"})
     shadow = element[0].shadowRoot;
     console.log("->", shadow);
     */
+
     element[0].style.display = 'flex';
     
   }
 
   quitarChat(){
-    let element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
+    const element = document.getElementsByClassName('chatbot') as HTMLCollectionOf<HTMLElement>;
     element[0].style.display = 'none'
     element[0].style.marginBottom = '50px';
   }
 
   obtenerUsuario(){
-    this.usuarioActual = this.logService.getUser();
-    this.userService.getUsuario(this.usuarioActual.id).subscribe(
-      result => {this.usuarioActual = result
-                this.logService.storeUser(this.usuarioActual, this.logService.getToken())
-                  console.log("user", this.usuarioActual)
-
-
+    this.usuarioActual = this.loginService.getUser();
+    this.userService.getUsuario().subscribe(
+      result => {
+        this.usuarioActual = result
+        this.loginService.storeUser(this.usuarioActual, this.loginService.getToken())
       },
       error => console.error()
     )
     this.quitarChat();
   }
+
 
 
 }

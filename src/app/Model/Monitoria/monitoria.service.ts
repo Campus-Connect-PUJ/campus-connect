@@ -12,18 +12,43 @@ export class MonitoriaService {
 
   constructor(private net: NetService) { }
 
-  guardarMonitorias(idUsuario: number, monitoria: Monitoria ){
-    const url = `${environment.baseUrl}/usuario/agregarMonitoria/${idUsuario}`;
 
-    console.log("->",monitoria);
+  crearMonitoria(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/agregarMonitoria`;
     return this.net.post(
       url,
       {
-        "asignatura": monitoria.asignatura.id,
-        "fechaInicial": monitoria.horarios[0].fechaInicial,
-        "fechaFinal": monitoria.horarios[0].fechaFinal
+        "idAsignatura": mon.asignatura.id
       }
-    );
+    )
+  }
+
+  agregarHorario(mon: Monitoria, indice: number){
+    const url = `${environment.baseUrl}/usuario/agregarHorario`;
+    console.log(mon.asignatura.id, " ", mon.horarios[indice])
+    return this.net.post(
+      url,
+      {
+        "idAsignatura": mon.asignatura.id,
+        //"fi": mon.horarios[indice].fechaInicio,
+        //"ff": mon.horarios[indice].fechaFin,
+        "fechaInicial": mon.horarios[indice].fechaInicial,
+        "fechaFinal": mon.horarios[indice].fechaFinal,
+        "lugar": mon.horarios[indice].lugar
+      }
+    )
+  }
+
+  borrarHorario(mon: Monitoria){
+    const url = `${environment.baseUrl}/usuario/borrarHorario`;
+    return this.net.put(
+      url,
+      {
+        "idAsignatura": mon.asignatura.id,
+        "fechaInicial": mon.horarios[0].fechaInicial,
+        "fechaFinal": mon.horarios[0].fechaFinal
+      }
+    )
   }
 
   obtenerMonitores(): Observable<UsuarioGeneral[]>{

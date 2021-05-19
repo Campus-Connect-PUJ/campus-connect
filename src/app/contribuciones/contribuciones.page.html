@@ -1,43 +1,51 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>contribuciones</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button
+        href="/auth-home">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Contribuciones</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card [routerLink]="['/tips/usuario', indice]" >
+  <div class="content">
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/tips', indice]" >
       <ion-card-header>
-        <h1>Tips</h1>
+        <ion-card-title>Tips</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema</h2>
+        Podra acceder a los tips creados
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/foros/usuario', indice]">
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/foros', indice]">
       <ion-card-header>
-        <h1>Foros</h1>
+        <ion-card-title>Foros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema</h2>
+        Podra acceder a los foros creados
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/foros/usuario', indice]">
+    <ion-card (click)="quitarChat()" [routerLink]="['/contribuciones/respuestas-foro', indice]">
       <ion-card-header>
-        <h1>Respuestas foros</h1>
+        <ion-card-title>Respuestas foros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>Podra acceder a tips recomendados, como tambien a todos los tips disponibles en el sistema</h2>
+        Podra acceder a las respuestas creadas
       </ion-card-content>
     </ion-card>
 
-    <ion-card [routerLink]="['/agregar-tipo-aprendizaje']">
+    <ion-card (click)="quitarChat()" [routerLink]="['/agregar-tipo-aprendizaje']">
       <ion-card-header>
-        <h1>Agregar Tipos Aprendizaje</h1>
+        <ion-card-title>Editar tipos aprendizaje</ion-card-title>
       </ion-card-header>
     </ion-card>
-
-
-
+  </div>
 </ion-content>

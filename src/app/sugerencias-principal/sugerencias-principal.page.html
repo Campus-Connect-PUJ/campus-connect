@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary">
+    <ion-buttons class="header_btn"
+                 slot="secondary">
       <ion-button href="/auth-home">
         <ion-icon slot="icon-only"
                   name="arrow-back"
@@ -10,34 +11,32 @@
     <ion-title>Sugerencias</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <ion-list>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Grupos Estudiantiles</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        ¡Únete a los Grupos Estudiantiles! Un Grupo Estudiantil es un conjunto de estudiantes que se reúnen de manera voluntaria
-        y autónoma en torno a un interés común favoreciendo su proceso formativo, su desarrollo personal y construyendo comunidad.
-      </ion-card-content>
-      <ion-button (click) = "pasoGrupos()" [routerLink]="['/reco-grupos']">
-        <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
-      </ion-button>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Restaurantes</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Con el fin de facilitar tu proceso a la hora de elegir donde almorzar aquí encontraras algunos de los restaurantes dentro
-        del campus y fuera de este que se ajusten a tus gustos y preferencias.
-      </ion-card-content>
-      <ion-button (click) = "pasoRestaurantes()" [routerLink]="['/recomendar-restaurantes']">
-        <ion-icon  size="small" slot="icon-only" name="arrow-forward"></ion-icon>
-      </ion-button>
-    </ion-card>
-  </ion-list>
-
-
-
+  <div class="content">
+    <ion-list>
+      <ion-card
+          (click)="paso()"
+          [routerLink]="['/suge-grupos']">
+        <ion-card-header>
+          <ion-card-title>Grupos Estudiantiles</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          ¡Únete a los Grupos Estudiantiles! Un Grupo Estudiantil es un conjunto de estudiantes que se reúnen de manera voluntaria
+          y autónoma en torno a un interés común favoreciendo su proceso formativo, su desarrollo personal y construyendo comunidad.
+        </ion-card-content>
+      </ion-card>
+      <ion-card
+          (click)="paso()"
+          [routerLink]="['/suge-restaurantes']">
+        <ion-card-header>
+          <ion-card-title>Restaurantes</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Con el fin de facilitar tu proceso a la hora de elegir donde almorzar aquí encontraras algunos de los restaurantes dentro
+          del campus y fuera de este que se ajusten a tus gustos y preferencias.
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 </ion-content>

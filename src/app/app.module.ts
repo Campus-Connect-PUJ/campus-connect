@@ -17,6 +17,8 @@ import { FormularioPersoRestaurantesPageModule } from './restaurantes/formulario
 import { IonicStorageModule } from '@ionic/storage';
 import { FormularioPersoGruposPageModule } from './grupos-estudiantiles/formulario-perso-grupos/formulario-perso-grupos.module';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { CommonModule } from '@angular/common';
+import { FiltroForosPipe } from './pipes/filtro-foros.pipe';
 
 //import { RecoGruposPage } from './grupos-estudiantiles/reco-grupos/reco-grupos.page';
 //import { DatosGrupoPage } from './grupos-estudiantiles/datos-grupo/datos-grupo.page';
@@ -31,14 +33,15 @@ import { AuthInterceptor } from './services/auth-interceptor';
     //DatosGrupoPage
   ],
   imports: [
-    PipesModule,
+    PipesModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     FormularioPersoRestaurantesPageModule,
     FormularioPersoGruposPageModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    CommonModule
     //RecoGruposPage
   ],
   providers: [

@@ -43,8 +43,6 @@ export class LoginService {
     );
   }
 
-
-
   register(
     nombre: string,
     apellido: string,
@@ -86,14 +84,17 @@ export class LoginService {
   }
 
   logout() {
+    try {
+      sessionStorage.removeItem("perso"+this.getUser().email);
+    } catch (error) {
+      console.log("No se le borra el perfil de personalización")
+    }
     sessionStorage.removeItem(this.USER);
     sessionStorage.removeItem(this.TOKEN);
     return this.http.post(`${environment.baseUrl}/logout`, '', {
       withCredentials: true
     });
   }
-
-  
 
   isAuthorized(allowedRoles: string[]): boolean {
     // check if the list of allowed roles is empty, if empty,
@@ -123,4 +124,5 @@ export class LoginService {
 
     return valido;
   }
+
 }

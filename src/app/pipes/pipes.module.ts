@@ -11,6 +11,8 @@ import { FiltroRestauranteTiempoPipe } from './filtro-restaurante-tiempo.pipe';
 import { FiltroFacultadGruposPipe } from './filtro-facultad-grupos.pipe';
 import { FiltroTematicaGurposPipe } from './filtro-tematica-gurpos.pipe';
 import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
+import { FiltroTipsExigenciaPipe } from './filtro-tips-exigencia.pipe';
+import { FiltroMonitoresPipe } from './filtro-monitores.pipe';
 
 @NgModule({
 
@@ -25,7 +27,9 @@ import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
     FiltroRestauranteTiempoPipe,
     FiltroFacultadGruposPipe,
     FiltroTematicaGurposPipe,
-    FiltroCaracteristicasPipe
+    FiltroCaracteristicasPipe,
+    FiltroTipsExigenciaPipe,
+    FiltroMonitoresPipe
   ],
   exports: [
     FiltroGruposPipe,
@@ -38,7 +42,18 @@ import { FiltroCaracteristicasPipe } from './filtro-caracteristicas.pipe';
     FiltroRestauranteTiempoPipe,
     FiltroFacultadGruposPipe,
     FiltroTematicaGurposPipe,
-    FiltroCaracteristicasPipe
+    FiltroCaracteristicasPipe,
+    FiltroTipsExigenciaPipe,
+    FiltroMonitoresPipe
   ]
 })
-export class PipesModule { }
+export class PipesModule {
+
+  static forRoot() {
+    return {
+        ngModule: PipesModule,
+        providers: [],
+    };
+ }
+
+ }

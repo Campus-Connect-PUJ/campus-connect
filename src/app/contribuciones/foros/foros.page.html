@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="header_btn"
+                 slot="secondary">
+      <ion-button
+        href="tabs/contribuciones">
+        <ion-icon slot="icon-only"
+                  name="arrow-back"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Foros creados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="background" [fullscreen]="true">
+  <div class="content">
+    <div class="cuadroTextoDescripcion">
+      <div id="texto">
+          <h2>En esta sección podra ver y eliminar los foros creados por el usuario</h2>
+          <h2>Deslizar hacia la izquierda para eliminar</h2>
+      </div>
+    </div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div id="materias">
+
+      <ion-item-sliding *ngFor = "let foro of forosUsuario; let indice=index">
+        <ion-item lines="none" [routerLink]="['/foros', foro.id]">
+          <div class="contribucionesTexto">
+              <h1>{{foro.titulo}}</h1>
+              <h3># {{foro.id}}</h3>
+              <h3>Puntaje: {{foro.puntaje}}</h3>
+          </div>
+        </ion-item>
+
+        <ion-item-options id="end" side="end">
+          <ion-item-option color="danger" (click)="presentAlert(indice)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      
+      
+    </div>
+  <div class="cuadroTextoDescripcion" *ngIf="forosUsuario.length == 0">
+    <div class="SinElementos" >
+      <div id="texto">
+        <h1>No existen foros</h1>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</ion-content>

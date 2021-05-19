@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Nota, NotaConPorcentaje, NotasMateria } from 'src/app/Model/Nota/nota';
+import { LoginService } from 'src/app/services/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class CalculadoraService {
   private notaActual: number = 0;
   private porcentajeActual: number = 0;
 
-  constructor() {}
+  constructor(
+    private loginService: LoginService
+  ) {}
 
   getNotas(){
     return this.nota;
@@ -61,7 +64,7 @@ export class CalculadoraService {
   }
 
   addNotas(cantidad: number, notaEsperada: number, nombreMateria: string){
-    console.log(cantidad, notaEsperada);
+
     this.nota.push({
       cantidad, 
       notaEsperada
@@ -84,10 +87,9 @@ export class CalculadoraService {
 
 
   public guardar(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual){
-    console.log(nombreMateria, notaEsperada, notas )
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
-    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-
+    
+    this.controlNotas = this.load();
     try {
       if(this.controlNotas.length>=0){
         if(this.indice!=-1){
@@ -96,7 +98,7 @@ export class CalculadoraService {
         else{
           this.controlNotas.push(this.controlNota)
         }
-        localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
+        this.guardarMaterias(this.controlNotas)
       }
     } catch (error) {
       let controlNotas2: NotasMateria[] = 
@@ -113,20 +115,31 @@ export class CalculadoraService {
       controlNotas2[0].porcentajeActual = porcentajeActual;
       controlNotas2[0].notaActual = notaActual;
       this.controlNotas = controlNotas2;
-      localStorage.setItem("Materias", JSON.stringify(this.controlNotas))
-      console.log("esto se guarda2", this.controlNotas);
-      localStorage.setItem("Materias", JSON.stringify(controlNotas2))
+      this.guardarMaterias(this.controlNotas)
+      this.guardarMaterias(controlNotas2)
     }
   }
 
+  public guardarMaterias(nuevasMaterias: any){
 
-  public guardarMaterias(nuevasMaterias){
-    localStorage.setItem("Materias",JSON.stringify(nuevasMaterias))
+    localStorage.setItem(
+      "Materias" + this.loginService.getUser().email,
+      JSON.stringify(nuevasMaterias)
+    );
   }
 
   public load(): NotasMateria[] {
-    this.controlNotas = JSON.parse(localStorage.getItem("Materias"))
-    return this.controlNotas;
+  try {
+    const elemento = JSON.parse(
+      localStorage.getItem("Materias" + this.loginService.getUser().email)
+    );
+    return elemento;
+  } catch (error) {
+    
+  }
+
+
+    
   }
   
   public findNotas(id){
@@ -135,6 +148,7 @@ export class CalculadoraService {
   }
 
   public buscarNotas(indice: number){
+    this.controlNotas = this.load()
     return this.controlNotas[indice];
   }
 

@@ -2,7 +2,7 @@ import { RespuestaForo } from './../../Model/RespuestasForo/respuestas-foro';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Foro } from 'src/app/Model/Foro/foro';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, ToastController } from '@ionic/angular';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
 import { LoginService } from 'src/app/services/login.service';
@@ -19,19 +19,22 @@ export class ForoDetallesPage implements OnInit {
   foro: Foro = new Foro("", "", new UsuarioGeneral("", "", ""));
   respuestas: RespuestaForo[];
 
+  usuarioActual: UsuarioGeneral;
+
   constructor(
     private popoverController: PopoverController,
     private modalCtrl: ModalController,
     private activatedRoute: ActivatedRoute,
     private forosService: ForoService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    public toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('foroId')
       this.indice = Number(recipeId);
-      console.log("indice", this.indice)
+      this.usuarioActual = this.loginService.getUser();
       this.findForo(this.indice);
     })
   }
@@ -41,11 +44,7 @@ export class ForoDetallesPage implements OnInit {
       result => {
         this.foro = result;
         this.respuestas = this.foro.respuestas;
-
         this.respuestas = this.organizarRespuestas(this.respuestas);
-
-        console.log(this.foro)
-        console.log(this.foro.respuestas, " ", this.respuestas.length)
       },
       error => console.error(error)
     )
@@ -72,73 +71,149 @@ export class ForoDetallesPage implements OnInit {
   }
 
   calificacion(operacion: number){
-    console.log(operacion, this.color)
     this.color = !this.color;
   }
 
   calificacionForo(operacion: number){
     this.color = !this.color;
 
-    if(operacion === 1){
+    let mensaje = " ";
+    if(operacion === 1 && !this.existeUsuario(this.foro.usuariosGustaron, this.usuarioActual)){
       this.forosService.sumarVoto(this.foro.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
-      this.foro.puntaje = this.foro.puntaje+1;
+
+      if(this.existeUsuario(this.foro.usuariosNoGustaron, this.usuarioActual)){
+        this.foro.usuariosNoGustaron.splice(this.buscarIndice(this.foro.usuariosNoGustaron, this.usuarioActual), 1)
+        this.foro.puntaje = this.foro.puntaje+1;
+      }
+      else{
+        this.foro.usuariosGustaron.push(this.usuarioActual);
+        this.foro.puntaje = this.foro.puntaje+1;
+      }
     }
-    else{
+    else if(operacion == -1 && !this.existeUsuario(this.foro.usuariosNoGustaron, this.usuarioActual)){
       this.forosService.restarVoto(this.foro.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
-      this.foro.puntaje = this.foro.puntaje-1;
+
+      if(this.existeUsuario(this.foro.usuariosGustaron, this.usuarioActual)){
+        this.foro.usuariosGustaron.splice(this.buscarIndice(this.foro.usuariosGustaron, this.usuarioActual), 1)
+        this.foro.puntaje = this.foro.puntaje-1;
+      }
+      else{
+        this.foro.usuariosNoGustaron.push(this.usuarioActual);
+        this.foro.puntaje = this.foro.puntaje-1;
+      }
     }
+    else{
+      mensaje = "Ya ha calificado este foro";
+      this.presentToast(mensaje);
+    }
+  }
+
+  
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 1000
+      }
+    );
+    toast.present();
+  }
+
+  buscarIndice(tips: UsuarioGeneral[], tip: UsuarioGeneral){
+    let indice = 0;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].email == tip.email){
+        indice = i;
+      }
+    }
+
+    return indice;
+  }
+
+  existeUsuario(usuarios: UsuarioGeneral[], usuario: UsuarioGeneral){
+    let existe = false;
+
+    for(let i=0; i<usuarios.length; i++){
+      if(usuarios[i].email == usuario.email){
+        existe = true;
+        return existe;
+      }
+    }
+
+    return existe;
   }
 
   
   calificacionRespuestas(operacion: number, id: number, indice: number){
     this.color = !this.color;
     console.log("el id",id, " - ", indice, " Cantidad total: ", this.respuestas.length);
-    if(operacion === 1){
+    let mensaje = " ";
+    if(operacion === 1 && !this.existeUsuario(this.respuestas[indice].usuariosGustaron, this.usuarioActual)){
       this.forosService.sumarVotoRespuesta(id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
-      console.log("Respuestas: ", this.respuestas.length, this.respuestas)
-      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
+      if(this.existeUsuario(this.respuestas[indice].usuariosNoGustaron, this.usuarioActual)){
+        this.respuestas[indice].usuariosNoGustaron.splice(this.buscarIndice(this.respuestas[indice].usuariosNoGustaron, this.usuarioActual), 1)
+        this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
+      }
+      else{
+        this.respuestas[indice].usuariosGustaron.push(this.usuarioActual);
+        this.respuestas[indice].puntaje = this.respuestas[indice].puntaje+1;
+      }
     }
-    else{
+    else if(operacion == -1 && !this.existeUsuario(this.respuestas[indice].usuariosNoGustaron, this.usuarioActual)){
       this.forosService.restarVotoRespuesta(id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
-      this.respuestas[indice].puntaje = this.respuestas[indice].puntaje-1;
+
+      if(this.existeUsuario(this.respuestas[indice].usuariosGustaron, this.usuarioActual)){
+        this.respuestas[indice].usuariosGustaron.splice(this.buscarIndice(this.respuestas[indice].usuariosGustaron, this.usuarioActual), 1)
+        this.respuestas[indice].puntaje = this.foro.puntaje-1;
+      }
+      else{
+        this.respuestas[indice].usuariosNoGustaron.push(this.usuarioActual);
+        this.respuestas[indice].puntaje = this.respuestas[indice].puntaje-1;
+      }
     }
+    else{
+      mensaje = "Ya ha calificado esta respuesta";
+      this.presentToast(mensaje);
+    }
+
+
   }
 
   crearRespuesta(){
-    let respuestanueva: RespuestaForo = new RespuestaForo();
-    let respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
+    const respuestanueva: RespuestaForo = new RespuestaForo();
+    const respuestas: Array<RespuestaForo> = new Array<RespuestaForo>();
 
-    console.log("Respuesta", this.respuestaTexto)
     respuestanueva.id = this.indice;
     respuestanueva.texto = this.respuestaTexto;
     respuestanueva.usuario = this.loginService.getUser();
+    respuestanueva.puntaje = 0;
     try {
       this.foro.respuestas.push(respuestanueva);
+      this.respuestaTexto = "";
     } catch (error) {
       respuestas.push(respuestanueva);
-      console.log(respuestas)
+
     }
 
-    console.log("->", respuestanueva, " - ",this.foro.id);
     this.forosService.agregarRespuesta(respuestanueva, this.foro.id).subscribe(
       results => console.log("Se agrego respuesta"),
       error => console.error(error)
     )
     
-    console.log("respuestas1" , this.respuestas);
-    console.log("respuestas2" , this.respuestas);
+
+    this.findForo(this.indice);
   }
 
   /*

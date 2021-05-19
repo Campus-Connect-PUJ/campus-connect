@@ -3,55 +3,45 @@
 <!-- -->
 <ion-content>
   <div class="home">
-    <div class="content">
-      <!-- Logo -->
-      <div class="logo">
-        <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
-      </div>
-      
-      <div class="error_message" #error_message [ngStyle]="{'visibility': error_visibility ? 'visible' : 'hidden'}">
-        <p *ngIf="errorMessage==null; else elseBlock" ></p>
-        <ng-template #elseBlock><p  [innerHTML] = "errorMessage"></p></ng-template>
-      </div>
-
-      <div class="form_login">
-        <form>
-          <ion-item>
-            <ion-icon name="mail"></ion-icon>
-            <div class="space">a</div>
-            <ion-input
-              name="mail"
-              type="email"
-              placeholder="Ingresa tu correo"
-              [(ngModel)]="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="key"></ion-icon>
-            <div class="space">a</div>
-            <ion-input
-              name="password"
-              type="password"
-              placeholder="Ingresa tu contraseña"
-              [(ngModel)]="password"></ion-input>
-          </ion-item>
-        </form>
-      </div>
-      <div class="log_in">
-        <button class="myButton" (click)="onLogin()">
-          Iniciar sesión
-        </button>
-      </div>
-      <!-- Login form
-      <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p> -->
-      <!-- Other links -->
-      <div class="center_text registro" (click)="register()">
-        <div>¿No tienes una cuenta?</div>
-        <div class="registrate_aqui">
-          <strong>Registrate aquí.</strong>
-        </div> 
-      </div>
-
+    <!-- Logo -->
+    <div class="logo">
+      <img class="home_logo" src="../assets/logo/logo_white_background.jpg">
     </div>
+
+    <div class="form_registro_login">
+      <form>
+        <ion-item>
+          <ion-icon name="mail"> </ion-icon>
+          <ion-input
+            name="mail"
+            type="email"
+            placeholder="Ingresa tu correo"
+            [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="key"> </ion-icon>
+          <ion-input
+            name="password"
+            type="password"
+            placeholder="Ingresa tu contraseña"
+            [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </form>
+    </div>
+    <div class="enter_btn">
+      <button class="myButton" (click)="onLogin()">
+        Iniciar sesión
+      </button>
+    </div>
+    <!-- Login form
+         <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p> -->
+    <!-- Other links -->
+    <div class="center_text_login_registro" (click)="register()">
+      <div>¿No tienes una cuenta?</div>
+      <div class="presiona_aqui">
+        <strong>Registrate aquí.</strong>
+      </div>
+    </div>
+
   </div>
 </ion-content>
-

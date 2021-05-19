@@ -37,7 +37,6 @@ export class ForosPage implements OnInit {
     this.forosService.getPosts().subscribe(
       results => {
         this.foros = results;
-        console.log("Los foros", this.foros)
         this.foros = this.organizarForos(this.foros);
       },
       error => console.error(error)
@@ -46,9 +45,8 @@ export class ForosPage implements OnInit {
 
   organizarForos(foros){
     let forosOrdenados = foros;
-
     forosOrdenados.sort(function (a, b) {
-      if (a.puntaje > b.puntaje) {
+      if (a.usuariosgus > b.puntaje) {
         return -1;
       }
       if (a.puntaje < b.puntaje) {
@@ -72,7 +70,6 @@ export class ForosPage implements OnInit {
           }
         }
         this.foros = forosUsuario;
-        console.log("Los foros", this.foros)
       },
       error => console.error(error)
     )

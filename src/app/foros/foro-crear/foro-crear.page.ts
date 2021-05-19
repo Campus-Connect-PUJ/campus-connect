@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Foro } from 'src/app/Model/Foro/foro';
 import { ForoService } from 'src/app/Model/Foro/foro.service';
 import { UsuarioGeneral } from 'src/app/Model/UsuarioGeneral/usuario-general';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { LoginService } from "src/app/services/login.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-foro-crear',
@@ -23,40 +24,78 @@ export class ForoCrearPage implements OnInit {
     private foroService: ForoService,
     public toastCtrl: ToastController,
     private loginService: LoginService,
+    public alertController: AlertController,
+    private router: Router
     ) { }
 
   ngOnInit() {
   }
 
-  crearForo(){
+  async crearForo(){
     let mensaje = "Se publico el foro";
     // TODO: quitar esto, ya que se estara sacando el usuario de la BD
 
-    this.usuario = this.loginService.getUser();
+    if(this.titulo==null){
+      await this.alertaElementoNoSeleccionado(
+        "Titulo",
+        "Para continuar debe escribir el titulo"
+      );
+    }
+    else if(this.descripcion == null){
+      await this.alertaElementoNoSeleccionado(
+        "Descipción",
+        "Para continuar debes escribir la descripción"
+      );
+    }
 
-    console.log(this.descripcion, this.titulo)
-    this.foroCreado.titulo = this.titulo;
-    this.foroCreado.descripcion = this.descripcion;
-    // this.postCreado.fecha = new Date("2018-03-16");
-    this.foroCreado.usuario = this.usuario;
-    
-    console.log(this.foroCreado)
-    this.foroService.createPost(this.foroCreado)
-      .subscribe(
-        results => console.log(results),
-        error => console.error(error)
-      )
-    this.presentToast(mensaje)
-    
+    else if(this.titulo.length>=50){
+      await this.alertaElementoNoSeleccionado(
+        "Titulo",
+        "Titulo demasiado extenso (max 50)"
+      );
+    }
+    else{
+      this.usuario = this.loginService.getUser();
+
+      console.log(this.descripcion, this.titulo)
+      this.foroCreado.titulo = this.titulo;
+      this.foroCreado.descripcion = this.descripcion;
+      // this.postCreado.fecha = new Date("2018-03-16");
+      this.foroCreado.usuario = this.usuario;
+      
+      console.log(this.foroCreado)
+      this.foroService.createPost(this.foroCreado)
+        .subscribe(
+          results => {
+            console.log(results)            
+            this.router.navigate(['/tabs/servicios-academicos'
+            // '/tabs/servicios-academicos'
+            ]);
+            this.presentToast(mensaje)
+          },
+          error => console.error(error)
+        )
+    }
   }
 
   async presentToast(mensaje){
     const toast = await this.toastCtrl.create(
       {
         message: mensaje,
-        duration: 3000
+        duration: 1500
       }
     );
     toast.present();
+  }
+
+  async alertaElementoNoSeleccionado(elemento: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      cssClass: "custom-class-alert",
+      header: "Error",
+      subHeader: elemento,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 }

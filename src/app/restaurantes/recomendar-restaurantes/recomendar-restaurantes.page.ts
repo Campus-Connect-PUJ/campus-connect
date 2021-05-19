@@ -23,6 +23,8 @@ export class RecomendarRestaurantesPage implements OnInit {
   tiempoBuscar=0;
   precioBuscar=0;
 
+  collapseCard = true;
+
   itemSelected: TipoComida;
 
   constructor(
@@ -45,7 +47,7 @@ export class RecomendarRestaurantesPage implements OnInit {
         this.restaurantes = results;
       },
       error => console.error(error)
-    )
+    );
   }
 
   buscarRestaurante(event){
@@ -61,12 +63,7 @@ export class RecomendarRestaurantesPage implements OnInit {
         this.comidas = results;
       },
       error => console.error(error)
-    )
-  }
-
-  infoRestaurante(){
-    
-    
+    );
   }
 
   buscarRestauranteComida(event){
@@ -89,6 +86,18 @@ export class RecomendarRestaurantesPage implements OnInit {
   openModal(){
     this.modalControler.create({component : FormularioPersoRestaurantesPage}).then((modalElement)=>{
       modalElement.present();
-    })
+    });
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.reload()
+      event.target.complete();
+    }, 300);
+  }
+
+  reload() {
+    this.findRestaurantes();
+  }
+
 }

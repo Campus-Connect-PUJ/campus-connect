@@ -1,33 +1,79 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/monitores" text=" "></ion-back-button>
+    <ion-buttons class="header_btn" slot="secondary">
+      <ion-button href="/monitores">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>monitor-horarios</ion-title>
+
+    <ion-title>{{monitor.nombre}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<h1>Monitorias de las siguientes dos semanas</h1>
-  <ion-card *ngFor="let horario of horarios;  let indice=index">
-    <ion-card *ngFor="let h of horario.horarios;  let indice2=index">
-    <div class="datosMonitor">
-      <ion-card-header>
-        <h1>{{horario.asignatura.nombre}}</h1>
-      </ion-card-header>
-    <ion-card-content>
-        <h2>{{horario.horarios[indice2].fi}}</h2>
-        <h2>{{horario.horarios[indice2].ff}}</h2>
-      </ion-card-content>
+  <div class="datosMonitor">
+    <h1>{{monitor.nombre}} {{monitor.apellido}}</h1>
+    <h2>{{monitor.email}}</h2>
+    <h2>Semestre: {{monitor.semestre}}</h2>
+    <h2>Puntaje: {{monitor.puntajeTotal}}</h2>
+
+    <div class="estilosAprendizaje">
+      <ion-item lines="none" *ngFor="let estilo of monitor.estilosAprendizaje">
+        <h2>{{estilo.descripcion}}</h2>
+      </ion-item>
     </div>
-  </ion-card>
-     </ion-card> 
-  <div id="formEnviar">
-    <ion-input style="backgroundColor: gray" [(ngModel)]="voto"></ion-input>
-    <ion-button (click)="enviarVoto()">Enviar voto</ion-button>
-    <div id="aparecer" *ngIf="errorSi">
-      <h3>El valor debe estar entre 1 y 5</h3>
-    </div>
+
+
   </div>
 
+  <div id="Sugerencias">
+    <div class="existeSugerencia" *ngIf="horariosSugeridos.length > 0">
+      <h1>Monitorias del recomendadas</h1>
+      <ion-item no-lines class="seleccionarSugerencias">
+        <h2>Cantidad sugerencias</h2>
+        <ion-select
+          no-lines
+          interface="popover"
+          [(ngModel)]="cantidadDeSugerenciasSeleccionadas"
+          cancelText="cancel"
+          okText="ok"
+          (ionChange)="limitarSugerencias()"
+        >
+          <ion-select-option
+            no-lines
+            *ngFor="let nivel of cantidadDeSugerencias"
+            [value]="nivel"
+            >{{nivel}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-card class="Sugerencia" *ngFor="let sugerencia of horariosLimitados">
+        <ion-card-header>
+          <h1>{{sugerencia.nombreAsignatura}}</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Inicio: {{convertir(sugerencia.fechaInicial)}}</h2>
+          <h2>Fin: {{convertir(sugerencia.fechaFinal)}}</h2>
+          <h2>Lugar: {{sugerencia.lugar}}</h2>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-card class="SinSugerencias" *ngIf="horariosSugeridos.length == 0">
+      <h1>No existen horarios sugeridos con este monitor</h1>
+    </ion-card>
+  </div>
+
+  <h1>Todas las monitorias</h1>
+  <div id="Asignaturas">
+    <ion-card
+      class="Asignatura"
+      *ngFor="let asignatura of asignaturas"
+      [routerLink]="['/monitores/horarios-monitor/', monitor.id, 'monitor-asignatura', asignatura.asignatura.id]"
+    >
+      <ion-card-header>
+        <h1>{{asignatura.asignatura.nombre}}</h1>
+      </ion-card-header>
+    </ion-card>
+  </div>
 </ion-content>

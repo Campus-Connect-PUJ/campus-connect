@@ -3,7 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GruposEstudiantilesComponent } from './components/grupos-estudiantiles/grupos-estudiantiles.component';
 
 const routes: Routes = [
-  { path: "grupos_estudiantiles", component: GruposEstudiantilesComponent },
+  { 
+    path: "grupos_estudiantiles", component: GruposEstudiantilesComponent 
+  },
   {
     path: "",
     redirectTo: "home",
@@ -13,13 +15,6 @@ const routes: Routes = [
     path: "folder/:id",
     loadChildren: () =>
       import("./folder/folder.module").then((m) => m.FolderPageModule),
-  },
-  {
-    path: "calculadora",
-    loadChildren: () =>
-      import("./calculadora/calculadora.module").then(
-        (m) => m.CalculadoraPageModule
-      ),
   },
   {
     path: "calculadora",
@@ -101,12 +96,12 @@ const routes: Routes = [
         loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       },
       {
-        path: ":tipId",
-        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
+        path: "exigencia/:exig",
+        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
       },
       {
-        path: "usuario/:usuarioId",
-        loadChildren: () => import('./tips/tips.module').then(m => m.TipsPageModule)
+        path: ":tipId",
+        loadChildren: () => import('./tips/tip-detalles/tip-detalles.module').then(m => m.TipDetallesPageModule)
       }
     ]
   },
@@ -124,10 +119,6 @@ const routes: Routes = [
       {
         path: ":foroId",
         loadChildren: () => import('./foros/foro-detalles/foro-detalles.module').then(m => m.ForoDetallesPageModule)
-      },
-      {
-        path: "usuario/:usuarioId",
-        loadChildren: () => import('./foros/foros.module').then(m => m.ForosPageModule)
       }
     ]
   },
@@ -246,23 +237,33 @@ const routes: Routes = [
     loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
   },
   {
-    path: 'cambiar-monitor',
-    loadChildren: () => import('./cambiar-monitor/cambiar-monitor.module').then( m => m.CambiarMonitorPageModule)
+    path: 'lista-sitios-destino',
+    loadChildren: () => import('./mapa/lista-sitios-destino/lista-sitios-destino.module').then( m => m.ListaSitiosDestinoPageModule)
   },
-  /*
   {
-    path: "horarios-monitor",
-    children: [
-      {
-        path: ":monitorID",
-        loadChildren: () =>
-          import(
-            './monitores/monitor-horarios/monitor-horarios.module'
-          ).then((m) => m.MonitorHorariosPageModule),
-      }
-    ]
+    path: 'reporte-eventualidades',
+    loadChildren: () => import('./mapa/reporte-eventualidades/reporte-eventualidades.module').then( m => m.ReporteEventualidadesPageModule)
+  },
+  {
+    path: 'reporte-eventualidades-principal',
+    loadChildren: () => import('./mapa/reporte-eventualidades-principal/reporte-eventualidades-principal.module').then( m => m.ReporteEventualidadesPrincipalPageModule)
+  },
+  {
+    path: 'suge-grupos',
+    loadChildren: () => import('./grupos-estudiantiles/suge-grupos/suge-grupos.module').then( m => m.SugeGruposPageModule)
+  },
+  {
+    path: 'suge-restaurantes',
+    loadChildren: () => import('./restaurantes/suge-restaurantes/suge-restaurantes.module').then( m => m.SugeRestaurantesPageModule)
+  },
+  {
+    path: 'contribuciones',
+    loadChildren: () => import('./contribuciones/contribuciones.module').then( m => m.ContribucionesPageModule)
+  },
+  {
+    path: 'test-aprendizaje',
+    loadChildren: () => import('./test-aprendizaje/test-aprendizaje.module').then( m => m.TestAprendizajePageModule)
   }
-*/
 
 ];
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import { Tip } from 'src/app/Model/Tip/tip';
 import { TipoAprendizaje } from 'src/app/Model/TipoAprendizaje/tipo-aprendizaje';
@@ -19,13 +19,16 @@ export class TipDetallesPage implements OnInit {
   tip: Tip = new Tip();
   tiposDeAprendizaje: TipoAprendizaje[] = [];
   indice: number;
+  votoPositivo = false;
+  votoNegativo = false;
   user: UsuarioGeneral;
 
   constructor(
     private tipsService: TipsService,
     private activatedRoute: ActivatedRoute,
     public navCtrl: NavController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    public toastCtrl: ToastController,
   ) { 
 
   }
@@ -34,48 +37,107 @@ export class TipDetallesPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(paraMap => {
       const recipeId = paraMap.get('tipId')
       this.indice = Number(recipeId);
-      console.log(this.indice)
+      this.findTip(this.indice);
     })
-    this.findTip(this.indice);
   }
 
   findTip(numeroTip: number){
     this.tipsService.getTipById(numeroTip).subscribe(
       results => {
         this.tip = results;
-        //this.tiposDeAprendizaje = results.tipoAprendizaje;
+        this.tiposDeAprendizaje = this.tip.tiposAprendizaje;
       },
       error => console.error(error)
     )
-    
   }
 
   votar(voto: number){
-    console.log(voto)
-
     this.user = this.loginService.getUser();
-    this.indice = this.user.id;
-    this.calificacionTip(voto, this.tip.id);
-    this.tip.puntaje = this.tip.puntaje + voto;
+    this.calificacionTip(voto);
+  }
 
+  existeTip(tips: Tip[], tip: Tip){
+    let existe = false;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        existe = true;
+      }
+    }
+
+    return existe;
   }
 
 
-  calificacionTip(operacion: number, idTip: number){
-    let a: number;
-    a=1
-    if(operacion === 1){
-      this.tipsService.agregarTipGustado(a,this.tip.id).subscribe(
+  calificacionTip(operacion: number){
+    let mensaje = " ";
+    if(operacion == 1 && !this.existeTip(this.user.tipsGustados, this.tip)){
+      console.log(1)
+      this.tipsService.agregarTipGustado(this.tip.id).subscribe(
+        results => {
+          console.log(results)
+        },
+        error => console.error(error)
+      )
+
+      if(this.existeTip(this.user.tipsNoGustados, this.tip)){
+        this.user.tipsNoGustados.splice(this.buscarIndice(this.user.tipsNoGustados, this.tip), 1)
+        this.tip.puntaje = this.tip.puntaje+1;
+      }
+      else{
+        this.user.tipsGustados.push(this.tip);
+        this.tip.puntaje = this.tip.puntaje+1;
+      }
+    }
+    else if(operacion == -1 && !this.existeTip(this.user.tipsNoGustados, this.tip)){
+      console.log(-1)
+      this.tipsService.agregarTipNoGustado(this.tip.id).subscribe(
         results => console.log(results),
         error => console.error(error)
       )
+      if(this.existeTip(this.user.tipsGustados, this.tip)){
+        this.user.tipsGustados.splice(this.buscarIndice(this.user.tipsGustados, this.tip), 1)
+        this.tip.puntaje = this.tip.puntaje - 1;
+      }
+      else{
+        this.user.tipsNoGustados.push(this.tip);
+        this.tip.puntaje = this.tip.puntaje - 1;
+      }
+
     }
     else{
-      this.tipsService.agregarTipNoGustado(a,this.tip.id).subscribe(
-        results => console.log(results),
-        error => console.error(error)
-      )
+      if(operacion == 1 && this.existeTip(this.user.tipsGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips gustados"
+      }
+      else if(operacion == -1 && this.existeTip(this.user.tipsNoGustados, this.tip)){
+        mensaje = "Ya ha agregado este tip a tips no gustados"
+      }
+      this.presentToast(mensaje);
     }
+
+    this.loginService.storeUser(this.user, this.loginService.getToken())
+  
+  }
+
+
+  async presentToast(mensaje){
+    const toast = await this.toastCtrl.create(
+      {
+        message: mensaje,
+        duration: 2000
+      }
+    );
+    toast.present();
+  }
+
+  buscarIndice(tips: Tip[], tip: Tip){
+    let indice = 0;
+    for(let i=0; i<tips.length; i++){
+      if(tips[i].id == tip.id){
+        indice = i;
+      }
+    }
+
+    return indice;
   }
 
 }

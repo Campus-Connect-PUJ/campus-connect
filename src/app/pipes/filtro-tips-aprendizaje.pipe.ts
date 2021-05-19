@@ -8,9 +8,7 @@ export class FiltroTipsAprendizajePipe implements PipeTransform {
 
   transform(tips: Tip[], texto: any[]): Tip[]{
     let listaDeTips = []
-
     if(texto.length == 0){
-      console.log("todos", tips)
       return tips;
     }
 

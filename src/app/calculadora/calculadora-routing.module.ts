@@ -35,10 +35,6 @@ const routes: Routes = [
   {
     path: 'materias',
     loadChildren: () => import('./materias/materias.module').then( m => m.MateriasPageModule)
-  },
-  {
-    path: 'alerta',
-    loadChildren: () => import('./alerta/alerta.module').then( m => m.AlertaPageModule)
   }
 
 
