@@ -17,9 +17,8 @@ import { FiltroForosPipe } from '../pipes/filtro-foros.pipe';
     CommonModule,
     FormsModule,
     IonicModule,
-    ForosPageRoutingModule,
-    FiltroForosPipe
+    ForosPageRoutingModule
   ],
-  declarations: [ForosPage, OpcionesComponent, FiltroForosPipe]
+  declarations: [ForosPage, OpcionesComponent]
 })
 export class ForosPageModule {}
