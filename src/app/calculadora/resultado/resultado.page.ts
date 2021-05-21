@@ -84,6 +84,7 @@ export class ResultadoPage implements OnInit {
         this.nombreMateria = this.notasMostrar.nombreMateria;
         this.notasMateria = this.notasMostrar.notas;
         this.porcentajeActual = this.notasMostrar.porcentajeActual;
+        this.calculadoraService.setIndice(this.indice);
       } 
       else{
         this.porcentajeFaltante = this.calculadoraService.getporcentajeFaltante();

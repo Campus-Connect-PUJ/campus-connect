@@ -63,6 +63,10 @@ export class CalculadoraService {
     return this.notasVacias;
   }
 
+  setIndice(indice){
+    this.indice = indice;
+  }
+
   addNotas(cantidad: number, notaEsperada: number, nombreMateria: string){
 
     this.nota.push({
@@ -88,7 +92,6 @@ export class CalculadoraService {
 
   public guardar(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual){
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
-    
     this.controlNotas = this.load();
     try {
       if(this.controlNotas.length>=0){
@@ -101,6 +104,7 @@ export class CalculadoraService {
         this.guardarMaterias(this.controlNotas)
       }
     } catch (error) {
+      console.log("entra2")
       let controlNotas2: NotasMateria[] = 
         [{
           notaEsperada: undefined,
