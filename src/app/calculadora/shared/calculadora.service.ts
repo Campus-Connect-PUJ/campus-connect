@@ -94,7 +94,6 @@ export class CalculadoraService {
     this.controlNota = new NotasMateria(nombreMateria, notaEsperada, notas, notaActual, porcentajeActual);
     this.controlNotas = this.load();
     try {
-      console.log("entra1 ", this.indice)
       if(this.controlNotas.length>=0){
         if(this.indice!=-1){
           this.controlNotas[this.indice] = this.controlNota;
