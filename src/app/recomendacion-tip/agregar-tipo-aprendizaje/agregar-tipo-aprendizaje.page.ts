@@ -89,9 +89,9 @@ export class AgregarTipoAprendizajePage implements OnInit {
 
   async presentAlert(indice){
     const alert = await this.alertaCtrl.create({
-      header: '¿Borrar materia?',
-      subHeader: 'Materia'+ (indice+1),
-      message: 'Esta apunto de borrar la materia '+ (indice+1),
+      header: '¿Borrar tipo de aprendizaje?',
+      subHeader: 'Tipo de aprendizaje'+ (indice+1),
+      message: 'Esta apunto de borrar el tipo de aprendizaje '+ (indice+1),
       buttons: [
         {
           text: 'Cancel',

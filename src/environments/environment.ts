@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  //baseUrl: 'https://campusconnectjava.herokuapp.com',
   //baseUrl: 'http://localhost:8080',
   baseUrl: 'https://campusconnectjava.herokuapp.com',
 };
